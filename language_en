@@ -1,0 +1,53 @@
+<string name="app_name">Minecraft Server Remote</string>
+<string name="home">Home</string>
+<string name="console">Console</string>
+<string name="player">Player</string>
+<string name="command">Command</string>
+<string name="pause_update">Pause Update</string>
+<string name="cpu">CPU</string>
+<string name="mem">MEM</string>
+<string name="total_system_mem">Total System Memory</string>
+<string name="cpu_load">CPU Load</string>
+<string name="cpu_cores">CPU Cores</string>
+<string name="mem_max">Usable Memory</string>
+<string name="mem_used">Used Memory</string>
+<string name="mem_total">Allocated Memory</string>
+<string name="free_system_mem">Free System Memory</string>
+<string name="error_get_data">Connection disconnected</string>
+<string name="connected">Connection established</string>
+<string name="nobody_online">Currently, nobody is online on this server</string>
+<string name="title_activity_login">Login</string>
+<string name="prompt_username">Username</string>
+<string name="prompt_password">Password</string>
+<string name="action_sign_in">Sign in</string>
+<string name="action_sign_in_short">Sign in</string>
+<string name="welcome">"Welcome !"</string>
+<string name="login_failed">"Login failed"</string>
+<string name="save_credentials">Save credentials</string>
+<string name="promt_ip">Server IP (optional with port)</string>
+<string name="error_userdata">Wrong username or password</string>
+<string name="invalid_ip">Invalid IP</string>
+<string name="no_connection">No connection could be established to the server</string>
+<string name="no_connection_error">No connection</string>
+<string name="darkmode">Darkmode</string>
+<string name="about">About</string>
+<string name="version">Version: %1$s</string>
+<string name="message_plugin">
+    To use this App your Server need the following Plugin:\n\n
+    https://www.spigotmc.org/resources/minecraft-server-remote.72231/
+    \n\n(You can search for \"Minecraft Server Remote\" on spigotmc.org)
+</string>
+<string name="copy">Copy link</string>
+<string name="copied">Copied link</string>
+<string name="support">Support</string>
+<string name="logout">Logout</string>
+<string name="show_not_again">Do not show again</string>
+<string name="no_connection_no_server">No connection. Is Server running?</string>
+<string name="cant_get_log">Can\'t load logfile. Do you installed the newest version of the plugin?</string>
+<string name="message_plugin_updated">
+    A new version of the Plugin is released.
+    To use all new features you have to update the plugin to version:
+    \n2.0
+</string>
+<string name="refresh">Refresh</string>
+<string name="cant_load_permissions">Can\'t load permissions. Is your plugin on version 1.5 or up?</string>
