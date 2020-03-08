@@ -43,11 +43,11 @@
 <string name="logout">Logout</string>
 <string name="show_not_again">Do not show again</string>
 <string name="no_connection_no_server">No connection. Is Server running?</string>
-<string name="cant_get_log">Can\'t load logfile. Do you installed the newest version of the plugin?</string>
+<string name="cant_get_log">Can't load logfile. Do you installed the newest version of the plugin?</string>
 <string name="message_plugin_updated">
     A new version of the Plugin is released.
     To use all new features you have to update the plugin to version:
     \n2.0
 </string>
 <string name="refresh">Refresh</string>
-<string name="cant_load_permissions">Can\'t load permissions. Is your plugin on version 1.5 or up?</string>
+<string name="cant_load_permissions">Can't load permissions. Is your plugin on version 1.5 or up?</string>
