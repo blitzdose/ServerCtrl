@@ -1,0 +1,8 @@
+To translate edit the text between the tags.
+
+EXAMPLE:
+<string name="test">ORIGINAL LANGUAGE</string> -> <string name="test">TRANSLATED LANGUAGE</string>
+
+Important:
+"%1$s" can be ignored and have to be same in every language
+"\n" creates a new line and should not be removed
