@@ -50,11 +50,7 @@
     \n2.0
 </string>
 <string name="refresh">刷新</string>
-<string name="cant_load_permissions">无法string name="auto_scroll">Autoscroll</string>
-<string name="no_user">Can\'t log in. Did you create a user with "msr register -username- -password-"?</string>加载权限管理。你的插件是1.5版还是更高版本？</string>
-   
- //This is a new translation
-
+<string name="cant_load_permissions">无法 加载权限管理。你的插件是1.5版还是更高版本？</string>
 <string name="auto_scroll">自动滚动</string>
 <string name="nothing_listening">无法监听指定端口 %1$s</string>
 <string name="more_info">更多信息</string>
