@@ -50,5 +50,27 @@
     \n2.0
 </string>
 <string name="refresh">刷新</string>
-<string name="cant_load_permissions">无法加载权限管理。你的插件是1.5版还是更高版本？</string>
+<string name="cant_load_permissions">无法string name="auto_scroll">Autoscroll</string>
+<string name="no_user">Can\'t log in. Did you create a user with "msr register -username- -password-"?</string>加载权限管理。你的插件是1.5版还是更高版本？</string>
+   
+ //This is a new translation
+
+<string name="auto_scroll">自动滚动</string>
+<string name="nothing_listening">无法监听指定端口 %1$s</string>
+<string name="more_info">更多信息</string>
+<string name="help_port">
+    此故障主要发生在无法监听指定端口时。\n
+    如何解决此问题：\n
+    \n
+    1.你的服务器和插件是否在运行，你是否使用最新版本的插件？\n
+    \n
+    2a.如果服务器正在您自己的电脑上运行，您是否开启了路由器上的端口了吗？你的防火墙是否阻止了您的连接？(请在搜索引擎中寻求相关帮助)\n
+    \n
+    2b. 当你购买/租用了一台服务器时，一些服务器提供商可能屏蔽了一些端口。大部分都在8000端口以下
+    请尝试使用高于8000的端口（您必须在插件的配置文件中更改它）\n
+    \n
+    如果您仍然有问题，请联系我 (登录页面 > 右上角菜单 > 支持)
+</string>
+<string name="no_user">无法登录。您有没有在服务器控制台中使用“msr register -用户名- -密码-”命令来注册账号？</string>
+
 
