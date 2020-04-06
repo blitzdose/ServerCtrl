@@ -51,3 +51,27 @@
 </string>
 <string name="refresh">Aktualisieren</string>
 <string name="cant_load_permissions">Rechte konnten nicht geladen werden. Hast du Version 1.5 oder höher auf deinem Server installiert?</string>
+<string name="auto_scroll">Automatischer Bildlauf</string>
+<string name="nothing_listening">Nichts hört an Port %1$s zu</string>
+<string name="more_info">Mehr Infos</string>
+<string name="help_port">
+    Dieser Fehler tritt meistens auf, wenn nichts an dem angegebenen Port "zuhört".\n
+    Tipps zur Fehlerbehebung:\n
+    \n
+    1. Läuft dein Server und das Plugin und ist dieses auch aktuell?\n
+    \n
+    2a. Der Server läuft auf deinem eigenen PC: Ist der Port im Router freigegeben? Blockiert deine Firewall den Port? (Für Anleitungen einfach googlen)\n
+    \n
+    2b. Du hast einen Server gemietet: Manche Hoster (Dort wo du dein Server gemietet hast) blockieren einige Ports. Meistens alle unter der Nummer 8000.
+    Versuche einfach einen Port größer als 8000 zu benutzen (Du musst diesen natürlich auch in der Config des Plugins ändern)\n
+    \n
+    Wenn du immer noch ein Problem hast, kannst du mich mit dem "Support"-Button kontaktieren (Login-Bildschirm > 3-Punkte-Menü > Support)
+</string>
+<string name="no_user">Login fehlgeschlagen. Hast du einen Benutzer erstellt mit dem Befehl: \"msr register -username- -password-\"?</string>
+<string name="multiple_server">Ich benutze mehrere Server</string>
+<string name="add_server">Server Hinzufügen</string>
+<string name="add">Hinzufügen</string>
+<string name="please_wait">Bitte warten</string>
+<string name="promt_name">Name (frei wählbar)</string>
+<string name="delete_server">Server löschen?</string>
+<string name="delete_server_message">Bist du sicher, dass du \"%1$s\" löschen möchtest?</string>
