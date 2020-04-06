@@ -68,3 +68,13 @@
     Feel free to contact me if you still have an issue (Login-Screen > 3-dot-menu > Support)
 </string>
 <string name="no_user">Can\'t log in. Did you create a user with "msr register -username- -password-"?</string>
+
+//New Translation
+
+<string name="multiple_server">I use multiple Server</string>
+<string name="add_server">Add Server</string>
+<string name="add">Add</string>
+<string name="please_wait">Please wait</string>
+<string name="promt_name">Name (choose freely)</string>
+<string name="delete_server">Delete server?</string>
+<string name="delete_server_message">Are you sure that you want to delete \"%1$s\"?</string>
