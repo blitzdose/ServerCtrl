@@ -69,4 +69,12 @@
 </string>
 <string name="no_user">无法登录。您有没有在服务器控制台中使用“msr register -用户名- -密码-”命令来注册账号？</string>
 
+//New Translation
 
+<string name="multiple_server">我正在使用群组服务器</string>
+<string name="add_server">添加服务器</string>
+<string name="add">添加</string>
+<string name="please_wait">请稍候</string>
+<string name="promt_name">名称（填啥都行）</string>
+<string name="delete_server">您是否要删除服务器？</string>
+<string name="delete_server_message">您是否确定要删除\"%1$s\"?</string>
