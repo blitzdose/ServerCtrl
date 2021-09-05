@@ -1,0 +1,286 @@
+#. extracted from en.lang
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-06 00:44+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 3.3.2\n"
+
+#: en.lang:1
+msgid "Console"
+msgstr "Console"
+
+#: en.lang:4
+msgid "Players"
+msgstr "Players"
+
+#: en.lang:7
+msgid "Settings"
+msgstr "Settings"
+
+#: en.lang:11
+msgid "Change Password"
+msgstr "Change Password"
+
+#: en.lang:15
+msgid "Sign out"
+msgstr "Sign out"
+
+#: en.lang:19
+msgid "Current password"
+msgstr "Current password"
+
+#: en.lang:22
+msgid "Password is invalid."
+msgstr "Password is invalid."
+
+#: en.lang:25
+msgid "New password"
+msgstr "New password"
+
+#: en.lang:28
+msgid "Passwords do not match."
+msgstr "Passwords do not match."
+
+#: en.lang:31
+msgid "Repeat new password"
+msgstr "Repeat new password"
+
+#: en.lang:34
+msgid "Close"
+msgstr "Close"
+
+#: en.lang:37
+msgid "Server Information"
+msgstr "Server Information"
+
+#: en.lang:40
+msgid "Online Players"
+msgstr "Online Players"
+
+#: en.lang:43
+msgid "Server performance"
+msgstr "Server performance"
+
+#: en.lang:46
+msgid "Memory"
+msgstr "Memory"
+
+#: en.lang:49
+msgid "No players online"
+msgstr "No players online"
+
+#: en.lang:52
+msgid "CPU Cores"
+msgstr "CPU Cores"
+
+#: en.lang:55
+msgid "CPU Load"
+msgstr "CPU Load"
+
+#: en.lang:58
+msgid "Usable Memory"
+msgstr "Usable Memory"
+
+#: en.lang:61
+msgid "Allocated Memory"
+msgstr "Allocated Memory"
+
+#: en.lang:64
+msgid "Used Memory"
+msgstr "Used Memory"
+
+#: en.lang:67
+msgid "Total System Memory"
+msgstr "Total System Memory"
+
+#: en.lang:70
+msgid "Free System Memory"
+msgstr "Free System Memory"
+
+#: en.lang:73
+msgid "Max Players"
+msgstr "Max Players"
+
+#: en.lang:76
+msgid "Version"
+msgstr "Version"
+
+#: en.lang:79
+msgid "Online Mode"
+msgstr "Online Mode"
+
+#: en.lang:82
+msgid "Whitelist enabled"
+msgstr "Whitelist enabled"
+
+#: en.lang:85
+msgid "Nether enabled"
+msgstr "Nether enabled"
+
+#: en.lang:88
+msgid "End enabled"
+msgstr "End enabled"
+
+#: en.lang:91
+msgid "CommandBlocks enabled"
+msgstr "CommandBlocks enabled"
+
+#: en.lang:94
+msgid "Disable Autoscoll"
+msgstr "Disable Autoscoll"
+
+#: en.lang:97
+msgid "Send Command"
+msgstr "Send Command"
+
+#: en.lang:100
+msgid "Stop!"
+msgstr "Stop!"
+
+#: en.lang:103
+msgid "You dont have access to this page"
+msgstr "You dont have access to this page"
+
+#: en.lang:106
+msgid "You can't send the MSR-Command through the Webinterface."
+msgstr "You can't send the MSR-Command through the Webinterface."
+
+#: en.lang:109
+msgid "Create Folder"
+msgstr "Create Folder"
+
+#: en.lang:112
+msgid "Upload"
+msgstr "Upload"
+
+#: en.lang:115
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+#: en.lang:118
+msgid "Do you really want to delete [...]?"
+msgstr "Do you really want to delete [...]?"
+
+#: en.lang:121
+msgid "Yes, delete it!"
+msgstr "Yes, delete it!"
+
+#: en.lang:124
+msgid "Deleted"
+msgstr "Deleted"
+
+#: en.lang:127
+msgid "Your folder has been deleted."
+msgstr "Your folder has been deleted."
+
+#: en.lang:130
+msgid "Something went wrong!"
+msgstr "Something went wrong!"
+
+#: en.lang:133
+msgid "Name:"
+msgstr "Name:"
+
+#: en.lang:136
+msgid "Folder created"
+msgstr "Folder created"
+
+#: en.lang:139
+msgid "Download"
+msgstr "Download"
+
+#: en.lang:142
+msgid "Download / Edit"
+msgstr "Download / Edit"
+
+#: en.lang:145
+msgid "What do you want to do?"
+msgstr "What do you want to do?"
+
+#: en.lang:148
+msgid "Delete"
+msgstr "Delete"
+
+#: en.lang:151
+msgid "Rename"
+msgstr "Rename"
+
+#: en.lang:154
+msgid "Loading..."
+msgstr "Loading..."
+
+#: en.lang:157
+msgid "Save"
+msgstr "Save"
+
+#: en.lang:160
+msgid "Saving..."
+msgstr "Saving..."
+
+#: en.lang:163
+msgid "Saved"
+msgstr "Saved"
+
+#: en.lang:166
+msgid "File saved"
+msgstr "File saved"
+
+#: en.lang:169
+msgid "New name:"
+msgstr "New name:"
+
+#: en.lang:172
+msgid "File renamed"
+msgstr "File renamed"
+
+#: en.lang:175
+msgid "Your file has been deleted."
+msgstr "Your file has been deleted."
+
+#: en.lang:178
+msgid "Action completed"
+msgstr "Action completed"
+
+#: en.lang:181
+msgid "Action failed"
+msgstr "Action failed"
+
+#: en.lang:184
+msgid "Plugin-Settings"
+msgstr "Plugin-Settings"
+
+#: en.lang:187
+msgid "Plugin and Webserver Port"
+msgstr "Plugin and Webserver Port"
+
+#: en.lang:190
+msgid "FTP-Server"
+msgstr "FTP-Server"
+
+#: en.lang:193
+msgid "FTP Port"
+msgstr "FTP Port"
+
+#: en.lang:196
+msgid "Webinterface-Settings"
+msgstr "Webinterface-Settings"
+
+#: en.lang:199
+msgid "Darkmode"
+msgstr "Darkmode"
+
+#: en.lang:202
+msgid "Language"
+msgstr "Language"
+
+#: en.lang:205
+msgid "Server-Settings"
+msgstr "Server-Settings"
