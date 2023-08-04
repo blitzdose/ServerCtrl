@@ -7,7 +7,7 @@ class Snackbar {
         title,
         message,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black.withAlpha(200),
+        backgroundColor: Colors.black.withAlpha(156),
         colorText: Colors.white,
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
@@ -28,7 +28,7 @@ class Snackbar {
         borderRadius: 15,
         barBlur: 7.0,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black.withAlpha(200),
+        backgroundColor: Colors.black.withAlpha(156),
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
         duration: const Duration(seconds: 2)

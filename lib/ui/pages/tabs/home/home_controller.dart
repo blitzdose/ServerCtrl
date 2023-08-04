@@ -27,6 +27,9 @@ class HomeController extends GetxController {
 
   void updateData() async {
     http.Response response = await fetchData();
+    if (response.body.isEmpty) {
+      return;
+    }
     var data = jsonDecode(response.body);
 
     cpuUsage(data['cpuLoad'] / 100);

@@ -8,9 +8,10 @@ import 'main_controller.dart';
 
 class Main extends StatelessWidget {
 
-  final controller = Get.put(MainController("http://192.168.2.108:5718"));
+  final controller = Get.put(MainController("http://192.168.2.108:5718")); //Test Value
 
   final homeTab = HomeTab();
+  final consoleTab = ConsoleTab();
 
   Main({super.key});
 
@@ -24,8 +25,6 @@ class Main extends StatelessWidget {
         onTabChanged(tabController.index);
       }
     });
-    
-    
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: DefaultTabController(
@@ -71,7 +70,7 @@ class Main extends StatelessWidget {
                   controller: tabController,
                   children: [
                     homeTab,
-                    ConsoleTab(),
+                    consoleTab,
                     Text("Players"),
                     Text("Files"),
                     Text("Log"),
@@ -89,8 +88,13 @@ class Main extends StatelessWidget {
   void onTabChanged(int index) {
     if (index != 0) {
       homeTab.controller.cancelTimer();
-    } else if (index == 0) {
+    } else {
       homeTab.controller.continueTimer();
+    }
+    if (index != 1) {
+      consoleTab.controller.cancelTimer();
+    } else {
+      consoleTab.controller.continueTimer();
     }
     print(index);
   }

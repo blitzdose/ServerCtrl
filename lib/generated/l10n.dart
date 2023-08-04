@@ -249,6 +249,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Command`
+  String get command {
+    return Intl.message(
+      'Command',
+      name: 'command',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while sending command`
+  String get error_sending_command {
+    return Intl.message(
+      'Error while sending command',
+      name: 'error_sending_command',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

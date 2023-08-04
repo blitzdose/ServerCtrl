@@ -31,6 +31,7 @@ class HomeTab extends StatelessWidget {
                             child: Obx(() {
                               return SfRadialGauge(
                                 enableLoadingAnimation: true,
+                                animationDuration: 500,
                                 axes: <RadialAxis>[
                                   RadialAxis(
                                     minimum: 0,
@@ -85,6 +86,7 @@ class HomeTab extends StatelessWidget {
                             child: Obx(() {
                               return SfRadialGauge(
                                 enableLoadingAnimation: true,
+                                animationDuration: 500,
                                 axes: <RadialAxis>[
                                   RadialAxis(
                                     minimum: 0,

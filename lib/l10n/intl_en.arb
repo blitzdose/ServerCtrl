@@ -18,5 +18,7 @@
   "free_memory": "Free memory",
   "cpu_usage": "CPU Usage",
   "memory_usage": "Memory Usage",
-  "test": "test"
+  "test": "test",
+  "command": "Command",
+  "error_sending_command": "Error while sending command"
 }

@@ -28,10 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_server": MessageLookupByLibrary.simpleMessage("Add Server"),
         "allocated_memory":
             MessageLookupByLibrary.simpleMessage("Allocated memory"),
+        "command": MessageLookupByLibrary.simpleMessage("Command"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU cores"),
         "cpu_load": MessageLookupByLibrary.simpleMessage("CPU load"),
         "cpu_usage": MessageLookupByLibrary.simpleMessage("CPU Usage"),
+        "error_sending_command":
+            MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "files": MessageLookupByLibrary.simpleMessage("Files"),
         "free_memory": MessageLookupByLibrary.simpleMessage("Free memory"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),

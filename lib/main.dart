@@ -18,14 +18,8 @@ class MyApp extends StatelessWidget {
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       return GetMaterialApp(
         title: 'ServerCtrl',
-        theme: ThemeData(
-          colorScheme: lightDynamic ?? ColorScheme.fromSeed(seedColor: MColors.seed),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: darkDynamic ?? ColorScheme.fromSeed(seedColor: MColors.seed, brightness: Brightness.dark),
-          useMaterial3: true,
-        ),
+        theme: buildTheme(brightness: Brightness.light, dynamicScheme: lightDynamic),
+        darkTheme: buildTheme(brightness: Brightness.dark, dynamicScheme: darkDynamic),
         home: const LayoutStructure(),
         localizationsDelegates: const [
           S.delegate,
@@ -36,5 +30,30 @@ class MyApp extends StatelessWidget {
         supportedLocales: S.delegate.supportedLocales,
       );
     });
+  }
+
+  ThemeData buildTheme({
+    required Brightness brightness,
+    ColorScheme? dynamicScheme,
+  }) {
+    final classicScheme = ColorScheme.fromSeed(
+      seedColor: MColors.seed,
+      brightness: brightness,
+    );
+    late ColorScheme colorScheme = dynamicScheme ?? classicScheme;
+    return ThemeData.from(
+      colorScheme: colorScheme.harmonized(),
+      useMaterial3: true,
+    ).copyWith(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      appBarTheme: const AppBarTheme(
+        scrolledUnderElevation: 0,
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: colorScheme.surfaceVariant,
+        checkmarkColor: colorScheme.onSurfaceVariant,
+        deleteIconColor: colorScheme.onSurfaceVariant,
+      ),
+    );
   }
 }

@@ -1,6 +1,6 @@
 {
-    "name": "minecraft_server_remote",
-    "short_name": "minecraft_server_remote",
+    "name": "ServerCtrl",
+    "short_name": "ServerCtrl",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
