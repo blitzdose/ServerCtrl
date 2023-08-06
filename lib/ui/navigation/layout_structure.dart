@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:minecraft_server_remote/utilities/appbar/action_utils.dart';
 import 'package:minecraft_server_remote/values/navigation_routes.dart';
 
 import 'navigator.dart';
@@ -16,22 +18,22 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
 
   MNavigator? navigator;
 
+  static ActionUtils controller = Get.put(ActionUtils());
+
   @override
   Widget build(BuildContext context) {
     navigator ??= MNavigator(onItemTap);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
-        //actions: <Widget>[
-        //  IconButton(
-        //      onPressed: () {
-        //        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("data")));
-        //      },
-        //      icon: const Icon(Icons.refresh_rounded))
-        //],
-      ),
-      drawer: navigator!.buildNavDrawer(),
-      body: screen
+    return Obx(() =>
+        Scaffold(
+            appBar: controller.action.value != null ? AppBar(
+                title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
+                actions: [Obx (() => controller.action.value!)]
+            ) : AppBar(
+                title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
+            ),
+            drawer: navigator!.buildNavDrawer(),
+            body: screen
+        )
     );
   }
 

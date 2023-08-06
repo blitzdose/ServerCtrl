@@ -11,9 +11,18 @@ class PlayersTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() =>
-        ListView(
-          scrollDirection: Axis.vertical,
-          children: controller.playerItems,
+        Column(
+          children: [
+            if (controller.showProgress.value) const LinearProgressIndicator(),
+            Expanded(
+              child: Scrollbar(
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: controller.playerItems,
+                ),
+              ),
+            )
+          ],
         )
     );
   }

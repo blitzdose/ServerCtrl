@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/console/console.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/home/home.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/players/players.dart';
+import 'package:minecraft_server_remote/ui/pages/tabs/tab.dart';
 
 import '../../../generated/l10n.dart';
+import '../tabs/log/log.dart';
 import 'main_controller.dart';
 
 class Main extends StatelessWidget {
@@ -15,7 +17,18 @@ class Main extends StatelessWidget {
   final consoleTab = ConsoleTab();
   final playersTab = PlayersTab();
 
-  Main({super.key});
+  final logTab = LogTab();
+
+  late final List<LayoutTab> tabs;
+
+  Main({super.key}) {
+    tabs = <LayoutTab>[
+      homeTab.controller,
+      consoleTab.controller,
+      playersTab.controller,
+      logTab.controller,
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +88,7 @@ class Main extends StatelessWidget {
                     consoleTab,
                     playersTab,
                     Text("Files"),
-                    Text("Log"),
+                    logTab,
                     Text("Accounts"),
                     Text("Settings")
                   ],
@@ -104,6 +117,15 @@ class Main extends StatelessWidget {
     } else {
       playersTab.controller.continueTimer();
     }
+
+    if (index != 4) {
+      logTab.controller.cancelTimer();
+    } else {
+      logTab.controller.continueTimer();
+    }
+
+    tabs[index].setAction();
+
     print(index);
   }
 }

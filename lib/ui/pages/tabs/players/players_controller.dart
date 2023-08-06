@@ -10,16 +10,16 @@ import 'package:minecraft_server_remote/utilities/http/session.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/api/api_utilities.dart';
 import '../../../../utilities/snackbar/snackbar.dart';
+import '../tab.dart';
 import 'models/player.dart';
 
-class PlayersController extends GetxController {
+class PlayersController extends LayoutTab {
 
   final playerItems = <Widget>[].obs;
 
-  static Timer? timer;
-
   PlayersController();
 
+  @override
   void updateData() async {
     var response = await fetchData();
     if (HttpUtils.isSuccess(response)) {
@@ -30,8 +30,10 @@ class PlayersController extends GetxController {
         playerItems.add(createPlayerWidget(Player(player["name"], player["uuid"], player["texturelink"], bool.parse(player["isOp"]))));
       }
     }
+    showProgress(false);
   }
 
+  @override
   Future<http.Response> fetchData() async {
     return await Session.post("/api/player/online", null);
   }
@@ -92,18 +94,5 @@ class PlayersController extends GetxController {
       Snackbar.createWithTitle(S.current.players, S.current.error_sending_command, true);
     }
     updateData();
-  }
-
-  void cancelTimer() {
-    if (timer != null && timer!.isActive) {
-      timer!.cancel();
-    }
-  }
-
-  void continueTimer() {
-    if (timer == null || !timer!.isActive) {
-      updateData();
-      timer = Timer.periodic(const Duration(seconds: 5), (timer) => updateData());
-    }
   }
 }

@@ -6,6 +6,11 @@ final class MColors {
   static const gray = Color(0xFF2D2D2D);
   static const consoleBackgroundDark = Color(0xff0c0e0c);
 
+  static const logSuccess = Color(0xFF327F31);
+  static const logDanger = Color(0xFFEE6055);
+  static const logWarn = Color(0xFFB39529);
+  static const logInfo = Color(0xFF4a6cff);
+
   static const minecraftDarkRed = Color(0xFFAA0000);
   static const minecraftYellow = Color(0xFFFFFF55);
   static const minecraftBlack = Color(0xFF000000);

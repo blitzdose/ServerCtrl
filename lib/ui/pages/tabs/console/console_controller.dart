@@ -12,18 +12,18 @@ import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/session.dart';
 import '../../../../values/colors.dart';
+import '../tab.dart';
 
-class ConsoleController extends GetxController {
+class ConsoleController extends LayoutTab {
 
   final commandTextController = TextEditingController().obs;
   final consoleScrollController = ScrollController().obs;
 
   final consoleLog = <TextSpan>[].obs;
 
-  static Timer? timer;
-
   ConsoleController();
 
+  @override
   void updateData() async {
     List<TextSpan> textSpans = <TextSpan>[];
     http.Response response = await fetchData();
@@ -39,6 +39,7 @@ class ConsoleController extends GetxController {
     consoleLog.refresh();
   }
 
+  @override
   Future<http.Response> fetchData() async {
     return await Session.get("/api/console/log");
   }
@@ -129,18 +130,5 @@ class ConsoleController extends GetxController {
       Snackbar.createWithTitle(S.current.console, S.current.error_sending_command, true);
     }
     updateData();
-  }
-
-  void cancelTimer() {
-    if (timer != null && timer!.isActive) {
-      timer!.cancel();
-    }
-  }
-
-  void continueTimer() {
-    if (timer == null || !timer!.isActive) {
-      updateData();
-      timer = Timer.periodic(const Duration(seconds: 5), (timer) => updateData());
-    }
   }
 }

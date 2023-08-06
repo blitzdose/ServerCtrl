@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../utilities/http/session.dart';
+import '../tab.dart';
 
-class HomeController extends GetxController {
+class HomeController extends LayoutTab {
   final cpuUsage = 0.0.obs;
   final memoryUsage = 0.0.obs;
 
@@ -18,13 +19,12 @@ class HomeController extends GetxController {
   final totalSystemMemory = 0.obs;
   final freeMemory = 0.obs;
 
-  static Timer? timer;
-
   HomeController() {
     updateData();
     continueTimer();
   }
 
+  @override
   void updateData() async {
     http.Response response = await fetchData();
     if (response.body.isEmpty) {
@@ -44,21 +44,9 @@ class HomeController extends GetxController {
     freeMemory(data['freeSystemMem']);
   }
 
+  @override
   Future<http.Response> fetchData() async {
     return await Session.get("/api/system/data");
-  }
-
-  void cancelTimer() {
-    if (timer != null && timer!.isActive) {
-      timer!.cancel();
-    }
-  }
-
-  void continueTimer() {
-    if (timer == null || !timer!.isActive) {
-      updateData();
-      timer = Timer.periodic(const Duration(seconds: 5), (timer) => updateData());
-    }
   }
 
 }
