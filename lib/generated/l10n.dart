@@ -269,6 +269,56 @@ class S {
       args: [],
     );
   }
+
+  /// `KICK`
+  String get kick {
+    return Intl.message(
+      'KICK',
+      name: 'kick',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BAN`
+  String get ban {
+    return Intl.message(
+      'BAN',
+      name: 'ban',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DE-OP`
+  String get deop {
+    return Intl.message(
+      'DE-OP',
+      name: 'deop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OP`
+  String get op {
+    return Intl.message(
+      'OP',
+      name: 'op',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message(
+      'Success',
+      name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

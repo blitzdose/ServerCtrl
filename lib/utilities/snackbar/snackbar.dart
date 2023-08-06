@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../values/colors.dart';
+
 class Snackbar {
-  static createWithTitle(title, message) {
+  static createWithTitle(title, message, [bool isError=false]) {
     Get.snackbar(
         title,
         message,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black.withAlpha(156),
+        backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.black.withAlpha(156),
         colorText: Colors.white,
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
@@ -15,7 +17,7 @@ class Snackbar {
     );
   }
 
-  static create(message) {
+  static create(message, [bool isError=false]) {
     Get.rawSnackbar(
         messageText: Text(
             message,
@@ -28,7 +30,7 @@ class Snackbar {
         borderRadius: 15,
         barBlur: 7.0,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black.withAlpha(156),
+        backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.black.withAlpha(156),
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
         duration: const Duration(seconds: 2)

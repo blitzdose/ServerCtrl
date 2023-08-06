@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
+import 'package:minecraft_server_remote/utilities/api/api_utilities.dart';
 import 'package:minecraft_server_remote/utilities/http/http_utils.dart';
 import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
 
@@ -21,10 +22,7 @@ class ConsoleController extends GetxController {
 
   static Timer? timer;
 
-  ConsoleController() {
-    //updateData();
-    //continueTimer();
-  }
+  ConsoleController();
 
   void updateData() async {
     List<TextSpan> textSpans = <TextSpan>[];
@@ -39,7 +37,7 @@ class ConsoleController extends GetxController {
     formatLog(parseData(data), textSpans);
     consoleLog.value = textSpans;
     consoleLog.refresh();
-}
+  }
 
   Future<http.Response> fetchData() async {
     return await Session.get("/api/console/log");
@@ -127,10 +125,8 @@ class ConsoleController extends GetxController {
     FocusScope.of(context).unfocus();
     commandTextController.value.clear();
 
-    String commandBase64 = const Base64Encoder.urlSafe().convert(utf8.encode(value)).trim();
-    http.Response response = await Session.post("/api/console/command", "{\"command\": \"$commandBase64\"}");
-    if (!HttpUtils.isSuccess(response)) {
-      Snackbar.createWithTitle(S.current.console, S.current.error_sending_command);
+    if (!await ApiUtilities.sendCommand(value)) {
+      Snackbar.createWithTitle(S.current.console, S.current.error_sending_command, true);
     }
     updateData();
   }

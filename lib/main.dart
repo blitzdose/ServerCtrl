@@ -1,5 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'ui/navigation/layout_structure.dart';
@@ -7,6 +8,7 @@ import 'values/colors.dart';
 import 'package:get/get.dart';
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
 

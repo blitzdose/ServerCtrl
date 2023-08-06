@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/console/console.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/home/home.dart';
+import 'package:minecraft_server_remote/ui/pages/tabs/players/players.dart';
 
 import '../../../generated/l10n.dart';
 import 'main_controller.dart';
@@ -12,6 +13,7 @@ class Main extends StatelessWidget {
 
   final homeTab = HomeTab();
   final consoleTab = ConsoleTab();
+  final playersTab = PlayersTab();
 
   Main({super.key});
 
@@ -71,7 +73,7 @@ class Main extends StatelessWidget {
                   children: [
                     homeTab,
                     consoleTab,
-                    Text("Players"),
+                    playersTab,
                     Text("Files"),
                     Text("Log"),
                     Text("Accounts"),
@@ -95,6 +97,12 @@ class Main extends StatelessWidget {
       consoleTab.controller.cancelTimer();
     } else {
       consoleTab.controller.continueTimer();
+    }
+
+    if (index != 2) {
+      playersTab.controller.cancelTimer();
+    } else {
+      playersTab.controller.continueTimer();
     }
     print(index);
   }

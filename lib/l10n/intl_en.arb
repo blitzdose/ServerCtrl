@@ -20,5 +20,10 @@
   "memory_usage": "Memory Usage",
   "test": "test",
   "command": "Command",
-  "error_sending_command": "Error while sending command"
+  "error_sending_command": "Error while sending command",
+  "kick": "KICK",
+  "ban": "BAN",
+  "deop": "DE-OP",
+  "op": "OP",
+  "success": "Success"
 }
