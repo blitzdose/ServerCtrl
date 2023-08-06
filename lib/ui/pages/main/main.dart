@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:minecraft_server_remote/ui/pages/tabs/accounts/accounts.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/console/console.dart';
+import 'package:minecraft_server_remote/ui/pages/tabs/files/files.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/home/home.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/players/players.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/tab.dart';
+import 'package:minecraft_server_remote/ui/pages/tabs/settings/settings.dart';
 
 import '../../../generated/l10n.dart';
 import '../tabs/log/log.dart';
+import '../tabs/tab.dart';
 import 'main_controller.dart';
 
 class Main extends StatelessWidget {
@@ -16,17 +19,22 @@ class Main extends StatelessWidget {
   final homeTab = HomeTab();
   final consoleTab = ConsoleTab();
   final playersTab = PlayersTab();
-
+  final filesTab = FilesTab();
   final logTab = LogTab();
+  final accountsTab = AccountsTab();
+  final settingsTab = SettingsTab();
 
-  late final List<LayoutTab> tabs;
+  late final List<TabxController> tabs;
 
   Main({super.key}) {
-    tabs = <LayoutTab>[
+    tabs = <TabxController>[
       homeTab.controller,
       consoleTab.controller,
       playersTab.controller,
+      filesTab.controller,
       logTab.controller,
+      accountsTab.controller,
+      settingsTab.controller
     ];
   }
 
@@ -87,10 +95,10 @@ class Main extends StatelessWidget {
                     homeTab,
                     consoleTab,
                     playersTab,
-                    Text("Files"),
+                    filesTab,
                     logTab,
-                    Text("Accounts"),
-                    Text("Settings")
+                    accountsTab,
+                    settingsTab
                   ],
                 ),
               ),
@@ -101,31 +109,13 @@ class Main extends StatelessWidget {
   }
 
   void onTabChanged(int index) {
-    if (index != 0) {
-      homeTab.controller.cancelTimer();
-    } else {
-      homeTab.controller.continueTimer();
-    }
-    if (index != 1) {
-      consoleTab.controller.cancelTimer();
-    } else {
-      consoleTab.controller.continueTimer();
-    }
-
-    if (index != 2) {
-      playersTab.controller.cancelTimer();
-    } else {
-      playersTab.controller.continueTimer();
-    }
-
-    if (index != 4) {
-      logTab.controller.cancelTimer();
-    } else {
-      logTab.controller.continueTimer();
-    }
-
     tabs[index].setAction();
-
+    tabs[index].continueTimer();
+    for (int i=0; i<tabs.length; i++) {
+      if (i != index) {
+        tabs[i].cancelTimer();
+      }
+    }
     print(index);
   }
 }

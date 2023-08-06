@@ -13,7 +13,7 @@ import '../../../../utilities/snackbar/snackbar.dart';
 import '../tab.dart';
 import 'models/player.dart';
 
-class PlayersController extends LayoutTab {
+class PlayersController extends TabxController {
 
   final playerItems = <Widget>[].obs;
 

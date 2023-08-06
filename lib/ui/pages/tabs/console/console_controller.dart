@@ -14,7 +14,7 @@ import '../../../../utilities/http/session.dart';
 import '../../../../values/colors.dart';
 import '../tab.dart';
 
-class ConsoleController extends LayoutTab {
+class ConsoleController extends TabxController {
 
   final commandTextController = TextEditingController().obs;
   final consoleScrollController = ScrollController().obs;

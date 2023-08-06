@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '../../../../utilities/http/session.dart';
 import '../tab.dart';
 
-class HomeController extends LayoutTab {
+class HomeController extends TabxController {
   final cpuUsage = 0.0.obs;
   final memoryUsage = 0.0.obs;
 

@@ -8,7 +8,7 @@ import 'package:minecraft_server_remote/utilities/http/http_utils.dart';
 import 'package:minecraft_server_remote/utilities/http/session.dart';
 import 'package:minecraft_server_remote/values/colors.dart';
 
-class LogController extends LayoutTab {
+class LogController extends TabxController {
   final logEntries = <Widget>[].obs;
   final logScrollController = ScrollController().obs;
   

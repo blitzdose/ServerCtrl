@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../../navigation/layout_structure.dart';
 
-abstract class LayoutTab extends GetxController {
+abstract class TabxController extends GetxController {
 
   Timer? timer;
   final showProgress = true.obs;
