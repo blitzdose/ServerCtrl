@@ -23,6 +23,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
   @override
   Widget build(BuildContext context) {
     navigator ??= MNavigator(onItemTap);
+    print(controller.fab.value.runtimeType);
     return Obx(() =>
         Scaffold(
             appBar: controller.action.value != null ? AppBar(
@@ -32,6 +33,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
                 title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
             ),
             drawer: navigator!.buildNavDrawer(),
+            floatingActionButton: controller.fab.value.runtimeType != Container ? Obx(() => controller.fab.value) : null,
             body: screen
         )
     );

@@ -110,6 +110,7 @@ class Main extends StatelessWidget {
 
   void onTabChanged(int index) {
     tabs[index].setAction();
+    tabs[index].setFab();
     tabs[index].continueTimer();
     for (int i=0; i<tabs.length; i++) {
       if (i != index) {

@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:minecraft_server_remote/navigator_key.dart';
 import 'generated/l10n.dart';
 import 'ui/navigation/layout_structure.dart';
 import 'values/colors.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         theme: buildTheme(brightness: Brightness.light, dynamicScheme: lightDynamic),
         darkTheme: buildTheme(brightness: Brightness.dark, dynamicScheme: darkDynamic),
         home: const LayoutStructure(),
+        navigatorKey: navigatorKey,
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,

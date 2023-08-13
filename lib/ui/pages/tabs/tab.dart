@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +16,10 @@ abstract class TabxController extends GetxController {
 
   void setAction() {
     LayoutStructureState.controller.action.value = null;
+  }
+
+  void setFab() {
+    LayoutStructureState.controller.fab(Container());
   }
 
   void cancelTimer() {

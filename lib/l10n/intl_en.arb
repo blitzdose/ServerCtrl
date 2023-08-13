@@ -9,6 +9,14 @@
   "files": "Files",
   "log": "Log",
   "accounts": "Accounts",
+  "accountAndName": "Account {name}",
+  "@accountAndName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cpu_cores": "CPU cores",
   "cpu_load": "CPU load",
   "usable_memory": "Usable memory",
@@ -25,5 +33,36 @@
   "ban": "BAN",
   "deop": "DE-OP",
   "op": "OP",
-  "success": "Success"
+  "success": "Success",
+  "permissions": "Permissions",
+  "reset_password": "Reset Password",
+  "delete": "Delete",
+  "deleteAccount": "Delete account?",
+  "deleteAccountMessage": "The account \"{accountName}\" will be permanently removed.",
+  "@deleteAccountMessage": {
+    "placeholders": {
+      "accountName": {
+        "type": "String"
+      }
+    }
+  },
+  "successfullyDeleted": "Successfully deleted",
+  "errorDeletingAccount": "Error deleting account",
+  "no": "No",
+  "cancel": "Cancel",
+  "reset": "Reset",
+  "resetPassword": "Reset password",
+  "newPassword": "New password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "repeatNewPassword": "Repeat new password",
+  "successfullyResetPassword": "Successfully reset password",
+  "errorResettingPassword": "Error resetting Password",
+  "save": "Save",
+  "successfullySavedPermissions": "Successfully saved permissions",
+  "errorSavingPermissions": "Error saving permissions",
+  "createAccount": "Create account",
+  "username": "Username",
+  "create": "Create",
+  "successfullyCreatedNewAccount": "Successfully created new account",
+  "errorCreatingAccount": "Error creating account"
 }

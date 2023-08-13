@@ -20,21 +20,42 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(version) => "Version: ${version}";
+  static String m0(name) => "Account ${name}";
+
+  static String m1(accountName) =>
+      "The account \"${accountName}\" will be permanently removed.";
+
+  static String m2(version) => "Version: ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accountAndName": m0,
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
         "add_server": MessageLookupByLibrary.simpleMessage("Add Server"),
         "allocated_memory":
             MessageLookupByLibrary.simpleMessage("Allocated memory"),
         "ban": MessageLookupByLibrary.simpleMessage("BAN"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "command": MessageLookupByLibrary.simpleMessage("Command"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU cores"),
         "cpu_load": MessageLookupByLibrary.simpleMessage("CPU load"),
         "cpu_usage": MessageLookupByLibrary.simpleMessage("CPU Usage"),
+        "create": MessageLookupByLibrary.simpleMessage("Create"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteAccount":
+            MessageLookupByLibrary.simpleMessage("Delete account?"),
+        "deleteAccountMessage": m1,
         "deop": MessageLookupByLibrary.simpleMessage("DE-OP"),
+        "errorCreatingAccount":
+            MessageLookupByLibrary.simpleMessage("Error creating account"),
+        "errorDeletingAccount":
+            MessageLookupByLibrary.simpleMessage("Error deleting account"),
+        "errorResettingPassword":
+            MessageLookupByLibrary.simpleMessage("Error resetting Password"),
+        "errorSavingPermissions":
+            MessageLookupByLibrary.simpleMessage("Error saving permissions"),
         "error_sending_command":
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "files": MessageLookupByLibrary.simpleMessage("Files"),
@@ -43,16 +64,37 @@ class MessageLookup extends MessageLookupByLibrary {
         "kick": MessageLookupByLibrary.simpleMessage("KICK"),
         "log": MessageLookupByLibrary.simpleMessage("Log"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("Memory Usage"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "op": MessageLookupByLibrary.simpleMessage("OP"),
+        "passwordsDoNotMatch":
+            MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "permissions": MessageLookupByLibrary.simpleMessage("Permissions"),
         "players": MessageLookupByLibrary.simpleMessage("Players"),
+        "repeatNewPassword":
+            MessageLookupByLibrary.simpleMessage("Repeat new password"),
+        "reset": MessageLookupByLibrary.simpleMessage("Reset"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "reset_password":
+            MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "server_ctrl": MessageLookupByLibrary.simpleMessage("ServerCtrl"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "successfullyCreatedNewAccount": MessageLookupByLibrary.simpleMessage(
+            "Successfully created new account"),
+        "successfullyDeleted":
+            MessageLookupByLibrary.simpleMessage("Successfully deleted"),
+        "successfullyResetPassword":
+            MessageLookupByLibrary.simpleMessage("Successfully reset password"),
+        "successfullySavedPermissions": MessageLookupByLibrary.simpleMessage(
+            "Successfully saved permissions"),
         "test": MessageLookupByLibrary.simpleMessage("test"),
         "total_system_memory":
             MessageLookupByLibrary.simpleMessage("Total system memory"),
         "usable_memory": MessageLookupByLibrary.simpleMessage("Usable memory"),
         "used_memory": MessageLookupByLibrary.simpleMessage("Used memory"),
-        "version": m0
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "version": m2
       };
 }

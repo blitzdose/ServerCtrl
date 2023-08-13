@@ -150,6 +150,16 @@ class S {
     );
   }
 
+  /// `Account {name}`
+  String accountAndName(String name) {
+    return Intl.message(
+      'Account $name',
+      name: 'accountAndName',
+      desc: '',
+      args: [name],
+    );
+  }
+
   /// `CPU cores`
   String get cpu_cores {
     return Intl.message(
@@ -315,6 +325,246 @@ class S {
     return Intl.message(
       'Success',
       name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Permissions`
+  String get permissions {
+    return Intl.message(
+      'Permissions',
+      name: 'permissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get reset_password {
+    return Intl.message(
+      'Reset Password',
+      name: 'reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account?`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete account?',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The account "{accountName}" will be permanently removed.`
+  String deleteAccountMessage(String accountName) {
+    return Intl.message(
+      'The account "$accountName" will be permanently removed.',
+      name: 'deleteAccountMessage',
+      desc: '',
+      args: [accountName],
+    );
+  }
+
+  /// `Successfully deleted`
+  String get successfullyDeleted {
+    return Intl.message(
+      'Successfully deleted',
+      name: 'successfullyDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error deleting account`
+  String get errorDeletingAccount {
+    return Intl.message(
+      'Error deleting account',
+      name: 'errorDeletingAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get reset {
+    return Intl.message(
+      'Reset',
+      name: 'reset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get newPassword {
+    return Intl.message(
+      'New password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match`
+  String get passwordsDoNotMatch {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'passwordsDoNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repeat new password`
+  String get repeatNewPassword {
+    return Intl.message(
+      'Repeat new password',
+      name: 'repeatNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully reset password`
+  String get successfullyResetPassword {
+    return Intl.message(
+      'Successfully reset password',
+      name: 'successfullyResetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error resetting Password`
+  String get errorResettingPassword {
+    return Intl.message(
+      'Error resetting Password',
+      name: 'errorResettingPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully saved permissions`
+  String get successfullySavedPermissions {
+    return Intl.message(
+      'Successfully saved permissions',
+      name: 'successfullySavedPermissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error saving permissions`
+  String get errorSavingPermissions {
+    return Intl.message(
+      'Error saving permissions',
+      name: 'errorSavingPermissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create account`
+  String get createAccount {
+    return Intl.message(
+      'Create account',
+      name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message(
+      'Username',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create`
+  String get create {
+    return Intl.message(
+      'Create',
+      name: 'create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully created new account`
+  String get successfullyCreatedNewAccount {
+    return Intl.message(
+      'Successfully created new account',
+      name: 'successfullyCreatedNewAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error creating account`
+  String get errorCreatingAccount {
+    return Intl.message(
+      'Error creating account',
+      name: 'errorCreatingAccount',
       desc: '',
       args: [],
     );

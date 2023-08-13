@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'accounts_controller.dart';
@@ -10,7 +10,21 @@ class AccountsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Accounts");
+    return Obx(() =>
+        Column(
+          children: [
+            if (controller.showProgress.value) const LinearProgressIndicator(),
+            Expanded(
+              child: Scrollbar(
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: controller.accountItems,
+                ),
+              ),
+            )
+          ],
+        )
+    );
   }
 
 }
