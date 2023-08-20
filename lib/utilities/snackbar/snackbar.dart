@@ -9,8 +9,8 @@ class Snackbar {
         title,
         message,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.black.withAlpha(156),
-        colorText: Colors.white,
+        backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.white.withAlpha(200),
+        colorText: isError ? Colors.white : Colors.black,
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
         duration: const Duration(seconds: 2)
@@ -21,8 +21,8 @@ class Snackbar {
     Get.rawSnackbar(
         messageText: Text(
             message,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: isError ? Colors.white : Colors.black,
               fontWeight: FontWeight.w500,
               fontSize: 16,
             ),
@@ -30,7 +30,7 @@ class Snackbar {
         borderRadius: 15,
         barBlur: 7.0,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.black.withAlpha(156),
+        backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.white.withAlpha(156),
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
         duration: const Duration(seconds: 2)

@@ -36,6 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Allocated memory"),
         "ban": MessageLookupByLibrary.simpleMessage("BAN"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "certificateFile":
+            MessageLookupByLibrary.simpleMessage("Certificate file"),
+        "certificateKeyFile":
+            MessageLookupByLibrary.simpleMessage("Certificate key file"),
+        "certificateUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Certificate uploaded successfully"),
         "command": MessageLookupByLibrary.simpleMessage("Command"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU cores"),
@@ -56,21 +62,42 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error resetting Password"),
         "errorSavingPermissions":
             MessageLookupByLibrary.simpleMessage("Error saving permissions"),
+        "errorWhileGeneratingCertificate": MessageLookupByLibrary.simpleMessage(
+            "Error while generating certificate"),
+        "errorWhileSavingChanges":
+            MessageLookupByLibrary.simpleMessage("Error while saving changes"),
+        "errorWhileUploadingCertificate": MessageLookupByLibrary.simpleMessage(
+            "Error while uploading certificate"),
         "error_sending_command":
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "files": MessageLookupByLibrary.simpleMessage("Files"),
         "free_memory": MessageLookupByLibrary.simpleMessage("Free memory"),
+        "generateCertificate":
+            MessageLookupByLibrary.simpleMessage("Generate certificate"),
+        "generateNewHttpsCertificate": MessageLookupByLibrary.simpleMessage(
+            "Generate new HTTPS certificate"),
+        "help": MessageLookupByLibrary.simpleMessage("Help"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
         "kick": MessageLookupByLibrary.simpleMessage("KICK"),
         "log": MessageLookupByLibrary.simpleMessage("Log"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("Memory Usage"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noFileSelected":
+            MessageLookupByLibrary.simpleMessage("No file selected"),
+        "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "op": MessageLookupByLibrary.simpleMessage("OP"),
         "passwordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "permissions": MessageLookupByLibrary.simpleMessage("Permissions"),
         "players": MessageLookupByLibrary.simpleMessage("Players"),
+        "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
+            "Please allow access to the storage"),
+        "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
+        "pluginAndWebserverPort":
+            MessageLookupByLibrary.simpleMessage("Plugin and Webserver Port"),
+        "port": MessageLookupByLibrary.simpleMessage("Port"),
         "repeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Repeat new password"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
@@ -78,13 +105,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "savedChanges": MessageLookupByLibrary.simpleMessage("Saved changes"),
+        "selectFile": MessageLookupByLibrary.simpleMessage("Select file"),
+        "server": MessageLookupByLibrary.simpleMessage("Server"),
         "server_ctrl": MessageLookupByLibrary.simpleMessage("ServerCtrl"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "specifyIpOrAddr": MessageLookupByLibrary.simpleMessage(
+            "Please specify the domain or IP-Address of the Minecraft server"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "successfullyCreatedNewAccount": MessageLookupByLibrary.simpleMessage(
             "Successfully created new account"),
         "successfullyDeleted":
             MessageLookupByLibrary.simpleMessage("Successfully deleted"),
+        "successfullyGeneratedNewCertificate":
+            MessageLookupByLibrary.simpleMessage(
+                "Successfully generated new certificate"),
         "successfullyResetPassword":
             MessageLookupByLibrary.simpleMessage("Successfully reset password"),
         "successfullySavedPermissions": MessageLookupByLibrary.simpleMessage(
@@ -92,6 +127,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "test": MessageLookupByLibrary.simpleMessage("test"),
         "total_system_memory":
             MessageLookupByLibrary.simpleMessage("Total system memory"),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
+        "uploadCertificate":
+            MessageLookupByLibrary.simpleMessage("Upload certificate"),
+        "uploadHttpsCertificate":
+            MessageLookupByLibrary.simpleMessage("Upload HTTPS certificate"),
         "usable_memory": MessageLookupByLibrary.simpleMessage("Usable memory"),
         "used_memory": MessageLookupByLibrary.simpleMessage("Used memory"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),

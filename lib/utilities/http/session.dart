@@ -21,6 +21,20 @@ class Session {
     return response;
   }
 
+  static Future<http.Response> postFile(String url, Map<String, List<int>> files) async {
+    var request = http.MultipartRequest("POST", Uri.parse(_baseURL + url));
+    for (var entry in headers.entries) {
+      request.headers[entry.key] = entry.value;
+    }
+    for(var file in files.entries) {
+      request.files.add(http.MultipartFile.fromBytes(file.key, file.value, filename: file.key));
+    }
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    updateCookie(response);
+    return response;
+  }
+
   static void updateCookie(http.Response response) {
     String? rawCookie = response.headers['set-cookie'];
     if (rawCookie != null) {

@@ -569,6 +569,246 @@ class S {
       args: [],
     );
   }
+
+  /// `Ok`
+  String get ok {
+    return Intl.message(
+      'Ok',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Port`
+  String get port {
+    return Intl.message(
+      'Port',
+      name: 'port',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate certificate`
+  String get generateCertificate {
+    return Intl.message(
+      'Generate certificate',
+      name: 'generateCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please specify the domain or IP-Address of the Minecraft server`
+  String get specifyIpOrAddr {
+    return Intl.message(
+      'Please specify the domain or IP-Address of the Minecraft server',
+      name: 'specifyIpOrAddr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No file selected`
+  String get noFileSelected {
+    return Intl.message(
+      'No file selected',
+      name: 'noFileSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload certificate`
+  String get uploadCertificate {
+    return Intl.message(
+      'Upload certificate',
+      name: 'uploadCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Certificate file`
+  String get certificateFile {
+    return Intl.message(
+      'Certificate file',
+      name: 'certificateFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please allow access to the storage`
+  String get pleaseAllowAccessToTheStorage {
+    return Intl.message(
+      'Please allow access to the storage',
+      name: 'pleaseAllowAccessToTheStorage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select file`
+  String get selectFile {
+    return Intl.message(
+      'Select file',
+      name: 'selectFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Certificate key file`
+  String get certificateKeyFile {
+    return Intl.message(
+      'Certificate key file',
+      name: 'certificateKeyFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload`
+  String get upload {
+    return Intl.message(
+      'Upload',
+      name: 'upload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help`
+  String get help {
+    return Intl.message(
+      'Help',
+      name: 'help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Plugin`
+  String get plugin {
+    return Intl.message(
+      'Plugin',
+      name: 'plugin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `HTTPS`
+  String get https {
+    return Intl.message(
+      'HTTPS',
+      name: 'https',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload HTTPS certificate`
+  String get uploadHttpsCertificate {
+    return Intl.message(
+      'Upload HTTPS certificate',
+      name: 'uploadHttpsCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate new HTTPS certificate`
+  String get generateNewHttpsCertificate {
+    return Intl.message(
+      'Generate new HTTPS certificate',
+      name: 'generateNewHttpsCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Plugin and Webserver Port`
+  String get pluginAndWebserverPort {
+    return Intl.message(
+      'Plugin and Webserver Port',
+      name: 'pluginAndWebserverPort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server`
+  String get server {
+    return Intl.message(
+      'Server',
+      name: 'server',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while saving changes`
+  String get errorWhileSavingChanges {
+    return Intl.message(
+      'Error while saving changes',
+      name: 'errorWhileSavingChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved changes`
+  String get savedChanges {
+    return Intl.message(
+      'Saved changes',
+      name: 'savedChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully generated new certificate`
+  String get successfullyGeneratedNewCertificate {
+    return Intl.message(
+      'Successfully generated new certificate',
+      name: 'successfullyGeneratedNewCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while generating certificate`
+  String get errorWhileGeneratingCertificate {
+    return Intl.message(
+      'Error while generating certificate',
+      name: 'errorWhileGeneratingCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Certificate uploaded successfully`
+  String get certificateUploadedSuccessfully {
+    return Intl.message(
+      'Certificate uploaded successfully',
+      name: 'certificateUploadedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while uploading certificate`
+  String get errorWhileUploadingCertificate {
+    return Intl.message(
+      'Error while uploading certificate',
+      name: 'errorWhileUploadingCertificate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

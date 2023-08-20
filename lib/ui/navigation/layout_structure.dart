@@ -23,7 +23,6 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
   @override
   Widget build(BuildContext context) {
     navigator ??= MNavigator(onItemTap);
-    print(controller.fab.value.runtimeType);
     return Obx(() =>
         Scaffold(
             appBar: controller.action.value != null ? AppBar(
