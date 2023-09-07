@@ -1,6 +1,9 @@
 # ServerCtrl
 
-ServerCtrl
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/name.png", width=800>
+</p>
 
 ## Getting Started
 
