@@ -2,7 +2,10 @@
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/name.png", width=800>
+  <img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/name.png", width=800>
+  <br>
+  <br>
+  <img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/discord.png", width=400>
 </p>
 
 ## Getting Started
