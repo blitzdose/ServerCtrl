@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <a href="#" ><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/name.png", width=800></a>
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/name.png", width=800></picture>
   <br>
   <br>
   <a href="https://discord.gg/SewjCwVpaa" target="_blank"><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/discord.png", width=400></a>
