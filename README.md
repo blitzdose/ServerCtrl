@@ -7,7 +7,6 @@
   <br>
   <a href="https://discord.gg/SewjCwVpaa" target="_blank"><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/discord.png", width=400></a>
   <br>
-  <br>
   <a href="https://www.spigotmc.org/resources/minecraft-server-remote.72231/" target="_blank"><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/spigot.png", width=400></a>
 </p>
 
