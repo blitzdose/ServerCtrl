@@ -29,6 +29,16 @@ class PlayersController extends TabxController {
       for (var player in players) {
         playerItems.add(createPlayerWidget(Player(player["name"], player["uuid"], player["texturelink"], bool.parse(player["isOp"]))));
       }
+      if (playerItems.isEmpty) {
+        playerItems.add(
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                child: Text(S.current.noPlayersOnline),
+              ),
+            )
+        );
+      }
     }
     showProgress(false);
   }

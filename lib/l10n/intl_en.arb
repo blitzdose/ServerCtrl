@@ -88,5 +88,6 @@
   "successfullyGeneratedNewCertificate": "Successfully generated new certificate",
   "errorWhileGeneratingCertificate": "Error while generating certificate",
   "certificateUploadedSuccessfully": "Certificate uploaded successfully",
-  "errorWhileUploadingCertificate": "Error while uploading certificate"
+  "errorWhileUploadingCertificate": "Error while uploading certificate",
+  "noPlayersOnline": "No players online"
 }

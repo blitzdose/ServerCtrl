@@ -809,6 +809,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No players online`
+  String get noPlayersOnline {
+    return Intl.message(
+      'No players online',
+      name: 'noPlayersOnline',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
