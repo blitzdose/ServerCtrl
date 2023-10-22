@@ -25,7 +25,22 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(accountName) =>
       "The account \"${accountName}\" will be permanently removed.";
 
-  static String m2(version) => "Version: ${version}";
+  static String m2(type) => "Delete ${type}?";
+
+  static String m3(type, name) =>
+      "The ${type} \"${name}\" will be permanently removed.";
+
+  static String m4(filename) => "Downloaded \"${filename}\" successfully.";
+
+  static String m5(type) => "Error deleting ${type}";
+
+  static String m6(type) => "Error renaming ${type}";
+
+  static String m7(name) => "File \"${name}\"";
+
+  static String m8(type) => "Rename ${type}";
+
+  static String m9(version) => "Version: ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -42,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Certificate key file"),
         "certificateUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Certificate uploaded successfully"),
+        "close": MessageLookupByLibrary.simpleMessage("Close"),
         "command": MessageLookupByLibrary.simpleMessage("Command"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU cores"),
@@ -49,28 +65,56 @@ class MessageLookup extends MessageLookupByLibrary {
         "cpu_usage": MessageLookupByLibrary.simpleMessage("CPU Usage"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
+        "createFile": MessageLookupByLibrary.simpleMessage("Create File"),
+        "createFolder": MessageLookupByLibrary.simpleMessage("Create Folder"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount":
             MessageLookupByLibrary.simpleMessage("Delete account?"),
         "deleteAccountMessage": m1,
+        "deleteFile": m2,
+        "deleteFileMessage": m3,
+        "deleteFiles": MessageLookupByLibrary.simpleMessage("Delete files?"),
         "deop": MessageLookupByLibrary.simpleMessage("DE-OP"),
+        "directory": MessageLookupByLibrary.simpleMessage("directory"),
+        "download": MessageLookupByLibrary.simpleMessage("Download"),
+        "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
+        "downloadedFilenameSuccessfully": m4,
+        "downloading": MessageLookupByLibrary.simpleMessage("Downloading"),
         "errorCreatingAccount":
             MessageLookupByLibrary.simpleMessage("Error creating account"),
+        "errorCreatingFile":
+            MessageLookupByLibrary.simpleMessage("Error creating file"),
+        "errorCreatingFolder":
+            MessageLookupByLibrary.simpleMessage("Error creating folder"),
         "errorDeletingAccount":
             MessageLookupByLibrary.simpleMessage("Error deleting account"),
+        "errorDeletingFile": m5,
+        "errorDeletingFiles":
+            MessageLookupByLibrary.simpleMessage("Error deleting files"),
+        "errorRenamingType": m6,
         "errorResettingPassword":
             MessageLookupByLibrary.simpleMessage("Error resetting Password"),
         "errorSavingPermissions":
             MessageLookupByLibrary.simpleMessage("Error saving permissions"),
+        "errorWhileDownloadingFile": MessageLookupByLibrary.simpleMessage(
+            "Error while downloading file"),
         "errorWhileGeneratingCertificate": MessageLookupByLibrary.simpleMessage(
             "Error while generating certificate"),
         "errorWhileSavingChanges":
             MessageLookupByLibrary.simpleMessage("Error while saving changes"),
+        "errorWhileSavingFile":
+            MessageLookupByLibrary.simpleMessage("Error while saving file"),
         "errorWhileUploadingCertificate": MessageLookupByLibrary.simpleMessage(
             "Error while uploading certificate"),
+        "errorWhileUploadingFile":
+            MessageLookupByLibrary.simpleMessage("Error while uploading file"),
         "error_sending_command":
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
+        "file": MessageLookupByLibrary.simpleMessage("file"),
+        "fileAndName": m7,
         "files": MessageLookupByLibrary.simpleMessage("Files"),
+        "filesUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "File(s) uploaded successfully."),
         "free_memory": MessageLookupByLibrary.simpleMessage("Free memory"),
         "generateCertificate":
             MessageLookupByLibrary.simpleMessage("Generate certificate"),
@@ -82,6 +126,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "kick": MessageLookupByLibrary.simpleMessage("KICK"),
         "log": MessageLookupByLibrary.simpleMessage("Log"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("Memory Usage"),
+        "multipleFiles": MessageLookupByLibrary.simpleMessage("Multiple files"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "newFile": MessageLookupByLibrary.simpleMessage("New File"),
+        "newFolder": MessageLookupByLibrary.simpleMessage("New Folder"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noFileSelected":
@@ -90,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No players online"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "op": MessageLookupByLibrary.simpleMessage("OP"),
+        "openWith": MessageLookupByLibrary.simpleMessage("Open with"),
         "passwordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "permissions": MessageLookupByLibrary.simpleMessage("Permissions"),
@@ -100,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin and Webserver Port"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
+        "rename": MessageLookupByLibrary.simpleMessage("Rename"),
+        "renameType": m8,
         "repeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Repeat new password"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
@@ -107,14 +158,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveFile": MessageLookupByLibrary.simpleMessage("Save file"),
         "savedChanges": MessageLookupByLibrary.simpleMessage("Saved changes"),
+        "savedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Saved successfully"),
+        "saving": MessageLookupByLibrary.simpleMessage("Saving"),
         "selectFile": MessageLookupByLibrary.simpleMessage("Select file"),
         "server": MessageLookupByLibrary.simpleMessage("Server"),
         "server_ctrl": MessageLookupByLibrary.simpleMessage("ServerCtrl"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "specifyIpOrAddr": MessageLookupByLibrary.simpleMessage(
             "Please specify the domain or IP-Address of the Minecraft server"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "successfullyCreatedFile":
+            MessageLookupByLibrary.simpleMessage("Successfully created file"),
+        "successfullyCreatedFolder":
+            MessageLookupByLibrary.simpleMessage("Successfully created folder"),
         "successfullyCreatedNewAccount": MessageLookupByLibrary.simpleMessage(
             "Successfully created new account"),
         "successfullyDeleted":
@@ -122,21 +182,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Successfully generated new certificate"),
+        "successfullyRenamed":
+            MessageLookupByLibrary.simpleMessage("Successfully renamed"),
         "successfullyResetPassword":
             MessageLookupByLibrary.simpleMessage("Successfully reset password"),
         "successfullySavedPermissions": MessageLookupByLibrary.simpleMessage(
             "Successfully saved permissions"),
         "test": MessageLookupByLibrary.simpleMessage("test"),
+        "theSelectedFilesWillBePermanentlyDeleted":
+            MessageLookupByLibrary.simpleMessage(
+                "The selected files will be permanently deleted"),
         "total_system_memory":
             MessageLookupByLibrary.simpleMessage("Total system memory"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "uploadCertificate":
             MessageLookupByLibrary.simpleMessage("Upload certificate"),
+        "uploadFiles": MessageLookupByLibrary.simpleMessage("Upload File(s)"),
         "uploadHttpsCertificate":
             MessageLookupByLibrary.simpleMessage("Upload HTTPS certificate"),
         "usable_memory": MessageLookupByLibrary.simpleMessage("Usable memory"),
         "used_memory": MessageLookupByLibrary.simpleMessage("Used memory"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
-        "version": m2
+        "version": m9
       };
 }

@@ -116,7 +116,7 @@ class SettingsController extends TabxController {
     data["certKey"] = await keyFile.readAsBytes();
 
 
-    var response = await Session.postFile("/api/plugin/certificate/upload", data);
+    var response = await Session.postCertFile("/api/plugin/certificate/upload", data);
     if (HttpUtils.isSuccess(response)) {
       Snackbar.createWithTitle(S.current.settings, S.current.certificateUploadedSuccessfully);
     } else {
@@ -127,7 +127,8 @@ class SettingsController extends TabxController {
 
   @override
   void setAction() {
-    LayoutStructureState.controller.action(IconButton(
+    LayoutStructureState.controller.actions.clear();
+    LayoutStructureState.controller.actions.add(IconButton(
         onPressed: () {
           showProgress(true);
           updateData();

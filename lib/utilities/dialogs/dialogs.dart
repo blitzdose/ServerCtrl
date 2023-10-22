@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InputDialog {
 
@@ -12,7 +13,8 @@ class InputDialog {
     this.leftButtonText,
     this.rightButtonText,
     this.onLeftButtonClick,
-    this.onRightButtonClick
+    this.onRightButtonClick,
+    this.rightButtonDisableEmpty = false
   });
 
   final String title;
@@ -26,9 +28,11 @@ class InputDialog {
   final Function(String text)? onLeftButtonClick;
   final Function(String text)? onRightButtonClick;
 
+  final bool? rightButtonDisableEmpty;
+
   showInputDialog(var context) {
-    TextEditingController textController = TextEditingController();
-    textController.text = inputFieldText ?? "";
+    final textController = TextEditingController().obs;
+    textController.value.text = inputFieldText ?? "";
     showGeneralDialog(
       context: context,
       barrierDismissible: false,
@@ -52,7 +56,8 @@ class InputDialog {
                       hintText: inputFieldHintText
                     ),
                     maxLines: 1,
-                    controller: textController,
+                    controller: textController.value,
+                    onChanged: (value) => textController.refresh(),
                     keyboardType: textInputType,
                     autocorrect: false,
                   ),
@@ -62,16 +67,16 @@ class InputDialog {
             actions: <Widget>[
               if (leftButtonText != null) TextButton(onPressed: () {
                 if (onLeftButtonClick != null) {
-                  onLeftButtonClick!(textController.text);
+                  onLeftButtonClick!(textController.value.text);
                 }
                 Navigator.pop(context, true);
                 }, child: Text(leftButtonText!)),
-              if (rightButtonText != null) TextButton(onPressed: () {
+              if (rightButtonText != null) Obx(() => TextButton(onPressed: textController.value.text.isNotEmpty || !rightButtonDisableEmpty! ? () {
                 if (onRightButtonClick != null) {
-                  onRightButtonClick!(textController.text);
+                  onRightButtonClick!(textController.value.text);
                 }
                 Navigator.pop(context, true);
-              }, child: Text(rightButtonText!)),
+              } : null, child: Text(rightButtonText!)),)
             ],
           ),
         );

@@ -89,5 +89,95 @@
   "errorWhileGeneratingCertificate": "Error while generating certificate",
   "certificateUploadedSuccessfully": "Certificate uploaded successfully",
   "errorWhileUploadingCertificate": "Error while uploading certificate",
-  "noPlayersOnline": "No players online"
+  "noPlayersOnline": "No players online",
+  "openWith": "Open with",
+  "share": "Share",
+  "download": "Download",
+  "rename": "Rename",
+  "deleteFile": "Delete {type}?",
+  "@deleteFile": {
+    "placeholders":{
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteFileMessage": "The {type} \"{name}\" will be permanently removed.",
+  "@deleteFileMessage": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "fileAndName": "File \"{name}\"",
+  "@fileAndName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorDeletingFile": "Error deleting {type}",
+  "@errorDeletingFile": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "createFile": "Create File",
+  "newFile": "New File",
+  "createFolder": "Create Folder",
+  "newFolder": "New Folder",
+  "successfullyCreatedFile": "Successfully created file",
+  "errorCreatingFile": "Error creating file",
+  "successfullyCreatedFolder": "Successfully created folder",
+  "errorCreatingFolder": "Error creating folder",
+  "filesUploadedSuccessfully": "File(s) uploaded successfully.",
+  "multipleFiles": "Multiple files",
+  "errorWhileUploadingFile": "Error while uploading file",
+  "downloading": "Downloading",
+  "saving": "Saving",
+  "savedSuccessfully": "Saved successfully",
+  "errorWhileSavingFile": "Error while saving file",
+  "saveFile": "Save file",
+  "close": "Close",
+  "downloaded": "Downloaded",
+  "errorWhileDownloadingFile": "Error while downloading file",
+  "name": "Name",
+  "successfullyRenamed": "Successfully renamed",
+  "file": "file",
+  "directory": "directory",
+  "downloadedFilenameSuccessfully": "Downloaded \"{filename}\" successfully.",
+  "@downloadedFilenameSuccessfully": {
+    "placeholders": {
+      "filename": {
+        "type": "String"
+      }
+    }
+  },
+  "renameType": "Rename {type}",
+  "@renameType": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "errorRenamingType": "Error renaming {type}",
+  "@errorRenamingType": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteFiles": "Delete files?",
+  "theSelectedFilesWillBePermanentlyDeleted": "The selected files will be permanently deleted",
+  "errorDeletingFiles": "Error deleting files",
+  "uploadFiles": "Upload File(s)"
 }

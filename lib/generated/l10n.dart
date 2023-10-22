@@ -819,6 +819,386 @@ class S {
       args: [],
     );
   }
+
+  /// `Open with`
+  String get openWith {
+    return Intl.message(
+      'Open with',
+      name: 'openWith',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download`
+  String get download {
+    return Intl.message(
+      'Download',
+      name: 'download',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rename`
+  String get rename {
+    return Intl.message(
+      'Rename',
+      name: 'rename',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete {type}?`
+  String deleteFile(String type) {
+    return Intl.message(
+      'Delete $type?',
+      name: 'deleteFile',
+      desc: '',
+      args: [type],
+    );
+  }
+
+  /// `The {type} "{name}" will be permanently removed.`
+  String deleteFileMessage(String type, String name) {
+    return Intl.message(
+      'The $type "$name" will be permanently removed.',
+      name: 'deleteFileMessage',
+      desc: '',
+      args: [type, name],
+    );
+  }
+
+  /// `File "{name}"`
+  String fileAndName(String name) {
+    return Intl.message(
+      'File "$name"',
+      name: 'fileAndName',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Error deleting {type}`
+  String errorDeletingFile(String type) {
+    return Intl.message(
+      'Error deleting $type',
+      name: 'errorDeletingFile',
+      desc: '',
+      args: [type],
+    );
+  }
+
+  /// `Create File`
+  String get createFile {
+    return Intl.message(
+      'Create File',
+      name: 'createFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New File`
+  String get newFile {
+    return Intl.message(
+      'New File',
+      name: 'newFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Folder`
+  String get createFolder {
+    return Intl.message(
+      'Create Folder',
+      name: 'createFolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Folder`
+  String get newFolder {
+    return Intl.message(
+      'New Folder',
+      name: 'newFolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully created file`
+  String get successfullyCreatedFile {
+    return Intl.message(
+      'Successfully created file',
+      name: 'successfullyCreatedFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error creating file`
+  String get errorCreatingFile {
+    return Intl.message(
+      'Error creating file',
+      name: 'errorCreatingFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully created folder`
+  String get successfullyCreatedFolder {
+    return Intl.message(
+      'Successfully created folder',
+      name: 'successfullyCreatedFolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error creating folder`
+  String get errorCreatingFolder {
+    return Intl.message(
+      'Error creating folder',
+      name: 'errorCreatingFolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File(s) uploaded successfully.`
+  String get filesUploadedSuccessfully {
+    return Intl.message(
+      'File(s) uploaded successfully.',
+      name: 'filesUploadedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Multiple files`
+  String get multipleFiles {
+    return Intl.message(
+      'Multiple files',
+      name: 'multipleFiles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while uploading file`
+  String get errorWhileUploadingFile {
+    return Intl.message(
+      'Error while uploading file',
+      name: 'errorWhileUploadingFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Downloading`
+  String get downloading {
+    return Intl.message(
+      'Downloading',
+      name: 'downloading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saving`
+  String get saving {
+    return Intl.message(
+      'Saving',
+      name: 'saving',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved successfully`
+  String get savedSuccessfully {
+    return Intl.message(
+      'Saved successfully',
+      name: 'savedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while saving file`
+  String get errorWhileSavingFile {
+    return Intl.message(
+      'Error while saving file',
+      name: 'errorWhileSavingFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save file`
+  String get saveFile {
+    return Intl.message(
+      'Save file',
+      name: 'saveFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close`
+  String get close {
+    return Intl.message(
+      'Close',
+      name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Downloaded`
+  String get downloaded {
+    return Intl.message(
+      'Downloaded',
+      name: 'downloaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while downloading file`
+  String get errorWhileDownloadingFile {
+    return Intl.message(
+      'Error while downloading file',
+      name: 'errorWhileDownloadingFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully renamed`
+  String get successfullyRenamed {
+    return Intl.message(
+      'Successfully renamed',
+      name: 'successfullyRenamed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `file`
+  String get file {
+    return Intl.message(
+      'file',
+      name: 'file',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `directory`
+  String get directory {
+    return Intl.message(
+      'directory',
+      name: 'directory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Downloaded "{filename}" successfully.`
+  String downloadedFilenameSuccessfully(String filename) {
+    return Intl.message(
+      'Downloaded "$filename" successfully.',
+      name: 'downloadedFilenameSuccessfully',
+      desc: '',
+      args: [filename],
+    );
+  }
+
+  /// `Rename {type}`
+  String renameType(String type) {
+    return Intl.message(
+      'Rename $type',
+      name: 'renameType',
+      desc: '',
+      args: [type],
+    );
+  }
+
+  /// `Error renaming {type}`
+  String errorRenamingType(String type) {
+    return Intl.message(
+      'Error renaming $type',
+      name: 'errorRenamingType',
+      desc: '',
+      args: [type],
+    );
+  }
+
+  /// `Delete files?`
+  String get deleteFiles {
+    return Intl.message(
+      'Delete files?',
+      name: 'deleteFiles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The selected files will be permanently deleted`
+  String get theSelectedFilesWillBePermanentlyDeleted {
+    return Intl.message(
+      'The selected files will be permanently deleted',
+      name: 'theSelectedFilesWillBePermanentlyDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error deleting files`
+  String get errorDeletingFiles {
+    return Intl.message(
+      'Error deleting files',
+      name: 'errorDeletingFiles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload File(s)`
+  String get uploadFiles {
+    return Intl.message(
+      'Upload File(s)',
+      name: 'uploadFiles',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -15,7 +15,11 @@ abstract class TabxController extends GetxController {
   Future<http.Response> fetchData();
 
   void setAction() {
-    LayoutStructureState.controller.action.value = null;
+    LayoutStructureState.controller.actions.clear();
+  }
+
+  void setLeading() {
+    LayoutStructureState.controller.leading.value = null;
   }
 
   void setFab() {

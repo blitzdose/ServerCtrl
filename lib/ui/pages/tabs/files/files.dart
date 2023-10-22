@@ -9,7 +9,26 @@ class FilesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Files");
+    controller.context = context;
+    return Obx(() =>
+        Column(
+          children: [
+            if (controller.showProgress.value) const LinearProgressIndicator(),
+            Expanded(
+              child: Scrollbar(
+                child: ListView.separated(
+                    separatorBuilder: (context, index) => const Divider(height: 0,),
+                    padding: EdgeInsets.zero,
+                    controller: controller.fileScrollController.value,
+                    itemCount: controller.fileEntries.length,
+                    itemBuilder: (context, index) =>
+                    controller.fileEntries[index]
+                ),
+              ),
+            )
+          ],
+        )
+    );
   }
 
 }

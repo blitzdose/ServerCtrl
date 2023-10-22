@@ -12,6 +12,7 @@ import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/session.dart';
 import '../../../../values/colors.dart';
+import '../../../navigation/layout_structure.dart';
 import '../tab.dart';
 
 class ConsoleController extends TabxController {
@@ -20,6 +21,8 @@ class ConsoleController extends TabxController {
   final consoleScrollController = ScrollController().obs;
 
   final consoleLog = <TextSpan>[].obs;
+
+  final softwrap = true.obs;
 
   ConsoleController();
 
@@ -56,6 +59,15 @@ class ConsoleController extends TabxController {
   void formatLog(String log, List<TextSpan> textSpans) {
     List<String> logLines = log.split(newlineRegExp);
     for(String logLine in logLines)  {
+      if (logLine.contains(RegExp(r"\[\d\d:\d\d:\d\d WARN\]"))) {
+        textSpans.add(TextSpan(text: logLine.replaceAll(RegExp(r"!_/[a-f0-9]"), ""), style: const TextStyle(color: MColors.minecraftYellow)));
+        textSpans.add(const TextSpan(text: "\n"));
+        continue;
+      } else if (logLine.contains(RegExp(r"\[\d\d:\d\d:\d\d ERROR\]"))) {
+        textSpans.add(TextSpan(text: logLine.replaceAll(RegExp(r"!_/[a-f0-9]"), ""), style: const TextStyle(color: MColors.minecraftRed)));
+        textSpans.add(const TextSpan(text: "\n"));
+        continue;
+      }
       List<String> parts = logLine.split("!_/");
       for(int i=0; i<parts.length; i++) {
         String part = parts[i];
@@ -130,5 +142,28 @@ class ConsoleController extends TabxController {
       Snackbar.createWithTitle(S.current.console, S.current.error_sending_command, true);
     }
     updateData();
+  }
+
+  @override
+  void setAction() {
+    LayoutStructureState.controller.actions.clear();
+    LayoutStructureState.controller.actions.add(
+        PopupMenuButton(
+          padding: EdgeInsets.zero,
+          onSelected: (value) {
+            if (value == 0) {
+              softwrap(softwrap.isFalse);
+            }
+          },
+          itemBuilder: (context) => [
+            CheckedPopupMenuItem(
+              padding: EdgeInsets.zero,
+              checked: softwrap.value,
+              value: 0,
+              child: const Text("Soft-wrap"),
+            )
+          ],
+        )
+    );
   }
 }

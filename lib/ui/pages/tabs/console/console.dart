@@ -26,20 +26,15 @@ class ConsoleTab extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Scrollbar(
-                          child: SingleChildScrollView(
+                          child: Obx(() => SingleChildScrollView(
                             controller: controller.consoleScrollController.value,
                             scrollDirection: Axis.vertical,
                             reverse: true,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Obx(() => RichText(
-                                text: TextSpan(
-                                  style: GoogleFonts.robotoMono(fontSize: 12),
-                                  children: controller.consoleLog.toList()
-                                )
-                              )),
-                            )
-                          ),
+                            child: controller.softwrap.isFalse ? SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: buildRichText(),
+                            ) : buildRichText()
+                          )),
                         )
                     ),
                   ],
@@ -65,6 +60,19 @@ class ConsoleTab extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Padding buildRichText() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: RichText(
+          softWrap: controller.softwrap.value,
+          text: TextSpan(
+              style: GoogleFonts.robotoMono(fontSize: 12),
+              children: controller.consoleLog.toList()
+          )
       ),
     );
   }

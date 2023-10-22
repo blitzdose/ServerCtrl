@@ -65,7 +65,8 @@ class LogController extends TabxController {
 
   @override
   void setAction() {
-    LayoutStructureState.controller.action(IconButton(
+    LayoutStructureState.controller.actions.clear();
+    LayoutStructureState.controller.actions.add(IconButton(
         onPressed: () {
           showProgress(true);
           updateData(true);

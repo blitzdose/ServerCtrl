@@ -25,16 +25,18 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     navigator ??= MNavigator(onItemTap);
     return Obx(() =>
         Scaffold(
-            appBar: controller.action.value != null ? AppBar(
+              appBar: controller.actions.isNotEmpty ? AppBar(
                 title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
-                actions: [Obx (() => controller.action.value!)]
-            ) : AppBar(
-                title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
-            ),
-            drawer: navigator!.buildNavDrawer(),
-            floatingActionButton: controller.fab.value.runtimeType != Container ? Obx(() => controller.fab.value) : null,
-            body: screen
-        )
+                actions: controller.actions,
+                leading: controller.leading.value,
+              ) : AppBar(
+                  title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
+              ),
+              drawer: controller.leading.value == null ? navigator!.buildNavDrawer() : null,
+              floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+              floatingActionButton: controller.fab.value.runtimeType != Container ? Obx(() => controller.fab.value) : null,
+              body: screen
+          ),
     );
   }
 
