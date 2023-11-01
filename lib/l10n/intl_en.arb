@@ -179,5 +179,10 @@
   "deleteFiles": "Delete files?",
   "theSelectedFilesWillBePermanentlyDeleted": "The selected files will be permanently deleted",
   "errorDeletingFiles": "Error deleting files",
-  "uploadFiles": "Upload File(s)"
+  "uploadFiles": "Upload File(s)",
+  "edit": "Edit",
+  "discardChanges": "Discard changes?",
+  "allYourChangesWillBeLost": "All your changes will be lost",
+  "discard": "Discard",
+  "fileSavedSuccessfully": "File saved successfully"
 }

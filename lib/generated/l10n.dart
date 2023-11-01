@@ -1199,6 +1199,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discard changes?`
+  String get discardChanges {
+    return Intl.message(
+      'Discard changes?',
+      name: 'discardChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All your changes will be lost`
+  String get allYourChangesWillBeLost {
+    return Intl.message(
+      'All your changes will be lost',
+      name: 'allYourChangesWillBeLost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discard`
+  String get discard {
+    return Intl.message(
+      'Discard',
+      name: 'discard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File saved successfully`
+  String get fileSavedSuccessfully {
+    return Intl.message(
+      'File saved successfully',
+      name: 'fileSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,12 +18,14 @@ import '../../../../utilities/http/http_utils.dart';
 import '../../../navigation/layout_structure.dart';
 import 'file_entry.dart';
 
-enum PopupMenuItems {openWith, share, download, rename, delete}
+enum PopupMenuItems {edit, download, rename, delete}
 
 class FilesController extends TabxController {
 
   final fileEntries = <Widget>[].obs;
   final fileScrollController = ScrollController().obs;
+
+  List<String> editableFiles = [];
 
   bool canUpdate = true;
 
@@ -54,6 +58,10 @@ class FilesController extends TabxController {
     }
     return Session.post("/api/files/list", "{\"path\": \"/${path.join("/")}\", \"limit\": 50, \"position\": $position}");
   }
+  
+  Future<http.Response> fetchEditableFiles() {
+    return Session.get("/api/files/editable-files");
+  }
 
   @override
   void updateData([bool reset = false]) async {
@@ -75,6 +83,12 @@ class FilesController extends TabxController {
       List<FileEntry> entries = FileEntry.parseEntries(response.body);
       for (FileEntry fileEntry in entries) {
         fileEntries.add(createListItem(fileEntry));
+      }
+      response = await fetchEditableFiles();
+      if (HttpUtils.isSuccess(response)) {
+        var jsonResponse = jsonDecode(response.body);
+        List<dynamic> fileExtensions = jsonResponse['fileExtensions'];
+        editableFiles = fileExtensions.map((e) => e.toString()).toList();
       }
       showProgress(false);
     }
@@ -194,6 +208,11 @@ class FilesController extends TabxController {
         context: context!,
         position: RelativeRect.fromLTRB(dx, dy, 0, 0),
         items: [
+          if (fileEntry.type == FileEntry.FILE && editableFiles.contains(fileEntry.name.split(".").last)) 
+            PopupMenuItem<PopupMenuItems>(
+                value: PopupMenuItems.edit, 
+                child: Text(S.current.edit)
+            ),
           PopupMenuItem<PopupMenuItems>(
             value: PopupMenuItems.download,
             child: Text(S.current.download)
@@ -217,6 +236,9 @@ class FilesController extends TabxController {
         fileHandler.rename();
       case PopupMenuItems.delete:
         fileHandler.delete();
+        break;
+      case PopupMenuItems.edit:
+        fileHandler.edit();
         break;
       default:
         break;

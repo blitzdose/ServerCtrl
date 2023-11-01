@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountAndName": m0,
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
         "add_server": MessageLookupByLibrary.simpleMessage("Add Server"),
+        "allYourChangesWillBeLost": MessageLookupByLibrary.simpleMessage(
+            "All your changes will be lost"),
         "allocated_memory":
             MessageLookupByLibrary.simpleMessage("Allocated memory"),
         "ban": MessageLookupByLibrary.simpleMessage("BAN"),
@@ -76,10 +78,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteFiles": MessageLookupByLibrary.simpleMessage("Delete files?"),
         "deop": MessageLookupByLibrary.simpleMessage("DE-OP"),
         "directory": MessageLookupByLibrary.simpleMessage("directory"),
+        "discard": MessageLookupByLibrary.simpleMessage("Discard"),
+        "discardChanges":
+            MessageLookupByLibrary.simpleMessage("Discard changes?"),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
         "downloadedFilenameSuccessfully": m4,
         "downloading": MessageLookupByLibrary.simpleMessage("Downloading"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "errorCreatingAccount":
             MessageLookupByLibrary.simpleMessage("Error creating account"),
         "errorCreatingFile":
@@ -112,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "file": MessageLookupByLibrary.simpleMessage("file"),
         "fileAndName": m7,
+        "fileSavedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("File saved successfully"),
         "files": MessageLookupByLibrary.simpleMessage("Files"),
         "filesUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "File(s) uploaded successfully."),
