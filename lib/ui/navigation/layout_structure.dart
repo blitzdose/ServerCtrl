@@ -16,7 +16,7 @@ class LayoutStructure extends StatefulWidget {
 class LayoutStructureState extends State<LayoutStructure> with SingleTickerProviderStateMixin {
   Widget screen = NavigationRoutes.routes.first.route!();
 
-  MNavigator? navigator;
+  static MNavigator? navigator;
 
   static ActionUtils controller = Get.put(ActionUtils());
 
@@ -40,10 +40,10 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     );
   }
 
-  void onItemTap(int index) {
+  void onItemTap(int index, bool pop) {
     setState(() {
       screen = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index).route!();
-      Navigator.pop(context);
+      if (pop) Navigator.pop(context);
     });
   }
 }

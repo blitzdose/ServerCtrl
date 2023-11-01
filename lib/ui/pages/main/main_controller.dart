@@ -6,11 +6,9 @@ import '../../../utilities/http/session.dart';
 
 class MainController extends GetxController with GetTickerProviderStateMixin {
 
-  final String baseURL;
+  String baseURL = "";
 
-  MainController(this.baseURL) {
-    init();
-  }
+  MainController();
 
   void init() async {
     http.Response response = await login();

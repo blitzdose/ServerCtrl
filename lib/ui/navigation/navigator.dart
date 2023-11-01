@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../generated/l10n.dart';
 import '../../values/colors.dart';
@@ -8,36 +9,37 @@ import 'nav_route.dart';
 class MNavigator {
   
   int screenIndex = 0;
-  final Function(int index) onItemTap;
+  final Function(int index, bool pop) onItemTap;
 
   MNavigator(this.onItemTap);
 
   Widget buildNavDrawer() {
-    var navDrawer = NavigationDrawer(
-      onDestinationSelected: _onItemTap,
-      selectedIndex: screenIndex,
-      //indicatorColor: MColors.red_selection,
-      indicatorShape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-              Radius.circular(50)
-          )
+    var navDrawer = Obx(() => NavigationDrawer(
+        onDestinationSelected: (value) => onItemTap_(value, true),
+        selectedIndex: screenIndex,
+        //indicatorColor: MColors.red_selection,
+        indicatorShape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+                Radius.circular(50)
+            )
+        ),
+        children: <Widget>[
+          buildHeader(),
+          ...NavigationRoutes.routes.asMap().entries.map((e) {
+            int index = e.key;
+            NavigationRoute navRoute = e.value;
+
+            if (navRoute.divider != null && navRoute.divider!) {
+              return buildDivider();
+            }
+
+            return NavigationDrawerDestination(
+                icon: Icon(navRoute.icon, /*color: _getIconColor(screenIndex, index)*/),
+                label: Text(navRoute.title!, /*style: _getDrawerTextColor(screenIndex, index)*/)
+            );
+          }),
+        ],
       ),
-      children: <Widget>[
-        buildHeader(),
-        ...NavigationRoutes.routes.asMap().entries.map((e) {
-          int index = e.key;
-          NavigationRoute navRoute = e.value;
-
-          if (navRoute.divider != null && navRoute.divider!) {
-            return buildDivider();
-          }
-
-          return NavigationDrawerDestination(
-              icon: Icon(navRoute.icon, /*color: _getIconColor(screenIndex, index)*/),
-              label: Text(navRoute.title!, /*style: _getDrawerTextColor(screenIndex, index)*/)
-          );
-        }),
-      ],
     );
 
     return NavigationDrawerTheme(data: const NavigationDrawerThemeData(
@@ -71,9 +73,9 @@ class MNavigator {
     );
   }
 
-  void _onItemTap(int index) {
+  void onItemTap_(int index, bool pop) {
     screenIndex = index;
-    onItemTap(index);
+    onItemTap(index, pop);
   }
 
   TextStyle? _getDrawerTextColor(int screenIndex, int actualIndex) {

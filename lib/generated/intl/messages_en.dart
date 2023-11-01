@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accountAndName": m0,
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
+        "addMinecraftServer":
+            MessageLookupByLibrary.simpleMessage("Add Minecraft server"),
         "add_server": MessageLookupByLibrary.simpleMessage("Add Server"),
         "allYourChangesWillBeLost": MessageLookupByLibrary.simpleMessage(
             "All your changes will be lost"),
@@ -131,8 +133,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "help": MessageLookupByLibrary.simpleMessage("Help"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
+        "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
+            "Please remember, that you have to install the ServerCtrl-Plugin first"),
+        "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP or Hostname"),
         "kick": MessageLookupByLibrary.simpleMessage("KICK"),
         "log": MessageLookupByLibrary.simpleMessage("Log"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("Memory Usage"),
         "multipleFiles": MessageLookupByLibrary.simpleMessage("Multiple files"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -147,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "op": MessageLookupByLibrary.simpleMessage("OP"),
         "openWith": MessageLookupByLibrary.simpleMessage("Open with"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "permissions": MessageLookupByLibrary.simpleMessage("Permissions"),

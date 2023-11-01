@@ -31,7 +31,7 @@ class Session {
   }
 
   static Future<http.Response> post(String url, dynamic data) async {
-    http.Response response = await http.post(Uri.parse(baseURL + url), body: data, headers: headers);
+    http.Response response = await http.post(Uri.parse(baseURL + url), body: data, headers: headers).timeout(const Duration(seconds: 5));
     updateCookie(response);
     return response;
   }

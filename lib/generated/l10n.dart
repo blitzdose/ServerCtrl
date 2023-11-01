@@ -1249,6 +1249,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Add Minecraft server`
+  String get addMinecraftServer {
+    return Intl.message(
+      'Add Minecraft server',
+      name: 'addMinecraftServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please remember, that you have to install the ServerCtrl-Plugin first`
+  String get infoInstallPlugin {
+    return Intl.message(
+      'Please remember, that you have to install the ServerCtrl-Plugin first',
+      name: 'infoInstallPlugin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `IP or Hostname`
+  String get ipOrHostname {
+    return Intl.message(
+      'IP or Hostname',
+      name: 'ipOrHostname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

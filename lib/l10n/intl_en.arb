@@ -184,5 +184,10 @@
   "discardChanges": "Discard changes?",
   "allYourChangesWillBeLost": "All your changes will be lost",
   "discard": "Discard",
-  "fileSavedSuccessfully": "File saved successfully"
+  "fileSavedSuccessfully": "File saved successfully",
+  "addMinecraftServer": "Add Minecraft server",
+  "infoInstallPlugin": "Please remember, that you have to install the ServerCtrl-Plugin first",
+  "ipOrHostname": "IP or Hostname",
+  "password": "Password",
+  "login": "Login"
 }

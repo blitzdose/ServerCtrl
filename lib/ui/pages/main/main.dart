@@ -14,7 +14,7 @@ import 'main_controller.dart';
 
 class Main extends StatelessWidget {
 
-  final controller = Get.put(MainController("http://192.168.2.108:5718")); //Test Value
+  final controller = Get.put(MainController()); //Test Value
 
   final homeTab = HomeTab();
   final consoleTab = ConsoleTab();
@@ -26,7 +26,7 @@ class Main extends StatelessWidget {
 
   late final List<TabxController> tabs;
 
-  Main({super.key}) {
+  Main(String baseUrl, {super.key}) {
     tabs = <TabxController>[
       homeTab.controller,
       consoleTab.controller,
@@ -36,6 +36,8 @@ class Main extends StatelessWidget {
       accountsTab.controller,
       settingsTab.controller
     ];
+    controller.baseURL = baseUrl;
+    controller.init();
   }
 
   @override
