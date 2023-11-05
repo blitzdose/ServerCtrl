@@ -8,8 +8,8 @@ import '../ui/navigation/nav_route.dart';
 
 class NavigationRoutes {
   static final routes = [
-    NavigationRoute(title: S.current.add_server, icon: Icons.add_rounded, route: () {return AddServer();}),
+    NavigationRoute(title: S.current.add_server, icon: Icons.add_rounded, route: () {return Future(() => AddServer());}),
     NavigationRoute(divider: true),
-    NavigationRoute(title: S.current.settings, icon: Icons.settings_rounded, route: () {return Main("http://192.168.2.108:5178");}),
+    NavigationRoute(title: S.current.settings, icon: Icons.settings_rounded, route: () {return MainLogin.mainLogin("http://192.168.2.108:5178");}),
   ].obs;
 }

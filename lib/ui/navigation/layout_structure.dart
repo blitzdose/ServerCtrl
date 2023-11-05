@@ -1,7 +1,12 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:minecraft_server_remote/ui/navigation/nav_route.dart';
+import 'package:minecraft_server_remote/ui/pages/main/main.dart';
 import 'package:minecraft_server_remote/utilities/appbar/action_utils.dart';
 import 'package:minecraft_server_remote/values/navigation_routes.dart';
 
+import '../../generated/l10n.dart';
+import '../../navigator_key.dart';
 import 'navigator.dart';
 import 'package:flutter/material.dart';
 
@@ -14,16 +19,23 @@ class LayoutStructure extends StatefulWidget {
 }
 
 class LayoutStructureState extends State<LayoutStructure> with SingleTickerProviderStateMixin {
-  Widget screen = NavigationRoutes.routes.first.route!();
+  Widget screen = Container();
 
   static MNavigator? navigator;
 
   static ActionUtils controller = Get.put(ActionUtils());
 
+  bool initDone = false;
+
+  LayoutStructureState() {
+    onItemTap(0, false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    navigator ??= MNavigator(onItemTap);
-    return Obx(() =>
+    navigator ??= MNavigator(onItemTap, onItemLongPress);
+
+    Widget widget = Obx(() =>
         Scaffold(
               appBar: controller.actions.isNotEmpty ? AppBar(
                 title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
@@ -38,12 +50,75 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
               body: screen
           ),
     );
+    initDone = true;
+    return widget;
   }
 
-  void onItemTap(int index, bool pop) {
+  void onItemTap(int index, bool pop) async {
+    if (screen is Main) {
+      Main screenMain = screen as Main;
+      try {
+        for (int i=0; i<screenMain.tabs.length; i++) {
+          screenMain.tabs[i].cancelTimer();
+        }
+      } on Exception catch(_) {}
+    }
+
+    final tempScreenFuture = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index).route!();
+    Widget tempScreen = Container();
+    if (initDone) {
+      showDialog(
+        context: navigatorKey.currentContext!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(S.current.loggingIn),
+            content: const LinearProgressIndicator(
+                  value: null,
+                ),
+          );
+        },
+      );
+      tempScreen = await tempScreenFuture;
+      Navigator.pop(context);
+    } else {
+      tempScreen = await tempScreenFuture;
+    }
+
     setState(() {
-      screen = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index).route!();
+      screen = tempScreen;
       if (pop) Navigator.pop(context);
     });
+  }
+
+  void onItemLongPress(int index) async {
+    NavigationRoute? route  = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index);
+    String? id = route.id;
+    if (id != null) {
+      await showDialog(
+        context: navigatorKey.currentContext!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Delete \"${route.title}\""),
+            content: const Text("The selected Entry will be permanently deleted from the app"),
+            actions: <Widget>[
+              TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.no)),
+              TextButton(onPressed: () async {
+                Navigator.pop(context, true);
+
+                const storage = FlutterSecureStorage();
+                String? servers = await storage.read(key: "servers");
+                List<String>? serverList = servers?.split("~*~*~");
+                if (serverList != null && serverList.contains(id)) {
+                  serverList.remove(id);
+                  await storage.write(key: "servers", value: serverList.join("~*~*~"));
+                }
+                NavigationRoutes.routes.removeWhere((element) => element.id == id);
+                LayoutStructureState.navigator?.onItemTap_(0, false);
+              }, child: Text(S.current.delete)),
+            ],
+          );
+        },
+      );
+    }
   }
 }

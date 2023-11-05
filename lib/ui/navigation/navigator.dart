@@ -1,21 +1,30 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
+import 'package:minecraft_server_remote/ui/navigation/navigation_drawer_impl.dart' as my_nav_drawer;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../generated/l10n.dart';
-import '../../values/colors.dart';
 import '../../values/navigation_routes.dart';
+import '../pages/main/main.dart';
 import 'nav_route.dart';
 
 class MNavigator {
   
   int screenIndex = 0;
   final Function(int index, bool pop) onItemTap;
+  final Function(int index) onItemLongPress;
 
-  MNavigator(this.onItemTap);
+  static bool initialSetup = true;
+
+  MNavigator(this.onItemTap, this.onItemLongPress);
 
   Widget buildNavDrawer() {
-    var navDrawer = Obx(() => NavigationDrawer(
+    initRoutes();
+    var navDrawer = Obx(() => my_nav_drawer.NavigationDrawer(
         onDestinationSelected: (value) => onItemTap_(value, true),
+        onLongPressedLocation: (value) => onItemLongPress_(value),
         selectedIndex: screenIndex,
         //indicatorColor: MColors.red_selection,
         indicatorShape: const RoundedRectangleBorder(
@@ -33,7 +42,7 @@ class MNavigator {
               return buildDivider();
             }
 
-            return NavigationDrawerDestination(
+            return my_nav_drawer.NavigationDrawerDestination(
                 icon: Icon(navRoute.icon, /*color: _getIconColor(screenIndex, index)*/),
                 label: Text(navRoute.title!, /*style: _getDrawerTextColor(screenIndex, index)*/)
             );
@@ -49,7 +58,7 @@ class MNavigator {
 
   Padding buildHeader() {
     return Padding(
-        padding: const EdgeInsets.fromLTRB(28, 44, 16, 24),
+        padding: const EdgeInsets.fromLTRB(28, 44, 16, 16),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
@@ -60,7 +69,13 @@ class MNavigator {
               Text(
                 S.current.version("1.0"),
                 style: const TextStyle(fontSize: 14),
-              )
+              ),
+              const Padding(padding: EdgeInsets.only(top: 8.0)),
+              Divider(),
+              Text(
+                "Long press entry to delete it",
+                style: const TextStyle(fontSize: 14),
+              ),
             ]
         ),
       );
@@ -78,18 +93,46 @@ class MNavigator {
     onItemTap(index, pop);
   }
 
-  TextStyle? _getDrawerTextColor(int screenIndex, int actualIndex) {
-    if (screenIndex == actualIndex) {
-      return const TextStyle(/*color: MColors.red*/);
-    }
-    return null;
+  void clickCurrentItem() {
+    onItemTap(screenIndex, false);
   }
 
-  Color? _getIconColor(int screenIndex, int actualIndex) {
-    if (screenIndex == actualIndex) {
-      return MColors.seed;
+  void onItemLongPress_(int index) {
+    onItemLongPress(index);
+  }
+
+  void initRoutes() async {
+    if (initialSetup) {
+      const storage = FlutterSecureStorage();
+      String? servers = await storage.read(key: "servers");
+      List<String>? serverList = servers?.split("~*~*~");
+      print(servers);
+      if (serverList == null || serverList.isEmpty) {
+        return;
+      }
+      for (String serverId in serverList) {
+        if (serverId.isEmpty) continue;
+        print(serverId);
+        String? creds = await storage.read(key: serverId);
+        if (creds != null) {
+          String name = creds.split("\n")[0];
+          if (NavigationRoutes.routes.where((element) => element.id == serverId).isEmpty) {
+            NavigationRoutes.routes.insert(
+                NavigationRoutes.routes.length-3,
+                NavigationRoute(
+                    id: serverId,
+                    title: name,
+                    icon: Icons.dns_rounded,
+                    route: () {return MainLogin.mainLogin(serverId);}
+                )
+            );
+          }
+        }
+      }
+
+      LayoutStructureState.navigator?.onItemTap_(0, false);
+      initialSetup = false;
     }
-    return null;
   }
   
 }

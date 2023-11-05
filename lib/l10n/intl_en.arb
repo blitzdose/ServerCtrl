@@ -189,5 +189,6 @@
   "infoInstallPlugin": "Please remember, that you have to install the ServerCtrl-Plugin first",
   "ipOrHostname": "IP or Hostname",
   "password": "Password",
-  "login": "Login"
+  "login": "Login",
+  "loggingIn": "Logging in"
 }

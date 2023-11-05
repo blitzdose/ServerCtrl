@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
@@ -78,7 +79,14 @@ class FilesController extends TabxController {
         fileEntries.add(createListItem(FileEntry("..", 0, 2, DateTime.now())));
       }
     }
-    var response = await fetchData();
+    http.Response? response;
+    try {
+      response = await fetchData();
+    } on Exception catch(_) {
+      showProgress(false);
+      canUpdate = true;
+      return;
+    }
     if (HttpUtils.isSuccess(response)) {
       List<FileEntry> entries = FileEntry.parseEntries(response.body);
       for (FileEntry fileEntry in entries) {
@@ -92,7 +100,10 @@ class FilesController extends TabxController {
       }
       showProgress(false);
     }
-    canUpdate = true;
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+      canUpdate = true;
+      timer.cancel();
+    });
   }
 
   Widget createListItem(FileEntry fileEntry) {
@@ -187,13 +198,18 @@ class FilesController extends TabxController {
 
   handleItemClick(FileEntry fileEntry, double x, double y) {
     if (fileEntry.type == FileEntry.DIRECTORY) {
-      path.add(fileEntry.name);
-      updateData(true);
-      setFab();
+      if (canUpdate) {
+        path.add(fileEntry.name);
+        updateData(true);
+        setFab();
+      }
+
     } else if (fileEntry.type == FileEntry.UP) {
-      path.removeLast();
-      updateData(true);
-      setFab();
+      if (canUpdate) {
+        path.removeLast();
+        updateData(true);
+        setFab();
+      }
     } else if (fileEntry.type == FileEntry.FILE) {
       showPopupMenu(fileEntry, x, y);
     }
@@ -275,7 +291,6 @@ class FilesController extends TabxController {
     } else {
       LayoutStructureState.controller.actions.add(IconButton(
           onPressed: () {
-            showProgress(true);
             updateData(true);
           },
           icon: const Icon(Icons.refresh_rounded)
@@ -384,6 +399,7 @@ class FilesController extends TabxController {
   }
   @override
   void cancelTimer() {
+    canUpdate = true;
     multiSelectState(false);
     allShownFileEntries.clear();
     fileEntries.clear();

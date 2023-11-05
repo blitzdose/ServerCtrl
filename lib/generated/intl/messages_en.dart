@@ -138,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP or Hostname"),
         "kick": MessageLookupByLibrary.simpleMessage("KICK"),
         "log": MessageLookupByLibrary.simpleMessage("Log"),
+        "loggingIn": MessageLookupByLibrary.simpleMessage("Logging in"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("Memory Usage"),
         "multipleFiles": MessageLookupByLibrary.simpleMessage("Multiple files"),

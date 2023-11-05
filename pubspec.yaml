@@ -58,6 +58,7 @@ dependencies:
   code_text_field: ^1.1.0
   flutter_highlight: ^0.7.0
   highlight: ^0.7.0
+  flutter_secure_storage: ^9.0.0
 
 dev_dependencies:
   flutter_test:
