@@ -11,6 +11,7 @@ class AddServer extends StatelessWidget {
 
   AddServer({super.key}) {
     LayoutStructureState.controller.fab(Container());
+    LayoutStructureState.controller.actions.clear();
   }
 
   @override

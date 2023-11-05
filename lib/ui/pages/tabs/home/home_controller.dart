@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../utilities/http/session.dart';
+import '../../../navigation/layout_structure.dart';
 import '../tab.dart';
 
 class HomeController extends TabxController {
@@ -21,6 +22,7 @@ class HomeController extends TabxController {
 
   HomeController() {
     updateData();
+    LayoutStructureState.controller.actions.clear();
   }
 
   @override
