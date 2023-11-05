@@ -80,7 +80,6 @@ class AddServerController extends GetxController {
                 route: () {return MainLogin.mainLogin(Session.baseURL);}
             )
         );
-        //TODO: MAKE PERSISTENT
         LayoutStructureState.navigator?.onItemTap_(0, false);
         Snackbar.createWithTitle("New server", "The new server got added successfully");
         servernameController.value.text = "";
@@ -93,8 +92,12 @@ class AddServerController extends GetxController {
       errorMessage("Cannot reach \"$ip\"");
     } on TimeoutException catch (_) {
       errorMessage("Cannot reach \"$ip\"");
-    } on HandshakeException catch (_) {
-      errorMessage("Cannot reach \"$ip\" over HTTPS");
+    } on HandshakeException catch (p) {
+      if (p.osError != null && p.osError!.message.contains("CERTIFICATE_VERIFY_FAILED")) {
+        errorMessage("Please accept the warning and login again");
+      } else {
+        errorMessage("Cannot reach \"$ip\" over HTTPS");
+      }
     } catch (e) {
       errorMessage("Something went wrong");
     }

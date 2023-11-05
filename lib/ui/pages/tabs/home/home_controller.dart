@@ -21,7 +21,6 @@ class HomeController extends TabxController {
 
   HomeController() {
     updateData();
-    continueTimer();
   }
 
   @override

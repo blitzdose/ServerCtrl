@@ -69,6 +69,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     if (initDone) {
       showDialog(
         context: navigatorKey.currentContext!,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(S.current.loggingIn),

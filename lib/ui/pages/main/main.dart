@@ -37,7 +37,7 @@ class Main extends StatelessWidget {
   final accountsTab = AccountsTab();
   final settingsTab = SettingsTab();
 
-  late final List<TabxController> tabs;
+  final List<TabxController> tabs = [];
 
   Main(bool success, {super.key}) {
     loginSuccess = success;
@@ -45,7 +45,8 @@ class Main extends StatelessWidget {
     if (!loginSuccess) {
       return;
     }
-    tabs = <TabxController>[
+    tabs.clear();
+    tabs.addAll(<TabxController>[
       homeTab.controller,
       consoleTab.controller,
       playersTab.controller,
@@ -53,7 +54,7 @@ class Main extends StatelessWidget {
       logTab.controller,
       accountsTab.controller,
       settingsTab.controller
-    ];
+    ]);
   }
 
   @override

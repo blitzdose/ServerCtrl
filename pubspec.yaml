@@ -59,6 +59,7 @@ dependencies:
   flutter_highlight: ^0.7.0
   highlight: ^0.7.0
   flutter_secure_storage: ^9.0.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
