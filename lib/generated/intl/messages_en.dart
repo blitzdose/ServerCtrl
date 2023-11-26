@@ -22,25 +22,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(name) => "Account ${name}";
 
-  static String m1(accountName) =>
+  static String m1(name) => "Coded by ${name}";
+
+  static String m2(accountName) =>
       "The account \"${accountName}\" will be permanently removed.";
 
-  static String m2(type) => "Delete ${type}?";
+  static String m3(type) => "Delete ${type}?";
 
-  static String m3(type, name) =>
+  static String m4(type, name) =>
       "The ${type} \"${name}\" will be permanently removed.";
 
-  static String m4(filename) => "Downloaded \"${filename}\" successfully.";
+  static String m5(filename) => "Downloaded \"${filename}\" successfully.";
 
-  static String m5(type) => "Error deleting ${type}";
+  static String m6(type) => "Error deleting ${type}";
 
-  static String m6(type) => "Error renaming ${type}";
+  static String m7(type) => "Error renaming ${type}";
 
-  static String m7(name) => "File \"${name}\"";
+  static String m8(name) => "File \"${name}\"";
 
-  static String m8(type) => "Rename ${type}";
+  static String m9(type) => "Rename ${type}";
 
-  static String m9(version) => "Version: ${version}";
+  static String m10(version) => "Version: ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -62,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "certificateUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Certificate uploaded successfully"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "codedBy": m1,
         "command": MessageLookupByLibrary.simpleMessage("Command"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU cores"),
@@ -74,9 +77,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount":
             MessageLookupByLibrary.simpleMessage("Delete account?"),
-        "deleteAccountMessage": m1,
-        "deleteFile": m2,
-        "deleteFileMessage": m3,
+        "deleteAccountMessage": m2,
+        "deleteFile": m3,
+        "deleteFileMessage": m4,
         "deleteFiles": MessageLookupByLibrary.simpleMessage("Delete files?"),
         "deop": MessageLookupByLibrary.simpleMessage("DE-OP"),
         "directory": MessageLookupByLibrary.simpleMessage("directory"),
@@ -85,7 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Discard changes?"),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
-        "downloadedFilenameSuccessfully": m4,
+        "downloadedFilenameSuccessfully": m5,
         "downloading": MessageLookupByLibrary.simpleMessage("Downloading"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "errorCreatingAccount":
@@ -96,10 +99,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error creating folder"),
         "errorDeletingAccount":
             MessageLookupByLibrary.simpleMessage("Error deleting account"),
-        "errorDeletingFile": m5,
+        "errorDeletingFile": m6,
         "errorDeletingFiles":
             MessageLookupByLibrary.simpleMessage("Error deleting files"),
-        "errorRenamingType": m6,
+        "errorRenamingType": m7,
         "errorResettingPassword":
             MessageLookupByLibrary.simpleMessage("Error resetting Password"),
         "errorSavingPermissions":
@@ -119,7 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "error_sending_command":
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "file": MessageLookupByLibrary.simpleMessage("file"),
-        "fileAndName": m7,
+        "fileAndName": m8,
         "fileSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("File saved successfully"),
         "files": MessageLookupByLibrary.simpleMessage("Files"),
@@ -166,7 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Plugin and Webserver Port"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
         "rename": MessageLookupByLibrary.simpleMessage("Rename"),
-        "renameType": m8,
+        "renameType": m9,
         "repeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Repeat new password"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
@@ -205,6 +208,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullySavedPermissions": MessageLookupByLibrary.simpleMessage(
             "Successfully saved permissions"),
         "test": MessageLookupByLibrary.simpleMessage("test"),
+        "thanks": MessageLookupByLibrary.simpleMessage(
+            "Thanks to all nice people for supporting me"),
         "theSelectedFilesWillBePermanentlyDeleted":
             MessageLookupByLibrary.simpleMessage(
                 "The selected files will be permanently deleted"),
@@ -219,6 +224,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "usable_memory": MessageLookupByLibrary.simpleMessage("Usable memory"),
         "used_memory": MessageLookupByLibrary.simpleMessage("Used memory"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
-        "version": m9
+        "version": m10
       };
 }

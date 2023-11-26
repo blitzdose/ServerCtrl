@@ -190,5 +190,14 @@
   "ipOrHostname": "IP or Hostname",
   "password": "Password",
   "login": "Login",
-  "loggingIn": "Logging in"
+  "loggingIn": "Logging in",
+  "codedBy": "Coded by {name}",
+  "@codedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "thanks": "Thanks to all nice people for supporting me"
 }

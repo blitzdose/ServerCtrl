@@ -1309,6 +1309,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Coded by {name}`
+  String codedBy(String name) {
+    return Intl.message(
+      'Coded by $name',
+      name: 'codedBy',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Thanks to all nice people for supporting me`
+  String get thanks {
+    return Intl.message(
+      'Thanks to all nice people for supporting me',
+      name: 'thanks',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

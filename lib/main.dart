@@ -8,6 +8,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:minecraft_server_remote/navigator_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'generated/l10n.dart';
+import 'main_controller.dart';
 import 'ui/navigation/layout_structure.dart';
 import 'values/colors.dart';
 import 'package:get/get.dart';
@@ -66,30 +67,43 @@ class MyHttpOverrides extends HttpOverrides{
 Future<void> main() async {
   debugPaintSizeEnabled = false;
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const MyApp());
+  runApp(MyApp());
   prefs = await SharedPreferences.getInstance();
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+  final controller = Get.put(MyAppController());
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
+    controller.loadUsesDynamicColor();
+    controller.loadUsesMaterial3();
+    controller.loadThemeMode();
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-      return GetMaterialApp(
-        title: 'ServerCtrl',
-        theme: buildTheme(brightness: Brightness.light, dynamicScheme: lightDynamic),
-        darkTheme: buildTheme(brightness: Brightness.dark, dynamicScheme: darkDynamic),
-        home: const LayoutStructure(),
-        navigatorKey: navigatorKey,
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
+      return Obx(() => GetMaterialApp(
+          title: 'ServerCtrl',
+          theme: buildTheme(
+              brightness: Brightness.light,
+              dynamicScheme: MyAppController.usesDynamicColor.isTrue ? lightDynamic : null,
+              material3: MyAppController.usesMaterial3.value),
+          darkTheme: buildTheme(
+              brightness: Brightness.dark,
+              dynamicScheme: MyAppController.usesDynamicColor.isTrue ? darkDynamic: null,
+              material3: MyAppController.usesMaterial3.value),
+          themeMode: MyAppController.themeMode.value,
+          home: const LayoutStructure(),
+          navigatorKey: navigatorKey,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+        ),
       );
     });
   }
@@ -97,6 +111,7 @@ class MyApp extends StatelessWidget {
   ThemeData buildTheme({
     required Brightness brightness,
     ColorScheme? dynamicScheme,
+    required bool material3,
   }) {
     final classicScheme = ColorScheme.fromSeed(
       seedColor: MColors.seed,
@@ -105,7 +120,7 @@ class MyApp extends StatelessWidget {
     late ColorScheme colorScheme = dynamicScheme ?? classicScheme;
     return ThemeData.from(
       colorScheme: colorScheme.harmonized(),
-      useMaterial3: true,
+      useMaterial3: material3,
     ).copyWith(
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       appBarTheme: const AppBarTheme(

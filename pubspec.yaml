@@ -46,7 +46,7 @@ dependencies:
   flutter_native_splash: ^2.3.3
   settings_ui: ^2.0.2
   file_picker: ^6.0.0
-  url_launcher: ^6.1.14
+  url_launcher: ^6.2.1
   back_button_interceptor: ^7.0.0
   flutter_file_dialog: ^3.0.2
   permission_handler: ^11.0.1
@@ -60,6 +60,8 @@ dependencies:
   highlight: ^0.7.0
   flutter_secure_storage: ^9.0.0
   shared_preferences: ^2.2.2
+  font_awesome_flutter: ^10.6.0
+  package_info_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:
@@ -84,9 +86,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
