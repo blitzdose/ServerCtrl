@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
 
 import '../../navigation/layout_structure.dart';
 
@@ -10,10 +11,14 @@ abstract class TabxController extends GetxController {
 
   Timer? timer;
   final showProgress = true.obs;
+  Permissions? userPermissions;
 
   void updateData();
   Future<http.Response> fetchData();
 
+  void setUserPermissions(Permissions permissions) {
+    userPermissions = permissions;
+  }
   void setAction() {
     LayoutStructureState.controller.actions.clear();
   }

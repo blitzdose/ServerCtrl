@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
+import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
 
 import '../../../generated/l10n.dart';
 import '../tabs/tab.dart';
@@ -18,8 +19,10 @@ class MainLogin {
   static Future<Main> mainLogin(String baseUrl) async {
     final controller = Get.put(MainController());
     controller.baseURL = baseUrl;
-    bool success = await controller.init();
-    return Main(success);
+    MainControllerObject object = await controller.init();
+    bool success = object.success;
+    Permissions permissions = object.permissions;
+    return Main(success, permissions);
   }
 }
 
@@ -39,7 +42,9 @@ class Main extends StatelessWidget {
 
   final List<TabxController> tabs = [];
 
-  Main(bool success, {super.key}) {
+  final Permissions permissions;
+
+  Main(bool success, this.permissions, {super.key}) {
     loginSuccess = success;
     LayoutStructureState.controller.fab(Container());
     if (!loginSuccess) {
@@ -48,19 +53,19 @@ class Main extends StatelessWidget {
     tabs.clear();
     tabs.addAll(<TabxController>[
       homeTab.controller,
-      consoleTab.controller,
-      playersTab.controller,
-      filesTab.controller,
-      logTab.controller,
-      accountsTab.controller,
-      settingsTab.controller
+      if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) consoleTab.controller,
+      if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) playersTab.controller,
+      if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) filesTab.controller,
+      if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) logTab.controller,
+      if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) accountsTab.controller,
+      if (permissions.hasPermissionsFor(Permissions.TAB_SETTINGS)) settingsTab.controller
     ]);
   }
 
   @override
   Widget build(BuildContext context) {
     if (loginSuccess) {
-      TabController tabController = TabController(length: 7, vsync: controller);
+      TabController tabController = TabController(length: permissions.getTabCount(), vsync: controller);
       tabController.addListener(() {
         if (tabController.indexIsChanging) {
           onTabChanged(tabController.index);
@@ -71,38 +76,39 @@ class Main extends StatelessWidget {
       return SizedBox(
         height: MediaQuery.of(context).size.height,
         child: DefaultTabController(
-          length: 7,
+          length: permissions.getTabCount(),
           child: Column(
             children: <Widget>[
               TabBar(
                 controller: tabController,
                 isScrollable: true,
+                tabAlignment: TabAlignment.center,
                 tabs: <Widget>[
                   Tab(
                     icon: const Icon(Icons.home_rounded),
                     text: S.current.home,
                   ),
-                  Tab(
+                  if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) Tab(
                     icon: const Icon(Icons.code_rounded),
                     text: S.current.console,
                   ),
-                  Tab(
+                  if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) Tab(
                     icon: const Icon(Icons.group_rounded),
                     text: S.current.players,
                   ),
-                  Tab(
+                  if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) Tab(
                     icon: const Icon(Icons.folder_rounded),
                     text: S.current.files,
                   ),
-                  Tab(
+                  if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) Tab(
                     icon: const Icon(Icons.notes_rounded),
                     text: S.current.log,
                   ),
-                  Tab(
+                  if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) Tab(
                     icon: const Icon(Icons.manage_accounts_rounded),
                     text: S.current.accounts,
                   ),
-                  Tab(
+                  if (permissions.hasPermissionsFor(Permissions.TAB_SETTINGS)) Tab(
                     icon: const Icon(Icons.settings_rounded),
                     text: S.current.settings,
                   ),
@@ -113,12 +119,12 @@ class Main extends StatelessWidget {
                   controller: tabController,
                   children: [
                     homeTab,
-                    consoleTab,
-                    playersTab,
-                    filesTab,
-                    logTab,
-                    accountsTab,
-                    settingsTab
+                    if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) consoleTab,
+                    if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) playersTab,
+                    if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) filesTab,
+                    if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) logTab,
+                    if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) accountsTab,
+                    if (permissions.hasPermissionsFor(Permissions.TAB_SETTINGS)) settingsTab
                   ],
                 ),
               ),
@@ -147,6 +153,7 @@ class Main extends StatelessWidget {
 
   void onTabChanged(int index) {
     tabs[index].setAction();
+    tabs[index].setUserPermissions(permissions);
     tabs[index].setLeading();
     tabs[index].setFab();
     tabs[index].continueTimer();

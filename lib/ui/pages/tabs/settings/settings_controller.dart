@@ -8,6 +8,7 @@ import 'package:minecraft_server_remote/ui/pages/tabs/settings/models/server_set
 import 'package:minecraft_server_remote/ui/pages/tabs/tab.dart';
 import 'package:minecraft_server_remote/utilities/http/http_utils.dart';
 import 'package:minecraft_server_remote/utilities/http/session.dart';
+import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
 import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
 import '../../../../generated/l10n.dart';
 import '../../../navigation/layout_structure.dart';
@@ -40,12 +41,18 @@ class SettingsController extends TabxController {
   Future<void> updateData() async {
     showProgress(true);
     dataChanged(false);
-    var responseServer = await fetchData();
-    var responsePlugin = await fetchDataPlugin();
+    if (userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) {
+      var responsePlugin = await fetchDataPlugin();
+      if (HttpUtils.isSuccess(responsePlugin)) {
+        parseResponsePlugin(responsePlugin.body);
+      }
+    }
 
-    if (HttpUtils.isSuccess(responseServer) && HttpUtils.isSuccess(responsePlugin)) {
-      parseResponsePlugin(responsePlugin.body);
-      parseResponseServer(responseServer.body);
+    if (userPermissions!.hasPermission(Permissions.PERMISSION_SERVERSETTINGS)) {
+      var responseServer = await fetchData();
+      if (HttpUtils.isSuccess(responseServer)) {
+        parseResponseServer(responseServer.body);
+      }
     }
     doneLoading(true);
     showProgress(false);
@@ -73,17 +80,23 @@ class SettingsController extends TabxController {
 
   void uploadData() async {
     showProgress(true);
-    var pluginSettingsMap = <String, dynamic>{};
-    pluginSettingsMap['https'] = useHttps.value.toString();
-    pluginSettingsMap['port'] = port.value.toString();
-    var responsePlugin = await Session.post("/api/plugin/settings", pluginSettingsMap);
-
-    Map<String, String> serverSettingsMap = <String, String>{};
-    for (ServerSetting serverSetting in serverSettings) {
-      serverSettingsMap[serverSetting.name] = serverSetting.value.toString();
+    http.Response? responsePlugin = http.Response("{\"success\": true}", 200);
+    http.Response? responseServer = http.Response("{\"success\": true}", 200);
+    if (userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) {
+      var pluginSettingsMap = <String, dynamic>{};
+      pluginSettingsMap['https'] = useHttps.value.toString();
+      pluginSettingsMap['port'] = port.value.toString();
+      responsePlugin = await Session.post("/api/plugin/settings", pluginSettingsMap);
     }
-    String serverSettingsJson = jsonEncode(serverSettingsMap);
-    var responseServer = await Session.post("/api/server/settings", serverSettingsJson);
+    if (userPermissions!.hasPermission(Permissions.PERMISSION_SERVERSETTINGS)) {
+      Map<String, String> serverSettingsMap = <String, String>{};
+      for (ServerSetting serverSetting in serverSettings) {
+        serverSettingsMap[serverSetting.name] = serverSetting.value.toString();
+      }
+      String serverSettingsJson = jsonEncode(serverSettingsMap);
+      responseServer = await Session.post("/api/server/settings", serverSettingsJson);
+    }
+
     if (!HttpUtils.isSuccess(responsePlugin) || !HttpUtils.isSuccess(responseServer)) {
       Snackbar.createWithTitle(S.current.settings, S.current.errorWhileSavingChanges, true);
     } else {

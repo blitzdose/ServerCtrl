@@ -106,13 +106,11 @@ class MNavigator {
       const storage = FlutterSecureStorage();
       String? servers = await storage.read(key: "servers");
       List<String>? serverList = servers?.split("~*~*~");
-      print(servers);
       if (serverList == null || serverList.isEmpty) {
         return;
       }
       for (String serverId in serverList) {
         if (serverId.isEmpty) continue;
-        print(serverId);
         String? creds = await storage.read(key: serverId);
         if (creds != null) {
           String name = creds.split("\n")[0];

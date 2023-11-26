@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/utilities/http/http_utils.dart';
 import 'package:minecraft_server_remote/utilities/http/session.dart';
+import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/api/api_utilities.dart';
@@ -77,15 +78,15 @@ class PlayersController extends TabxController {
             ),
             Row(
               children: <Widget>[
-                TextButton(
+                if (userPermissions!.hasPermission(Permissions.PERMISSION_KICK)) TextButton(
                     onPressed: () => sendCommand("kick", player),
                     child: Text(S.current.kick)
                 ),
-                TextButton(
+                if (userPermissions!.hasPermission(Permissions.PERMISSION_BAN)) TextButton(
                     onPressed: () => sendCommand("ban", player),
                     child: Text(S.current.ban)
                 ),
-                TextButton(
+                if (userPermissions!.hasPermission(Permissions.PERMISSION_OP)) TextButton(
                     onPressed: () => sendCommand(player.isOp ? "deop" : "op", player),
                     child: Text(player.isOp ? S.current.deop : S.current.op)
                 ),

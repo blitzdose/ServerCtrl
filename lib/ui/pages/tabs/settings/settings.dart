@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:minecraft_server_remote/ui/components/settings.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/settings/click_handler.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/settings/models/server_setting.dart';
+import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../../generated/l10n.dart';
@@ -24,7 +25,7 @@ class SettingsTab extends StatelessWidget {
             lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
             darkTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
             sections: [
-              SettingsSection(
+              if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsSection(
                 title: SettingsSectionTitle(S.current.plugin),
                 tiles: <SettingsTile>[
                   SettingsTile.switchTile(
@@ -50,7 +51,7 @@ class SettingsTab extends StatelessWidget {
                   ),
                 ],
               ),
-              SettingsSection(
+              if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_SERVERSETTINGS)) SettingsSection(
                 title: SettingsSectionTitle(S.current.server),
                 tiles: createTiles(clickHandler)
               )
