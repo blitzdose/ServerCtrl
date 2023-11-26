@@ -51,6 +51,9 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
       Snackbar.createWithTitle(baseURL, "Cannot find credentials to this server, please add it again");
       success = false;
     }
+    if (!success) {
+      return MainControllerObject(success, Permissions([]));
+    }
 
     var response = await getPermissions();
     var data = jsonDecode(response.body);
