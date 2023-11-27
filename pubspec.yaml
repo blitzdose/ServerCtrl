@@ -63,6 +63,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   package_info_plus: ^5.0.1
   flutter_localized_locales: ^2.0.5
+  flutter_material_color_picker: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
+import 'values/colors.dart';
+
 class MyAppController extends GetxController {
 
   static var usesDynamicColor = true.obs;
   static var usesMaterial3 = true.obs;
   static var themeMode = ThemeMode.system.obs;
-
   static var locale = (Get.deviceLocale != null) ? Get.deviceLocale!.obs : Locale("en").obs;
+  static var mainColor = MColors.seed.obs;
 
   static updateUsesDynamicColor(bool newValue) async {
     usesDynamicColor(newValue);
@@ -81,5 +83,19 @@ class MyAppController extends GetxController {
     }
   }
 
+  static void updateMainColor(Color color) async {
+    MyAppController.mainColor(color);
+    const storage = FlutterSecureStorage();
+    await storage.write(key: "mainColor", value: color.value.toString());
+  }
+
+  void loadMainColor() async {
+    const storage = FlutterSecureStorage();
+    String? valueString = await storage.read(key: "mainColor");
+    if (valueString != null) {
+      int value = int.parse(valueString);
+      mainColor(Color(value));
+    }
+  }
 
 }

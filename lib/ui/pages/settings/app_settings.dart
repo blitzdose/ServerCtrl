@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/main_controller.dart';
@@ -61,11 +62,21 @@ class AppSettings extends StatelessWidget {
               ),
               SettingsTile.switchTile(
                 title: const SettingsTileTitle("Dynamic color"),
-                leading: const Icon(Icons.palette_rounded),
+                leading: const Icon(Icons.wallpaper_rounded),
                 initialValue: MyAppController.usesDynamicColor.value,
                 onToggle: (bool value) {
                   MyAppController.updateUsesDynamicColor(value);
                 },
+              ),
+              SettingsTile.navigation(
+                enabled: !MyAppController.usesDynamicColor.value,
+                title: const SettingsTileTitle("Theme color"),
+                leading: const Icon(Icons.palette_rounded),
+                onPressed: (context) => controller.color(context),
+                trailing: CircleColor(
+                  color: (MyAppController.usesDynamicColor.isTrue) ? MyAppController.mainColor.value.withOpacity(0.3) : MyAppController.mainColor.value,
+                  circleSize: 36,
+                ),
               ),
             ],
           ),

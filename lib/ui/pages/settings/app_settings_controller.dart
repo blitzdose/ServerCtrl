@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/main_controller.dart';
 import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
@@ -8,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../navigator_key.dart';
+import '../../../values/colors.dart';
 
 class AppSettingsController extends GetxController {
 
@@ -18,7 +20,7 @@ class AppSettingsController extends GetxController {
   void language(context) async {
     var locales = S.delegate.supportedLocales.obs;
     var selectedLocale = MyAppController.locale.value.obs;
-    await showDialog<ThemeMode>(
+    await showDialog<Locale>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -121,6 +123,47 @@ class AppSettingsController extends GetxController {
             ],
           );
         }
+    );
+  }
+
+  void color(BuildContext context) {
+    var selectedColor = MyAppController.mainColor.value.obs;
+    Color initialColor = MyAppController.mainColor.value;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Theme color"),
+          content: Obx(() => MaterialColorPicker(
+              selectedColor: selectedColor.value,
+              onColorChange: (value) {
+                selectedColor(value);
+                MyAppController.updateMainColor(selectedColor.value);
+              },
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(onPressed: () {
+                  selectedColor(MColors.seed);
+                  MyAppController.updateMainColor(selectedColor.value);
+                }, child: Text("Default")),
+                Spacer(),
+                TextButton(onPressed: () {
+                  MyAppController.updateMainColor(initialColor);
+                  Navigator.pop(context, true);
+                }, child: Text(S.current.cancel)),
+                TextButton(onPressed: () {
+                  MyAppController.updateMainColor(selectedColor.value);
+                  Navigator.pop(context, true);
+                }, child: Text(S.current.save)),
+              ],
+            )
+          ],
+        );
+      },
     );
   }
 

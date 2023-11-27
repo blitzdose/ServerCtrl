@@ -11,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'generated/l10n.dart';
 import 'main_controller.dart';
 import 'ui/navigation/layout_structure.dart';
-import 'values/colors.dart';
 import 'package:get/get.dart';
 
 import 'dart:io';
@@ -85,6 +84,7 @@ class MyApp extends StatelessWidget {
     controller.loadUsesDynamicColor();
     controller.loadUsesMaterial3();
     controller.loadThemeMode();
+    controller.loadMainColor();
     print("he" + MyAppController.locale.value.toString());
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       return Obx(() => GetMaterialApp(
@@ -92,11 +92,13 @@ class MyApp extends StatelessWidget {
         theme: buildTheme(
             brightness: Brightness.light,
             dynamicScheme: MyAppController.usesDynamicColor.isTrue ? lightDynamic : null,
-            material3: MyAppController.usesMaterial3.value),
+            material3: MyAppController.usesMaterial3.value,
+            seedColor: MyAppController.mainColor.value),
         darkTheme: buildTheme(
             brightness: Brightness.dark,
             dynamicScheme: MyAppController.usesDynamicColor.isTrue ? darkDynamic: null,
-            material3: MyAppController.usesMaterial3.value),
+            material3: MyAppController.usesMaterial3.value,
+            seedColor: MyAppController.mainColor.value),
         themeMode: MyAppController.themeMode.value,
         locale: MyAppController.locale.value,
         home: const LayoutStructure(),
@@ -117,9 +119,10 @@ class MyApp extends StatelessWidget {
     required Brightness brightness,
     ColorScheme? dynamicScheme,
     required bool material3,
+    required Color seedColor,
   }) {
     final classicScheme = ColorScheme.fromSeed(
-      seedColor: MColors.seed,
+      seedColor: seedColor,
       brightness: brightness,
     );
     late ColorScheme colorScheme = dynamicScheme ?? classicScheme;
