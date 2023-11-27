@@ -8,6 +8,8 @@ class MyAppController extends GetxController {
   static var usesMaterial3 = true.obs;
   static var themeMode = ThemeMode.system.obs;
 
+  static var locale = (Get.deviceLocale != null) ? Get.deviceLocale!.obs : Locale("en").obs;
+
   static updateUsesDynamicColor(bool newValue) async {
     usesDynamicColor(newValue);
     const storage = FlutterSecureStorage();
@@ -59,6 +61,23 @@ class MyAppController extends GetxController {
           themeMode(ThemeMode.dark);
           break;
       }
+    }
+  }
+
+  static void updateLanguage(Locale selectedLocale) async {
+    locale(selectedLocale);
+    locale.refresh();
+    const storage = FlutterSecureStorage();
+    await storage.write(key: "locale", value: selectedLocale.languageCode);
+  }
+
+  void loadLocale() async {
+    const storage = FlutterSecureStorage();
+    String? valueString = await storage.read(key: "locale");
+    if (valueString != null) {
+      Locale savedLocale = Locale(valueString);
+      locale(savedLocale);
+      Get.updateLocale(savedLocale);
     }
   }
 

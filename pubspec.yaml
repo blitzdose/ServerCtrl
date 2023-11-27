@@ -62,6 +62,7 @@ dependencies:
   shared_preferences: ^2.2.2
   font_awesome_flutter: ^10.6.0
   package_info_plus: ^5.0.1
+  flutter_localized_locales: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -86,8 +87,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/
+  #assets:
+  #  - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

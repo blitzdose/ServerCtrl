@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/main_controller.dart';
+import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,7 +16,8 @@ class AppSettingsController extends GetxController {
   }
 
   void language(context) async {
-    var selected = "English".obs;
+    var locales = S.delegate.supportedLocales.obs;
+    var selectedLocale = MyAppController.locale.value.obs;
     await showDialog<ThemeMode>(
         context: context,
         builder: (BuildContext context) {
@@ -25,28 +28,18 @@ class AppSettingsController extends GetxController {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const SizedBox(height: 16),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                  title: const Text('English'),
-                  value: "English",
-                  groupValue: selected.value,
-                  onChanged: (String? value) {
-                    if (value != null) {
-                      selected(value);
-                    }
-                  },
-                ),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                  title: const Text('German'),
-                  value: "German",
-                  groupValue: selected.value,
-                  onChanged: (String? value) {
-                    if (value != null) {
-                      selected(value);
-                    }
-                  },
-                ),
+                for(Locale locale in locales)
+                  RadioListTile<Locale>(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                    title: Text(LocaleNames.of(context)!.nameOf(locale.languageCode)!),
+                    value: locale,
+                    groupValue: selectedLocale.value,
+                    onChanged: (Locale? value) {
+                      if (value != null) {
+                        selectedLocale(value);
+                      }
+                    },
+                  ),
                 const SizedBox(height: 24),
               ],
             ),
@@ -56,8 +49,10 @@ class AppSettingsController extends GetxController {
                 Navigator.pop(context);
               }, child: Text(S.current.cancel)),
               TextButton(onPressed: () {
-                //TODO: UPDATE LANGUAGE
+                MyAppController.updateLanguage(selectedLocale.value);
+                Get.updateLocale(selectedLocale.value);
                 Navigator.pop(context);
+                Snackbar.createWithTitle(S.current.server_ctrl, "Please restart the App to fully apply the new language");
               }, child: Text(S.current.save)),
             ],
           );

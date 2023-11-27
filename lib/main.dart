@@ -4,6 +4,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:minecraft_server_remote/navigator_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,7 +75,9 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
 
   final controller = Get.put(MyAppController());
-  MyApp({super.key});
+  MyApp({super.key}) {
+    controller.loadLocale();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,29 +85,31 @@ class MyApp extends StatelessWidget {
     controller.loadUsesDynamicColor();
     controller.loadUsesMaterial3();
     controller.loadThemeMode();
+    print("he" + MyAppController.locale.value.toString());
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       return Obx(() => GetMaterialApp(
-          title: 'ServerCtrl',
-          theme: buildTheme(
-              brightness: Brightness.light,
-              dynamicScheme: MyAppController.usesDynamicColor.isTrue ? lightDynamic : null,
-              material3: MyAppController.usesMaterial3.value),
-          darkTheme: buildTheme(
-              brightness: Brightness.dark,
-              dynamicScheme: MyAppController.usesDynamicColor.isTrue ? darkDynamic: null,
-              material3: MyAppController.usesMaterial3.value),
-          themeMode: MyAppController.themeMode.value,
-          home: const LayoutStructure(),
-          navigatorKey: navigatorKey,
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-        ),
-      );
+        title: 'ServerCtrl',
+        theme: buildTheme(
+            brightness: Brightness.light,
+            dynamicScheme: MyAppController.usesDynamicColor.isTrue ? lightDynamic : null,
+            material3: MyAppController.usesMaterial3.value),
+        darkTheme: buildTheme(
+            brightness: Brightness.dark,
+            dynamicScheme: MyAppController.usesDynamicColor.isTrue ? darkDynamic: null,
+            material3: MyAppController.usesMaterial3.value),
+        themeMode: MyAppController.themeMode.value,
+        locale: MyAppController.locale.value,
+        home: const LayoutStructure(),
+        navigatorKey: navigatorKey,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          LocaleNamesLocalizationsDelegate(),
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+      ));
     });
   }
 

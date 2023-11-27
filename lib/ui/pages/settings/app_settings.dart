@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/main_controller.dart';
@@ -40,7 +41,7 @@ class AppSettings extends StatelessWidget {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 title: const SettingsTileTitle("Language"),
-                description: Text("English"), //TODO: GET APP LANGUAGE
+                description: Text(LocaleNames.of(context)!.nameOf(MyAppController.locale.value.languageCode)!),
                 leading: const Icon(Icons.translate_rounded),
                 onPressed: (context) => controller.language(context),
               ),
@@ -98,7 +99,7 @@ class AppSettings extends StatelessWidget {
             ],
           ),
           SettingsSection(
-            title: SettingsSectionTitle("About"),
+            title: const SettingsSectionTitle("About"),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 title: const SettingsTileTitle("Licenses"),
