@@ -1,6 +1,6 @@
 {
     "@@locale": "de",
-    "@@last_modified": "2023-11-28T20:54:21+00:00",
+    "@@last_modified": "2023-11-28T21:43:03+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -202,5 +202,6 @@
     "@accountAndName": {
         "description": "Example: Account Admin"
     },
-    "generate": "Generieren"
+    "generate": "Generieren",
+    "nothingSelected": "Nichts ausgewählt"
 }

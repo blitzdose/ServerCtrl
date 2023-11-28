@@ -250,5 +250,6 @@
   "licenses": "Licenses",
   "dataPrivacy": "Data privacy",
   "aboutServerctrl": "About ServerCtrl",
-  "generate": "Generate"
+  "generate": "Generate",
+  "nothingSelected": "Nothing selected"
 }

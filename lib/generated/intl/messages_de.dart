@@ -202,6 +202,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Keine Datei ausgewählt"),
         "noPlayersOnline":
             MessageLookupByLibrary.simpleMessage("Keine Spieler online"),
+        "nothingSelected":
+            MessageLookupByLibrary.simpleMessage("Nichts ausgewählt"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "op": MessageLookupByLibrary.simpleMessage("OP"),
         "openWith": MessageLookupByLibrary.simpleMessage("Öffnen mit"),

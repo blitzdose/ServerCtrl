@@ -1769,6 +1769,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Nothing selected`
+  String get nothingSelected {
+    return Intl.message(
+      'Nothing selected',
+      name: 'nothingSelected',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

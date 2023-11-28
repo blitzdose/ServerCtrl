@@ -13,6 +13,7 @@ import 'package:minecraft_server_remote/ui/pages/tabs/files/file_handler.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/files/multi_file_handler.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/tab.dart';
 import 'package:minecraft_server_remote/utilities/http/session.dart';
+import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/http_utils.dart';
@@ -42,6 +43,7 @@ class FilesController extends TabxController {
   FilesController();
 
   void disableMultiSelectMode() {
+    canUpdate = true;
     multiSelectState(false);
     allShownFileEntries.clear();
     setAction();
@@ -72,9 +74,9 @@ class FilesController extends TabxController {
     canUpdate = false;
     showProgress(true);
     multiSelectState(false);
-    allShownFileEntries.clear();
     if (reset) {
       fileEntries.clear();
+      allShownFileEntries.clear();
       if (path.isNotEmpty) {
         fileEntries.add(createListItem(FileEntry("..", 0, 2, DateTime.now())));
       }
@@ -139,6 +141,7 @@ class FilesController extends TabxController {
         },
         onLongPress: () {
           multiSelectState(true);
+          canUpdate = false;
           checked(true);
           setAction();
           setLeading();
@@ -267,7 +270,12 @@ class FilesController extends TabxController {
     if (multiSelectState.value) {
       LayoutStructureState.controller.actions.add(IconButton(
           onPressed: () async {
-            MultiFileHandler multiFileHandler = MultiFileHandler(this, "/${path.join("/")}", getSelectedFiles());
+            List<FileEntry> files = getSelectedFiles();
+            if (files.isEmpty) {
+              Snackbar.createWithTitle(S.current.files, S.current.nothingSelected, true);
+              return;
+            }
+            MultiFileHandler multiFileHandler = MultiFileHandler(this, "/${path.join("/")}", files);
             await multiFileHandler.download();
             disableMultiSelectMode();
           },
@@ -275,7 +283,12 @@ class FilesController extends TabxController {
       ));
       LayoutStructureState.controller.actions.add(IconButton(
           onPressed: () async {
-            MultiFileHandler multiFileHandler = MultiFileHandler(this, "/${path.join("/")}", getSelectedFiles());
+            List<FileEntry> files = getSelectedFiles();
+            if (files.isEmpty) {
+              Snackbar.createWithTitle(S.current.files, S.current.nothingSelected, true);
+              return;
+            }
+            MultiFileHandler multiFileHandler = MultiFileHandler(this, "/${path.join("/")}", files);
             await multiFileHandler.delete();
             disableMultiSelectMode();
           },

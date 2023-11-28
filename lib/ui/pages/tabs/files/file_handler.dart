@@ -82,7 +82,7 @@ class FileHandler {
                     value: receivedLength.value != totalLength ? (receivedLength.value / totalLength) : null,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 4.0)),
-                  Text("${(receivedLength.value / totalLength * 100).round()}%", textAlign: TextAlign.end)
+                  Text(totalLength != 0 ? "${(receivedLength.value / totalLength * 100).round()}%" : "100%", textAlign: TextAlign.end)
                 ],
               ) : Text(S.current.downloadedFilenameSuccessfully(fileEntry.name)),
               ),
@@ -165,7 +165,7 @@ class FileHandler {
             padding: const EdgeInsets.all(32),
             child: AlertDialog(
               insetPadding: EdgeInsets.zero,
-              title: Text(S.current.renameType(type)),
+              title: Text(S.current.rename),
               content: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -216,7 +216,7 @@ class FileHandler {
     if (HttpUtils.isSuccess(response)) {
       Snackbar.createWithTitle("${type.capitalizeFirst} \"${fileEntry.name}\"", S.current.successfullyRenamed);
     } else {
-      Snackbar.createWithTitle("${type.capitalizeFirst} \"${fileEntry.name}\"", S.current.errorRenamingType(type), true);
+      Snackbar.createWithTitle("${type.capitalizeFirst} \"${fileEntry.name}\"", S.current.errorRenamingType, true);
     }
     controller.updateData(true);
   }
@@ -230,8 +230,8 @@ class FileHandler {
       context: navigatorKey.currentContext!,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(S.current.deleteFile(type)),
-          content: Text(S.current.deleteFileMessage(type, fileEntry.name)),
+          title: Text(S.current.deleteFile),
+          content: Text(S.current.deleteFileMessage(fileEntry.name)),
           actions: <Widget>[
             TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.no)),
             TextButton(onPressed: () {
@@ -254,7 +254,7 @@ class FileHandler {
     if (HttpUtils.isSuccess(response)) {
       Snackbar.createWithTitle("${type.capitalizeFirst} ${fileEntry.name}", S.current.successfullyDeleted);
     } else {
-      Snackbar.createWithTitle("${type.capitalizeFirst} ${fileEntry.name}", S.current.errorDeletingFile(type), true);
+      Snackbar.createWithTitle("${type.capitalizeFirst} ${fileEntry.name}", S.current.errorDeletingFile, true);
     }
     controller.updateData(true);
   }

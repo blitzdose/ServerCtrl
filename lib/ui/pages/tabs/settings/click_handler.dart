@@ -51,7 +51,7 @@ class ClickHandler {
       textInputType: TextInputType.url,
       message: S.current.specifyIpOrAddr,
       leftButtonText: S.current.cancel,
-      rightButtonText: "Generate",
+      rightButtonText: S.current.generate,
       onRightButtonClick: (text) {
         controller.generateCert(text);
       }).showInputDialog(context);
