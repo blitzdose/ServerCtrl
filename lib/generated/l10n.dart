@@ -1600,10 +1600,10 @@ class S {
     );
   }
 
-  /// `Help me`
+  /// `Support me`
   String get helpMe {
     return Intl.message(
-      'Help me',
+      'Support me',
       name: 'helpMe',
       desc: '',
       args: [],

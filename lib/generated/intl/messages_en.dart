@@ -165,7 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "getInTouch": MessageLookupByLibrary.simpleMessage("Get in touch"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "help": MessageLookupByLibrary.simpleMessage("Help"),
-        "helpMe": MessageLookupByLibrary.simpleMessage("Help me"),
+        "helpMe": MessageLookupByLibrary.simpleMessage("Support me"),
         "helpMeKeepThisAppAlive":
             MessageLookupByLibrary.simpleMessage("Help me keep this app alive"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
