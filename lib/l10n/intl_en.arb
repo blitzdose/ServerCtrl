@@ -1,6 +1,14 @@
 {
   "server_ctrl": "ServerCtrl",
   "version": "Version: {version}",
+  "@version": {
+    "description": "Example: Version: 1.0.0",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "settings": "Settings",
   "add_server": "Add Server",
   "home": "Home",
@@ -11,6 +19,7 @@
   "accounts": "Accounts",
   "accountAndName": "Account {name}",
   "@accountAndName": {
+    "description": "Example: Account Admin",
     "placeholders": {
       "name": {
         "type": "String"
@@ -40,6 +49,7 @@
   "deleteAccount": "Delete account?",
   "deleteAccountMessage": "The account \"{accountName}\" will be permanently removed.",
   "@deleteAccountMessage": {
+    "description": "Example: The account \"Admin\" will be permanently removed.",
     "placeholders": {
       "accountName": {
         "type": "String"
@@ -94,20 +104,11 @@
   "share": "Share",
   "download": "Download",
   "rename": "Rename",
-  "deleteFile": "Delete {type}?",
-  "@deleteFile": {
-    "placeholders":{
-      "type": {
-        "type": "String"
-      }
-    }
-  },
-  "deleteFileMessage": "The {type} \"{name}\" will be permanently removed.",
+  "deleteFile": "Delete?",
+  "deleteFileMessage": "\"{name}\" will be permanently removed.",
   "@deleteFileMessage": {
+    "description": "Example: \"config.yml\" will be permanently removed.",
     "placeholders": {
-      "type": {
-        "type": "String"
-      },
       "name": {
         "type": "String"
       }
@@ -115,20 +116,14 @@
   },
   "fileAndName": "File \"{name}\"",
   "@fileAndName": {
+    "description": "Example: File \"config.yml\"",
     "placeholders": {
       "name": {
         "type": "String"
       }
     }
   },
-  "errorDeletingFile": "Error deleting {type}",
-  "@errorDeletingFile": {
-    "placeholders": {
-      "type": {
-        "type": "String"
-      }
-    }
-  },
+  "errorDeletingFile": "Error deleting Object",
   "createFile": "Create File",
   "newFile": "New File",
   "createFolder": "Create Folder",
@@ -154,28 +149,14 @@
   "directory": "directory",
   "downloadedFilenameSuccessfully": "Downloaded \"{filename}\" successfully.",
   "@downloadedFilenameSuccessfully": {
+    "description": "Example: Downloaded \"config.yml\" successfully.",
     "placeholders": {
       "filename": {
         "type": "String"
       }
     }
   },
-  "renameType": "Rename {type}",
-  "@renameType": {
-    "placeholders": {
-      "type": {
-        "type": "String"
-      }
-    }
-  },
-  "errorRenamingType": "Error renaming {type}",
-  "@errorRenamingType": {
-    "placeholders": {
-      "type": {
-        "type": "String"
-      }
-    }
-  },
+  "errorRenamingType": "Error renaming Object",
   "deleteFiles": "Delete files?",
   "theSelectedFilesWillBePermanentlyDeleted": "The selected files will be permanently deleted",
   "errorDeletingFiles": "Error deleting files",
@@ -193,6 +174,7 @@
   "loggingIn": "Logging in",
   "codedBy": "Coded by {name}",
   "@codedBy": {
+    "description": "Example: Coded by Max Mustermann",
     "placeholders": {
       "name": {
         "type": "String"
@@ -205,6 +187,7 @@
   "yes": "Yes",
   "deleteRoutetitle": "Delete \"{routeTitle}\"",
   "@deleteRoutetitle": {
+    "description": "Example: Delete \"Server-1\"",
     "placeholders": {
       "routeTitle": {
         "type": "String"
@@ -235,6 +218,7 @@
   "somethingWentWrong": "Something went wrong",
   "cannotReachIp": "Cannot reach \"{ip}\"",
   "@cannotReachIp": {
+    "description": "Example: Cannot reach \"192.168.2.100\"",
     "placeholders": {
       "ip": {
         "type": "String"
@@ -243,6 +227,7 @@
   },
   "cannotReachIpOverHttps": "Cannot reach \"{ip}\" over HTTPS",
   "@cannotReachIpOverHttps": {
+    "description": "Example: Cannot reach \"192.168.2.100\" over HTTPS",
     "placeholders": {
       "ip": {
         "type": "String"
@@ -264,5 +249,6 @@
   "about": "About",
   "licenses": "Licenses",
   "dataPrivacy": "Data privacy",
-  "aboutServerctrl": "About ServerCtrl"
+  "aboutServerctrl": "About ServerCtrl",
+  "generate": "Generate"
 }

@@ -31,24 +31,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(accountName) =>
       "The account \"${accountName}\" will be permanently removed.";
 
-  static String m5(type) => "Delete ${type}?";
+  static String m5(name) => "\"${name}\" will be permanently removed.";
 
-  static String m6(type, name) =>
-      "The ${type} \"${name}\" will be permanently removed.";
+  static String m6(routeTitle) => "Delete \"${routeTitle}\"";
 
-  static String m7(routeTitle) => "Delete \"${routeTitle}\"";
+  static String m7(filename) => "Downloaded \"${filename}\" successfully.";
 
-  static String m8(filename) => "Downloaded \"${filename}\" successfully.";
+  static String m8(name) => "File \"${name}\"";
 
-  static String m9(type) => "Error deleting ${type}";
-
-  static String m10(type) => "Error renaming ${type}";
-
-  static String m11(name) => "File \"${name}\"";
-
-  static String m12(type) => "Rename ${type}";
-
-  static String m13(version) => "Version: ${version}";
+  static String m9(version) => "Version: ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -105,10 +96,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAccount":
             MessageLookupByLibrary.simpleMessage("Delete account?"),
         "deleteAccountMessage": m4,
-        "deleteFile": m5,
-        "deleteFileMessage": m6,
+        "deleteFile": MessageLookupByLibrary.simpleMessage("Delete?"),
+        "deleteFileMessage": m5,
         "deleteFiles": MessageLookupByLibrary.simpleMessage("Delete files?"),
-        "deleteRoutetitle": m7,
+        "deleteRoutetitle": m6,
         "deop": MessageLookupByLibrary.simpleMessage("DE-OP"),
         "design": MessageLookupByLibrary.simpleMessage("Design"),
         "directory": MessageLookupByLibrary.simpleMessage("directory"),
@@ -119,7 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "donate": MessageLookupByLibrary.simpleMessage("Donate"),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
-        "downloadedFilenameSuccessfully": m8,
+        "downloadedFilenameSuccessfully": m7,
         "downloading": MessageLookupByLibrary.simpleMessage("Downloading"),
         "dynamicColor": MessageLookupByLibrary.simpleMessage("Dynamic color"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -132,12 +123,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error creating folder"),
         "errorDeletingAccount":
             MessageLookupByLibrary.simpleMessage("Error deleting account"),
-        "errorDeletingFile": m9,
+        "errorDeletingFile":
+            MessageLookupByLibrary.simpleMessage("Error deleting Object"),
         "errorDeletingFiles":
             MessageLookupByLibrary.simpleMessage("Error deleting files"),
         "errorInputMissing": MessageLookupByLibrary.simpleMessage(
             "Please input your server address, username AND password"),
-        "errorRenamingType": m10,
+        "errorRenamingType":
+            MessageLookupByLibrary.simpleMessage("Error renaming Object"),
         "errorResettingPassword":
             MessageLookupByLibrary.simpleMessage("Error resetting Password"),
         "errorSavingPermissions":
@@ -157,13 +150,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "error_sending_command":
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "file": MessageLookupByLibrary.simpleMessage("file"),
-        "fileAndName": m11,
+        "fileAndName": m8,
         "fileSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("File saved successfully"),
         "files": MessageLookupByLibrary.simpleMessage("Files"),
         "filesUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "File(s) uploaded successfully."),
         "free_memory": MessageLookupByLibrary.simpleMessage("Free memory"),
+        "generate": MessageLookupByLibrary.simpleMessage("Generate"),
         "generateCertificate":
             MessageLookupByLibrary.simpleMessage("Generate certificate"),
         "generateNewHttpsCertificate": MessageLookupByLibrary.simpleMessage(
@@ -218,7 +212,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Plugin and Webserver Port"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
         "rename": MessageLookupByLibrary.simpleMessage("Rename"),
-        "renameType": m12,
         "repeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Repeat new password"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
@@ -288,7 +281,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Use system settings"),
         "used_memory": MessageLookupByLibrary.simpleMessage("Used memory"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
-        "version": m13,
+        "version": m9,
         "wrongUsernameOrPassword":
             MessageLookupByLibrary.simpleMessage("Wrong username or password"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),

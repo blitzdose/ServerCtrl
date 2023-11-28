@@ -61,11 +61,11 @@ class S {
   }
 
   /// `Version: {version}`
-  String version(Object version) {
+  String version(String version) {
     return Intl.message(
       'Version: $version',
       name: 'version',
-      desc: '',
+      desc: 'Example: Version: 1.0.0',
       args: [version],
     );
   }
@@ -155,7 +155,7 @@ class S {
     return Intl.message(
       'Account $name',
       name: 'accountAndName',
-      desc: '',
+      desc: 'Example: Account Admin',
       args: [name],
     );
   }
@@ -375,7 +375,7 @@ class S {
     return Intl.message(
       'The account "$accountName" will be permanently removed.',
       name: 'deleteAccountMessage',
-      desc: '',
+      desc: 'Example: The account "Admin" will be permanently removed.',
       args: [accountName],
     );
   }
@@ -860,23 +860,23 @@ class S {
     );
   }
 
-  /// `Delete {type}?`
-  String deleteFile(String type) {
+  /// `Delete?`
+  String get deleteFile {
     return Intl.message(
-      'Delete $type?',
+      'Delete?',
       name: 'deleteFile',
       desc: '',
-      args: [type],
+      args: [],
     );
   }
 
-  /// `The {type} "{name}" will be permanently removed.`
-  String deleteFileMessage(String type, String name) {
+  /// `"{name}" will be permanently removed.`
+  String deleteFileMessage(String name) {
     return Intl.message(
-      'The $type "$name" will be permanently removed.',
+      '"$name" will be permanently removed.',
       name: 'deleteFileMessage',
-      desc: '',
-      args: [type, name],
+      desc: 'Example: "config.yml" will be permanently removed.',
+      args: [name],
     );
   }
 
@@ -885,18 +885,18 @@ class S {
     return Intl.message(
       'File "$name"',
       name: 'fileAndName',
-      desc: '',
+      desc: 'Example: File "config.yml"',
       args: [name],
     );
   }
 
-  /// `Error deleting {type}`
-  String errorDeletingFile(String type) {
+  /// `Error deleting Object`
+  String get errorDeletingFile {
     return Intl.message(
-      'Error deleting $type',
+      'Error deleting Object',
       name: 'errorDeletingFile',
       desc: '',
-      args: [type],
+      args: [],
     );
   }
 
@@ -1135,28 +1135,18 @@ class S {
     return Intl.message(
       'Downloaded "$filename" successfully.',
       name: 'downloadedFilenameSuccessfully',
-      desc: '',
+      desc: 'Example: Downloaded "config.yml" successfully.',
       args: [filename],
     );
   }
 
-  /// `Rename {type}`
-  String renameType(String type) {
+  /// `Error renaming Object`
+  String get errorRenamingType {
     return Intl.message(
-      'Rename $type',
-      name: 'renameType',
-      desc: '',
-      args: [type],
-    );
-  }
-
-  /// `Error renaming {type}`
-  String errorRenamingType(String type) {
-    return Intl.message(
-      'Error renaming $type',
+      'Error renaming Object',
       name: 'errorRenamingType',
       desc: '',
-      args: [type],
+      args: [],
     );
   }
 
@@ -1315,7 +1305,7 @@ class S {
     return Intl.message(
       'Coded by $name',
       name: 'codedBy',
-      desc: '',
+      desc: 'Example: Coded by Max Mustermann',
       args: [name],
     );
   }
@@ -1365,7 +1355,7 @@ class S {
     return Intl.message(
       'Delete "$routeTitle"',
       name: 'deleteRoutetitle',
-      desc: '',
+      desc: 'Example: Delete "Server-1"',
       args: [routeTitle],
     );
   }
@@ -1595,7 +1585,7 @@ class S {
     return Intl.message(
       'Cannot reach "$ip"',
       name: 'cannotReachIp',
-      desc: '',
+      desc: 'Example: Cannot reach "192.168.2.100"',
       args: [ip],
     );
   }
@@ -1605,7 +1595,7 @@ class S {
     return Intl.message(
       'Cannot reach "$ip" over HTTPS',
       name: 'cannotReachIpOverHttps',
-      desc: '',
+      desc: 'Example: Cannot reach "192.168.2.100" over HTTPS',
       args: [ip],
     );
   }
@@ -1765,6 +1755,16 @@ class S {
     return Intl.message(
       'About ServerCtrl',
       name: 'aboutServerctrl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate`
+  String get generate {
+    return Intl.message(
+      'Generate',
+      name: 'generate',
       desc: '',
       args: [],
     );
