@@ -54,7 +54,7 @@ class AppSettingsController extends GetxController {
                 MyAppController.updateLanguage(selectedLocale.value);
                 Get.updateLocale(selectedLocale.value);
                 Navigator.pop(context);
-                Snackbar.createWithTitle(S.current.server_ctrl, "Please restart the App to fully apply the new language");
+                Snackbar.createWithTitle(S.current.server_ctrl, S.current.restartToApplyLanguage);
               }, child: Text(S.current.save)),
             ],
           );
@@ -69,7 +69,7 @@ class AppSettingsController extends GetxController {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Design'),
+            title: Text(S.current.design),
             contentPadding: EdgeInsets.zero,
             content: Obx(() => Column(
                 mainAxisSize: MainAxisSize.min,
@@ -77,7 +77,7 @@ class AppSettingsController extends GetxController {
                   const SizedBox(height: 16),
                   RadioListTile<ThemeMode>(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                    title: const Text('Use system settings'),
+                    title: Text(S.current.useSystemSettings),
                     value: ThemeMode.system,
                     groupValue: selected.value,
                     onChanged: (ThemeMode? value) {
@@ -88,7 +88,7 @@ class AppSettingsController extends GetxController {
                   ),
                   RadioListTile<ThemeMode>(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                    title: const Text('Light Mode'),
+                    title: Text(S.current.lightMode),
                     value: ThemeMode.light,
                     groupValue: selected.value,
                     onChanged: (ThemeMode? value) {
@@ -99,7 +99,7 @@ class AppSettingsController extends GetxController {
                   ),
                   RadioListTile<ThemeMode>(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                    title: const Text('Dark Mode'),
+                    title: Text(S.current.darkMode),
                     value: ThemeMode.dark,
                     groupValue: selected.value,
                     onChanged: (ThemeMode? value) {
@@ -133,7 +133,7 @@ class AppSettingsController extends GetxController {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Theme color"),
+          title: Text(S.current.themeColor),
           content: Obx(() => MaterialColorPicker(
               selectedColor: selectedColor.value,
               onColorChange: (value) {
@@ -149,8 +149,8 @@ class AppSettingsController extends GetxController {
                 TextButton(onPressed: () {
                   selectedColor(MColors.seed);
                   MyAppController.updateMainColor(selectedColor.value);
-                }, child: Text("Default")),
-                Spacer(),
+                }, child: Text(S.current.defaultStr)),
+                const Spacer(),
                 TextButton(onPressed: () {
                   MyAppController.updateMainColor(initialColor);
                   Navigator.pop(context, true);

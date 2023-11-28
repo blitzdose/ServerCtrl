@@ -38,11 +38,11 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     Widget widget = Obx(() =>
         Scaffold(
               appBar: controller.actions.isNotEmpty ? AppBar(
-                title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
+                title: Text(S.current.server_ctrl, style: const TextStyle(fontWeight: FontWeight.w500)),
                 actions: controller.actions,
                 leading: controller.leading.value,
               ) : AppBar(
-                  title: const Text("ServerCtrl", style: TextStyle(fontWeight: FontWeight.w500)),
+                  title: Text(S.current.server_ctrl, style: const TextStyle(fontWeight: FontWeight.w500)),
               ),
               drawer: controller.leading.value == null ? navigator!.buildNavDrawer() : null,
               floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -99,8 +99,8 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
         context: navigatorKey.currentContext!,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Delete \"${route.title}\""),
-            content: const Text("The selected Entry will be permanently deleted from the app"),
+            title: Text(S.current.deleteRoutetitle(route.title!)),
+            content: Text(S.current.selectedEntryWIllBeDeleted),
             actions: <Widget>[
               TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.no)),
               TextButton(onPressed: () async {

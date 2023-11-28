@@ -1329,6 +1329,446 @@ class S {
       args: [],
     );
   }
+
+  /// `Untrusted Certificate`
+  String get untrustedCertificate {
+    return Intl.message(
+      'Untrusted Certificate',
+      name: 'untrustedCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The certificate of the server cannot be verified. Do you want to trust it? SHA1 fingerprint of the certificate:`
+  String get certCannotBeVerified {
+    return Intl.message(
+      'The certificate of the server cannot be verified. Do you want to trust it? SHA1 fingerprint of the certificate:',
+      name: 'certCannotBeVerified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete "{routeTitle}"`
+  String deleteRoutetitle(String routeTitle) {
+    return Intl.message(
+      'Delete "$routeTitle"',
+      name: 'deleteRoutetitle',
+      desc: '',
+      args: [routeTitle],
+    );
+  }
+
+  /// `The selected Entry will be permanently deleted from the app`
+  String get selectedEntryWIllBeDeleted {
+    return Intl.message(
+      'The selected Entry will be permanently deleted from the app',
+      name: 'selectedEntryWIllBeDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Long press entry to delete it`
+  String get longPressEntryToDeleteIt {
+    return Intl.message(
+      'Long press entry to delete it',
+      name: 'longPressEntryToDeleteIt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server name (freely selectable)`
+  String get serverNameInput {
+    return Intl.message(
+      'Server name (freely selectable)',
+      name: 'serverNameInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connection failed`
+  String get connectionFailed {
+    return Intl.message(
+      'Connection failed',
+      name: 'connectionFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again`
+  String get tryAgain {
+    return Intl.message(
+      'Try again',
+      name: 'tryAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot reach the server`
+  String get cannotReachTheServer {
+    return Intl.message(
+      'Cannot reach the server',
+      name: 'cannotReachTheServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot connect to the server, maybe the credentials changed?`
+  String get cannotConnectMaybeCredentials {
+    return Intl.message(
+      'Cannot connect to the server, maybe the credentials changed?',
+      name: 'cannotConnectMaybeCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot find credentials to this server, please add it again`
+  String get cannotFindCredentials {
+    return Intl.message(
+      'Cannot find credentials to this server, please add it again',
+      name: 'cannotFindCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please restart the App to fully apply the new language`
+  String get restartToApplyLanguage {
+    return Intl.message(
+      'Please restart the App to fully apply the new language',
+      name: 'restartToApplyLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Design`
+  String get design {
+    return Intl.message(
+      'Design',
+      name: 'design',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use system settings`
+  String get useSystemSettings {
+    return Intl.message(
+      'Use system settings',
+      name: 'useSystemSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light Mode`
+  String get lightMode {
+    return Intl.message(
+      'Light Mode',
+      name: 'lightMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark Mode`
+  String get darkMode {
+    return Intl.message(
+      'Dark Mode',
+      name: 'darkMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme color`
+  String get themeColor {
+    return Intl.message(
+      'Theme color',
+      name: 'themeColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default`
+  String get defaultStr {
+    return Intl.message(
+      'Default',
+      name: 'defaultStr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input your server address, username AND password`
+  String get errorInputMissing {
+    return Intl.message(
+      'Please input your server address, username AND password',
+      name: 'errorInputMissing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You already added this server`
+  String get youAlreadyAddedThisServer {
+    return Intl.message(
+      'You already added this server',
+      name: 'youAlreadyAddedThisServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong username or password`
+  String get wrongUsernameOrPassword {
+    return Intl.message(
+      'Wrong username or password',
+      name: 'wrongUsernameOrPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New server`
+  String get newServer {
+    return Intl.message(
+      'New server',
+      name: 'newServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The new server got added successfully`
+  String get newServerAdded {
+    return Intl.message(
+      'The new server got added successfully',
+      name: 'newServerAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please accept the warning and login again`
+  String get acceptWarningTryAgain {
+    return Intl.message(
+      'Please accept the warning and login again',
+      name: 'acceptWarningTryAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot reach "{ip}"`
+  String cannotReachIp(String ip) {
+    return Intl.message(
+      'Cannot reach "$ip"',
+      name: 'cannotReachIp',
+      desc: '',
+      args: [ip],
+    );
+  }
+
+  /// `Cannot reach "{ip}" over HTTPS`
+  String cannotReachIpOverHttps(String ip) {
+    return Intl.message(
+      'Cannot reach "$ip" over HTTPS',
+      name: 'cannotReachIpOverHttps',
+      desc: '',
+      args: [ip],
+    );
+  }
+
+  /// `Help me`
+  String get helpMe {
+    return Intl.message(
+      'Help me',
+      name: 'helpMe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Donate`
+  String get donate {
+    return Intl.message(
+      'Donate',
+      name: 'donate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help me keep this app alive`
+  String get helpMeKeepThisAppAlive {
+    return Intl.message(
+      'Help me keep this app alive',
+      name: 'helpMeKeepThisAppAlive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Appearance`
+  String get appearance {
+    return Intl.message(
+      'Appearance',
+      name: 'appearance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Material 3`
+  String get material3 {
+    return Intl.message(
+      'Material 3',
+      name: 'material3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dynamic color`
+  String get dynamicColor {
+    return Intl.message(
+      'Dynamic color',
+      name: 'dynamicColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get in touch`
+  String get getInTouch {
+    return Intl.message(
+      'Get in touch',
+      name: 'getInTouch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discord`
+  String get discord {
+    return Intl.message(
+      'Discord',
+      name: 'discord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `E-Mail`
+  String get email {
+    return Intl.message(
+      'E-Mail',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SpigotMC`
+  String get spigotmc {
+    return Intl.message(
+      'SpigotMC',
+      name: 'spigotmc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GitHub`
+  String get github {
+    return Intl.message(
+      'GitHub',
+      name: 'github',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message(
+      'About',
+      name: 'about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Licenses`
+  String get licenses {
+    return Intl.message(
+      'Licenses',
+      name: 'licenses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data privacy`
+  String get dataPrivacy {
+    return Intl.message(
+      'Data privacy',
+      name: 'dataPrivacy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About ServerCtrl`
+  String get aboutServerctrl {
+    return Intl.message(
+      'About ServerCtrl',
+      name: 'aboutServerctrl',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
 import 'package:minecraft_server_remote/values/navigation_routes.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../utilities/http/session.dart';
 import '../../../utilities/snackbar/snackbar.dart';
 import '../../navigation/nav_route.dart';
@@ -35,7 +36,7 @@ class AddServerController extends GetxController {
     String password = passwordController.value.text;
 
     if (ip.isEmpty || username.isEmpty || password.isEmpty) {
-      errorMessage("Please input your server address, username AND password");
+      errorMessage(S.current.errorInputMissing);
       isLoggingIn(false);
       return;
     }
@@ -51,7 +52,7 @@ class AddServerController extends GetxController {
     String? servers = await storage.read(key: "servers");
     List<String>? serverList = servers?.split("~*~*~");
     if (serverList != null && serverList.contains(protocol + ip)) {
-      errorMessage("You already added this server");
+      errorMessage(S.current.youAlreadyAddedThisServer);
       isLoggingIn(false);
       return;
     }
@@ -63,7 +64,7 @@ class AddServerController extends GetxController {
     try {
       var response = await Session.post("/api/user/login", map);
       if (response.statusCode == 401) {
-        errorMessage("Wrong username or password");
+        errorMessage(S.current.wrongUsernameOrPassword);
       } else if (response.statusCode == 200) {
         
         await storage.write(key: Session.baseURL, value: "$servername\n$username\n$password");
@@ -81,7 +82,7 @@ class AddServerController extends GetxController {
             )
         );
         LayoutStructureState.navigator?.onItemTap_(0, false);
-        Snackbar.createWithTitle("New server", "The new server got added successfully");
+        Snackbar.createWithTitle(S.current.newServer, S.current.newServerAdded);
         servernameController.value.text = "";
         ipController.value.text = "";
         usernameController.value.text = "";
@@ -89,17 +90,17 @@ class AddServerController extends GetxController {
         isHttps(true);
       }
     } on SocketException catch (_) {
-      errorMessage("Cannot reach \"$ip\"");
+      errorMessage(S.current.cannotReachIp(ip));
     } on TimeoutException catch (_) {
-      errorMessage("Cannot reach \"$ip\"");
+      errorMessage(S.current.cannotReachIp(ip));
     } on HandshakeException catch (p) {
       if (p.osError != null && p.osError!.message.contains("CERTIFICATE_VERIFY_FAILED")) {
-        errorMessage("Please accept the warning and login again");
+        errorMessage(S.current.acceptWarningTryAgain);
       } else {
-        errorMessage("Cannot reach \"$ip\" over HTTPS");
+        errorMessage(S.current.cannotReachIpOverHttps(ip));
       }
     } catch (e) {
-      errorMessage("Something went wrong");
+      errorMessage(S.current.somethingWentWrong);
     }
     isLoggingIn(false);
   }

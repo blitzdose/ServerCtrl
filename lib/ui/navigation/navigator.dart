@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:minecraft_server_remote/main_controller.dart';
 import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
 import 'package:minecraft_server_remote/ui/navigation/navigation_drawer_impl.dart' as my_nav_drawer;
 
@@ -35,7 +36,6 @@ class MNavigator {
         children: <Widget>[
           buildHeader(),
           ...NavigationRoutes.routes.asMap().entries.map((e) {
-            int index = e.key;
             NavigationRoute navRoute = e.value;
 
             if (navRoute.divider != null && navRoute.divider!) {
@@ -67,13 +67,13 @@ class MNavigator {
                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
               Text(
-                S.current.version("1.0"),
+                S.current.version(MyAppController.appVersion.value),
                 style: const TextStyle(fontSize: 14),
               ),
               const Padding(padding: EdgeInsets.only(top: 8.0)),
-              Divider(),
+              const Divider(),
               Text(
-                "Long press entry to delete it",
+                S.current.longPressEntryToDeleteIt,
                 style: const TextStyle(fontSize: 14),
               ),
             ]

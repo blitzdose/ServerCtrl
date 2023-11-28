@@ -199,5 +199,70 @@
       }
     }
   },
-  "thanks": "Thanks to all nice people for supporting me"
+  "thanks": "Thanks to all nice people for supporting me",
+  "untrustedCertificate": "Untrusted Certificate",
+  "certCannotBeVerified": "The certificate of the server cannot be verified. Do you want to trust it? SHA1 fingerprint of the certificate:",
+  "yes": "Yes",
+  "deleteRoutetitle": "Delete \"{routeTitle}\"",
+  "@deleteRoutetitle": {
+    "placeholders": {
+      "routeTitle": {
+        "type": "String"
+      }
+    }
+  },
+  "selectedEntryWIllBeDeleted": "The selected Entry will be permanently deleted from the app",
+  "longPressEntryToDeleteIt": "Long press entry to delete it",
+  "serverNameInput": "Server name (freely selectable)",
+  "connectionFailed": "Connection failed",
+  "tryAgain": "Try again",
+  "cannotReachTheServer": "Cannot reach the server",
+  "cannotConnectMaybeCredentials": "Cannot connect to the server, maybe the credentials changed?",
+  "cannotFindCredentials": "Cannot find credentials to this server, please add it again",
+  "restartToApplyLanguage": "Please restart the App to fully apply the new language",
+  "design": "Design",
+  "useSystemSettings": "Use system settings",
+  "lightMode": "Light Mode",
+  "darkMode": "Dark Mode",
+  "themeColor": "Theme color",
+  "defaultStr": "Default",
+  "errorInputMissing": "Please input your server address, username AND password",
+  "youAlreadyAddedThisServer": "You already added this server",
+  "wrongUsernameOrPassword": "Wrong username or password",
+  "newServer": "New server",
+  "newServerAdded": "The new server got added successfully",
+  "acceptWarningTryAgain": "Please accept the warning and login again",
+  "somethingWentWrong": "Something went wrong",
+  "cannotReachIp": "Cannot reach \"{ip}\"",
+  "@cannotReachIp": {
+    "placeholders": {
+      "ip": {
+        "type": "String"
+      }
+    }
+  },
+  "cannotReachIpOverHttps": "Cannot reach \"{ip}\" over HTTPS",
+  "@cannotReachIpOverHttps": {
+    "placeholders": {
+      "ip": {
+        "type": "String"
+      }
+    }
+  },
+  "helpMe": "Help me",
+  "donate": "Donate",
+  "helpMeKeepThisAppAlive": "Help me keep this app alive",
+  "appearance": "Appearance",
+  "language": "Language",
+  "material3": "Material 3",
+  "dynamicColor": "Dynamic color",
+  "getInTouch": "Get in touch",
+  "discord": "Discord",
+  "email": "E-Mail",
+  "spigotmc": "SpigotMC",
+  "github": "GitHub",
+  "about": "About",
+  "licenses": "Licenses",
+  "dataPrivacy": "Data privacy",
+  "aboutServerctrl": "About ServerCtrl"
 }

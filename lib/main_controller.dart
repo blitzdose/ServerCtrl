@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
+import 'generated/l10n.dart';
 import 'values/colors.dart';
 
 class MyAppController extends GetxController {
@@ -9,8 +11,19 @@ class MyAppController extends GetxController {
   static var usesDynamicColor = true.obs;
   static var usesMaterial3 = true.obs;
   static var themeMode = ThemeMode.system.obs;
-  static var locale = (Get.deviceLocale != null) ? Get.deviceLocale!.obs : Locale("en").obs;
+  static var locale = (Get.deviceLocale != null) ? Get.deviceLocale!.obs : const Locale("en").obs;
   static var mainColor = MColors.seed.obs;
+  static var appVersion = "".obs;
+  static var appName = "ServerCtrl".obs;
+
+  void init() {
+    loadMainColor();
+    loadLocale();
+    loadThemeMode();
+    loadUsesMaterial3();
+    loadUsesDynamicColor();
+    loadMetadata();
+  }
 
   static updateUsesDynamicColor(bool newValue) async {
     usesDynamicColor(newValue);
@@ -96,6 +109,12 @@ class MyAppController extends GetxController {
       int value = int.parse(valueString);
       mainColor(Color(value));
     }
+  }
+
+  void loadMetadata() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    appVersion(packageInfo.version);
+    appName(S.current.server_ctrl);
   }
 
 }

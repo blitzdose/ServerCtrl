@@ -29,9 +29,9 @@ class AddServer extends StatelessWidget {
                   Text(S.current.infoInstallPlugin, textAlign: TextAlign.center),
                   const Padding(padding: EdgeInsets.only(top: 48.0)),
                   TextField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Server name (freely selectable)"
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        hintText: S.current.serverNameInput
                     ),
                     maxLines: 1,
                     controller: controller.servernameController.value,

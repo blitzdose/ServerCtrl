@@ -36,12 +36,12 @@ class MyHttpOverrides extends HttpOverrides{
             context: navigatorKey.currentContext!,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text("Untrusted Certificate"),
+                title: Text(S.current.untrustedCertificate),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("The certificate of the server cannot be verified. Do you want to trust it? SHA1 fingerprint of the certificate:"),
-                    Padding(padding: EdgeInsets.only(top: 8.0)),
+                    Text(S.current.certCannotBeVerified),
+                    const Padding(padding: EdgeInsets.only(top: 8.0)),
                     Text(sha1)
                   ],
                 ),
@@ -52,7 +52,7 @@ class MyHttpOverrides extends HttpOverrides{
                     acceptedCerts?.add(sha1);
                     await prefs?.setStringList("accepted_certs", acceptedCerts!);
                     Navigator.pop(navigatorKey.currentContext!, true);
-                  }, child: Text("Yes")),
+                  }, child: Text(S.current.yes)),
                 ],
               );
             },
@@ -75,20 +75,23 @@ class MyApp extends StatelessWidget {
 
   final controller = Get.put(MyAppController());
   MyApp({super.key}) {
-    controller.loadLocale();
+    controller.init();
   }
 
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
-    controller.loadUsesDynamicColor();
-    controller.loadUsesMaterial3();
-    controller.loadThemeMode();
-    controller.loadMainColor();
-    print("he" + MyAppController.locale.value.toString());
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       return Obx(() => GetMaterialApp(
-        title: 'ServerCtrl',
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          LocaleNamesLocalizationsDelegate(),
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        title: MyAppController.appName.value,
         theme: buildTheme(
             brightness: Brightness.light,
             dynamicScheme: MyAppController.usesDynamicColor.isTrue ? lightDynamic : null,
@@ -103,14 +106,6 @@ class MyApp extends StatelessWidget {
         locale: MyAppController.locale.value,
         home: const LayoutStructure(),
         navigatorKey: navigatorKey,
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          LocaleNamesLocalizationsDelegate(),
-        ],
-        supportedLocales: S.delegate.supportedLocales,
       ));
     });
   }

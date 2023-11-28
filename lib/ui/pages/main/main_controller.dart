@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
 import 'dart:convert';
 
+import '../../../generated/l10n.dart';
 import '../../../utilities/http/session.dart';
 import '../../../utilities/snackbar/snackbar.dart';
 
@@ -38,17 +39,17 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
         http.Response response = await login(username, password);
         if (response.statusCode != 200) throw Exception();
       } on SocketException catch (_) {
-        Snackbar.createWithTitle(name, "Cannot reach the server");
+        Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
         success = false;
       } on TimeoutException catch (_) {
-        Snackbar.createWithTitle(name, "Cannot reach the server");
+        Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
         success = false;
       } on Exception catch (_) {
-        Snackbar.createWithTitle(name, "Cannot connect to the server, maybe the credentials changed?");
+        Snackbar.createWithTitle(name, S.current.cannotConnectMaybeCredentials);
         success = false;
       }
     } else {
-      Snackbar.createWithTitle(baseURL, "Cannot find credentials to this server, please add it again");
+      Snackbar.createWithTitle(baseURL, S.current.cannotFindCredentials);
       success = false;
     }
     if (!success) {

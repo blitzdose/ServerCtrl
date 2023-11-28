@@ -137,13 +137,13 @@ class Main extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Connection failed"),
-            Padding(padding: EdgeInsets.only(top: 8.0)),
+            Text(S.current.connectionFailed),
+            const Padding(padding: EdgeInsets.only(top: 8.0)),
             FilledButton(
               onPressed: () {
                 LayoutStructureState.navigator?.clickCurrentItem();
                 },
-              child: Text("Try again"),
+              child: Text(S.current.tryAgain),
             )
           ],
         ),
