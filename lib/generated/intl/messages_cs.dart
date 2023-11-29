@@ -163,7 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "getInTouch": MessageLookupByLibrary.simpleMessage("Kontaktovat"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "help": MessageLookupByLibrary.simpleMessage("Pomoc"),
-        "helpMe": MessageLookupByLibrary.simpleMessage("Podpora"),
+        "helpMe": MessageLookupByLibrary.simpleMessage("Podpořit tvůrce"),
         "helpMeKeepThisAppAlive":
             MessageLookupByLibrary.simpleMessage("Pomozte mi udržet aplikaci"),
         "home": MessageLookupByLibrary.simpleMessage("Domů"),
