@@ -25,6 +25,7 @@ class AppSettings extends StatelessWidget {
     return Obx(() => SettingsList(
         lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
         darkTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
+        platform: DevicePlatform.android,
         sections: [
           SettingsSection(
             title: SettingsSectionTitle(S.current.helpMe),

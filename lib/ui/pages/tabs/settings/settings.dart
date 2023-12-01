@@ -24,6 +24,7 @@ class SettingsTab extends StatelessWidget {
           child: SettingsList(
             lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
             darkTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
+            platform: DevicePlatform.android,
             sections: [
               if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsSection(
                 title: SettingsSectionTitle(S.current.plugin),

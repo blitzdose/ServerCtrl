@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_highlight/themes/tomorrow-night.dart';
 
 import 'package:code_text_field/code_text_field.dart';
@@ -94,7 +95,7 @@ class FileHandler {
                     },
                     child: Text(S.current.cancel)),
               ] : <Widget>[
-                TextButton(
+                if(Platform.isAndroid || Platform.isIOS) TextButton(
                     onPressed: () async {
                       await Share.shareXFiles([XFile(filePath!, name: filePath!.split("/").last)]);
                     },
@@ -103,12 +104,23 @@ class FileHandler {
                     onPressed: () async {
                       status(S.current.saving);
                       fileSaved(false);
-                      var params = SaveFileDialogParams(sourceFilePath: filePath);
-                      String? savedFilePath = await FlutterFileDialog.saveFile(params: params);
-                      if (savedFilePath != null) {
-                        Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.savedSuccessfully, false, 5);
+                      if (Platform.isAndroid || Platform.isIOS) {
+                        var params = SaveFileDialogParams(sourceFilePath: filePath);
+                        String? savedFilePath = await FlutterFileDialog.saveFile(params: params);
+                        if (savedFilePath != null) {
+                          Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.savedSuccessfully, false, 5);
+                        } else {
+                          Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileSavingFile, true);
+                        }
                       } else {
-                        Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileSavingFile, true);
+                        String? outputFile = await FilePicker.platform.saveFile(
+                          fileName: fileEntry.name,
+                        );
+
+                        if (outputFile != null) {
+                          File sourceFile = File(filePath!);
+                          sourceFile.copy(outputFile);
+                        }
                       }
                       fileSaved(true);
                     },
