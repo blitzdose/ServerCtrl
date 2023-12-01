@@ -55,6 +55,9 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
   }
 
   void onItemTap(int index, bool pop) async {
+    if (NavigationRoutes.routes.isEmpty) {
+      return;
+    }
     if (screen is Main) {
       Main screenMain = screen as Main;
       try {

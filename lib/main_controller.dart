@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:minecraft_server_remote/values/navigation_routes.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'values/colors.dart';
@@ -91,7 +92,8 @@ class MyAppController extends GetxController {
     if (valueString != null) {
       Locale savedLocale = Locale(valueString);
       locale(savedLocale);
-      Get.updateLocale(savedLocale);
+      await Get.updateLocale(savedLocale);
+      NavigationRoutes.init();
     }
   }
 
