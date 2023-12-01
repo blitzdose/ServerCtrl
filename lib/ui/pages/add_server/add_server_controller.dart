@@ -100,6 +100,7 @@ class AddServerController extends GetxController {
         errorMessage(S.current.cannotReachIpOverHttps(ip));
       }
     } catch (e) {
+      e.printError();
       errorMessage(S.current.somethingWentWrong);
     }
     isLoggingIn(false);

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -105,7 +106,7 @@ class AccountsController extends TabxController {
             insetPadding: EdgeInsets.zero,
             title: Text(S.current.resetPassword),
             content: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: min(500, MediaQuery.of(context).size.width),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -191,7 +192,7 @@ class AccountsController extends TabxController {
             contentPadding: const EdgeInsets.only(top: 16),
             title: Text(S.current.resetPassword),
             content: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: min(500, MediaQuery.of(context).size.width),
               child: ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
@@ -275,7 +276,7 @@ class AccountsController extends TabxController {
             insetPadding: EdgeInsets.zero,
             title: Text(S.current.createAccount),
             content: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: min(500, MediaQuery.of(context).size.width),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[

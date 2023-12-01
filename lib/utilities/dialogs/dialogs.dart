@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,7 +45,7 @@ class InputDialog {
             insetPadding: EdgeInsets.zero,
             title: Text(title),
             content: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: min(500, MediaQuery.of(context).size.width),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

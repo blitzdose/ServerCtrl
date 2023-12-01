@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter_highlight/themes/tomorrow-night.dart';
 
@@ -167,7 +168,7 @@ class FileHandler {
               insetPadding: EdgeInsets.zero,
               title: Text(S.current.rename),
               content: SizedBox(
-                width: MediaQuery.of(context).size.width,
+                width: min(500, MediaQuery.of(context).size.width),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

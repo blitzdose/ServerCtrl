@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -74,7 +76,7 @@ class ClickHandler {
             insetPadding: EdgeInsets.zero,
             title: Text(S.current.uploadCertificate),
             content: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: min(500, MediaQuery.of(context).size.width),
               child: Obx(() => Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

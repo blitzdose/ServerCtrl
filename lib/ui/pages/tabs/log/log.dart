@@ -15,6 +15,7 @@ class LogTab extends StatelessWidget {
             if (controller.showProgress.value) const LinearProgressIndicator(),
             Expanded(
               child: Scrollbar(
+                controller: controller.logScrollController.value,
                 child: ListView.separated(
                     separatorBuilder: (context, index) => const Divider(height: 0,),
                     padding: EdgeInsets.zero,

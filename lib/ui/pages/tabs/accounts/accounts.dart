@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,10 +17,13 @@ class AccountsTab extends StatelessWidget {
           children: [
             if (controller.showProgress.value) const LinearProgressIndicator(),
             Expanded(
-              child: Scrollbar(
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: controller.accountItems,
+              child: SizedBox(
+                width: min(700, MediaQuery.of(context).size.width),
+                child: Scrollbar(
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: controller.accountItems,
+                  ),
                 ),
               ),
             )

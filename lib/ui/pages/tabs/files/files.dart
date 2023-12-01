@@ -16,6 +16,7 @@ class FilesTab extends StatelessWidget {
             if (controller.showProgress.value) const LinearProgressIndicator(),
             Expanded(
               child: Scrollbar(
+                controller: controller.fileScrollController.value,
                 child: ListView.separated(
                     separatorBuilder: (context, index) => const Divider(height: 0,),
                     padding: EdgeInsets.zero,
