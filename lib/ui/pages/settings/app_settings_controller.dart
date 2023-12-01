@@ -20,11 +20,17 @@ class AppSettingsController extends GetxController {
   void language(context) async {
     var locales = S.delegate.supportedLocales.obs;
     var selectedLocale = MyAppController.locale.value.obs;
+    for (var locale in locales) {
+      if (locale.languageCode == MyAppController.locale.value.languageCode) {
+        selectedLocale = locale.obs;
+        break;
+      }
+    }
     await showDialog<Locale>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Design'),
+            title: Text(S.current.language),
             contentPadding: EdgeInsets.zero,
             content: Obx(() => Column(
               mainAxisSize: MainAxisSize.min,

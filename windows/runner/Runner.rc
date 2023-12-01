@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "de.blitzdose" "\0"
-            VALUE "FileDescription", "server_ctrl" "\0"
+            VALUE "FileDescription", "ServerCtrl" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "server_ctrl" "\0"
+            VALUE "InternalName", "ServerCtrl" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 de.blitzdose. All rights reserved." "\0"
-            VALUE "OriginalFilename", "server_ctrl.exe" "\0"
-            VALUE "ProductName", "server_ctrl" "\0"
+            VALUE "OriginalFilename", "ServerCtrl.exe" "\0"
+            VALUE "ProductName", "ServerCtrl" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

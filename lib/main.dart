@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:convert/convert.dart';
 
 import 'package:dynamic_color/dynamic_color.dart';
@@ -37,13 +39,16 @@ class MyHttpOverrides extends HttpOverrides{
             builder: (BuildContext context) {
               return AlertDialog(
                 title: Text(S.current.untrustedCertificate),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(S.current.certCannotBeVerified),
-                    const Padding(padding: EdgeInsets.only(top: 8.0)),
-                    Text(sha1)
-                  ],
+                content: SizedBox(
+                  width: min(400, MediaQuery.of(context).size.width),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(S.current.certCannotBeVerified),
+                      const Padding(padding: EdgeInsets.only(top: 8.0)),
+                      Text(sha1)
+                    ],
+                  ),
                 ),
                 actions: <Widget>[
                   TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.no)),

@@ -3,7 +3,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import 'generated/l10n.dart';
 import 'values/colors.dart';
 
 class MyAppController extends GetxController {
@@ -114,7 +113,6 @@ class MyAppController extends GetxController {
   void loadMetadata() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     appVersion(packageInfo.version);
-    appName(S.current.server_ctrl);
   }
 
 }

@@ -198,7 +198,7 @@
     "licenses": "Licences",
     "dataPrivacy": "Confidentialité des données",
     "aboutServerctrl": "À propos de ServerCtrl",
-    "accountAndName": "Compte {nom}",
+    "accountAndName": "Compte {name}",
     "@accountAndName": {
         "description": "Example: Account Admin"
     },

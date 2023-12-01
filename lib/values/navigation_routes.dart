@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/ui/pages/add_server/add_server.dart';
-import 'package:minecraft_server_remote/ui/pages/main/main.dart';
 import 'package:minecraft_server_remote/ui/pages/settings/app_settings.dart';
 
 import '../generated/l10n.dart';
