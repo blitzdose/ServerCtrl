@@ -93,8 +93,8 @@ class MyAppController extends GetxController {
       Locale savedLocale = Locale(valueString);
       locale(savedLocale);
       await Get.updateLocale(savedLocale);
-      NavigationRoutes.init();
     }
+    NavigationRoutes.init();
   }
 
   static void updateMainColor(Color color) async {

@@ -369,52 +369,49 @@ class AccountsController extends TabxController {
     return Card(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
-        child: Column(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0, 16, 0),
-                      child: Icon(
-                        Icons.person_rounded,
-                        size: 32,
-                      ),
-                    )
-                  ],
-                ),
-                Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(accountName, style: const TextStyle(fontSize: 24)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            TextButton(
-                                onPressed: () => changePermissionsDialog(accountName),
-                                child: Text(S.current.permissions)
-                            ),
-                            TextButton(
-                                onPressed: () => resetPasswordDialog(accountName),
-                                child: Text(S.current.reset_password)
-                            ),
-                            TextButton(
-                                onPressed: () => deleteAccountDialog(accountName),
-                                child: Text(S.current.delete)
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-
+                Padding(
+                  padding: EdgeInsets.fromLTRB(8, 0, 16, 0),
+                  child: Icon(
+                    Icons.person_rounded,
+                    size: 32,
+                  ),
                 )
               ],
             ),
+            Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(accountName, style: const TextStyle(fontSize: 24)),
+                    OverflowBar(
+                      alignment: MainAxisAlignment.end,
+                      overflowAlignment: OverflowBarAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                            onPressed: () => changePermissionsDialog(accountName),
+                            child: Text(S.current.permissions)
+                        ),
+                        TextButton(
+                            onPressed: () => resetPasswordDialog(accountName),
+                            child: Text(S.current.reset_password)
+                        ),
+                        TextButton(
+                            onPressed: () => deleteAccountDialog(accountName),
+                            child: Text(S.current.delete)
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+
+            )
           ],
         ),
       ),
