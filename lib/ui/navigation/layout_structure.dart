@@ -74,11 +74,16 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
         context: navigatorKey.currentContext!,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(S.current.loggingIn),
-            content: const LinearProgressIndicator(
-                  value: null,
-                ),
+          return WillPopScope(
+            onWillPop: () async {
+              return false;
+            },
+            child: AlertDialog(
+              title: Text(S.current.loggingIn),
+              content: const LinearProgressIndicator(
+                value: null,
+              ),
+            ),
           );
         },
       );

@@ -5,10 +5,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
 import 'package:minecraft_server_remote/values/navigation_routes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../navigator_key.dart';
 import '../../../utilities/http/session.dart';
 import '../../../utilities/snackbar/snackbar.dart';
 import '../../navigation/nav_route.dart';
@@ -25,7 +28,34 @@ class AddServerController extends GetxController {
   final isLoggingIn = false.obs;
   final errorMessage = "".obs;
 
-  AddServerController();
+  AddServerController() {
+    showDialogIfFirstRun();
+  }
+
+  void showDialogIfFirstRun() async {
+    bool firstRun = await IsFirstRun.isFirstRun();
+    if (firstRun) {
+      showDialog(
+        context: navigatorKey.currentContext!,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(S.of(context).important),
+              content: Text(S.of(context).InstallPlugin),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(onPressed: () => launchUrl(Uri.parse("https://github.com/blitzdose/ServerCtrl")), child: Text("More info")),
+                    TextButton(onPressed: () => Navigator.pop(context), child: Text("Ok"))
+                  ],
+                )
+              ]
+          );
+        },
+      );
+    }
+  }
 
   login() async {
     isLoggingIn(true);

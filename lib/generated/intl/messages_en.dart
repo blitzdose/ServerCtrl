@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "InstallPlugin": MessageLookupByLibrary.simpleMessage(
+            "This app requires a plugin to be installed on your existing minecraft server. Please click \"More info\" for ... well ... more info :)"),
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("About ServerCtrl"),
@@ -170,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Help me keep this app alive"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
+        "important": MessageLookupByLibrary.simpleMessage("IMPORTANT!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
             "Please remember, that you have to install the ServerCtrl-Plugin first"),
         "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP or Hostname"),

@@ -251,5 +251,7 @@
   "dataPrivacy": "Data privacy",
   "aboutServerctrl": "About ServerCtrl",
   "generate": "Generate",
-  "nothingSelected": "Nothing selected"
+  "nothingSelected": "Nothing selected",
+  "important": "IMPORTANT!",
+  "InstallPlugin": "This app requires a plugin to be installed on your existing minecraft server. Please click \"More info\" for ... well ... more info :)"
 }

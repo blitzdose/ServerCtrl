@@ -1779,6 +1779,26 @@ class S {
       args: [],
     );
   }
+
+  /// `IMPORTANT!`
+  String get important {
+    return Intl.message(
+      'IMPORTANT!',
+      name: 'important',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This app requires a plugin to be installed on your existing minecraft server. Please click "More info" for ... well ... more info :)`
+  String get InstallPlugin {
+    return Intl.message(
+      'This app requires a plugin to be installed on your existing minecraft server. Please click "More info" for ... well ... more info :)',
+      name: 'InstallPlugin',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
