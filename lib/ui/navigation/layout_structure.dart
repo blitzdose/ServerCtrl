@@ -21,6 +21,8 @@ class LayoutStructure extends StatefulWidget {
 class LayoutStructureState extends State<LayoutStructure> with SingleTickerProviderStateMixin {
   Widget screen = Container();
 
+  bool loginRunning = false;
+
   static MNavigator? navigator;
 
   static ActionUtils controller = Get.put(ActionUtils());
@@ -55,6 +57,9 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
   }
 
   void onItemTap(int index, bool pop) async {
+    if (loginRunning) {
+      return;
+    }
     if (NavigationRoutes.routes.isEmpty) {
       return;
     }
@@ -70,6 +75,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     final tempScreenFuture = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index).route!();
     Widget tempScreen = Container();
     if (initDone) {
+      loginRunning = true;
       showDialog(
         context: navigatorKey.currentContext!,
         barrierDismissible: false,
@@ -87,7 +93,10 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
           );
         },
       );
+      print("Hello");
       tempScreen = await tempScreenFuture;
+      print("Hello 2");
+      loginRunning = false;
       Navigator.pop(context);
     } else {
       tempScreen = await tempScreenFuture;
