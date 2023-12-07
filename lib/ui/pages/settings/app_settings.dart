@@ -22,6 +22,11 @@ class AppSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<ThemeMode, String> themeModeMap = {
+      ThemeMode.system: S.current.useSystemSettings,
+      ThemeMode.dark: S.current.darkMode,
+      ThemeMode.light: S.current.lightMode
+    };
     return Obx(() => SettingsList(
         lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
         darkTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
@@ -50,7 +55,7 @@ class AppSettings extends StatelessWidget {
               ),
               SettingsTile.navigation(
                 title: SettingsTileTitle(S.current.design),
-                description: Text(MyAppController.themeMode.value.name.capitalizeFirst!),
+                description: Text(themeModeMap[MyAppController.themeMode.value]!),
                 leading: const Icon(Icons.dark_mode_rounded),
                 onPressed: (context) => controller.design(context),
               ),

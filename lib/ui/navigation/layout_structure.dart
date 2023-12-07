@@ -93,9 +93,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
           );
         },
       );
-      print("Hello");
       tempScreen = await tempScreenFuture;
-      print("Hello 2");
       loginRunning = false;
       Navigator.pop(context);
     } else {
