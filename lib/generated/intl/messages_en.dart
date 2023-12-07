@@ -187,6 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Long press entry to delete it"),
         "material3": MessageLookupByLibrary.simpleMessage("Material 3"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("Memory Usage"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("More info"),
         "multipleFiles": MessageLookupByLibrary.simpleMessage("Multiple files"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "newFile": MessageLookupByLibrary.simpleMessage("New File"),

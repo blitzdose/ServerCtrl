@@ -1,6 +1,6 @@
 {
     "@@locale": "de",
-    "@@last_modified": "2023-11-28T21:43:03+00:00",
+    "@@last_modified": "2023-12-07T20:46:07+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -203,5 +203,8 @@
         "description": "Example: Account Admin"
     },
     "generate": "Generieren",
-    "nothingSelected": "Nichts ausgewählt"
+    "nothingSelected": "Nichts ausgewählt",
+    "important": "WICHTIG!",
+    "InstallPlugin": "Diese App setzt vorraus, dass ein Plugin auf deinem vorhandenen Minecraft-Server installiert ist. Bitte klicke auf \"Weitere Infos\" für ... weitere Infos :)",
+    "moreInfo": "Mehr Infos"
 }
