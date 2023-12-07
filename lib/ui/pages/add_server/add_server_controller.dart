@@ -40,14 +40,14 @@ class AddServerController extends GetxController {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text(S.of(context).important),
-              content: Text(S.of(context).InstallPlugin),
+              title: Text(S.current.important),
+              content: Text(S.current.InstallPlugin),
               actions: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(onPressed: () => launchUrl(Uri.parse("https://github.com/blitzdose/ServerCtrl")), child: Text("More info")),
-                    TextButton(onPressed: () => Navigator.pop(context), child: Text("Ok"))
+                    TextButton(onPressed: () => launchUrl(Uri.parse("https://github.com/blitzdose/ServerCtrl")), child: Text(S.current.moreInfo)),
+                    TextButton(onPressed: () => Navigator.pop(context), child: Text(S.current.ok))
                   ],
                 )
               ]
