@@ -33,7 +33,7 @@ class AddServerController extends GetxController {
   }
 
   void showDialogIfFirstRun() async {
-    bool firstRun = await IsFirstRun.isFirstRun();
+    bool firstRun = await IsFirstRun.isFirstCall();
     if (firstRun) {
       showDialog(
         context: navigatorKey.currentContext!,

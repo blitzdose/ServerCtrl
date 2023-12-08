@@ -8,6 +8,8 @@ import 'accounts_controller.dart';
 class AccountsTab extends StatelessWidget {
   final controller = Get.put(AccountsController());
 
+  final ScrollController scrollController = ScrollController();
+
   AccountsTab({super.key});
 
   @override
@@ -20,8 +22,10 @@ class AccountsTab extends StatelessWidget {
               child: SizedBox(
                 width: min(700, MediaQuery.of(context).size.width),
                 child: Scrollbar(
+                  controller: scrollController,
                   child: ListView(
                     scrollDirection: Axis.vertical,
+                    controller: scrollController,
                     children: controller.accountItems,
                   ),
                 ),

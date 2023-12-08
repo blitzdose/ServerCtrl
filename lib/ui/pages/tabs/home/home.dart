@@ -10,6 +10,8 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 class HomeTab extends StatelessWidget {
   final controller = Get.put(HomeController());
 
+  final ScrollController scrollController = ScrollController();
+
   HomeTab({super.key});
 
   @override
@@ -157,12 +159,13 @@ class HomeTab extends StatelessWidget {
               ),
               Expanded(
                 child: Scrollbar(
+                  controller: scrollController,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => const Divider(),
                     padding: EdgeInsets.zero,
                     itemCount: 7,
-                    primary: true,
                     physics: const AlwaysScrollableScrollPhysics(),
+                    controller: scrollController,
                     itemBuilder: (context, index) =>
                         SizedBox(
                           height: 48,

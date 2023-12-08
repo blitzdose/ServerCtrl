@@ -26,6 +26,7 @@ class ConsoleTab extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Scrollbar(
+                          controller: controller.consoleScrollController.value,
                           child: Obx(() => SingleChildScrollView(
                             controller: controller.consoleScrollController.value,
                             scrollDirection: Axis.vertical,
