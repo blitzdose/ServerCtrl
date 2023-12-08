@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "InstallPlugin": MessageLookupByLibrary.simpleMessage(
+            "Cette application nécessite l\'installation d\'un plugin sur votre serveur minecraft existant. Veuillez cliquer sur \"Plus d\'infos\" pour ... eh bien ... plus d\'infos :)"),
         "about": MessageLookupByLibrary.simpleMessage("À propos"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("À propos de ServerCtrl"),
@@ -179,6 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Aidez-moi à garder cette application en vie"),
         "home": MessageLookupByLibrary.simpleMessage("Accueil"),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
+        "important": MessageLookupByLibrary.simpleMessage("IMPORTANT!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
             "N’oubliez pas que vous devez d’abord installer le plugin ServerCtrl"),
         "ipOrHostname":
@@ -196,6 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "material3": MessageLookupByLibrary.simpleMessage("Material 3"),
         "memory_usage":
             MessageLookupByLibrary.simpleMessage("Utilisation de la mémoire"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("Plus d\'infos"),
         "multipleFiles":
             MessageLookupByLibrary.simpleMessage("Fichiers multiples"),
         "name": MessageLookupByLibrary.simpleMessage("Nom"),

@@ -1,6 +1,6 @@
 {
     "@@locale": "fr",
-    "@@last_modified": "2023-11-29T20:24:30+00:00",
+    "@@last_modified": "2023-12-08T19:30:41+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -203,5 +203,8 @@
         "description": "Example: Account Admin"
     },
     "generate": "Générer",
-    "nothingSelected": "Rien n’est sélectionné"
+    "nothingSelected": "Rien n’est sélectionné",
+    "important": "IMPORTANT!",
+    "InstallPlugin": "Cette application nécessite l'installation d'un plugin sur votre serveur minecraft existant. Veuillez cliquer sur \"Plus d'infos\" pour ... eh bien ... plus d'infos :)",
+    "moreInfo": "Plus d'infos"
 }
