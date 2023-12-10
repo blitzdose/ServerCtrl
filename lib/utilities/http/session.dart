@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart' as dartio;
 
 import 'package:http/http.dart' as http;
 
@@ -91,6 +94,40 @@ class Session {
     await request.addStream(streamUpload);
     final httpResponse = await request.close();
     final response = http.Response(await _readResponseAsString(httpResponse), httpResponse.statusCode);
+    return response;
+  }
+
+  static Future<http.Response> postFileFromWeb(String url, String path, Map<String, Uint8List> files, Function(int, int, bool) onUploadProgress) async {
+    dartio.BaseOptions options = dartio.BaseOptions(
+        contentType: "multipart/form-data",
+        headers: headers,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+        sendTimeout: const Duration(seconds: 10),
+        followRedirects: true,
+        validateStatus: (status) {
+          return true;
+        });
+
+    dartio.Dio _dio = dartio.Dio(options);
+
+    Map<String, dynamic> formEntries = {};
+    for(var file in files.entries) {
+      formEntries[file.key] = dartio.MultipartFile.fromBytes(file.value, filename: file.key);
+    }
+
+    formEntries["path"] = path;
+
+    var formData = dartio.FormData.fromMap(formEntries);
+
+    var dioResponse = await _dio.post<String>(
+      baseURL + url,
+      data: formData,
+      onSendProgress: (int sent, int total) {
+        onUploadProgress(sent, total, sent == total);
+      },
+    );
+    final response = http.Response(dioResponse.data.toString(), dioResponse.statusCode!);
     return response;
   }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/values/navigation_routes.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'values/colors.dart';
 
@@ -33,13 +33,13 @@ class MyAppController extends GetxController {
 
   static updateUsesDynamicColor(bool newValue) async {
     usesDynamicColor(newValue);
-    const storage = FlutterSecureStorage();
-    await storage.write(key: "useDynamicColor", value: newValue.toString());
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    await storage.setString("useDynamicColor", newValue.toString());
   }
 
   void loadUsesDynamicColor() async {
-    const storage = FlutterSecureStorage();
-    String? valueString = await storage.read(key: "useDynamicColor");
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String? valueString = storage.getString("useDynamicColor");
     if (valueString != null) {
       bool value = bool.parse(valueString);
       usesDynamicColor(value);
@@ -48,13 +48,13 @@ class MyAppController extends GetxController {
 
   static updateUsesMaterial3(bool newValue) async {
     usesMaterial3(newValue);
-    const storage = FlutterSecureStorage();
-    await storage.write(key: "useMaterial3", value: newValue.toString());
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    await storage.setString("useMaterial3", newValue.toString());
   }
 
   void loadUsesMaterial3() async {
-    const storage = FlutterSecureStorage();
-    String? valueString = await storage.read(key: "useMaterial3");
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String? valueString = storage.getString("useMaterial3");
     if (valueString != null) {
       bool value = bool.parse(valueString);
       usesMaterial3(value);
@@ -63,13 +63,13 @@ class MyAppController extends GetxController {
 
   static updateThemeMode(ThemeMode themeMode) async {
     MyAppController.themeMode(themeMode);
-    const storage = FlutterSecureStorage();
-    await storage.write(key: "themeMode", value: themeMode.name);
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    await storage.setString("themeMode", themeMode.name);
   }
 
   void loadThemeMode() async {
-    const storage = FlutterSecureStorage();
-    String? valueString = await storage.read(key: "themeMode");
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String? valueString = storage.getString("themeMode");
     if (valueString != null) {
       switch(valueString) {
         case "system":
@@ -88,13 +88,13 @@ class MyAppController extends GetxController {
   static void updateLanguage(Locale selectedLocale) async {
     locale(selectedLocale);
     locale.refresh();
-    const storage = FlutterSecureStorage();
-    await storage.write(key: "locale", value: selectedLocale.languageCode);
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    await storage.setString("locale", selectedLocale.languageCode);
   }
 
   void loadLocale() async {
-    const storage = FlutterSecureStorage();
-    String? valueString = await storage.read(key: "locale");
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String? valueString = storage.getString("locale");
     if (valueString != null) {
       Locale savedLocale = Locale(valueString);
       locale(savedLocale);
@@ -105,13 +105,13 @@ class MyAppController extends GetxController {
 
   static void updateMainColor(Color color) async {
     MyAppController.mainColor(color);
-    const storage = FlutterSecureStorage();
-    await storage.write(key: "mainColor", value: color.value.toString());
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    await storage.setString("mainColor", color.value.toString());
   }
 
   void loadMainColor() async {
-    const storage = FlutterSecureStorage();
-    String? valueString = await storage.read(key: "mainColor");
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String? valueString = storage.getString("mainColor");
     if (valueString != null) {
       int value = int.parse(valueString);
       mainColor(Color(value));

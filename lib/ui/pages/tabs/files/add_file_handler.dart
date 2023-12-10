@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minecraft_server_remote/ui/pages/tabs/files/files_controller.dart';
@@ -117,6 +118,10 @@ class AddFileHandler {
       }  else {
         pickedFile(pickerResult.files.first.name);
       }
+      if (kIsWeb) {
+        _uploadFileFromWeb(controller, path, pickerResult.files, totalSize, uploadedSize, finished, canceled);
+        return;
+      }
       _uploadFile(controller, path, pickerResult.files, totalSize, uploadedSize, finished, canceled);
     } else {
       Navigator.pop(navigatorKey.currentContext!, true);
@@ -151,6 +156,42 @@ class AddFileHandler {
       uploadedSize(byteCount);
       finished(isFinished);
       sinkCopy = sink;
+    });
+    if (!HttpUtils.isSuccess(response)) {
+      Navigator.pop(navigatorKey.currentContext!, true);
+      Snackbar.createWithTitle(S.current.files, S.current.errorWhileUploadingFile, true);
+    }
+    controller.updateData(true);
+  }
+
+  static void _uploadFileFromWeb(
+      FilesController controller,
+      String path,
+      List<PlatformFile> platformFiles,
+      RxInt totalSize,
+      RxInt uploadedSize,
+      RxBool finished,
+      RxBool canceled) async {
+
+    Map<String, Uint8List> files = {};
+    for (var element in platformFiles) {
+      files[element.name] = element.bytes!;
+    }
+
+    EventSink<List<int>>? sinkCopy;
+
+    canceled.listen((p0) {
+      //TODO: FIX CANCEL BUTTON
+      if (p0 && sinkCopy != null) {
+        sinkCopy!.close();
+        Navigator.pop(navigatorKey.currentContext!, true);
+      }
+    });
+
+    var response = await Session.postFileFromWeb("/api/files/upload", path, files, (byteCount, totalLength, isFinished) {
+      totalSize(totalLength);
+      uploadedSize(byteCount);
+      finished(isFinished);
     });
     if (!HttpUtils.isSuccess(response)) {
       Navigator.pop(navigatorKey.currentContext!, true);

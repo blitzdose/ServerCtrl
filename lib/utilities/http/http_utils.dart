@@ -9,7 +9,8 @@ class HttpUtils {
     try {
       var jsonResponse = jsonDecode(response.body);
       return jsonResponse['success'];
-    } on Exception catch (_) {
+    } on Exception catch (p) {
+      print(p);
       return false;
     }
   }

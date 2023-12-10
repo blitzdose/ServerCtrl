@@ -127,7 +127,7 @@ class ConsoleController extends TabxController {
           }
           textSpans.add(TextSpan(text: part, style: textStyle));
         } else {
-          textSpans.add(TextSpan(text: part));
+          textSpans.add(TextSpan(text: part, style: const TextStyle(color: Colors.white)));
         }
       }
       textSpans.add(const TextSpan(text: "\n"));

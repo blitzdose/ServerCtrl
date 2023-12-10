@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -28,29 +29,31 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
 
   Future<MainControllerObject> init() async {
     bool success = true;
-    const storage = FlutterSecureStorage();
-    String? creds = await storage.read(key: baseURL);
-    if (creds != null) {
-      List<String> credsArr = creds.split("\n");
-      String name = credsArr[0];
-      String username = credsArr[1];
-      String password = credsArr[2];
-      try {
-        http.Response response = await login(username, password);
-        if (response.statusCode != 200) throw Exception();
-      } on SocketException catch (_) {
-        Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
-        success = false;
-      } on TimeoutException catch (_) {
-        Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
-        success = false;
-      } on Exception catch (_) {
-        Snackbar.createWithTitle(name, S.current.cannotConnectMaybeCredentials);
+    if (!kIsWeb) {
+      const storage = FlutterSecureStorage();
+      String? creds = await storage.read(key: baseURL);
+      if (creds != null) {
+        List<String> credsArr = creds.split("\n");
+        String name = credsArr[0];
+        String username = credsArr[1];
+        String password = credsArr[2];
+        try {
+          http.Response response = await login(username, password);
+          if (response.statusCode != 200) throw Exception();
+        } on SocketException catch (_) {
+          Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
+          success = false;
+        } on TimeoutException catch (_) {
+          Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
+          success = false;
+        } on Exception catch (_) {
+          Snackbar.createWithTitle(name, S.current.cannotConnectMaybeCredentials);
+          success = false;
+        }
+      } else {
+        Snackbar.createWithTitle(baseURL, S.current.cannotFindCredentials);
         success = false;
       }
-    } else {
-      Snackbar.createWithTitle(baseURL, S.current.cannotFindCredentials);
-      success = false;
     }
     if (!success) {
       return MainControllerObject(success, Permissions([]));

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:minecraft_server_remote/main_controller.dart';
 import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
@@ -23,6 +24,7 @@ class MNavigator {
 
   Widget buildNavDrawer() {
     initRoutes();
+
     var navDrawer = Obx(() => my_nav_drawer.NavigationDrawer(
         onDestinationSelected: (value) => onItemTap_(value, true),
         onLongPressedLocation: (value) => onItemLongPress_(value),
@@ -57,8 +59,10 @@ class MNavigator {
   }
 
   Padding buildHeader() {
+    double bottomPadding = 16;
+    if (kIsWeb) bottomPadding = 0;
     return Padding(
-        padding: const EdgeInsets.fromLTRB(28, 44, 16, 16),
+        padding: EdgeInsets.fromLTRB(28, 44, 16, bottomPadding),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
@@ -72,7 +76,7 @@ class MNavigator {
               ),
               const Padding(padding: EdgeInsets.only(top: 8.0)),
               const Divider(),
-              Text(
+              if (!kIsWeb) Text(
                 S.current.longPressEntryToDeleteIt,
                 style: const TextStyle(fontSize: 14),
               ),
@@ -98,7 +102,9 @@ class MNavigator {
   }
 
   void onItemLongPress_(int index) {
-    onItemLongPress(index);
+    if (!kIsWeb) {
+      onItemLongPress(index);
+    }
   }
 
   void initRoutes() async {

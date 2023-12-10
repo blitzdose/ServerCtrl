@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:universal_html/html.dart' as html;
+
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_highlight/themes/tomorrow-night.dart';
 
 import 'package:code_text_field/code_text_field.dart';
@@ -54,6 +57,13 @@ class FileHandler {
       String id = jsonResponse['id'];
       if (fileEntry.type == FileEntry.DIRECTORY || fileEntries != null) {
         fileEntry.name = "$id.zip";
+      }
+
+      if (kIsWeb) {
+        html.AnchorElement anchorElement =  html.AnchorElement(href: "/api/files/download?id=$id");
+        anchorElement.download = "/api/files/download?id=$id";
+        anchorElement.click();
+        return;
       }
 
       StreamSubscription? listener;
@@ -384,6 +394,10 @@ class FileHandler {
                         IconButton(
                           icon: const Icon(Icons.save_rounded),
                           onPressed: () async {
+                            if (kIsWeb) {
+                              await saveInWeb(codeController, fileChanged);
+                              return;
+                            }
                             String editedText = codeController.text;
                             final Directory cacheDir = await getApplicationCacheDirectory();
                             File file = File("${cacheDir.path}/${fileEntry.name}");
@@ -428,6 +442,36 @@ class FileHandler {
     } else {
       Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileDownloadingFile, true);
       controller.showProgress(false);
+    }
+  }
+
+  Future<void> saveInWeb(CodeController codeController, bool fileChanged) async {
+    String editedText = codeController.text;
+    Uint8List bytes = utf8.encode(editedText);
+
+    Map<String, Uint8List> files = {};
+    files[fileEntry.name] = bytes;
+
+    showDialog(
+      context: navigatorKey.currentContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(S.current.saving),
+          content: const LinearProgressIndicator(value: null),
+          actions: <Widget>[
+            TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.cancel)),
+          ],
+        );
+      },
+    );
+
+    var response = await Session.postFileFromWeb("/api/files/upload", path, files, (byteCount, totalLength, isFinished) {});
+    Navigator.pop(navigatorKey.currentContext!, true);
+    if (HttpUtils.isSuccess(response)) {
+      fileChanged = false;
+      Snackbar.createWithTitle(S.current.files, S.current.fileSavedSuccessfully);
+    } else {
+      Snackbar.createWithTitle(S.current.files, S.current.errorWhileSavingFile, true);
     }
   }
 }
