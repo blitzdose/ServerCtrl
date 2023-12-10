@@ -80,13 +80,13 @@ class MyApp extends StatelessWidget {
 
   final controller = Get.put(MyAppController());
   MyApp({super.key}) {
-    controller.init();
+    //controller.init();
   }
 
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
-    return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+    Widget widget = DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       return Obx(() => GetMaterialApp(
         localizationsDelegates: const [
           S.delegate,
@@ -113,6 +113,8 @@ class MyApp extends StatelessWidget {
         navigatorKey: navigatorKey,
       ));
     });
+    controller.init();
+    return widget;
   }
 
   ThemeData buildTheme({

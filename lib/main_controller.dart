@@ -16,13 +16,19 @@ class MyAppController extends GetxController {
   static var appVersion = "".obs;
   static var appName = "ServerCtrl".obs;
 
+  static bool isInitialized = false;
+
   void init() {
+    if (MyAppController.isInitialized) {
+      return;
+    }
     loadMainColor();
     loadLocale();
     loadThemeMode();
     loadUsesMaterial3();
     loadUsesDynamicColor();
     loadMetadata();
+    MyAppController.isInitialized = true;
   }
 
   static updateUsesDynamicColor(bool newValue) async {
