@@ -107,6 +107,8 @@ class AddServer extends StatelessWidget {
                       controller: controller.passwordController.value,
                       onChanged: (value) => controller.passwordController.refresh(),
                       keyboardType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.go,
+                      onSubmitted: (value) => controller.login(),
                     ),
                     const Padding(padding: EdgeInsets.only(top: 18.0)),
                     if (controller.errorMessage.isNotEmpty) Text(controller.errorMessage.value, style: const TextStyle(color: Colors.red),),

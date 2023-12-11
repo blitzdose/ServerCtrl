@@ -60,6 +60,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     if (loginRunning) {
       return;
     }
+    loginRunning = true;
     if (NavigationRoutes.routes.isEmpty) {
       return;
     }
@@ -75,8 +76,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     final tempScreenFuture = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index).route!();
     Widget tempScreen = Container();
     if (initDone) {
-      loginRunning = true;
-      showDialog(
+      var dialogRoute = DialogRoute(
         context: navigatorKey.currentContext!,
         barrierDismissible: false,
         builder: (BuildContext context) {
@@ -93,9 +93,9 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
           );
         },
       );
+      Navigator.of(navigatorKey.currentContext!).push(dialogRoute);
       tempScreen = await tempScreenFuture;
-      loginRunning = false;
-      Navigator.pop(context);
+      Navigator.of(navigatorKey.currentContext!).removeRoute(dialogRoute);
     } else {
       tempScreen = await tempScreenFuture;
     }
@@ -104,6 +104,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
       screen = tempScreen;
       if (pop) Navigator.pop(context);
     });
+    loginRunning = false;
   }
 
   void onItemLongPress(int index) async {

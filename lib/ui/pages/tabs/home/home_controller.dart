@@ -21,7 +21,7 @@ class HomeController extends TabxController {
   final freeMemory = 0.obs;
 
   HomeController() {
-    updateData();
+    //updateData();
     LayoutStructureState.controller.actions.clear();
   }
 
