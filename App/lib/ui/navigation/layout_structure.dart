@@ -1,9 +1,9 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/navigation/nav_route.dart';
-import 'package:minecraft_server_remote/ui/pages/main/main.dart';
-import 'package:minecraft_server_remote/utilities/appbar/action_utils.dart';
-import 'package:minecraft_server_remote/values/navigation_routes.dart';
+import 'package:server_ctrl/ui/navigation/nav_route.dart';
+import 'package:server_ctrl/ui/pages/main/main.dart';
+import 'package:server_ctrl/utilities/appbar/action_utils.dart';
+import 'package:server_ctrl/values/navigation_routes.dart';
 
 import '../../generated/l10n.dart';
 import '../../navigator_key.dart';

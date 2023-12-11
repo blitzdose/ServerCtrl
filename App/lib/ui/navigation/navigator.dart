@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:minecraft_server_remote/main_controller.dart';
-import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
-import 'package:minecraft_server_remote/ui/navigation/navigation_drawer_impl.dart' as my_nav_drawer;
+import 'package:server_ctrl/main_controller.dart';
+import 'package:server_ctrl/ui/navigation/layout_structure.dart';
+import 'package:server_ctrl/ui/navigation/navigation_drawer_impl.dart' as my_nav_drawer;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
+import 'package:server_ctrl/utilities/permissions/permissions.dart';
 
 import '../../navigation/layout_structure.dart';
 

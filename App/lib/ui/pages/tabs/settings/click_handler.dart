@@ -4,10 +4,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/settings/models/server_setting.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/settings/settings_controller.dart';
-import 'package:minecraft_server_remote/utilities/dialogs/dialogs.dart';
-import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
+import 'package:server_ctrl/ui/pages/tabs/settings/models/server_setting.dart';
+import 'package:server_ctrl/ui/pages/tabs/settings/settings_controller.dart';
+import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
+import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../generated/l10n.dart';

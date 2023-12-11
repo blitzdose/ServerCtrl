@@ -1,4 +1,4 @@
-# minecraft_server_remote
+# server_ctrl
 
 ServerCtrl
 

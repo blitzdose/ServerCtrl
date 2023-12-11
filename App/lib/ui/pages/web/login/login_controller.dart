@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/navigation/nav_route.dart';
+import 'package:server_ctrl/ui/navigation/nav_route.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/session.dart';

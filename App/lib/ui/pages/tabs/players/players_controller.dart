@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/utilities/http/http_utils.dart';
-import 'package:minecraft_server_remote/utilities/http/session.dart';
-import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
+import 'package:server_ctrl/utilities/http/http_utils.dart';
+import 'package:server_ctrl/utilities/http/session.dart';
+import 'package:server_ctrl/utilities/permissions/permissions.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/api/api_utilities.dart';

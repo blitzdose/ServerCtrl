@@ -8,12 +8,12 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/files/add_file_handler.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/files/file_handler.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/files/multi_file_handler.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/tab.dart';
-import 'package:minecraft_server_remote/utilities/http/session.dart';
-import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
+import 'package:server_ctrl/ui/pages/tabs/files/add_file_handler.dart';
+import 'package:server_ctrl/ui/pages/tabs/files/file_handler.dart';
+import 'package:server_ctrl/ui/pages/tabs/files/multi_file_handler.dart';
+import 'package:server_ctrl/ui/pages/tabs/tab.dart';
+import 'package:server_ctrl/utilities/http/session.dart';
+import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/http_utils.dart';

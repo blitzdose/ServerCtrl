@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/console/console_controller.dart';
-import 'package:minecraft_server_remote/values/colors.dart';
+import 'package:server_ctrl/ui/pages/tabs/console/console_controller.dart';
+import 'package:server_ctrl/values/colors.dart';
 
 import '../../../../generated/l10n.dart';
 

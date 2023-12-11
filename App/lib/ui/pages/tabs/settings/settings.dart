@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/components/settings.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/settings/click_handler.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/settings/models/server_setting.dart';
-import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
+import 'package:server_ctrl/ui/components/settings.dart';
+import 'package:server_ctrl/ui/pages/tabs/settings/click_handler.dart';
+import 'package:server_ctrl/ui/pages/tabs/settings/models/server_setting.dart';
+import 'package:server_ctrl/utilities/permissions/permissions.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../../generated/l10n.dart';

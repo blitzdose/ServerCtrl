@@ -8,7 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:minecraft_server_remote/navigator_key.dart';
+import 'package:server_ctrl/navigator_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'generated/l10n.dart';
 import 'main_controller.dart';

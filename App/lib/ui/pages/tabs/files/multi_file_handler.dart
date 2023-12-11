@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/files/file_handler.dart';
+import 'package:server_ctrl/ui/pages/tabs/files/file_handler.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../navigator_key.dart';

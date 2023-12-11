@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/main_controller.dart';
-import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
+import 'package:server_ctrl/main_controller.dart';
+import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 

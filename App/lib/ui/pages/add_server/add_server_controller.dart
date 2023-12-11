@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:is_first_run/is_first_run.dart';
-import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
-import 'package:minecraft_server_remote/values/navigation_routes.dart';
+import 'package:server_ctrl/ui/navigation/layout_structure.dart';
+import 'package:server_ctrl/values/navigation_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../generated/l10n.dart';

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
-import 'package:minecraft_server_remote/utilities/permissions/permissions.dart';
+import 'package:server_ctrl/ui/navigation/layout_structure.dart';
+import 'package:server_ctrl/utilities/permissions/permissions.dart';
 
 import '../../../generated/l10n.dart';
 import '../tabs/tab.dart';
 import 'main_controller.dart';
 
-import 'package:minecraft_server_remote/ui/pages/tabs/accounts/accounts.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/console/console.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/files/files.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/home/home.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/players/players.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/settings/settings.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/log/log.dart';
+import 'package:server_ctrl/ui/pages/tabs/accounts/accounts.dart';
+import 'package:server_ctrl/ui/pages/tabs/console/console.dart';
+import 'package:server_ctrl/ui/pages/tabs/files/files.dart';
+import 'package:server_ctrl/ui/pages/tabs/home/home.dart';
+import 'package:server_ctrl/ui/pages/tabs/players/players.dart';
+import 'package:server_ctrl/ui/pages/tabs/settings/settings.dart';
+import 'package:server_ctrl/ui/pages/tabs/log/log.dart';
 
 class MainLogin {
   static Future<Main> mainLogin(String baseUrl) async {

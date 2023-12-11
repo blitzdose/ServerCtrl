@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
-import 'package:minecraft_server_remote/utilities/api/api_utilities.dart';
-import 'package:minecraft_server_remote/utilities/http/http_utils.dart';
-import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
+import 'package:server_ctrl/utilities/api/api_utilities.dart';
+import 'package:server_ctrl/utilities/http/http_utils.dart';
+import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/session.dart';

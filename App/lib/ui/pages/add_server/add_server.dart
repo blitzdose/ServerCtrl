@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/navigation/layout_structure.dart';
+import 'package:server_ctrl/ui/navigation/layout_structure.dart';
 
 import '../../../generated/l10n.dart';
 import 'add_server_controller.dart';

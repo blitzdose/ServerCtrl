@@ -5,7 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/files/files_controller.dart';
+import 'package:server_ctrl/ui/pages/tabs/files/files_controller.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../navigator_key.dart';

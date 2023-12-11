@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:minecraft_server_remote/ui/pages/add_server/add_server.dart';
-import 'package:minecraft_server_remote/ui/pages/settings/app_settings.dart';
+import 'package:server_ctrl/ui/pages/add_server/add_server.dart';
+import 'package:server_ctrl/ui/pages/settings/app_settings.dart';
 
 import '../generated/l10n.dart';
 import '../ui/navigation/nav_route.dart';

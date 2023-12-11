@@ -4,10 +4,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:minecraft_server_remote/navigator_key.dart';
-import 'package:minecraft_server_remote/ui/pages/tabs/tab.dart';
-import 'package:minecraft_server_remote/utilities/http/session.dart';
-import 'package:minecraft_server_remote/utilities/snackbar/snackbar.dart';
+import 'package:server_ctrl/navigator_key.dart';
+import 'package:server_ctrl/ui/pages/tabs/tab.dart';
+import 'package:server_ctrl/utilities/http/session.dart';
+import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/http_utils.dart';
