@@ -1,0 +1,85 @@
+:root {
+    --bs-primary: #327f31 !important;
+    --bs-primary-rgb: 50, 127, 49;
+    --red: #EE6055;
+    --bs-font-sans-serif: "Open Sans", sans-serif;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+.t-50 {
+    top: 50%;
+}
+
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(50, 127, 49, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #296628;
+    border-color: #296628;
+}
+
+.btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #296628;
+    border-color: #296628;
+}
+
+.btn-check:focus+.btn-primary, .btn-primary:focus {
+    color: #fff;
+    background-color: #296628;
+    border-color: #296628;
+    box-shadow: 0 0 0 0.25rem rgba(50, 127, 49, 0.5);
+}
+
+.btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.25rem rgba(50, 127, 49, 0.5);
+}
+
+.btn-outline-primary {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(50, 127, 49, 0.5);
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.form-check-input:focus {
+    border-color: var(--bs-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(50, 127, 49, 0.5);
+}
+
+.header-image {
+    width: 100%;
+    margin-bottom: 2rem;
+    border: 5px solid;
+    border-color: var(--bs-primary);
+    border-radius: 1rem;
+    background-color: var(--bs-primary);
+}
+
+.mt-20p {
+    margin-top: 20%;
+}

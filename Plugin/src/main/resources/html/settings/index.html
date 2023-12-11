@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings | Minecraft Server Remote</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon180.png">
+    <link rel="manifest" href="../login/site.webmanifest">
+
+    <link href="../css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="../css/material-icons-round.css"
+          rel="stylesheet">
+    <link href="../css/opensans.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
+    <link href="../css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="../css/sidebar.css"
+          rel="stylesheet">
+    <link href="../css/main.css"
+          rel="stylesheet">
+    <link href="../css/main-dark.css"
+          rel="stylesheet" id="stylesheet-dark" disabled="disabled">
+</head>
+<body>
+<nav class="mobile-show navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<div class="overlay" onclick="toggleSidebar()"></div>
+<main>
+    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <span class="bi me-2 material-icons-round">dns</span>
+            <span id="server-name" class="fs-4">Server Remote</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">home</span>Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/console" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">code</span>Console</a>
+            </li>
+            <li class="nav-item">
+                <a href="/players" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">people_alt</span>Players</a>
+            </li>
+            <li class="nav-item">
+                <a href="/files" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">folder</span>Files</a>
+            </li>
+            <li class="nav-item">
+                <a href="/log" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">notes</span>Log</a>
+            </li>
+            <li class="nav-item">
+                <a href="/account-management" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">manage_accounts</span>Manage Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a href="/settings" class="nav-link active" aria-current="page">
+                    <span class="bi me-2 material-icons-round">settings</span>Settings</a>
+            </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+               id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle" style="width: 32px; font-size: 1.5rem;"></i>
+                <strong id="username"></strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#password-change-modal" href="#">Change
+                    Password</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#" id="sign-out-button">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="password-change-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="old-password" class="form-label">Current password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="old-password">
+                                <div class="invalid-feedback">Password is invalid.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password1" class="form-label">New password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="new-password1">
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password2" class="form-label">Repeat new password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="new-password2">
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="submit-change-password" type="button" class="btn btn-primary">Change Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable">
+        <div class="container main-content">
+            <div id="plugin-card" class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">Plugin-Settings</h5>
+                </div>
+                <div class="card-body">
+                    <!-- CONTENT -->
+                    <form id="plugin-form" class="d-flex flex-column">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="enable-HTTPS">
+                                        <label class="form-check-label" for="enable-HTTPS">HTTPS</label>
+                                    </div>
+                                    <div class="mb-3 d-flex flex-wrap flex-row gap-2">
+                                        <button id="change-https-cert" type="button" class="btn btn-primary">Upload HTTPS-Certificate</button>
+                                        <button id="generate-https-cert" type="button" class="btn btn-primary">Generate new HTTPS-Certificate</button>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="webserver-portLabel">Plugin and Webserver Port</span>
+                                        <input type="number" class="form-control" id="webserver-port"
+                                               aria-describedby="webserver-portLabel">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary align-self-end">Save</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">Webinterface-Settings</h5>
+                </div>
+                <div class="card-body">
+                    <!-- CONTENT -->
+                    <form id="webinterface-form" class="d-flex flex-column">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="enable-darkmode">
+                                        <label class="form-check-label" for="enable-darkmode">Darkmode</label>
+                                    </div>
+
+                                    <div id="cp5a" class="input-group mb-3" title="Using format option">
+                                        <span class="input-group-text" id="themeColorLabel">Color</span>
+                                        <input id="color-text" type="text" class="form-control input-lg" value="#305AA2"/>
+                                        <span class="input-group-append"><span class="input-group-text colorpicker-input-addon"><i></i></span></span>
+                                    </div>
+
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="hide-restart-button">
+                                        <label class="form-check-label" for="hide-restart-button">Hide Restart Button</label>
+                                    </div>
+
+                                    <div id="server-name-element" class="input-group mb-3">
+                                        <span class="input-group-text" id="serverNameLabel">Server Name</span>
+                                        <input type="text" class="form-control" id="servername"
+                                               aria-describedby="serverNameLabel">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="languageLabel">Language</span>
+                                        <select class="form-select" aria-label="Default select example" id="language">
+                                            <option value="cs">Czech</option>
+                                            <option value="nl">Dutch</option>
+                                            <option value="en">English</option>
+                                            <option value="fr">French</option>
+                                            <option value="de">German</option>
+                                            <option value="it">Italian</option>
+                                            <option value="es">Spanish</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary align-self-end">Save</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="server-card" class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">Server-Settings</h5>
+                </div>
+                <div class="card-body">
+                    <!-- CONTENT -->
+                    <form id="server-form" class="d-flex flex-column">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div hidden>
+    <span id="saved">Saved</span>
+    <span id="success">Success</span>
+    <span id="password_changed">Password changed!</span>
+    <span id="save">Save</span>
+    <span id="cancel">Cancel</span>
+    <span id="certificate">Certificate</span>
+    <span id="loading">Loading...</span>
+    <span id="something_went_wrong">Something went wrong!</span>
+</div>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script src="../js/translate.js"></script>
+<script src="../js/bootstrap.bundle.min.js">
+</script>
+<script src="../js/sweetalert2.js"></script>
+<script src="../js/bootstrap-colorpicker.min.js"></script>
+<script src="../js/user.js"></script>
+<script src="../js/settings.js"></script>
+</body>
+</html>

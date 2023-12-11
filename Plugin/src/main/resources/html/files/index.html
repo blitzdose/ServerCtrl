@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Files | Minecraft Server Remote</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon180.png">
+    <link rel="manifest" href="../login/site.webmanifest">
+
+    <link href="../css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="../css/material-icons-round.css"
+          rel="stylesheet">
+    <link href="../css/opensans.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
+    <link href="../css/sidebar.css"
+          rel="stylesheet">
+    <link href="../css/main.css"
+          rel="stylesheet">
+    <link href="../css/checkboxes.css"
+          rel="stylesheet">
+    <link href="../css/fab.css"
+          rel="stylesheet">
+    <link href="../css/main-dark.css"
+          rel="stylesheet" id="stylesheet-dark" disabled="disabled">
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <link rel="stylesheet" href="../js/lib/codemirror.css">
+    <link rel="stylesheet" href="../js/addon/dialog/dialog.css">
+    <link rel="stylesheet" href="../js/theme/dracula.css">
+    <link rel="stylesheet" href="../js/theme/idea.css">
+</head>
+<body>
+<nav class="mobile-show navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<div class="overlay" onclick="toggleSidebar()"></div>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script src="../js/user.js"></script>
+<main>
+    <input id="folderupload" type="file" name="fileupload" hidden webkitdirectory directory multiple />
+    <input id="fileupload" type="file" name="fileupload" hidden multiple />
+
+    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <span class="bi me-2 material-icons-round">dns</span>
+            <span id="server-name" class="fs-4">Server Remote</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">home</span>Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/console" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">code</span>Console</a>
+            </li>
+            <li class="nav-item">
+                <a href="/players" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">people_alt</span>Players</a>
+            </li>
+            <li class="nav-item">
+                <a href="/files" class="nav-link active" aria-current="page">
+                    <span class="bi me-2 material-icons-round">folder</span>Files</a>
+            </li>
+            <li class="nav-item">
+                <a href="/log" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">notes</span>Log</a>
+            </li>
+            <li class="nav-item">
+                <a href="/account-management" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">manage_accounts</span>Manage Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a href="/settings" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">settings</span>Settings</a>
+            </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle" style="width: 32px; font-size: 1.5rem;"></i>
+                <strong id="username"></strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#password-change-modal" href="#">Change Password</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" id="sign-out-button">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="password-change-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="old-password" class="form-label">Current password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="old-password">
+                                <div class="invalid-feedback">Password is invalid.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password1" class="form-label">New password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="new-password1">
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password2" class="form-label">Repeat new password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="new-password2">
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="submit-change-password" type="button" class="btn btn-primary">Change Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fab-container">
+        <div class="fab fab-icon-holder">
+            <i class="material-icons-round">add</i>
+        </div>
+        <ul class="fab-options">
+            <li>
+                <div class="fab-icon-holder" onclick="createDir()">
+                    <i class="material-icons-round">create_new_folder</i>
+                    <div>
+                        <span>Create Folder</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="fab-icon-holder" onclick="startUploadFolder()">
+                    <i class="material-icons-round">drive_folder_upload</i>
+                    <div>
+                        <span>Upload Folder</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="fab-icon-holder" onclick="createFile()">
+                    <i class="material-icons-round">note_add</i>
+                    <div>
+                        <span>Create File</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="fab-icon-holder" onclick="startUpload()">
+                    <i class="material-icons-round">file_upload</i>
+                    <div>
+                        <span>Upload Files</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="fab-backdrop"></div>
+    </div>
+
+    <div class="scrollable no-scroll-on-mobile">
+        <div class="container main-content">
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Files</h5>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownItemsPerPage" data-bs-toggle="dropdown" aria-expanded="false">
+                            <strong id="itemsPerPage">25</strong>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <li><a class="dropdown-item" href="#" id="25" onclick="setItemsPerPage(25);">25</a></li>
+                            <li><a class="dropdown-item" href="#" id="50" onclick="setItemsPerPage(50);">50</a></li>
+                            <li><a class="dropdown-item" href="#" id="100" onclick="setItemsPerPage(100);">100</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="files" class="list-group mb-3">
+
+                    </div>
+                    <div aria-label="Page navigation example">
+                        <ul class="pagination" id="files-pagination">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div hidden>
+    <span id="no_access">You dont have access to this page</span>
+    <span id="stop">Stop!</span>
+    <span id="no_msr_command">You can't send the MSR-Command through the Webinterface.</span>
+    <span id="you_sure">Are you sure?</span>
+    <span id="really_delete">Do you really want to delete [...]?</span>
+    <span id="yes_delete">Yes, delete it!</span>
+    <span id="deleted">Deleted</span>
+    <span id="folder_deleted">Your folder has been deleted.</span>
+    <span id="something_went_wrong">Something went wrong!</span>
+    <span id="name">Name:</span>
+    <span id="create_folder">Create Folder</span>
+    <span id="folder_created">Folder created</span>
+    <span id="create_file">Create File</span>
+    <span id="file_created">File created</span>
+    <span id="download">Download</span>
+    <span id="download_edit">Download / Edit</span>
+    <span id="what_do">What do you want to do?</span>
+    <span id="delete">Delete</span>
+    <span id="rename">Rename</span>
+    <span id="loading">Loading...</span>
+    <span id="save">Save</span>
+    <span id="saving">Saving...</span>
+    <span id="file_saved">File saved</span>
+    <span id="new_name">New name:</span>
+    <span id="file_renamed">File renamed</span>
+    <span id="file_deleted">Your file has been deleted.</span>
+    <span id="upload">Upload...</span>
+    <span id="file_uploaded">File uploaded</span>
+    <span id="cancel">Cancel</span>
+    <span id="success">Success</span>
+    <span id="password_changed">Password changed!</span>
+    <span id="download_selected">Download selected</span>
+    <span id="remove_selected">Remove selected</span>
+</div>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script src="../js/lib/ajax-progress.js"></script>
+<script src="../js/translate.js"></script>
+<script src="../js/bootstrap.bundle.min.js">
+</script>
+<script src="../js/highlight.min.js"></script>
+<script src="../js/lib/codemirror.js"></script>
+<script src="../js/mode/properties/properties.js"></script>
+<script src="../js/mode/javascript/javascript.js"></script>
+<script src="../js/mode/yaml/yaml.js"></script>
+<script src="../js/addon/dialog/dialog.js"></script>
+<script src="../js/addon/search/searchcursor.js"></script>
+<script src="../js/addon/search/search.js"></script>
+<script src="../js/sweetalert2.js"></script>
+<script src="../js/lib/jszip.min.js"></script>
+<script src="../js/user.js"></script>
+<script src="../js/files.js"></script>
+</body>
+</html>

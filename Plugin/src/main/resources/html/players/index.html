@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Players | Minecraft Server Remote</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon180.png">
+    <link rel="manifest" href="../login/site.webmanifest">
+
+    <link href="../css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="../css/material-icons-round.css"
+          rel="stylesheet">
+    <link href="../css/opensans.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
+    <link href="../css/sidebar.css"
+          rel="stylesheet">
+    <link href="../css/main.css"
+          rel="stylesheet">
+    <link href="../css/main-dark.css"
+          rel="stylesheet" id="stylesheet-dark" disabled="disabled">
+</head>
+<body>
+<nav class="mobile-show navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<div class="overlay" onclick="toggleSidebar()"></div>
+<main>
+    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <span class="bi me-2 material-icons-round">dns</span>
+            <span id="server-name" class="fs-4">Server Remote</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">home</span>Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/console" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">code</span>Console</a>
+            </li>
+            <li class="nav-item">
+                <a href="/players" class="nav-link active" aria-current="page">
+                    <span class="bi me-2 material-icons-round">people_alt</span>Players</a>
+            </li>
+            <li class="nav-item">
+                <a href="/files" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">folder</span>Files</a>
+            </li>
+            <li class="nav-item">
+                <a href="/log" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">notes</span>Log</a>
+            </li>
+            <li class="nav-item">
+                <a href="/account-management" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">manage_accounts</span>Manage Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a href="/settings" class="nav-link" aria-current="page">
+                    <span class="bi me-2 material-icons-round">settings</span>Settings</a>
+            </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle" style="width: 32px; font-size: 1.5rem;"></i>
+                <strong id="username"></strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#password-change-modal" href="#">Change Password</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" id="sign-out-button">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="password-change-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="old-password" class="form-label">Current password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="old-password">
+                                <div class="invalid-feedback">Password is invalid.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password1" class="form-label">New password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="new-password1">
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password2" class="form-label">Repeat new password</label>
+                            <div class="mb-3 input-group has-validation">
+                                <input type="password" class="form-control" id="new-password2">
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="submit-change-password" type="button" class="btn btn-primary">Change Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable">
+        <div class="container main-content">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Players</h5>
+                    <div id="dropdown-playersPerPage" class="dropdown">
+                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownItemsPerPage" data-bs-toggle="dropdown" aria-expanded="false">
+                            <strong id="itemsPerPage">25</strong>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <li><a class="dropdown-item" href="#" id="25" onclick="setItemsPerPage(25);">25</a></li>
+                            <li><a class="dropdown-item" href="#" id="50" onclick="setItemsPerPage(50);">50</a></li>
+                            <li><a class="dropdown-item" href="#" id="100" onclick="setItemsPerPage(100);">100</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul id="players" class="list-group">
+
+                    </ul>
+                    <div aria-label="Page navigation example">
+                        <ul class="pagination" id="players-pagination">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div hidden>
+    <span id="no_players">No players online</span>
+    <span id="success">Success</span>
+    <span id="password_changed">Password changed!</span>
+</div>
+<div class="toast-container position-absolute top-0 end-0 p-3">
+    <div id="toast-success" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">Action completed</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <div id="toast-fail" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">Action failed</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script src="../js/translate.js"></script>
+<script src="../js/bootstrap.bundle.min.js">
+</script>
+<script src="../js/sweetalert2.js"></script>
+<script src="../js/user.js"></script>
+<script src="../js/players.js">
+</script>
+</body>
+</html>
