@@ -6,6 +6,8 @@ import de.blitzdose.minecraftserverremote.logging.LoggingType;
 import de.blitzdose.minecraftserverremote.web.webserver.Webserver;
 import de.blitzdose.minecraftserverremote.web.webserver.auth.UserManager;
 import io.javalin.http.Context;
+import io.javalin.http.Cookie;
+import io.javalin.http.SameSite;
 import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +39,19 @@ public class UserApi {
 
             String token = userManager.getToken(username);
 
-            context.cookie("token", token);
+            Cookie cookie = new Cookie(
+                    "token",
+                    token,
+                    "/",
+                    2592000,
+                    true,
+                    0,
+                    false,
+                    null,
+                    null,
+                    SameSite.STRICT
+            );
+            context.cookie(cookie);
             Webserver.returnJson(context, resultJson);
         } else {
             LoggingSaver.addLogEntry(LoggingType.LOGIN_FAIL, username + " (" + context.ip() + ")");
