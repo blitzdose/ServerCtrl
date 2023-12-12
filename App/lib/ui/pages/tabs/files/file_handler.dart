@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:universal_html/html.dart' as html;
 
 import 'package:file_picker/file_picker.dart';
@@ -465,7 +466,7 @@ class FileHandler {
       },
     );
 
-    var response = await Session.postFileFromWeb("/api/files/upload", path, files, (byteCount, totalLength, isFinished) {});
+    var response = await Session.postFileFromWeb("/api/files/upload", path, files, CancelToken(), (byteCount, totalLength, isFinished) {});
     Navigator.pop(navigatorKey.currentContext!, true);
     if (HttpUtils.isSuccess(response)) {
       fileChanged = false;

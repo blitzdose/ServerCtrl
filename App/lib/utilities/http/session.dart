@@ -97,7 +97,7 @@ class Session {
     return response;
   }
 
-  static Future<http.Response> postFileFromWeb(String url, String path, Map<String, Uint8List> files, Function(int, int, bool) onUploadProgress) async {
+  static Future<http.Response> postFileFromWeb(String url, String path, Map<String, Uint8List> files, dartio.CancelToken cancelToken, Function(int, int, bool) onUploadProgress) async {
     dartio.BaseOptions options = dartio.BaseOptions(
         contentType: "multipart/form-data",
         headers: headers,
@@ -123,6 +123,7 @@ class Session {
     var dioResponse = await _dio.post<String>(
       baseURL + url,
       data: formData,
+      cancelToken: cancelToken,
       onSendProgress: (int sent, int total) {
         onUploadProgress(sent, total, sent == total);
       },

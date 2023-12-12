@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -178,17 +179,16 @@ class AddFileHandler {
       files[element.name] = element.bytes!;
     }
 
-    EventSink<List<int>>? sinkCopy;
+    CancelToken cancelToken = CancelToken();
 
     canceled.listen((p0) {
       //TODO: FIX CANCEL BUTTON
-      if (p0 && sinkCopy != null) {
-        sinkCopy!.close();
-        Navigator.pop(navigatorKey.currentContext!, true);
+      if (p0) {
+        cancelToken.cancel();
       }
     });
 
-    var response = await Session.postFileFromWeb("/api/files/upload", path, files, (byteCount, totalLength, isFinished) {
+    var response = await Session.postFileFromWeb("/api/files/upload", path, files, cancelToken, (byteCount, totalLength, isFinished) {
       totalSize(totalLength);
       uploadedSize(byteCount);
       finished(isFinished);
