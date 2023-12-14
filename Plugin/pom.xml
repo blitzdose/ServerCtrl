@@ -6,7 +6,7 @@
 
     <groupId>de.blitzdose</groupId>
     <artifactId>ServerCtrl</artifactId>
-    <version>1.0</version>
+    <version>4.0.0</version>
     <packaging>jar</packaging>
 
     <name>ServerCtrl</name>
@@ -30,6 +30,10 @@
                         <nonFilteredFileExtension>txt</nonFilteredFileExtension>
                         <nonFilteredFileExtension>woff</nonFilteredFileExtension>
                         <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>otf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>bin</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>wasm</nonFilteredFileExtension>
                     </nonFilteredFileExtensions>
                 </configuration>
             </plugin>

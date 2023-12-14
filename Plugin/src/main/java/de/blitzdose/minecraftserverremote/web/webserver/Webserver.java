@@ -183,10 +183,10 @@ public class Webserver {
     private void addStaticFiles() {
         app.cfg.staticFiles.add(staticFileConfig -> {
             staticFileConfig.hostedPath = "/";
-            //staticFileConfig.directory = "/html";
-            //staticFileConfig.location = Location.CLASSPATH;
-            staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
-            staticFileConfig.location = Location.EXTERNAL;
+            staticFileConfig.directory = "/html";
+            staticFileConfig.location = Location.CLASSPATH;
+            //staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
+            //staticFileConfig.location = Location.EXTERNAL;
         });
     }
 
