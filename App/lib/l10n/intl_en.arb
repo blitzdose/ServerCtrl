@@ -253,7 +253,7 @@
   "generate": "Generate",
   "nothingSelected": "Nothing selected",
   "important": "IMPORTANT!",
-  "InstallPlugin": "This app requires a plugin to be installed on your existing minecraft server. Please click \"More info\" for ... well ... more info :)",
+  "InstallPlugin": "This app requires a plugin to be installed on your existing Minecraft server. Please click \"More info\" for ... well ... more info :)",
   "moreInfo": "More info",
   "pleaseInputYourUsernameAndPassword": "Please input your username and password",
   "successfullyLoggedIn": "Successfully logged in",

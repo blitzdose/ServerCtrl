@@ -42,9 +42,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "InstallPlugin": MessageLookupByLibrary.simpleMessage(
+            "Tato aplikace vyžaduje instalaci pluginu na Vašem Minecraft serveru. Prosím klikněte na \"Více info\" pro... no... více info :)"),
         "about": MessageLookupByLibrary.simpleMessage("Informace"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("Ohledně ServerCtrl"),
+        "acceptNewCert": MessageLookupByLibrary.simpleMessage(
+            "Certifikát změněn. Prosím ověřte a přijměte nový certifikát."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Přijměte prosím varování a přihlašte se znovu"),
         "accountAndName": m0,
@@ -168,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pomozte mi udržet aplikaci"),
         "home": MessageLookupByLibrary.simpleMessage("Domů"),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
+        "important": MessageLookupByLibrary.simpleMessage("DŮLEŽITÝ!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
             "Prosím, ujistěte se, že máte nainstalován ServerCtrl-Plugin"),
         "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP nebo Doména"),
@@ -182,6 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dlouze stiskněte pro odstranění"),
         "material3": MessageLookupByLibrary.simpleMessage("Material 3"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("Paměť CPU"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("Více info"),
         "multipleFiles":
             MessageLookupByLibrary.simpleMessage("Několik souborů"),
         "name": MessageLookupByLibrary.simpleMessage("Název"),
@@ -208,6 +214,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "players": MessageLookupByLibrary.simpleMessage("Hráči"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Prosím povolte přístup k souborům"),
+        "pleaseInputYourUsernameAndPassword":
+            MessageLookupByLibrary.simpleMessage(
+                "Prosím zadejte svoji přezdívku a heslo"),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin a Webserver port"),
@@ -254,6 +263,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Nový certifikát úspěšně vytvořen"),
+        "successfullyLoggedIn":
+            MessageLookupByLibrary.simpleMessage("Úspěšně přihlášen"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Úspěšně přejmenováno"),
         "successfullyResetPassword": MessageLookupByLibrary.simpleMessage(

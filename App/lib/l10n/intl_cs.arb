@@ -1,6 +1,6 @@
 {
     "@@locale": "cs",
-    "@@last_modified": "2023-11-28T23:01:55+00:00",
+    "@@last_modified": "2023-12-14T20:32:02+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Verze: {version}",
     "@version": {
@@ -203,5 +203,11 @@
         "description": "Example: Account Admin"
     },
     "generate": "Vytvořit",
-    "nothingSelected": "Nic není zvoleno"
+    "nothingSelected": "Nic není zvoleno",
+    "important": "DŮLEŽITÝ!",
+    "InstallPlugin": "Tato aplikace vyžaduje instalaci pluginu na Vašem Minecraft serveru. Prosím klikněte na \"Více info\" pro... no... více info :)",
+    "moreInfo": "Více info",
+    "pleaseInputYourUsernameAndPassword": "Prosím zadejte svoji přezdívku a heslo",
+    "successfullyLoggedIn": "Úspěšně přihlášen",
+    "acceptNewCert": "Certifikát změněn. Prosím ověřte a přijměte nový certifikát."
 }

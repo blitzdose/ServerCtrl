@@ -1,4 +1,4 @@
-package de.blitzdose.server_ctrl;
+package de.blitzdose.minecraftserverremote;
 
 import io.flutter.embedding.android.FlutterActivity;
 
