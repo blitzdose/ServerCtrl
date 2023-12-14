@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -66,6 +67,9 @@ class ClickHandler {
     final Rxn<String> certPath = Rxn<String>();
     final Rxn<String> keyPath = Rxn<String>();
 
+    final Rxn<Uint8List> certBytes = Rxn<Uint8List>();
+    final Rxn<Uint8List> keyBytes = Rxn<Uint8List>();
+
     showGeneralDialog(
       context: context,
       barrierDismissible: false,
@@ -92,7 +96,11 @@ class ClickHandler {
                           if (result != null) {
                             PlatformFile platformFile = result.files.first;
                             certFileName(platformFile.name);
-                            certPath(platformFile.path);
+                            if (kIsWeb) {
+                              certBytes(platformFile.bytes);
+                            } else {
+                              certPath(platformFile.path);
+                            }
                           }
                         } on PlatformException catch(_) {
                           Snackbar.createWithTitle(S.current.settings, S.current.pleaseAllowAccessToTheStorage);
@@ -112,7 +120,11 @@ class ClickHandler {
                           if (result != null) {
                             PlatformFile platformFile = result.files.first;
                             keyFileName(platformFile.name);
-                            keyPath(platformFile.path);
+                            if (kIsWeb) {
+                              keyBytes(platformFile.bytes);
+                            } else {
+                              keyPath(platformFile.path);
+                            }
                           }
                         } on PlatformException catch(_) {
                           Snackbar.createWithTitle(S.current.settings, S.current.pleaseAllowAccessToTheStorage);
@@ -132,8 +144,12 @@ class ClickHandler {
                   }, child: Text(S.current.help)),
                   const Spacer(),
                   TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.cancel)),
-                  Obx(() => TextButton(onPressed: (certPath.value != null && keyPath.value != null) ? () {
-                    controller.uploadCert(certPath.value!, keyPath.value!);
+                  Obx(() => TextButton(onPressed: ((certPath.value != null && keyPath.value != null) || (certBytes.value != null && keyBytes.value != null)) ? () {
+                    if (kIsWeb) {
+                      controller.uploadCertFromWeb(certBytes.value!, keyBytes.value!);
+                    } else {
+                      controller.uploadCert(certPath.value!, keyPath.value!);
+                    }
                     Navigator.pop(context, true);
                   } : null, child: Text(S.current.upload))),
                 ],

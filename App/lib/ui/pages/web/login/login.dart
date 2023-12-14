@@ -28,7 +28,7 @@ class LoginWeb extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text("Login", style: const TextStyle(fontSize: 32, ), textAlign: TextAlign.center),
+                    Text(S.current.login, style: const TextStyle(fontSize: 32, ), textAlign: TextAlign.center),
                     const Divider(),
                     const Padding(padding: EdgeInsets.only(top: 48.0)),
                     TextField(

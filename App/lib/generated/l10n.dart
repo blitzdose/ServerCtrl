@@ -1809,6 +1809,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Please input your username and password`
+  String get pleaseInputYourUsernameAndPassword {
+    return Intl.message(
+      'Please input your username and password',
+      name: 'pleaseInputYourUsernameAndPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully logged in`
+  String get successfullyLoggedIn {
+    return Intl.message(
+      'Successfully logged in',
+      name: 'successfullyLoggedIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Certificate changed. Please verify and accept the new certificate.`
+  String get acceptNewCert {
+    return Intl.message(
+      'Certificate changed. Please verify and accept the new certificate.',
+      name: 'acceptNewCert',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

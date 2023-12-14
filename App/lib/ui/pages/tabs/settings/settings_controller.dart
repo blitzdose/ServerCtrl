@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -128,6 +129,22 @@ class SettingsController extends TabxController {
     data["cert"] = await certFile.readAsBytes();
     data["certKey"] = await keyFile.readAsBytes();
 
+
+    var response = await Session.postCertFile("/api/plugin/certificate/upload", data);
+    if (HttpUtils.isSuccess(response)) {
+      Snackbar.createWithTitle(S.current.settings, S.current.certificateUploadedSuccessfully);
+    } else {
+      Snackbar.createWithTitle(S.current.settings, S.current.errorWhileUploadingCertificate, true);
+    }
+    showProgress(false);
+  }
+
+  void uploadCertFromWeb(Uint8List certBytes, Uint8List keyBytes) async {
+    showProgress(true);
+    Map<String, List<int>> data = <String, List<int>>{};
+
+    data["cert"] = certBytes;
+    data["certKey"] = keyBytes;
 
     var response = await Session.postCertFile("/api/plugin/certificate/upload", data);
     if (HttpUtils.isSuccess(response)) {

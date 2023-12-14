@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("About ServerCtrl"),
+        "acceptNewCert": MessageLookupByLibrary.simpleMessage(
+            "Certificate changed. Please verify and accept the new certificate."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Please accept the warning and login again"),
         "accountAndName": m0,
@@ -213,6 +215,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "players": MessageLookupByLibrary.simpleMessage("Players"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Please allow access to the storage"),
+        "pleaseInputYourUsernameAndPassword":
+            MessageLookupByLibrary.simpleMessage(
+                "Please input your username and password"),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin and Webserver Port"),
@@ -258,6 +263,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Successfully generated new certificate"),
+        "successfullyLoggedIn":
+            MessageLookupByLibrary.simpleMessage("Successfully logged in"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Successfully renamed"),
         "successfullyResetPassword":

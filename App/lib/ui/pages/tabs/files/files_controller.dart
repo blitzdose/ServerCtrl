@@ -357,15 +357,6 @@ class FilesController extends TabxController {
             foregroundColor: Theme.of(Get.context!).colorScheme.onSecondaryContainer,
             backgroundColor: Theme.of(Get.context!).colorScheme.secondaryContainer
           ),
-          //SpeedDialChild(
-          //    child: const Icon(Icons.drive_folder_upload_rounded),
-          //    label: "Upload Folder",
-          //    onTap: () => AddFileHandler.dirr(),
-          //    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          //    elevation: 2,
-          //    foregroundColor: Theme.of(Get.context!).colorScheme.onSecondaryContainer,
-          //    backgroundColor: Theme.of(Get.context!).colorScheme.secondaryContainer
-          //),
           SpeedDialChild(
               child: const Icon(Icons.note_add_rounded),
               label: S.current.createFile,

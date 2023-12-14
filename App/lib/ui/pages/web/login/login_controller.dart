@@ -50,7 +50,7 @@ class LoginController extends GetxController {
     String password = passwordController.value.text;
 
     if (username.isEmpty || password.isEmpty) {
-      errorMessage("Please input your username and password");
+      errorMessage(S.current.pleaseInputYourUsernameAndPassword);
       isLoggingIn(false);
       return;
     }
@@ -97,7 +97,7 @@ class LoginController extends GetxController {
         )
     );
     LayoutStructureState.navigator?.onItemTap_(0, false);
-    Snackbar.createWithTitle("ServerCtrl", "Successfully logged in");
+    Snackbar.createWithTitle(S.current.server_ctrl, S.current.successfullyLoggedIn);
   }
 
 }

@@ -182,7 +182,6 @@ class AddFileHandler {
     CancelToken cancelToken = CancelToken();
 
     canceled.listen((p0) {
-      //TODO: FIX CANCEL BUTTON
       if (p0) {
         cancelToken.cancel();
       }

@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("Über"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("Über ServerCtrl"),
+        "acceptNewCert": MessageLookupByLibrary.simpleMessage(
+            "Das Zertifikat hat sich geändert. Bitte verifiziere und akzeptiere das neue Zertifikat."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Bitte akzeptiere die Warnung und logge dich erneut ein"),
         "accountAndName": m0,
@@ -218,6 +220,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "players": MessageLookupByLibrary.simpleMessage("Spieler"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Bitte erlaube Zugriff auf den Speicher"),
+        "pleaseInputYourUsernameAndPassword":
+            MessageLookupByLibrary.simpleMessage(
+                "Bitte gebe dein Benutzername und Passwort ein"),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin- und Webserver-Port"),
@@ -265,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Neues Zertifikat erfolgreich generiert"),
+        "successfullyLoggedIn":
+            MessageLookupByLibrary.simpleMessage("Erfolgreich angemeldet"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Erfolgreich umbenannt"),
         "successfullyResetPassword": MessageLookupByLibrary.simpleMessage(
