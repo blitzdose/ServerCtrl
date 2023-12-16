@@ -23,6 +23,14 @@ You can install this Plugin like any other for your Spigot (Paper, etc.) server.
 - Rights-System. Add your devs to this plugin and let them perform only the actions you want them to do
 - Complete file manager that lets you upload, download, edit and much more
 
+## 📷 Screenshots
+### Android
+<p align="center">
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-3.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-2.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-1.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+
 ## ⬇️ Download
 ⚠️WORK IN PROGRESS⚠️
 
