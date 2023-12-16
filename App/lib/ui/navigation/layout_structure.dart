@@ -29,8 +29,25 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
 
   bool initDone = false;
 
+  static bool initialized = false;
+  static bool needsInit = false;
+
   LayoutStructureState() {
-    onItemTap(0, false);
+    if (needsInit) {
+      onItemTap(0, false);
+    }
+  }
+
+  static void init() {
+    if (initialized) {
+      return;
+    }
+    if (navigator != null) {
+      navigator!.onItemTap_(0, false);
+    } else {
+      needsInit = true;
+    }
+    initialized = true;
   }
 
   @override
@@ -62,6 +79,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     }
     loginRunning = true;
     if (NavigationRoutes.routes.isEmpty) {
+      loginRunning = false;
       return;
     }
     if (screen is Main) {
@@ -75,6 +93,8 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
 
     final tempScreenFuture = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index).route!();
     Widget tempScreen = Container();
+    tempScreen = await tempScreenFuture;
+    initDone = false;
     if (initDone) {
       var dialogRoute = DialogRoute(
         context: navigatorKey.currentContext!,
