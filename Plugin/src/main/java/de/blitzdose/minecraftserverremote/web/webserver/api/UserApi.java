@@ -44,12 +44,12 @@ public class UserApi {
                     token,
                     "/",
                     2592000,
-                    true,
+                    false,
                     0,
                     false,
                     null,
                     null,
-                    SameSite.STRICT
+                    SameSite.LAX
             );
             context.cookie(cookie);
             Webserver.returnJson(context, resultJson);

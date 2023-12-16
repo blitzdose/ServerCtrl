@@ -32,10 +32,13 @@ public final class ServerCtrl extends JavaPlugin implements Listener {
 
     static Plugin plugin;
 
+    ConsoleSaver consoleSaver;
     Webserver webserver;
 
     @Override
     public void onEnable() {
+        consoleSaver = new ConsoleSaver();
+
         getConfig().options().copyDefaults(true);
         saveConfig();
 
@@ -50,7 +53,7 @@ public final class ServerCtrl extends JavaPlugin implements Listener {
 
         new Thread(this::startWebserver).start();
 
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ConsoleSaver(), 20L, 20L);
+        //Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ConsoleSaver(), 20L, 20L);
     }
 
     private void startWebserver() {
@@ -102,6 +105,7 @@ public final class ServerCtrl extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        consoleSaver.clearLogFile();
         webserver.stop();
     }
 

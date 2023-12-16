@@ -6,7 +6,7 @@
 
     <groupId>de.blitzdose</groupId>
     <artifactId>ServerCtrl</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.0+beta2</version>
     <packaging>jar</packaging>
 
     <name>ServerCtrl</name>
@@ -48,7 +48,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>ServerCtrl</finalName>
+                            <finalName>ServerCtrl_${version}</finalName>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -94,7 +94,7 @@
                                 <exec executable="cmd.exe"
                                       spawn="true">
                                     <arg value="/c"/>
-                                    <arg value='copy "G:\Projekte\server_ctrl\Plugin\target\ServerCtrl.jar" "E:\Spiele\minecraft test server\1.19.2\plugins"'/>
+                                    <arg value='copy "G:\Projekte\server_ctrl\Plugin\target\ServerCtrl_${version}.jar" "E:\Spiele\minecraft test server\1.19.2\plugins"'/>
                                 </exec>
                             </target>
                         </configuration>
