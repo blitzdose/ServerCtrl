@@ -257,5 +257,7 @@
   "moreInfo": "More info",
   "pleaseInputYourUsernameAndPassword": "Please input your username and password",
   "successfullyLoggedIn": "Successfully logged in",
-  "acceptNewCert": "Certificate changed. Please verify and accept the new certificate."
+  "acceptNewCert": "Certificate changed. Please verify and accept the new certificate.",
+  "fileTooLarge": "File too large",
+  "fileTooLargeText": "The file you are trying to open is too large for the internal editor."
 }
