@@ -1,0 +1,42 @@
+name: Windows Release
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      working-dir: ./App
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: "17"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Disable analytics
+        run: flutter --disable-analytics
+        working-directory: ${{env.working-dir}}
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: ${{env.working-dir}}
+      - name: Enable windows build
+        run: flutter config --enable-windows-desktop
+      - name: Build Windows Binary
+        run: flutter build windows --release
+        working-directory: ${{env.working-dir}}
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: ServerCtrl-Windows.zip
+          directory: App/build/windows/x64/runner/Release
+      - name: Upload Windows Release
+        uses: actions/upload-artifact@v2
+        with:
+          name: Windows
+          path: App/build/windows/x64/runner/Release/ServerCtrl-Windows.zip
