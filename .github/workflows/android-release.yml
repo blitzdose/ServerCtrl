@@ -12,9 +12,11 @@ jobs:
         with:
           ref: master
       - name: Create the Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
           # import keystore from secrets
-          echo ${{ secrets.KEYSTORE_BASE64 }} | base64 -d > $RUNNER_TEMP/keystore.jks
+          echo $KEYSTORE_BASE64 | base64 -d > $RUNNER_TEMP/keystore.jks
       - uses: DamianReeves/write-file-action@master
         with:
           path: ${{env.working-dir}}/android/key.properties
