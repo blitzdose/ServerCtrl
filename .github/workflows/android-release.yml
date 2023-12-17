@@ -50,11 +50,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Appbundle
-          path: build/app/outputs/bundle/release/app-release.aab
-          working-directory: ${{env.working-dir}}
+          path: App/build/app/outputs/bundle/release/app-release.aab
       - name: Upload Android Release (APK)
         uses: actions/upload-artifact@v2
         with:
           name: APK
-          path: build/app/outputs/apk/release/app-release.apk
-          working-directory: ${{env.working-dir}}
+          path: App/build/app/outputs/apk/release/app-release.apk
