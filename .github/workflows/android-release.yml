@@ -11,6 +11,19 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: master
+      - name: Create the Keystore
+        run: |
+          # import keystore from secrets
+          echo ${{ secrets.KEYSTORE_BASE64 }} | base64 -d > $RUNNER_TEMP/keystore.jks
+      - uses: DamianReeves/write-file-action@master
+        with:
+          path: ${{env.working-dir}}/android/key.properties
+          contents: |
+            storePassword=${{secrets.KEYSTORE_PASS}}
+            keyPassword=${{secrets.KEYSTORE_PASS}}
+            keyAlias=key0
+            storeFile=$RUNNER_TEMP/keystore.jks
+          write-mode: overwrite
       - uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
