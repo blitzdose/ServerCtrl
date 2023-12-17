@@ -10,7 +10,10 @@ import 'package:server_ctrl/values/colors.dart';
 
 class LogController extends TabxController {
   final logEntries = <Widget>[].obs;
+  int position = 0;
   final logScrollController = ScrollController().obs;
+
+  bool updating = false;
   
   LogController() {
     logScrollController.value.addListener(() {
@@ -22,22 +25,28 @@ class LogController extends TabxController {
   
   @override
   Future<http.Response> fetchData() {
-    return Session.post("/api/log/log", "{\"limit\": 50, \"position\": ${logEntries.length}}");
+    return Session.post("/api/log/log", "{\"limit\": 50, \"position\": $position}}");
   }
 
   @override
   void updateData([bool reset = false]) async {
     if (reset) {
-      logEntries.clear();
+      position = 0;
     }
     var response = await fetchData();
+    List<Widget> logEntriesTmp = [];
     if (HttpUtils.isSuccess(response)) {
       List<LogEntry> entries = LogEntry.parseLog(response.body);
       for(LogEntry logEntry in entries) {
-        logEntries.add(createListItem(logEntry));
+        logEntriesTmp.add(createListItem(logEntry));
       }
       showProgress(false);
     }
+    if (reset) {
+      logEntries.clear();
+    }
+    logEntries.addAll(logEntriesTmp);
+    position = logEntries.length;
   }
 
   Widget createListItem(LogEntry logEntry) {

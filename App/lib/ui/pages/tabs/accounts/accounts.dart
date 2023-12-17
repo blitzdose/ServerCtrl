@@ -17,7 +17,7 @@ class AccountsTab extends StatelessWidget {
     return Obx(() =>
         Column(
           children: [
-            if (controller.showProgress.value) const LinearProgressIndicator(),
+            if (controller.showProgress.value) const LinearProgressIndicator() else const SizedBox(height: 4.0),
             Expanded(
               child: SizedBox(
                 width: min(700, MediaQuery.of(context).size.width),
