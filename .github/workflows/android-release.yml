@@ -5,6 +5,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-dir: ./App
     steps:
       - uses: actions/checkout@v3
         with:
@@ -16,19 +18,27 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - name: Disable analytics
+        run: flutter --disable-analytics
+        working-directory: ${{env.working-dir}}
       - name: Get dependencies
         run: flutter pub get
+        working-directory: ${{env.working-dir}}
       - name: Build Bundle
         run: flutter build appbundle --release
+        working-directory: ${{env.working-dir}}
       - name: Build APK
         run: flutter build apk --release
+        working-directory: ${{env.working-dir}}
       - name: Upload Android Release (Appbundle)
         uses: actions/upload-artifact@v2
         with:
           name: Appbundle
           path: build/app/outputs/bundle/release/app-release.aab
+          working-directory: ${{env.working-dir}}
       - name: Upload Android Release (APK)
         uses: actions/upload-artifact@v2
         with:
           name: APK
           path: build/app/outputs/apk/release/app-release.apk
+          working-directory: ${{env.working-dir}}
