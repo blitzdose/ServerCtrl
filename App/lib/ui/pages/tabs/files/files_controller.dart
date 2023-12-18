@@ -25,6 +25,7 @@ enum PopupMenuItems {edit, download, rename, delete}
 class FilesController extends TabxController {
 
   final fileEntries = <Widget>[].obs;
+  int position = 0;
   final fileScrollController = ScrollController().obs;
 
   List<String> editableFiles = [];
@@ -55,10 +56,6 @@ class FilesController extends TabxController {
 
   @override
   Future<http.Response> fetchData() {
-    int position = fileEntries.length;
-    if (fileEntries.isNotEmpty && path.isNotEmpty) {
-      position = fileEntries.length + -1;
-    }
     return Session.post("/api/files/list", "{\"path\": \"/${path.join("/")}\", \"limit\": 50, \"position\": $position}");
   }
   
@@ -74,13 +71,13 @@ class FilesController extends TabxController {
     canUpdate = false;
     showProgress(true);
     multiSelectState(false);
+
     if (reset) {
-      fileEntries.clear();
-      allShownFileEntries.clear();
-      if (path.isNotEmpty) {
-        fileEntries.add(createListItem(FileEntry("..", 0, 2, DateTime.now())));
-      }
+      position = 0;
     }
+
+    List<Widget> fileEntriesTmp = [];
+
     http.Response? response;
     try {
       response = await fetchData();
@@ -92,7 +89,7 @@ class FilesController extends TabxController {
     if (HttpUtils.isSuccess(response)) {
       List<FileEntry> entries = FileEntry.parseEntries(response.body);
       for (FileEntry fileEntry in entries) {
-        fileEntries.add(createListItem(fileEntry));
+        fileEntriesTmp.add(createListItem(fileEntry));
       }
       response = await fetchEditableFiles();
       if (HttpUtils.isSuccess(response)) {
@@ -106,6 +103,19 @@ class FilesController extends TabxController {
       canUpdate = true;
       timer.cancel();
     });
+
+    if (reset) {
+      fileEntries.clear();
+      allShownFileEntries.clear();
+      if (path.isNotEmpty) {
+        fileEntries.add(createListItem(FileEntry("..", 0, 2, DateTime.now())));
+      }
+    }
+    fileEntries.addAll(fileEntriesTmp);
+    position = fileEntries.length;
+    if (fileEntries.isNotEmpty && path.isNotEmpty) {
+      position = fileEntries.length + -1;
+    }
   }
 
   Widget createListItem(FileEntry fileEntry) {

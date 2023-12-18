@@ -1839,6 +1839,26 @@ class S {
       args: [],
     );
   }
+
+  /// `File too large`
+  String get fileTooLarge {
+    return Intl.message(
+      'File too large',
+      name: 'fileTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The file you are trying to open is too large for the internal editor.`
+  String get fileTooLargeText {
+    return Intl.message(
+      'The file you are trying to open is too large for the internal editor.',
+      name: 'fileTooLargeText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

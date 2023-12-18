@@ -12,7 +12,7 @@ class LogTab extends StatelessWidget {
     return Obx(() =>
         Column(
           children: [
-            if (controller.showProgress.value) const LinearProgressIndicator(),
+            if (controller.showProgress.value) const LinearProgressIndicator() else const SizedBox(height: 4.0),
             Expanded(
               child: Scrollbar(
                 controller: controller.logScrollController.value,

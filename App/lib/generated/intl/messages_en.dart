@@ -157,6 +157,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "fileAndName": m8,
         "fileSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("File saved successfully"),
+        "fileTooLarge": MessageLookupByLibrary.simpleMessage("File too large"),
+        "fileTooLargeText": MessageLookupByLibrary.simpleMessage(
+            "The file you are trying to open is too large for the internal editor."),
         "files": MessageLookupByLibrary.simpleMessage("Files"),
         "filesUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "File(s) uploaded successfully."),

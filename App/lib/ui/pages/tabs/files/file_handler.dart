@@ -312,8 +312,27 @@ class FileHandler {
       });
       listener.onDone(() async {
         receivedLength(totalLength);
+        var code = utf8.decode(bytes);
+        var linesOfCode = code.split("\n").length;
+        if (linesOfCode > 5000) {
+          controller.showProgress(false);
+          showDialog(
+            context: navigatorKey.currentContext!,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: Text(S.current.fileTooLarge),
+                  content: Text(S.current.fileTooLargeText),
+                  actions: [
+                   TextButton(onPressed: () => Navigator.pop(context), child: Text(S.current.ok))
+                  ]
+              );
+            },
+          );
+          return;
+        }
         var codeController = MyCodeController(
-          text: utf8.decode(bytes),
+          text: code.replaceAll("\r\n", "\n"),
           languageName: fileEntry.name.split(".").last,
         );
         
@@ -323,6 +342,7 @@ class FileHandler {
               controller: codeController,
               expands: true,
               textStyle: const TextStyle(fontFamily: 'SourceCode'),
+              lineNumberStyle: LineNumberStyle(width: 14.0 * linesOfCode.toString().length),
               onChanged: (p0) {
                 fileChanged = true;
               },
@@ -331,7 +351,7 @@ class FileHandler {
 
         controller.showProgress(false);
 
-        await showDialog(
+        showDialog(
             barrierDismissible: false,
             context: navigatorKey.currentContext!,
             builder: (BuildContext context) {

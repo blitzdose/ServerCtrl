@@ -19,7 +19,7 @@ class SettingsTab extends StatelessWidget {
     ClickHandler clickHandler = ClickHandler(controller);
     return Obx(() => Column(
       children: [
-        if (controller.showProgress.value) const LinearProgressIndicator(),
+        if (controller.showProgress.value) const LinearProgressIndicator() else const SizedBox(height: 4.0),
         if (controller.doneLoading.value) Expanded(
           child: SettingsList(
             lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),

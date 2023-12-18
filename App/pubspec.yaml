@@ -78,6 +78,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.1
+  msix: ^3.16.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -260,3 +261,17 @@ flutter_native_splash:
   #info_plist_files:
   #  - 'ios/Runner/Info-Debug.plist'
   #  - 'ios/Runner/Info-Release.plist'
+msix_config:
+  display_name: ServerCtrl
+  publisher_display_name: blitzdose
+  identity_name: de.blitzdose.server-ctrl
+  msix_version: 4.0.0.0
+  logo_path: G:\Projekte\server_ctrl\icons\windows\icon.ico
+  capabilities: internetClient
+  app_installer:
+    publish_folder_path: G:\Projekte\server_ctrl\App\build\windows
+    hours_between_update_checks: 0
+    automatic_background_task: true
+    update_blocks_activation: true
+    show_prompt: true
+    force_update_from_any_version: false
