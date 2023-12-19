@@ -4,7 +4,7 @@
   <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/name.png", width=800></picture>
   <br>
   <br>
-  ServerCtrl lets you control your Minecraft server from an Android App or the integrated Web interface.
+  ServerCtrl lets you control your Minecraft server from an Android / Windows / Linux App or the integrated Web interface.
   <br>
   <br>
   <a href="https://discord.gg/SewjCwVpaa" target="_blank"><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/discord.png", width=400></a>
@@ -13,7 +13,7 @@
 </p>
 
 ## 🛫 Getting Started
-You can install this Plugin like any other for your Spigot (Paper, etc.) server. On the first start, you will get the credentials for the admin account inside your console.
+You can install this Plugin like any other for your Spigot (Paper, etc.) server. **On the first start, you will get the credentials for the admin account inside your console.**
 
 ## 🚀 Features
 - View system health (CPU and RAM usage)
@@ -24,7 +24,6 @@ You can install this Plugin like any other for your Spigot (Paper, etc.) server.
 - Complete file manager that lets you upload, download, edit and much more
 
 ## 📷 Screenshots
-### Android
 <p align="center">
   <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-3.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-2.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
