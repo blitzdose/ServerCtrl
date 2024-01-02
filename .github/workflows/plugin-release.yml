@@ -1,0 +1,25 @@
+name: Plugin Release
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-dir: ./Plugin
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: "17"
+      - name: Build Jar
+        run: mvn clean package verify
+        working-directory: ${{env.working-dir}}
+      - name: Upload Android Release (APK)
+        uses: actions/upload-artifact@v2
+        with:
+          name: Plugin
+          path: Plugin/target/ServerCtrl_*.jar
