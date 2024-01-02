@@ -6,7 +6,7 @@
 
     <groupId>de.blitzdose</groupId>
     <artifactId>ServerCtrl</artifactId>
-    <version>4.0.0+beta2</version>
+    <version>4.0.0</version>
     <packaging>jar</packaging>
 
     <name>ServerCtrl</name>
@@ -79,28 +79,6 @@
                                 </resource>
                             </resources>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>pre-integration-test</phase>
-                        <configuration>
-                            <target>
-                                <exec executable="cmd.exe"
-                                      spawn="true">
-                                    <arg value="/c"/>
-                                    <arg value='copy "G:\Projekte\server_ctrl\Plugin\target\ServerCtrl_${version}.jar" "E:\Spiele\minecraft test server\1.19.2\plugins"'/>
-                                </exec>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
