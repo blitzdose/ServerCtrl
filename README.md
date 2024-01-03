@@ -33,6 +33,16 @@ You can install this Plugin like any other for your Spigot (Paper, etc.) server.
 ## ⬇️ Download
 ⚠️WORK IN PROGRESS⚠️
 
+## 🌍 Translation
+<a href="https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations"><img src="https://img.shields.io/badge/dynamic/json?color=2ea44f&label=English&query=%24.statistics.en.percent&url=https%3A%2F%2Ftranslation.blitzdose.de%2Fapi%2Fv1%2Fprojects%2F1%2Fstatistics" alt="English"></a>
+<a href="https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations"><img src="https://img.shields.io/badge/dynamic/json?color=2ea44f&label=Czech&query=%24.statistics.cs.percent&url=https%3A%2F%2Ftranslation.blitzdose.de%2Fapi%2Fv1%2Fprojects%2F1%2Fstatistics" alt="Czech"></a>
+<a href="https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations"><img src="https://img.shields.io/badge/dynamic/json?color=2ea44f&label=Dutch&query=%24.statistics.nl.percent&url=https%3A%2F%2Ftranslation.blitzdose.de%2Fapi%2Fv1%2Fprojects%2F1%2Fstatistics" alt="Dutch"></a>
+<a href="https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations"><img src="https://img.shields.io/badge/dynamic/json?color=2ea44f&label=French&query=%24.statistics.fr.percent&url=https%3A%2F%2Ftranslation.blitzdose.de%2Fapi%2Fv1%2Fprojects%2F1%2Fstatistics" alt="French"></a>
+<a href="https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations"><img src="https://img.shields.io/badge/dynamic/json?color=2ea44f&label=German&query=%24.statistics.de.percent&url=https%3A%2F%2Ftranslation.blitzdose.de%2Fapi%2Fv1%2Fprojects%2F1%2Fstatistics" alt="German"></a>
+<a href="https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations"><img src="https://img.shields.io/badge/dynamic/json?color=2ea44f&label=Spanish&query=%24.statistics.es.percent&url=https%3A%2F%2Ftranslation.blitzdose.de%2Fapi%2Fv1%2Fprojects%2F1%2Fstatistics" alt="Spanish"></a>
+
+### Would you like to help translate the app into a new language? -> [How to contribute translations](https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations)
+
 ## 💬 Contact
 Join my [Discord Channel](https://discord.gg/SewjCwVpaa) or open an [Issue](https://github.com/blitzdose/ServerCtrl/issues) if you experience any problems.
 
