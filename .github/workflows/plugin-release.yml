@@ -15,10 +15,27 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: "17"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Disable analytics
+        run: flutter --disable-analytics
+        working-directory: ./App
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: ./App
+      - name: Enable Web Build
+        run: flutter config --enable-web
+        working-directory: ./App
+      - name: Build Web files
+        run: flutter build web --release
+        working-directory: ./App
+      - name: Copy Web build
+        run: rm -rf ./Plugin/src/main/resources/html/* && cp -r ./App/build/web/* ./Plugin/src/main/resources/html/
       - name: Build Jar
         run: mvn clean package verify
         working-directory: ${{env.working-dir}}
-      - name: Upload Android Release (APK)
+      - name: Upload Plugin Release
         uses: actions/upload-artifact@v2
         with:
           name: Plugin
