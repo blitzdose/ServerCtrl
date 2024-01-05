@@ -93,8 +93,6 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
 
     final tempScreenFuture = NavigationRoutes.routes.where((element) => !(element.divider ?? false)).elementAt(index).route!();
     Widget tempScreen = Container();
-    tempScreen = await tempScreenFuture;
-    initDone = false;
     if (initDone) {
       var dialogRoute = DialogRoute(
         context: navigatorKey.currentContext!,
