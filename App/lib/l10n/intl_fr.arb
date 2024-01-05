@@ -1,6 +1,6 @@
 {
     "@@locale": "fr",
-    "@@last_modified": "2023-12-08T19:30:41+00:00",
+    "@@last_modified": "2024-01-05T14:18:20+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -206,5 +206,10 @@
     "nothingSelected": "Rien n’est sélectionné",
     "important": "IMPORTANT!",
     "InstallPlugin": "Cette application nécessite l'installation d'un plugin sur votre serveur minecraft existant. Veuillez cliquer sur \"Plus d'infos\" pour ... eh bien ... plus d'infos :)",
-    "moreInfo": "Plus d'infos"
+    "moreInfo": "Plus d'infos",
+    "pleaseInputYourUsernameAndPassword": "Veuillez saisir votre nom d'utilisateur et votre mot de passe",
+    "successfullyLoggedIn": "Connecté avec succès",
+    "acceptNewCert": "Le certificat a été modifié. Veuillez vérifier et accepter le nouveau certificat.",
+    "fileTooLarge": "Fichier trop volumineux",
+    "fileTooLargeText": "Le fichier que vous essayez d'ouvrir est trop volumineux pour l'éditeur interne."
 }

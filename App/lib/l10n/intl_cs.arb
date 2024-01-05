@@ -1,6 +1,6 @@
 {
     "@@locale": "cs",
-    "@@last_modified": "2023-12-14T20:32:02+00:00",
+    "@@last_modified": "2024-01-05T16:19:32+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Verze: {version}",
     "@version": {
@@ -209,5 +209,7 @@
     "moreInfo": "Více info",
     "pleaseInputYourUsernameAndPassword": "Prosím zadejte svoji přezdívku a heslo",
     "successfullyLoggedIn": "Úspěšně přihlášen",
-    "acceptNewCert": "Certifikát změněn. Prosím ověřte a přijměte nový certifikát."
+    "acceptNewCert": "Certifikát změněn. Prosím ověřte a přijměte nový certifikát.",
+    "fileTooLarge": "Soubor příliš velký",
+    "fileTooLargeText": "Soubor, který se snažíte otevřít, je příliš velký pro interní editor."
 }
