@@ -155,6 +155,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fileAndName": m8,
         "fileSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Soubor úspěšně uložen"),
+        "fileTooLarge":
+            MessageLookupByLibrary.simpleMessage("Soubor příliš velký"),
+        "fileTooLargeText": MessageLookupByLibrary.simpleMessage(
+            "Soubor, který se snažíte otevřít, je příliš velký pro interní editor."),
         "files": MessageLookupByLibrary.simpleMessage("Soubory"),
         "filesUploadedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Soubor(y) úspěšně nahrán(y)"),

@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("À propos"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("À propos de ServerCtrl"),
+        "acceptNewCert": MessageLookupByLibrary.simpleMessage(
+            "Le certificat a été modifié. Veuillez vérifier et accepter le nouveau certificat."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Veuillez accepter l’avertissement et vous reconnecter"),
         "accountAndName": m0,
@@ -164,6 +166,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fileAndName": m8,
         "fileSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Fichier enregistré avec succès"),
+        "fileTooLarge":
+            MessageLookupByLibrary.simpleMessage("Fichier trop volumineux"),
+        "fileTooLargeText": MessageLookupByLibrary.simpleMessage(
+            "Le fichier que vous essayez d\'ouvrir est trop volumineux pour l\'éditeur interne."),
         "files": MessageLookupByLibrary.simpleMessage("Fichiers"),
         "filesUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Fichier(s) téléchargé(s) avec succès."),
@@ -227,6 +233,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "players": MessageLookupByLibrary.simpleMessage("Joueurs"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Veuillez autoriser l’accès à l’espace de stockage"),
+        "pleaseInputYourUsernameAndPassword":
+            MessageLookupByLibrary.simpleMessage(
+                "Veuillez saisir votre nom d\'utilisateur et votre mot de passe"),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort": MessageLookupByLibrary.simpleMessage(
             "Port du plugin et du serveur Web"),
@@ -276,6 +285,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Nouveau certificat généré avec succès"),
+        "successfullyLoggedIn":
+            MessageLookupByLibrary.simpleMessage("Connecté avec succès"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Renommé avec succès"),
         "successfullyResetPassword": MessageLookupByLibrary.simpleMessage(

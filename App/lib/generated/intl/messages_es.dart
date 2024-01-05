@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("Sobre"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("Sobre ServerCtrl"),
+        "acceptNewCert": MessageLookupByLibrary.simpleMessage(
+            "Certificado modificado. Por favor verifica y acepta el nuevo certificado."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Por favor acepta la advertencia e inicia sesión nuevamente"),
         "accountAndName": m0,
@@ -60,7 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allocated_memory":
             MessageLookupByLibrary.simpleMessage("Memoria asignada"),
         "appearance": MessageLookupByLibrary.simpleMessage("Apariencia"),
-        "ban": MessageLookupByLibrary.simpleMessage("PROHIBIR"),
+        "ban": MessageLookupByLibrary.simpleMessage("BANEAR"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cannotConnectMaybeCredentials": MessageLookupByLibrary.simpleMessage(
             "No se ha podido conectar al servidor, ¿las credenciales han sido modificadas?"),
@@ -157,6 +159,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fileAndName": m8,
         "fileSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Archivo guardado con éxito"),
+        "fileTooLarge":
+            MessageLookupByLibrary.simpleMessage("Archivo demasiado pesado"),
+        "fileTooLargeText": MessageLookupByLibrary.simpleMessage(
+            "El archivo que intentas abrir es muy pesado para el editor interno."),
         "files": MessageLookupByLibrary.simpleMessage("Archivos"),
         "filesUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Archivo(s) subidos con éxito."),
@@ -216,6 +222,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "players": MessageLookupByLibrary.simpleMessage("Jugadores"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Por favor permite el acceso al almacenamiento"),
+        "pleaseInputYourUsernameAndPassword":
+            MessageLookupByLibrary.simpleMessage(
+                "Por favor ingresa tu usuario y contraseña"),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort": MessageLookupByLibrary.simpleMessage(
             "Puerto Plugin y Servidor Web"),
@@ -264,6 +273,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Nuevo certificado generado con éxito"),
+        "successfullyLoggedIn": MessageLookupByLibrary.simpleMessage(
+            "Sesión iniciada exitosamente"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Renombrado con éxito"),
         "successfullyResetPassword": MessageLookupByLibrary.simpleMessage(

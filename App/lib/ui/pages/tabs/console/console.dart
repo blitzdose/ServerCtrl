@@ -26,17 +26,20 @@ class ConsoleTab extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                        child: Scrollbar(
-                          controller: controller.consoleScrollController.value,
-                          child: Obx(() => SingleChildScrollView(
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Scrollbar(
                             controller: controller.consoleScrollController.value,
-                            scrollDirection: Axis.vertical,
-                            reverse: true,
-                            child: controller.softwrap.isFalse ? SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: buildRichText(),
-                            ) : buildRichText()
-                          )),
+                            child: Obx(() => SingleChildScrollView(
+                              controller: controller.consoleScrollController.value,
+                              scrollDirection: Axis.vertical,
+                              reverse: true,
+                              child: controller.softwrap.isFalse ? SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: buildRichText(),
+                              ) : buildRichText()
+                            )),
+                          ),
                         )
                     ),
                   ],

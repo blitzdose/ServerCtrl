@@ -70,7 +70,8 @@ public final class ServerCtrl extends JavaPlugin implements Listener {
                         e.printStackTrace();
                     }
                 }
-                webserver = new Webserver((Integer) port, this.getClassLoader(), getPlugin().getConfig().getBoolean("Webserver.frontend"), https);
+                boolean debug = getConfig().getBoolean("Webserver.debugging");
+                webserver = new Webserver((Integer) port, this.getClassLoader(), getPlugin().getConfig().getBoolean("Webserver.frontend"), https, debug);
                 webserver.start();
                 Logger.log("Webserver started on Port: §f" + port);
             } catch (JavalinBindException e) {

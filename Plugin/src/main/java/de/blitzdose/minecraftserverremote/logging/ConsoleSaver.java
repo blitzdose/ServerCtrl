@@ -15,7 +15,14 @@ public class ConsoleSaver {
     public ConsoleSaver() {
         logger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
         consoleAppender = new ConsoleAppender("ServerCtrl", null, new MessageLayout());
-        logger.addAppender(consoleAppender);
+        consoleAppender.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!consoleAppender.isStarted()) { }
+                logger.addAppender(consoleAppender);
+            }
+        }).start();
     }
 
     public static String getLogFile() {

@@ -1,6 +1,6 @@
 {
     "@@locale": "es",
-    "@@last_modified": "2023-12-07T21:01:18+00:00",
+    "@@last_modified": "2024-01-03T23:49:43+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Versión: {version}",
     "@version": {
@@ -27,7 +27,7 @@
     "command": "Comando",
     "error_sending_command": "Error enviando el comando",
     "kick": "EXPULSAR",
-    "ban": "PROHIBIR",
+    "ban": "BANEAR",
     "deop": "DE-OP",
     "op": "OP",
     "success": "Correcto",
@@ -206,5 +206,10 @@
     "nothingSelected": "Nada seleccionado",
     "important": "Importante",
     "InstallPlugin": "Instalar Plugin",
-    "moreInfo": "Más información"
+    "moreInfo": "Más información",
+    "pleaseInputYourUsernameAndPassword": "Por favor ingresa tu usuario y contraseña",
+    "successfullyLoggedIn": "Sesión iniciada exitosamente",
+    "acceptNewCert": "Certificado modificado. Por favor verifica y acepta el nuevo certificado.",
+    "fileTooLarge": "Archivo demasiado pesado",
+    "fileTooLargeText": "El archivo que intentas abrir es muy pesado para el editor interno."
 }
