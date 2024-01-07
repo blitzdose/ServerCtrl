@@ -1,4 +1,4 @@
-# ServerCtrl ⚠️WORK IN PROGRESS⚠️
+# ServerCtrl
 
 <p align="center">
   <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/images/name.png", width=800></picture>
@@ -31,7 +31,7 @@ You can install this Plugin like any other for your Spigot (Paper, etc.) server.
 </p>
 
 ## ⬇️ Download
-⚠️WORK IN PROGRESS⚠️
+Download the latest version here: [GitHub release](https://github.com/blitzdose/ServerCtrl/releases/latest)
 
 ## 🌍 Translation
 <a href="https://github.com/blitzdose/ServerCtrl/wiki/Contribute-translations"><img src="https://img.shields.io/badge/dynamic/json?color=2ea44f&label=English&query=%24.statistics.en.percent&url=https%3A%2F%2Ftranslation.blitzdose.de%2Fapi%2Fv1%2Fprojects%2F1%2Fstatistics" alt="English"></a>
