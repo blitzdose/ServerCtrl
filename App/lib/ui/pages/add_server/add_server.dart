@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/navigation/layout_structure.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../navigator_key.dart';
 import 'add_server_controller.dart';
 
 class AddServer extends StatelessWidget {
@@ -113,11 +115,40 @@ class AddServer extends StatelessWidget {
                     const Padding(padding: EdgeInsets.only(top: 18.0)),
                     if (controller.errorMessage.isNotEmpty) Text(controller.errorMessage.value, style: const TextStyle(color: Colors.red),),
                     const Padding(padding: EdgeInsets.only(top: 18.0)),
-                    controller.isLoggingIn.isFalse ? FilledButton(
-                      onPressed: () {
-                        controller.login();
-                      },
-                      child: Text(S.current.login),
+                    controller.isLoggingIn.isFalse ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FilledButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                context: navigatorKey.currentContext!,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                      title: Text(S.current.howCanILogIn),
+                                      content: Text(S.of(context).howCanILogInText),
+                                      actions: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            TextButton(onPressed: () => launchUrl(Uri.parse("https://discord.gg/SewjCwVpaa")), child: Text(S.current.discord)),
+                                            TextButton(onPressed: () => Navigator.pop(context), child: Text(S.current.ok))
+                                          ],
+                                        )
+                                      ]
+                                  );
+                                },
+                              );
+                            },
+                            icon: Icon(Icons.help_rounded),
+                            label: Text(S.current.help)),
+                        FilledButton(
+                          onPressed: () {
+                            controller.login();
+                          },
+                          child: Text(S.current.login),
+                        )
+                      ],
                     ) : const CircularProgressIndicator(
                       value: null,
                     )

@@ -1,6 +1,6 @@
 {
     "@@locale": "de",
-    "@@last_modified": "2023-12-17T21:05:03+00:00",
+    "@@last_modified": "2024-01-12T17:52:59+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -211,5 +211,7 @@
     "successfullyLoggedIn": "Erfolgreich angemeldet",
     "acceptNewCert": "Das Zertifikat hat sich geändert. Bitte verifiziere und akzeptiere das neue Zertifikat.",
     "fileTooLarge": "Datei zu groß",
-    "fileTooLargeText": "Die Datei ist zu groß für den internen Editor."
+    "fileTooLargeText": "Die Datei ist zu groß für den internen Editor.",
+    "howCanILogIn": "Wie kann ich mich einloggen?",
+    "howCanILogInText": "Nachdem du das Plugin auf deinem Bukkit \/ Spigot \/ Paper server installiert hast, wird dir in der Console das Passwort für den Nutzer \"admin\" angezeigt. Dies passiert nur beim ersten start oder wenn kein Nutzer mit dem Namen \"admin\" vorhanden ist.\n\nWenn du das Passwort vergisst oder den Consolen-Log nicht mehr hast, kannst du einfach die Datei \"config.yml\" in dem Ordner \"ServerCtrl\" löschen oder auch nur den Nutzer \"admin\" in dieser Datei.\n\nFür mehr hilfe trete meinem Discord-Channel bei."
 }

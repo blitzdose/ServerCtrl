@@ -179,6 +179,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "helpMeKeepThisAppAlive": MessageLookupByLibrary.simpleMessage(
             "Hilf mir, diese App am Leben zu erhalten"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "howCanILogIn": MessageLookupByLibrary.simpleMessage(
+            "Wie kann ich mich einloggen?"),
+        "howCanILogInText": MessageLookupByLibrary.simpleMessage(
+            "Nachdem du das Plugin auf deinem Bukkit / Spigot / Paper server installiert hast, wird dir in der Console das Passwort für den Nutzer \"admin\" angezeigt. Dies passiert nur beim ersten start oder wenn kein Nutzer mit dem Namen \"admin\" vorhanden ist.\n\nWenn du das Passwort vergisst oder den Consolen-Log nicht mehr hast, kannst du einfach die Datei \"config.yml\" in dem Ordner \"ServerCtrl\" löschen oder auch nur den Nutzer \"admin\" in dieser Datei.\n\nFür mehr hilfe trete meinem Discord-Channel bei."),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
         "important": MessageLookupByLibrary.simpleMessage("WICHTIG!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
