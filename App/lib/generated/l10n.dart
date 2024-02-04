@@ -1859,6 +1859,26 @@ class S {
       args: [],
     );
   }
+
+  /// `How can I log in?`
+  String get howCanILogIn {
+    return Intl.message(
+      'How can I log in?',
+      name: 'howCanILogIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn't got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord channel.`
+  String get howCanILogInText {
+    return Intl.message(
+      'After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn\'t got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord channel.',
+      name: 'howCanILogInText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
