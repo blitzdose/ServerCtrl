@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:server_ctrl/ui/pages/tabs/settings/models/server_setting.dart';
@@ -153,6 +155,104 @@ class SettingsController extends TabxController {
       Snackbar.createWithTitle(S.current.settings, S.current.errorWhileUploadingCertificate, true);
     }
     showProgress(false);
+  }
+
+  Future<int> changePassword(String currentPassword, String newPassword, String? code) async {
+    var data = {};
+    data['password'] = const Base64Encoder.urlSafe().convert(utf8.encode(currentPassword)).trim();
+    data['new-password'] = const Base64Encoder.urlSafe().convert(utf8.encode(newPassword)).trim();
+    if (code != null) {
+      data['code'] = code;
+    }
+    var response = await Session.post("/api/user/password", data);
+    if (response.statusCode == 401) {
+      return 401;
+    } else if (response.statusCode == 402) {
+      return 402;
+    } else if (response.statusCode == 200) {
+      const storage = FlutterSecureStorage();
+      String? creds = await storage.read(key: Session.baseURL);
+      String servername = "";
+      String username = "";
+      if (creds != null) {
+        List<String> credsArr = creds.split("\n");
+        servername = credsArr[0];
+        username = credsArr[1];
+      } else {
+        return -1;
+      }
+
+      if (code == null) {
+        await storage.write(key: Session.baseURL, value: "$servername\n$username\n$newPassword");
+        return 200;
+      }
+      if (!kIsWeb) {
+        data = {};
+        data['username'] = username;
+        data['password'] = const Base64Encoder.urlSafe().convert(utf8.encode(newPassword)).trim();
+        data['code'] = code;
+        data['needsAppPassword'] = "true";
+
+        var response = await Session.post("/api/user/login", data);
+
+        var responseJson = jsonDecode(response.body);
+        if (responseJson['appPassword'] != null) {
+          String appPassword = responseJson['appPassword'];
+          await storage.write(key: Session.baseURL, value: "$servername\n$username\n$appPassword");
+        }
+      }
+      return 200;
+    }
+    return -1;
+  }
+
+  Future<bool> hasTOTP() async {
+    var response = await Session.get("/api/user/hastotp");
+    var responseJson = jsonDecode(response.body);
+    return responseJson["hastotp"];
+  }
+  
+  Future<int> removeTOTP(String password, String code) async {
+    var data = {};
+    data['password'] = const Base64Encoder.urlSafe().convert(utf8.encode(password)).trim();
+    data['code'] = code;
+    var response = await Session.post("/api/user/removetotp", data);
+    if (response.statusCode == 200) {
+      var responseJson = jsonDecode(response.body);
+      if (responseJson["success"]) {
+        return 200;
+      } else {
+        return 500;
+      }
+    } else {
+      return response.statusCode;
+    }
+  }
+
+  Future<String?> initTOTP(String password) async {
+    var data = {};
+    data["password"] = const Base64Encoder.urlSafe().convert(utf8.encode(password)).trim();
+    var response = await Session.post("/api/user/inittotp", data);
+    if (response.statusCode == 200) {
+      var responseJson = jsonDecode(response.body);
+      if (responseJson["success"]) {
+        return responseJson["secret"];
+      }
+    } else {
+      return null;
+    }
+    return null;
+  }
+  
+  Future<bool> verifyTOTP(String code) async {
+    var data = {};
+    data["code"] = code;
+    var response = await Session.post("/api/user/verifytotp", data);
+    if (response.statusCode == 200) {
+      var responseJson = jsonDecode(response.body);
+      return responseJson["success"];
+    }
+    return false;
   }
 
   @override

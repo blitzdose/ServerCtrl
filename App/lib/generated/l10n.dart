@@ -1879,6 +1879,276 @@ class S {
       args: [],
     );
   }
+
+  /// `Two-factor authentication`
+  String get twofactorAuthentication {
+    return Intl.message(
+      'Two-factor authentication',
+      name: 'twofactorAuthentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input your Code`
+  String get pleaseInputYourCode {
+    return Intl.message(
+      'Please input your Code',
+      name: 'pleaseInputYourCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TOTP Code`
+  String get totpCode {
+    return Intl.message(
+      'TOTP Code',
+      name: 'totpCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong Code`
+  String get wrongCode {
+    return Intl.message(
+      'Wrong Code',
+      name: 'wrongCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password`
+  String get changePassword {
+    return Intl.message(
+      'Change password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current password`
+  String get currentPassword {
+    return Intl.message(
+      'Current password',
+      name: 'currentPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get account {
+    return Intl.message(
+      'Account',
+      name: 'account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Configure Two-factor authentication`
+  String get configureTwofactorAuthentication {
+    return Intl.message(
+      'Configure Two-factor authentication',
+      name: 'configureTwofactorAuthentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. with Google Authenticator`
+  String get egWithGoogleAuthenticator {
+    return Intl.message(
+      'e.g. with Google Authenticator',
+      name: 'egWithGoogleAuthenticator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password changed successfully`
+  String get passwordChangedSuccessfully {
+    return Intl.message(
+      'Password changed successfully',
+      name: 'passwordChangedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong password`
+  String get wrongPassword {
+    return Intl.message(
+      'Wrong password',
+      name: 'wrongPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please wait`
+  String get pleaseWait {
+    return Intl.message(
+      'Please wait',
+      name: 'pleaseWait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove two-factor authentication?`
+  String get removeTwofactorAuthentication {
+    return Intl.message(
+      'Remove two-factor authentication?',
+      name: 'removeTwofactorAuthentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You already configured two-factor authentication, do you want to remove it?`
+  String get youAlreadyConfigured2FA {
+    return Intl.message(
+      'You already configured two-factor authentication, do you want to remove it?',
+      name: 'youAlreadyConfigured2FA',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input your password and current 2FA`
+  String get inputYourPasswordAndCurrent2fa {
+    return Intl.message(
+      'Input your password and current 2FA',
+      name: 'inputYourPasswordAndCurrent2fa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please verify your password and the 2FA code for removing your two-factor authentication`
+  String get verifyPasswordForRemoving2FA {
+    return Intl.message(
+      'Please verify your password and the 2FA code for removing your two-factor authentication',
+      name: 'verifyPasswordForRemoving2FA',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully removed 2FA`
+  String get successfullyRemoved2fa {
+    return Intl.message(
+      'Successfully removed 2FA',
+      name: 'successfullyRemoved2fa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while removing 2FA`
+  String get errorWhileRemoving2fa {
+    return Intl.message(
+      'Error while removing 2FA',
+      name: 'errorWhileRemoving2fa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove {
+    return Intl.message(
+      'Remove',
+      name: 'remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input your password`
+  String get inputYourPassword {
+    return Intl.message(
+      'Input your password',
+      name: 'inputYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please put in your current password`
+  String get pleasePutInYourCurrentPassword {
+    return Intl.message(
+      'Please put in your current password',
+      name: 'pleasePutInYourCurrentPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify your two-factor authentication`
+  String get verifyYourTwofactorAuthentication {
+    return Intl.message(
+      'Verify your two-factor authentication',
+      name: 'verifyYourTwofactorAuthentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please add the two-factor authentication to your App (e.g. Google Authenticator) by scanning the QR-Code or copying the secret`
+  String get add2FAtoApp {
+    return Intl.message(
+      'Please add the two-factor authentication to your App (e.g. Google Authenticator) by scanning the QR-Code or copying the secret',
+      name: 'add2FAtoApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secret copied to clipboard`
+  String get secretCopiedToClipboard {
+    return Intl.message(
+      'Secret copied to clipboard',
+      name: 'secretCopiedToClipboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy secret`
+  String get copySecret {
+    return Intl.message(
+      'Copy secret',
+      name: 'copySecret',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully added 2FA to your account`
+  String get successfullyAdded2faToYourAccount {
+    return Intl.message(
+      'Successfully added 2FA to your account',
+      name: 'successfullyAdded2faToYourAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

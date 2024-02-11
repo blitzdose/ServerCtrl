@@ -46,7 +46,7 @@ class Permissions {
   }
 
   int getTabCount() {
-    int tabCount = 1;
+    int tabCount = 2;
     if (hasPermission(PERMISSION_ADMIN)) {
       return 7;
     } else {
@@ -61,10 +61,7 @@ class Permissions {
       }  
       if (hasPermissionsFor(TAB_LOG)) {
         tabCount++;
-      } 
-      if (hasPermissionsFor(TAB_SETTINGS)) {
-        tabCount++;
-      }  
+      }
     }
     return tabCount;
   }

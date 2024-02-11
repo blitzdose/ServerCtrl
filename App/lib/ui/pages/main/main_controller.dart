@@ -49,8 +49,8 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
         } on HandshakeException catch (p) {
           if (p.osError != null && p.osError!.message.contains("CERTIFICATE_VERIFY_FAILED")) {
             Snackbar.createWithTitle(name, S.current.acceptNewCert);
-            success = false;
           }
+          success = false;
         } on Exception catch (_) {
           Snackbar.createWithTitle(name, S.current.cannotConnectMaybeCredentials);
           success = false;

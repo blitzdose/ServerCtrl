@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:is_first_run/is_first_run.dart';
 import 'package:server_ctrl/ui/navigation/layout_structure.dart';
+import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
 import 'package:server_ctrl/values/navigation_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -87,21 +88,48 @@ class AddServerController extends GetxController {
       return;
     }
 
+    await loginProcess(protocol, ip, username, password, null, storage, servername, serverList);
+  }
+
+  Future<void> loginProcess(String protocol, String ip, String username, String password, String? code, FlutterSecureStorage storage, String servername, List<String>? serverList) async {
     Session.setBaseURL(protocol + ip);
     var map = <String, dynamic>{};
     map['username'] = username;
     map['password'] = base64.encode(utf8.encode(password));
+    if (code != null) {
+      map['code'] = code;
+      map['needsAppPassword'] = "true";
+    }  
     try {
       var response = await Session.post("/api/user/login", map);
       if (response.statusCode == 401) {
         errorMessage(S.current.wrongUsernameOrPassword);
+      } else if (response.statusCode == 402) {
+        InputDialog(
+          title: S.current.twofactorAuthentication,
+          textInputType: TextInputType.number,
+          message: S.current.pleaseInputYourCode,
+          inputFieldHintText: S.current.totpCode,
+          inputFieldBorder: const OutlineInputBorder(),
+          inputFieldLength: 6,
+          inputFieldError: (code == null) ? null : S.current.wrongCode,
+          rightButtonText: S.current.login,
+          leftButtonText: S.current.cancel,
+          onLeftButtonClick: null,
+          onRightButtonClick: (text) {
+            loginProcess(protocol, ip, username, password, text, storage, servername, serverList);
+          },
+        ).showInputDialog(navigatorKey.currentContext!);
       } else if (response.statusCode == 200) {
-        
+        var responseJson = jsonDecode(response.body);
+        if (responseJson['appPassword'] != null) {
+          password = responseJson['appPassword'];
+        }  
         await storage.write(key: Session.baseURL, value: "$servername\n$username\n$password");
         serverList ??= [];
         serverList.add(Session.baseURL);
         await storage.write(key: "servers", value: serverList.join("~*~*~"));
-
+    
         NavigationRoutes.routes.insert(
             0,
             NavigationRoute(
