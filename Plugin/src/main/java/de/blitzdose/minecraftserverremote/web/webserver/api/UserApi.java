@@ -12,6 +12,9 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -19,10 +22,11 @@ public class UserApi {
     public static void login(Context context, UserManager userManager) {
         String username = context.formParam("username");
         String passwordBase64 = context.formParam("password");
-        String password;
+        String code = context.formParam("code");
+        String needsAppPassword = context.formParam("needsAppPassword");
         String passwordHash = null;
         if (passwordBase64 != null) {
-            password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
+            String password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
             passwordHash = CryptManager.getHash(password);
         }
         if (username == null || passwordHash == null) {
@@ -31,10 +35,15 @@ public class UserApi {
             return;
         }
 
-        int result = userManager.authenticateUser(username, passwordHash);
+        int result = userManager.authenticateUser(username, passwordHash, code);
         if (result == UserManager.SUCCESS) {
             LoggingSaver.addLogEntry(LoggingType.LOGIN_SUCCESS, username + " (" + context.ip() + ")");
+
             JSONObject resultJson = new JSONObject();
+            if (needsAppPassword != null && needsAppPassword.equals("true")) {
+                String appPassword = userManager.createAppPassword(username);
+                resultJson.put("appPassword", appPassword);
+            }
             resultJson.put("success", true);
 
             String token = userManager.getToken(username);
@@ -53,6 +62,9 @@ public class UserApi {
             );
             context.cookie(cookie);
             Webserver.returnJson(context, resultJson);
+        } else if (result == UserManager.WRONG_TOTP) {
+            context.status(HttpStatus.PAYMENT_REQUIRED_402);
+            context.result();
         } else {
             LoggingSaver.addLogEntry(LoggingType.LOGIN_FAIL, username + " (" + context.ip() + ")");
             context.status(HttpStatus.UNAUTHORIZED_401);
@@ -114,10 +126,11 @@ public class UserApi {
     }
 
     public static void changePassword(Context context, UserManager userManager) {
-        String username = context.formParam("username");
+        String username = userManager.getUsername(context.cookie("token"));
         String passwordBase64 = context.formParam("password");
         String newPasswordBase64 = context.formParam("new-password");
-        if (username == null || passwordBase64 == null || newPasswordBase64 == null) {
+        String code = context.formParam("code");
+        if (username.isEmpty() || passwordBase64 == null || newPasswordBase64 == null) {
             context.status(HttpStatus.UNAUTHORIZED_401);
             context.result();
             return;
@@ -125,7 +138,7 @@ public class UserApi {
         String password = new String(Base64.getUrlDecoder().decode(passwordBase64));
         String passwordHash = CryptManager.getHash(password);
 
-        int result = userManager.authenticateUser(username, passwordHash);
+        int result = userManager.authenticateUser(username, passwordHash, code);
         if (result == UserManager.SUCCESS) {
             String newPassword = new String(Base64.getUrlDecoder().decode(newPasswordBase64));
             String newPasswordHash = CryptManager.getHash(newPassword);
@@ -134,11 +147,116 @@ public class UserApi {
             JSONObject resultJson = new JSONObject();
             resultJson.put("success", true);
             Webserver.returnJson(context, resultJson);
+        } else if (result == UserManager.WRONG_TOTP) {
+            context.status(HttpStatus.PAYMENT_REQUIRED_402);
+            context.result();
         } else {
             LoggingSaver.addLogEntry(LoggingType.LOGIN_FAIL, username);
             context.status(HttpStatus.UNAUTHORIZED_401);
             context.result();
         }
 
+    }
+
+    public static void initTOTP(Context context, UserManager userManager) {
+        JSONObject resultJson = new JSONObject();
+
+        String passwordBase64 = context.formParam("password");
+        String passwordHash = null;
+        if (passwordBase64 != null) {
+            String password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
+            passwordHash = CryptManager.getHash(password);
+        }
+
+        if (passwordHash == null || passwordHash.isEmpty()) {
+            context.status(HttpStatus.UNAUTHORIZED_401);
+            context.result();
+            return;
+        }
+
+        String token = context.cookie("token");
+        String username = userManager.getUsername(token);
+
+        int result = userManager.authenticateUser(username, passwordHash, null);
+
+        if (result == UserManager.SUCCESS) {
+            String secret = userManager.initTOTP(username);
+            if (secret != null) {
+                resultJson.put("success", true);
+                resultJson.put("secret", secret);
+                Webserver.returnJson(context, resultJson);
+            } else {
+                resultJson.put("success", false);
+                Webserver.returnJson(context, resultJson);
+            }
+        } else if (result == UserManager.WRONG_TOTP) {
+            context.status(HttpStatus.PAYMENT_REQUIRED_402);
+            context.result();
+        } else {
+            context.status(HttpStatus.UNAUTHORIZED_401);
+            context.result();
+        }
+    }
+
+    public static void verifyTOTP(Context context, UserManager userManager) {
+        String token = context.cookie("token");
+        String username = userManager.getUsername(token);
+        String code = context.formParam("code");
+
+        boolean success;
+        try {
+            success = userManager.verifyTOTP(username, code);
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+            JSONObject resultJson = new JSONObject();
+            resultJson.put("success", false);
+            Webserver.returnJson(context, resultJson);
+            return;
+        }
+
+        JSONObject resultJson = new JSONObject();
+        resultJson.put("success", success);
+        Webserver.returnJson(context, resultJson);
+    }
+
+    public static void removeTOTP(Context context, UserManager userManager) {
+        String token = context.cookie("token");
+        String username = userManager.getUsername(token);
+        String code = context.formParam("code");
+        String passwordBase64 = context.formParam("password");
+        String passwordHash = null;
+        if (passwordBase64 != null) {
+            String password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
+            passwordHash = CryptManager.getHash(password);
+        }
+
+        if (passwordHash == null || passwordHash.isEmpty()) {
+            context.status(HttpStatus.UNAUTHORIZED_401);
+            context.result();
+            return;
+        }
+
+        int result = userManager.authenticateUser(username, passwordHash, code);
+        if (result == UserManager.WRONG_TOTP) {
+            context.status(HttpStatus.PAYMENT_REQUIRED_402);
+            context.result();
+        } else if (result == UserManager.WRONG_PASSWORD_OR_USERNAME) {
+            context.status(HttpStatus.UNAUTHORIZED_401);
+            context.result();
+        } else if (result == UserManager.SUCCESS){
+            boolean success = userManager.removeTOTP(username, code);
+            JSONObject resultJson = new JSONObject();
+            resultJson.put("success", success);
+            Webserver.returnJson(context, resultJson);
+        }
+    }
+
+    public static void hasTOTP(Context context, UserManager userManager) {
+        String token = context.cookie("token");
+        String username = userManager.getUsername(token);
+        boolean hasTOTP = userManager.hasTOTP(username);
+        JSONObject resultJson = new JSONObject();
+        resultJson.put("success", true);
+        resultJson.put("hastotp", hasTOTP);
+        Webserver.returnJson(context, resultJson);
     }
 }

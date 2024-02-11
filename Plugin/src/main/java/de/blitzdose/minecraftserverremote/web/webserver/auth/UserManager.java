@@ -1,11 +1,17 @@
 package de.blitzdose.minecraftserverremote.web.webserver.auth;
 
+import com.amdelamar.jotp.OTP;
+import com.amdelamar.jotp.type.Type;
 import de.blitzdose.minecraftserverremote.ServerCtrl;
 import de.blitzdose.minecraftserverremote.crypt.CryptManager;
 import de.blitzdose.minecraftserverremote.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,14 +22,26 @@ public class UserManager {
 
     public static final int SUCCESS = 1;
     public static final int WRONG_PASSWORD_OR_USERNAME = 2;
+    public static final int WRONG_TOTP = 5;
     public static final int TOKEN_NOT_FOUND = 3;
     public static final int NO_PERMISSION = 4;
 
     public UserManager() { }
 
-    public int authenticateUser(String username, String hash) {
+    public int authenticateUser(String username, String hash, @Nullable String code) {
         Plugin plugin = ServerCtrl.getPlugin();
         String savedHash = plugin.getConfig().getString("Webserver.users." + username);
+        List<String> savedAppHashes = plugin.getConfig().getStringList("Webserver.apppasswords." + username);
+        String totpSecret = plugin.getConfig().getString("Webserver.totp." + username);
+        if (hash != null && !hash.isEmpty() && savedAppHashes.contains(hash)) {
+            savedHash = hash;
+        } else {
+            if (totpSecret != null) {
+                if (!checkTOTP(totpSecret, code)) {
+                    return WRONG_TOTP;
+                }
+            }
+        }
         if (hash != null && !hash.isEmpty() && Objects.equals(savedHash, hash)) {
             List<String> permissions = plugin.getConfig().getStringList("Webserver.permissions." + username);
             ArrayList<Role> roles = new ArrayList<>();
@@ -107,7 +125,7 @@ public class UserManager {
             user = new TokenUser(username, System.currentTimeMillis(), roles);
         }
         if (user.getRoles().contains(Role.ADMIN) && cumulative) {
-            permissions.addAll(Arrays.stream(Role.values()).map(Enum::name).filter(s -> !s.equals("ANYONE")).collect(Collectors.toList()));
+            permissions.addAll(Arrays.stream(Role.values()).map(Enum::name).filter(s -> !s.equals("ANYONE")).toList());
         } else {
             user.getRoles().forEach(role -> permissions.add(role.name()));
         }
@@ -134,6 +152,7 @@ public class UserManager {
     public void setPassword(String username, String newPasswordHash) {
         Plugin plugin = ServerCtrl.getPlugin();
         plugin.getConfig().set("Webserver.users." + username, newPasswordHash);
+        plugin.getConfig().set("Webserver.apppasswords." + username, new ArrayList<String>());
         plugin.saveConfig();
         plugin.reloadConfig();
     }
@@ -180,5 +199,93 @@ public class UserManager {
         ServerCtrl.getPlugin().saveConfig();
         ServerCtrl.getPlugin().reloadConfig();
         return true;
+    }
+
+    @Nullable
+    public String initTOTP(String username) {
+        String secret = OTP.randomBase32(20);
+        FileConfiguration config = ServerCtrl.getPlugin().getConfig();
+        if (!config.contains("Webserver.users." + username)) {
+            return null;
+        }
+        if (config.contains("Webserver.totp." + username)) {
+            return null;
+        }
+
+        config.set("Webserver.totp-pending." + username, secret);
+        ServerCtrl.getPlugin().saveConfig();
+        ServerCtrl.getPlugin().reloadConfig();
+        return secret;
+    }
+
+    public boolean verifyTOTP(String username, String code) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+        FileConfiguration config = ServerCtrl.getPlugin().getConfig();
+        if (!config.contains("Webserver.totp-pending." + username)) {
+            return false;
+        }
+        String secret = config.getString("Webserver.totp-pending." + username);
+        if (secret == null) {
+            return false;
+        }
+
+        if (checkTOTP(secret, code)) {
+            config.set("Webserver.totp." + username, secret);
+            config.set("Webserver.totp-pending." + username, null);
+            ServerCtrl.getPlugin().saveConfig();
+            ServerCtrl.getPlugin().reloadConfig();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkTOTP(String secret, String code) {
+        try {
+            String code1 = OTP.create(secret, OTP.timeInHex(System.currentTimeMillis() - 30000), 6, Type.TOTP);
+            String code2 = OTP.create(secret, OTP.timeInHex(System.currentTimeMillis()), 6, Type.TOTP);
+            String code3 = OTP.create(secret, OTP.timeInHex(System.currentTimeMillis() + 30000), 6, Type.TOTP);
+
+            return code1.equals(code) || code2.equals(code) || code3.equals(code);
+        } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean removeTOTP(String username, String code) {
+        FileConfiguration config = ServerCtrl.getPlugin().getConfig();
+        if (!config.contains("Webserver.users." + username)) {
+            return false;
+        }
+        if (!config.contains("Webserver.totp." + username)) {
+            return false;
+        }
+
+        config.set("Webserver.totp." + username, null);
+        ServerCtrl.getPlugin().saveConfig();
+        ServerCtrl.getPlugin().reloadConfig();
+        return true;
+    }
+
+    public boolean hasTOTP(String username) {
+        FileConfiguration config = ServerCtrl.getPlugin().getConfig();
+        if (!config.contains("Webserver.users." + username)) {
+            return false;
+        }
+        return config.contains("Webserver.totp." + username);
+    }
+
+    @Nullable
+    public String createAppPassword(String username) {
+        FileConfiguration config = ServerCtrl.getPlugin().getConfig();
+        if (!config.contains("Webserver.users." + username)) {
+           return null;
+        }
+        String appPassword = OTP.randomBase32(128);
+        String appPasswordHash = CryptManager.getHash(appPassword);
+        List<String> appPasswords = config.getStringList("Webserver.apppasswords." + username);
+        appPasswords.add(appPasswordHash);
+        config.set("Webserver.apppasswords." + username, appPasswords);
+        ServerCtrl.getPlugin().saveConfig();
+        ServerCtrl.getPlugin().reloadConfig();
+        return appPassword;
     }
 }

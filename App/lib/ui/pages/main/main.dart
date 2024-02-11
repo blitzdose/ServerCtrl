@@ -58,8 +58,9 @@ class Main extends StatelessWidget {
       if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) filesTab.controller,
       if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) logTab.controller,
       if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) accountsTab.controller,
-      if (permissions.hasPermissionsFor(Permissions.TAB_SETTINGS)) settingsTab.controller
+      settingsTab.controller
     ]);
+    onTabChanged(0);
   }
 
   @override
@@ -108,7 +109,7 @@ class Main extends StatelessWidget {
                     icon: const Icon(Icons.manage_accounts_rounded),
                     text: S.current.accounts,
                   ),
-                  if (permissions.hasPermissionsFor(Permissions.TAB_SETTINGS)) Tab(
+                  Tab(
                     icon: const Icon(Icons.settings_rounded),
                     text: S.current.settings,
                   ),
@@ -124,7 +125,7 @@ class Main extends StatelessWidget {
                     if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) filesTab,
                     if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) logTab,
                     if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) accountsTab,
-                    if (permissions.hasPermissionsFor(Permissions.TAB_SETTINGS)) settingsTab
+                    settingsTab
                   ],
                 ),
               ),

@@ -103,6 +103,10 @@ public class Webserver {
                     get("current", ctx -> UserApi.getCurrent(ctx, userManager));
                     get("permissions", ctx -> UserApi.getPermissions(ctx, userManager));
                     post("password", ctx -> UserApi.changePassword(ctx, userManager));
+                    post("inittotp", ctx -> UserApi.initTOTP(ctx, userManager));
+                    post("verifytotp", ctx -> UserApi.verifyTOTP(ctx, userManager));
+                    post("removetotp", ctx -> UserApi.removeTOTP(ctx, userManager));
+                    get("hastotp", ctx -> UserApi.hasTOTP(ctx, userManager));
                 });
                 path("account", () -> {
                    get("all", AccountApi::getAccounts, Role.ADMIN);
@@ -190,8 +194,8 @@ public class Webserver {
             staticFileConfig.hostedPath = "/";
             staticFileConfig.directory = "/html";
             staticFileConfig.location = Location.CLASSPATH;
-            //staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
-            //staticFileConfig.location = Location.EXTERNAL;
+            staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
+            staticFileConfig.location = Location.EXTERNAL;
         });
     }
 

@@ -12,6 +12,8 @@ class InputDialog {
     this.inputFieldText,
     this.inputFieldHintText,
     this.inputFieldBorder,
+    this.inputFieldLength,
+    this.inputFieldError,
     this.leftButtonText,
     this.rightButtonText,
     this.onLeftButtonClick,
@@ -25,6 +27,8 @@ class InputDialog {
   final String? inputFieldText;
   final String? inputFieldHintText;
   final InputBorder? inputFieldBorder;
+  final int? inputFieldLength;
+  final String? inputFieldError;
   final String? leftButtonText;
   final String? rightButtonText;
   final Function(String text)? onLeftButtonClick;
@@ -55,12 +59,16 @@ class InputDialog {
                   TextField(
                     decoration: InputDecoration(
                       border: inputFieldBorder,
-                      hintText: inputFieldHintText
+                      hintText: inputFieldHintText,
+                      errorText: inputFieldError
                     ),
                     maxLines: 1,
+                    maxLength: inputFieldLength,
                     controller: textController.value,
                     onChanged: (value) => textController.refresh(),
                     keyboardType: textInputType,
+                    obscureText: textInputType == TextInputType.visiblePassword,
+                    enableSuggestions: textInputType != TextInputType.visiblePassword,
                     autocorrect: false,
                   ),
                 ],

@@ -26,6 +26,20 @@ class SettingsTab extends StatelessWidget {
             darkTheme: SettingsThemeData(settingsListBackground: Theme.of(context).colorScheme.surface),
             platform: DevicePlatform.android,
             sections: [
+              SettingsSection(
+                  title: SettingsSectionTitle(S.current.account),
+                  tiles: <SettingsTile>[
+                    SettingsTile.navigation(
+                      title: Text(S.current.changePassword),
+                      onPressed: (context) => clickHandler.changePasswordClick(context),
+                    ),
+                    SettingsTile.navigation(
+                      title: Text(S.current.configureTwofactorAuthentication),
+                      description: Text(S.current.egWithGoogleAuthenticator),
+                      onPressed: (context) => clickHandler.configureTOTP(context),
+                    )
+                  ]
+              ),
               if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsSection(
                 title: SettingsSectionTitle(S.current.plugin),
                 tiles: <SettingsTile>[

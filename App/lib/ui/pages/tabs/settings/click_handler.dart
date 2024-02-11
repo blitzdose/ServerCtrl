@@ -4,10 +4,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:server_ctrl/navigator_key.dart';
 import 'package:server_ctrl/ui/pages/tabs/settings/models/server_setting.dart';
 import 'package:server_ctrl/ui/pages/tabs/settings/settings_controller.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
+import 'package:server_ctrl/utilities/http/session.dart';
 import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,6 +22,427 @@ class ClickHandler {
   ClickHandler(this.controller);
 
   final SettingsController controller;
+
+  void changePasswordClick(BuildContext context) {
+    TextEditingController passwordTextController = TextEditingController();
+    TextEditingController newPasswordController = TextEditingController();
+    TextEditingController repeatNewPasswordController = TextEditingController();
+    final errorTextPassword = Rxn<String>();
+    final emptyCurrentPassword = true.obs;
+
+    final showSpinner = false.obs;
+    final showWrongPassword = false.obs;
+
+    errorTextPassword.value = null;
+    newPasswordController.text = "";
+    repeatNewPasswordController.text = "";
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+        return Padding(
+          padding: const EdgeInsets.all(32),
+          child: AlertDialog(
+            insetPadding: EdgeInsets.zero,
+            title: Text(S.current.changePassword),
+            content: SizedBox(
+              width: min(500, MediaQuery.of(context).size.width),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Obx(() => TextField(
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.current.currentPassword,
+                        errorText: (showWrongPassword.value) ? S.current.wrongPassword : null
+                    ),
+                    maxLines: 1,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    controller: passwordTextController,
+                    onChanged: (value) {
+                      showWrongPassword(false);
+                      if (value.isEmpty) {
+                        emptyCurrentPassword(true);
+                      } else {
+                        emptyCurrentPassword(false);
+                      }
+                    },
+                  )),
+                  const Padding(padding: EdgeInsets.only(top: 16)),
+                  TextField(
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.current.newPassword
+                    ),
+                    maxLines: 1,
+                    keyboardType: TextInputType.visiblePassword,
+                    controller: newPasswordController,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    onChanged: (value) {
+                      if (value != repeatNewPasswordController.text) {
+                        errorTextPassword(S.current.passwordsDoNotMatch);
+                      } else {
+                        errorTextPassword.value = null;
+                      }
+                    },
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 16)),
+                  Obx(() => TextField(
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.current.repeatNewPassword,
+                        errorText: errorTextPassword.value
+                    ),
+                    maxLines: 1,
+                    keyboardType: TextInputType.visiblePassword,
+                    controller: repeatNewPasswordController,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    onChanged: (value) {
+                      if (value != newPasswordController.text) {
+                        errorTextPassword(S.current.passwordsDoNotMatch);
+                      } else {
+                        errorTextPassword.value = null;
+                      }
+                    },
+                  )),
+                  Obx(() => (showSpinner.value) ? const Column(
+                    children: [
+                      Padding(padding: EdgeInsets.only(top: 16)),
+                      CircularProgressIndicator(
+                        value: null,
+                      )
+                    ],
+                  ) : Container())
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.cancel)),
+              Obx(() => TextButton(onPressed: (errorTextPassword.value == null && newPasswordController.text.isNotEmpty && !emptyCurrentPassword.value) ? () async {
+                changePassword(showSpinner, passwordTextController, newPasswordController, showWrongPassword, null);
+              } : null, child: Text(S.current.changePassword))),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void changePassword(RxBool showSpinner, TextEditingController passwordTextController, TextEditingController newPasswordController, RxBool showWrongPassword, String? code) async {
+    showSpinner(true);
+    int status = await controller.changePassword(passwordTextController.text, newPasswordController.text, code);
+    showSpinner(false);
+    if (status == 401) {
+      showWrongPassword(true);
+    } else if (status == 402) {
+      InputDialog(
+        title: S.current.twofactorAuthentication,
+        textInputType: TextInputType.number,
+        message: S.current.pleaseInputYourCode,
+        inputFieldHintText: S.current.totpCode,
+        inputFieldBorder: const OutlineInputBorder(),
+        inputFieldLength: 6,
+        inputFieldError: (code != null) ? S.current.wrongCode : null,
+        rightButtonText: S.current.login,
+        leftButtonText: S.current.cancel,
+        onLeftButtonClick: null,
+        onRightButtonClick: (text) async {
+          changePassword(showSpinner, passwordTextController, newPasswordController, showWrongPassword, text);
+        },
+      ).showInputDialog(navigatorKey.currentContext!);
+    } else if (status == 200) {
+      Snackbar.createWithTitle(S.current.account, S.current.passwordChangedSuccessfully);
+      Navigator.pop(navigatorKey.currentContext!);
+    }
+  }
+
+  void configureTOTP(BuildContext context) async {
+    var dialogRoute = DialogRoute(
+      context: navigatorKey.currentContext!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return PopScope(
+            canPop: false,
+            child: AlertDialog(
+              title: Text(S.current.pleaseWait),
+              content: const LinearProgressIndicator(
+                value: null,
+              ),
+            ),
+        );
+      },
+    );
+    Navigator.of(navigatorKey.currentContext!).push(dialogRoute);
+    bool hasTOTP = await controller.hasTOTP();
+    Navigator.of(navigatorKey.currentContext!).pop(dialogRoute);
+    if (hasTOTP) {
+      showRemoveTOTPDialog(navigatorKey.currentContext!);
+    } else {
+      showConfigureTOTPDialog(navigatorKey.currentContext!);
+    }
+  }
+
+  void showRemoveTOTPDialog(BuildContext context) {
+    showDialog(context: context, builder: (context) {
+      return AlertDialog(
+        title: Text(S.current.removeTwofactorAuthentication),
+        content: Text(S.current.youAlreadyConfigured2FA),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: Text(S.current.cancel)),
+          TextButton(onPressed: () {
+            Navigator.pop(context);
+            final textController = TextEditingController().obs;
+            final textControllerTOTP = TextEditingController().obs;
+            final showPasswordError = false.obs;
+            final showTotpError = false.obs;
+            final showProgressSpinner = false.obs;
+            showGeneralDialog(
+              context: context,
+              barrierDismissible: false,
+              pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+                return Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: AlertDialog(
+                    insetPadding: EdgeInsets.zero,
+                    title: Text(S.current.inputYourPasswordAndCurrent2fa),
+                    content: SizedBox(
+                      width: min(500, MediaQuery.of(context).size.width),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(S.of(context).verifyPasswordForRemoving2FA),
+                          const Padding(padding: EdgeInsets.only(top: 8)),
+                          Obx(() => TextField(
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: S.current.password,
+                                errorText: showPasswordError.value ? S.current.wrongPassword : null
+                            ),
+                            maxLines: 1,
+                            controller: textController.value,
+                            onChanged: (value) {
+                              textController.refresh();
+                              showPasswordError(false);
+                            },
+                            keyboardType: TextInputType.visiblePassword,
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                          )),
+                          const Padding(padding: EdgeInsets.only(top: 8)),
+                          Obx(() => TextField(
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: S.current.totpCode,
+                                errorText: showTotpError.value ? S.current.wrongCode : null
+                            ),
+                            maxLines: 1,
+                            maxLength: 6,
+                            controller: textControllerTOTP.value,
+                            onChanged: (value) {
+                              textControllerTOTP.refresh();
+                              showTotpError(false);
+                            },
+                            keyboardType: TextInputType.number,
+                            autocorrect: false,
+                          )),
+                          const Padding(padding: EdgeInsets.only(top: 8)),
+                          Obx(() => showProgressSpinner.value ? const Center(
+                            child: CircularProgressIndicator(
+                              value: null,
+                            ),
+                          ) : Container())
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(onPressed: () {
+                        Navigator.pop(context, true);
+                      }, child: Text(S.current.cancel)),
+                      Obx(() => TextButton(onPressed: textController.value.text.isNotEmpty && textControllerTOTP.value.text.isNotEmpty ? () async {
+                        String password = textController.value.text;
+                        String code = textControllerTOTP.value.text;
+                        showProgressSpinner(true);
+                        int result = await controller.removeTOTP(password, code);
+                        showProgressSpinner(false);
+                        if (result == 401) {
+                          showPasswordError(true);
+                        } else if (result == 402) {
+                          showTotpError(true);
+                        } else if (result == 200) {
+                          Navigator.pop(navigatorKey.currentContext!, true);
+                          Snackbar.createWithTitle(S.current.account, S.current.successfullyRemoved2fa);
+                        } else {
+                          Navigator.pop(navigatorKey.currentContext!, true);
+                          Snackbar.createWithTitle(S.current.account, S.current.errorWhileRemoving2fa, true);
+                        }
+                      } : null, child: Text(S.current.ok)),)
+                    ],
+                  ),
+                );
+              },
+            );
+          }, child: Text(S.current.remove))
+        ],
+      );
+    },);
+  }
+
+  void showConfigureTOTPDialog(BuildContext context) {
+    final textController = TextEditingController().obs;
+    final showPasswordError = false.obs;
+    final showProgressSpinner = false.obs;
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+        return Padding(
+          padding: const EdgeInsets.all(32),
+          child: AlertDialog(
+            insetPadding: EdgeInsets.zero,
+            title: Text(S.current.inputYourPassword),
+            content: SizedBox(
+              width: min(500, MediaQuery.of(context).size.width),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(S.current.pleasePutInYourCurrentPassword),
+                  const Padding(padding: EdgeInsets.only(top: 8)),
+                  Obx(() => TextField(
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        hintText: S.current.password,
+                        errorText: showPasswordError.value ? S.current.wrongPassword : null
+                    ),
+                    maxLines: 1,
+                    controller: textController.value,
+                    onChanged: (value) {
+                      textController.refresh();
+                      showPasswordError(false);
+                    },
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                  )),
+                  const Padding(padding: EdgeInsets.only(top: 8)),
+                  Obx(() => showProgressSpinner.value ? const Center(
+                    child: CircularProgressIndicator(
+                      value: null,
+                    ),
+                  ) : Container())
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(onPressed: () {
+                Navigator.pop(context, true);
+              }, child: Text(S.current.cancel)),
+              Obx(() => TextButton(onPressed: textController.value.text.isNotEmpty ? () async {
+                showProgressSpinner(true);
+                String? secret = await controller.initTOTP(textController.value.text);
+                if (secret == null) {
+                  showPasswordError(true);
+                  showProgressSpinner(false);
+                  return;
+                }
+                String username = "";
+                const storage = FlutterSecureStorage();
+                String? creds = await storage.read(key: Session.baseURL);
+                if (creds != null) {
+                  List<String> credsArr = creds.split("\n");
+                  username = credsArr[1];
+                }
+                showProgressSpinner(false);
+                Navigator.pop(navigatorKey.currentContext!);
+                final totpTextController = TextEditingController().obs;
+                final showtotpError = false.obs;
+                showDialog(
+                    context: navigatorKey.currentContext!,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(S.current.verifyYourTwofactorAuthentication),
+                        content: SizedBox(
+                          width: min(500, MediaQuery.of(context).size.width),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(S.current.add2FAtoApp),
+                              const Padding(padding: EdgeInsets.only(top: 16)),
+                              Center(
+                                child: Column(
+                                  children: [
+                                    QrImageView(
+                                      data: "otpauth://totp/ServerCtrl:$username?secret=$secret&issuer=ServerCtrl&algorithm=SHA1&digits=6&period=30",
+                                      backgroundColor: Colors.white,
+                                      version: QrVersions.auto,
+                                      size: 200,
+                                    ),
+                                    const Padding(padding: EdgeInsets.only(top: 16)),
+                                    Text("Secret: $secret"),
+                                  ],
+                                ),
+                              ),
+                              const Padding(padding: EdgeInsets.only(top: 16)),
+                              Obx(() => TextField(
+                                decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    hintText: S.current.totpCode,
+                                    errorText: showtotpError.value ? S.current.wrongCode : null
+                                ),
+                                maxLines: 1,
+                                maxLength: 6,
+                                controller: totpTextController.value,
+                                onChanged: (value) {
+                                  totpTextController.refresh();
+                                  showtotpError(false);
+                                },
+                                keyboardType: TextInputType.number,
+                                autocorrect: false,
+                              )),
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(onPressed: () {
+                                Clipboard.setData(ClipboardData(text: secret));
+                                Snackbar.createWithTitle(S.current.twofactorAuthentication, S.current.secretCopiedToClipboard);
+                              }, child: Text(S.current.copySecret)),
+                              TextButton(onPressed: () async {
+                                bool success = await controller.verifyTOTP(totpTextController.value.text);
+                                if (success) {
+                                  Navigator.pop(navigatorKey.currentContext!);
+                                  Snackbar.createWithTitle(S.current.twofactorAuthentication, S.current.successfullyAdded2faToYourAccount);
+                                } else {
+                                  showtotpError(true);
+                                }
+                              }, child: Text(S.current.confirm))
+                            ],
+                          )
+                        ],
+                      );
+                    },
+                );
+              } : null, child: Text(S.current.ok)),)
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   void portClick(RxInt port, BuildContext context) {
     InputDialog(

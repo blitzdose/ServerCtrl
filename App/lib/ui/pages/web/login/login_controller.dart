@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:server_ctrl/navigator_key.dart';
+import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
 import 'package:universal_html/html.dart';
 import 'dart:io';
 
@@ -37,13 +39,13 @@ class LoginController extends GetxController {
       var response = Session.get("/api/server/data");
       response.then((value) {
         if (value.statusCode == 200) {
-          logIn();
+          loggedIn();
         }
       });
     }  
   }
 
-  login() async {
+  login() {
     isLoggingIn(true);
     errorMessage("");
     String username = usernameController.value.text;
@@ -54,17 +56,40 @@ class LoginController extends GetxController {
       isLoggingIn(false);
       return;
     }
+    loginProcess(username, password, null);
+  }
 
+  loginProcess(String username, String password, String? code) async {
     Session.setBaseURL("");
     var map = <String, dynamic>{};
     map['username'] = username;
     map['password'] = base64.encode(utf8.encode(password));
+    if (code != null) {
+      map['code'] = code;
+    }
     try {
       var response = await Session.post("/api/user/login", map);
       if (response.statusCode == 401) {
         errorMessage(S.current.wrongUsernameOrPassword);
+      } else if (response.statusCode == 402) {
+        InputDialog(
+          title: S.current.twofactorAuthentication,
+          textInputType: TextInputType.number,
+          message: S.current.pleaseInputYourCode,
+          inputFieldHintText: S.current.totpCode,
+          inputFieldBorder: const OutlineInputBorder(),
+          inputFieldLength: 6,
+          inputFieldError: (code == null) ? null : S.current.wrongCode,
+          rightButtonText: S.current.login,
+          leftButtonText: S.current.cancel,
+          onLeftButtonClick: null,
+          onRightButtonClick: (text) {
+            loginProcess(username, password, text);
+          },
+        ).showInputDialog(navigatorKey.currentContext!);
+
       } else if (response.statusCode == 200) {
-        logIn();
+        loggedIn();
         usernameController.value.text = "";
         passwordController.value.text = "";
       }
@@ -85,7 +110,7 @@ class LoginController extends GetxController {
     isLoggingIn(false);
   }
 
-  void logIn() {
+  void loggedIn() {
     NavigationRoutes.routes.removeAt(0);
     NavigationRoutes.routes.insert(
         0,
