@@ -195,7 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "howCanILogIn":
             MessageLookupByLibrary.simpleMessage("How can I log in?"),
         "howCanILogInText": MessageLookupByLibrary.simpleMessage(
-            "After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user \"admin\" in your console. This only happens on the first startup or when no user named \"admin\" is registered.\n\nIf you forgot the password or didn\'t got the console log anymore simple delete the \"config.yml\" file inside the \"ServerCtrl\" folder or just the user \"admin\" inside this file.\n\nFor more help join my Discord channel."),
+            "After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user \"admin\" in your console. This only happens on the first startup or when no user named \"admin\" is registered.\n\nIf you forgot the password or didn\'t got the console log anymore simple delete the \"config.yml\" file inside the \"ServerCtrl\" folder or just the user \"admin\" inside this file.\n\nFor more help join my Discord server."),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
         "important": MessageLookupByLibrary.simpleMessage("IMPORTANT!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
@@ -345,7 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please verify your password and the 2FA code for removing your two-factor authentication"),
         "verifyYourTwofactorAuthentication":
             MessageLookupByLibrary.simpleMessage(
-                "Verify your two-factor authentication"),
+                "Verify with two-factor authentication"),
         "version": m9,
         "wrongCode": MessageLookupByLibrary.simpleMessage("Wrong Code"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage("Wrong password"),
