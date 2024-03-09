@@ -52,8 +52,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Het certificaat is gewijzigd. Verifieer en accepteer het nieuwe certificaat."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Accepteer de waarschuwing en log opnieuw in"),
+        "account": MessageLookupByLibrary.simpleMessage("Account"),
         "accountAndName": m0,
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
+        "add2FAtoApp": MessageLookupByLibrary.simpleMessage(
+            "Voeg de twee-factor authenticatie toe aan een App (bijvoorbeeld Google Authenticator) door deze QR-Code te scannen of de \"secret\" te kopieren"),
         "addMinecraftServer":
             MessageLookupByLibrary.simpleMessage("Minecraft-server toevoegen"),
         "add_server": MessageLookupByLibrary.simpleMessage("Server Toevoegen"),
@@ -79,12 +82,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Certificaatssleutel"),
         "certificateUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Certificaat succesvol geüpload"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Verander wachtwoord"),
         "close": MessageLookupByLibrary.simpleMessage("Sluiten"),
         "codedBy": m3,
         "command": MessageLookupByLibrary.simpleMessage("Commando"),
+        "configureTwofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage(
+                "Twee-factor authenticatie configureren"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Bevestigen"),
         "connectionFailed":
             MessageLookupByLibrary.simpleMessage("Verbinding mislukt"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
+        "copySecret": MessageLookupByLibrary.simpleMessage("Secret kopiëren"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU kernen"),
         "cpu_load": MessageLookupByLibrary.simpleMessage("CPU gebruik"),
         "cpu_usage": MessageLookupByLibrary.simpleMessage("CPU gebruik"),
@@ -93,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Account aanmaken"),
         "createFile": MessageLookupByLibrary.simpleMessage("Bestand aanmaken"),
         "createFolder": MessageLookupByLibrary.simpleMessage("Map aanmaken"),
+        "currentPassword":
+            MessageLookupByLibrary.simpleMessage("Huidig wachtwoord"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Donkere Modus"),
         "dataPrivacy": MessageLookupByLibrary.simpleMessage("Data privacy"),
         "defaultStr": MessageLookupByLibrary.simpleMessage("Standaard"),
@@ -121,6 +133,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dynamicColor":
             MessageLookupByLibrary.simpleMessage("Dynamische kleur"),
         "edit": MessageLookupByLibrary.simpleMessage("Bewerken"),
+        "egWithGoogleAuthenticator": MessageLookupByLibrary.simpleMessage(
+            "bijvoorbeeld met Google Authenticator"),
         "email": MessageLookupByLibrary.simpleMessage("E-mail"),
         "errorCreatingAccount": MessageLookupByLibrary.simpleMessage(
             "Er is een fout opgetreden tijdens het aanmaken van het nieuwe account"),
@@ -146,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Er is een fout opgetreden tijdens het downloaden van het bestand"),
         "errorWhileGeneratingCertificate": MessageLookupByLibrary.simpleMessage(
             "Er is een fout opgetreden tijdens het aanmaken van het nieuwe certificaat"),
+        "errorWhileRemoving2fa": MessageLookupByLibrary.simpleMessage(
+            "2FA kan niet verwijderd worden door een fout"),
         "errorWhileSavingChanges": MessageLookupByLibrary.simpleMessage(
             "Er is een fout opgetreden tijdens het opslaan"),
         "errorWhileSavingFile": MessageLookupByLibrary.simpleMessage(
@@ -180,10 +196,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "helpMeKeepThisAppAlive": MessageLookupByLibrary.simpleMessage(
             "Help me om deze app in leven te houden"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "howCanILogIn":
+            MessageLookupByLibrary.simpleMessage("Hoe kan ik inloggen?"),
+        "howCanILogInText": MessageLookupByLibrary.simpleMessage(
+            "Nadat je de Plugin op je Bukkit / Spigot / Paper server hebt geïnstalleerd, zal de Plugin het wachtwoord voor de gebruiker \"admin\" laten zien in de console. Dit gebeurt alleen als er nog geen gebruiker genaamd \"admin\" is geregistreerd.\n\nAls je het wachtwoord vergeten bent of deze niet in de console (log) staat, verwijder het \"config.yml\" bestand in de \"ServerCtrl\" map of verwijder de gebruiker \"admin\" in dit bestand.\n\nVoor meer hulp, join de Discord server."),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
         "important": MessageLookupByLibrary.simpleMessage("BELANGRIJK!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
             "Onthoud dat je eerst de ServerCtrl-plugin moet installeren"),
+        "inputYourPassword":
+            MessageLookupByLibrary.simpleMessage("Geef het wachtwoord in"),
+        "inputYourPasswordAndCurrent2fa": MessageLookupByLibrary.simpleMessage(
+            "Geef het wachtwoord en de huidige 2FA-Code in"),
         "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP of Hostname"),
         "kick": MessageLookupByLibrary.simpleMessage("Verbinding verbreken"),
         "language": MessageLookupByLibrary.simpleMessage("Taal"),
@@ -218,19 +242,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "op": MessageLookupByLibrary.simpleMessage("OP permissie verlenen"),
         "openWith": MessageLookupByLibrary.simpleMessage("Openen met"),
         "password": MessageLookupByLibrary.simpleMessage("Wachtwoord"),
+        "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Het wachtwoord is succesvol veranderd"),
         "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
             "Wachtwoorden komen niet overeen"),
         "permissions": MessageLookupByLibrary.simpleMessage("Permissies"),
         "players": MessageLookupByLibrary.simpleMessage("Spelers"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Geef a.u.b. toegang tot de opslag"),
+        "pleaseInputYourCode":
+            MessageLookupByLibrary.simpleMessage("Geef aub de Code in"),
         "pleaseInputYourUsernameAndPassword":
             MessageLookupByLibrary.simpleMessage(
                 "Geef een gebruiksnaam en wachtwoord op"),
+        "pleasePutInYourCurrentPassword": MessageLookupByLibrary.simpleMessage(
+            "Geef het huidige wachtwoord in"),
+        "pleaseWait": MessageLookupByLibrary.simpleMessage("Wacht a.u.b."),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin en Webserver Poort"),
         "port": MessageLookupByLibrary.simpleMessage("Poort"),
+        "remove": MessageLookupByLibrary.simpleMessage("Verwijderen"),
+        "removeTwofactorAuthentication": MessageLookupByLibrary.simpleMessage(
+            "Verwijder twee-factor authenticatie"),
         "rename": MessageLookupByLibrary.simpleMessage("Hernoemen"),
         "repeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Nieuw wachtwoord herhalen"),
@@ -248,6 +282,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "savedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Succesvol opgeslagen"),
         "saving": MessageLookupByLibrary.simpleMessage("Aan het opslaan"),
+        "secretCopiedToClipboard": MessageLookupByLibrary.simpleMessage(
+            "Secret gekopieerd naar het klembord"),
         "selectFile":
             MessageLookupByLibrary.simpleMessage("Bestand selecteren"),
         "selectedEntryWIllBeDeleted": MessageLookupByLibrary.simpleMessage(
@@ -264,6 +300,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Geef het domein of het IP-adres van de Minecraft server op"),
         "spigotmc": MessageLookupByLibrary.simpleMessage("SpigotMC"),
         "success": MessageLookupByLibrary.simpleMessage("Succes"),
+        "successfullyAdded2faToYourAccount":
+            MessageLookupByLibrary.simpleMessage(
+                "2FA is succesvol aan het account toegevoegd"),
         "successfullyCreatedFile": MessageLookupByLibrary.simpleMessage(
             "Bestand succesvol aangemaakt"),
         "successfullyCreatedFolder":
@@ -277,6 +316,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Nieuw certificaat succesvol aangemaakt"),
         "successfullyLoggedIn":
             MessageLookupByLibrary.simpleMessage("Succesvol ingelogd"),
+        "successfullyRemoved2fa":
+            MessageLookupByLibrary.simpleMessage("2FA succesvol verwijderd"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Succesvol hernoemd"),
         "successfullyResetPassword": MessageLookupByLibrary.simpleMessage(
@@ -292,7 +333,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeColor": MessageLookupByLibrary.simpleMessage("Themakleur"),
         "total_system_memory":
             MessageLookupByLibrary.simpleMessage("Totaal geheugen"),
+        "totpCode": MessageLookupByLibrary.simpleMessage("TOTP Code"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Opnieuw proberen"),
+        "twofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage("Twee-factor authenticatie"),
         "untrustedCertificate":
             MessageLookupByLibrary.simpleMessage("Ondertrouwd certificaat"),
         "upload": MessageLookupByLibrary.simpleMessage("Uploaden"),
@@ -309,11 +353,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "used_memory":
             MessageLookupByLibrary.simpleMessage("Gebruikt geheugen"),
         "username": MessageLookupByLibrary.simpleMessage("Gebruiksnaam"),
+        "verifyPasswordForRemoving2FA": MessageLookupByLibrary.simpleMessage(
+            "Verifieer het wachtwoord en de 2FA code om twee-factor authenticatie te verwijderen"),
+        "verifyYourTwofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage(
+                "Verifiëren met twee-factor authenticatie"),
         "version": m9,
+        "wrongCode": MessageLookupByLibrary.simpleMessage("Verkeerde Code"),
+        "wrongPassword":
+            MessageLookupByLibrary.simpleMessage("Verkeerd wachtwoord"),
         "wrongUsernameOrPassword": MessageLookupByLibrary.simpleMessage(
             "De gebruiksnaam of wachtwoord is incorrect"),
         "yes": MessageLookupByLibrary.simpleMessage("Ja"),
         "youAlreadyAddedThisServer": MessageLookupByLibrary.simpleMessage(
-            "Je hebt deze server al toegevoegd")
+            "Je hebt deze server al toegevoegd"),
+        "youAlreadyConfigured2FA": MessageLookupByLibrary.simpleMessage(
+            "Twee-factor authenticatie is al geconfigureerd, wil je het verwijderen?")
       };
 }

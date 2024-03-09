@@ -53,8 +53,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Le certificat a été modifié. Veuillez vérifier et accepter le nouveau certificat."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Veuillez accepter l’avertissement et vous reconnecter"),
+        "account": MessageLookupByLibrary.simpleMessage("Compte"),
         "accountAndName": m0,
         "accounts": MessageLookupByLibrary.simpleMessage("Comptes"),
+        "add2FAtoApp": MessageLookupByLibrary.simpleMessage(
+            "Veuillez ajouter l\'authentification à deux facteurs à votre application (par exemple Google Authenticator) en scannant le code QR ou en copiant le secret."),
         "addMinecraftServer": MessageLookupByLibrary.simpleMessage(
             "Ajouter un serveur Minecraft"),
         "add_server":
@@ -82,12 +85,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fichier de clé de certificat"),
         "certificateUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Certificat téléchargé avec succès"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Modifier le mot de passe"),
         "close": MessageLookupByLibrary.simpleMessage("Fermer"),
         "codedBy": m3,
         "command": MessageLookupByLibrary.simpleMessage("Commande"),
+        "configureTwofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage(
+                "Configurer l\'authentification à deux facteurs"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirmer"),
         "connectionFailed":
             MessageLookupByLibrary.simpleMessage("Échec de la connexion"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
+        "copySecret": MessageLookupByLibrary.simpleMessage("Copier le secret"),
         "cpu_cores":
             MessageLookupByLibrary.simpleMessage("Cœurs du processeur"),
         "cpu_load":
@@ -99,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Créer un compte"),
         "createFile": MessageLookupByLibrary.simpleMessage("Créer fichier"),
         "createFolder": MessageLookupByLibrary.simpleMessage("Créer dossier"),
+        "currentPassword":
+            MessageLookupByLibrary.simpleMessage("Mot de passe actuel"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Mode sombre"),
         "dataPrivacy":
             MessageLookupByLibrary.simpleMessage("Confidentialité des données"),
@@ -127,6 +139,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dynamicColor":
             MessageLookupByLibrary.simpleMessage("Couleur dynamique"),
         "edit": MessageLookupByLibrary.simpleMessage("Éditer"),
+        "egWithGoogleAuthenticator": MessageLookupByLibrary.simpleMessage(
+            "par exemple avec Google Authenticator"),
         "email": MessageLookupByLibrary.simpleMessage("E-Mail"),
         "errorCreatingAccount": MessageLookupByLibrary.simpleMessage(
             "Erreur lors de la creation du nouveau compte"),
@@ -152,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Erreur lors du téléchargement du fichier"),
         "errorWhileGeneratingCertificate": MessageLookupByLibrary.simpleMessage(
             "Erreur lors de la génération du certificat"),
+        "errorWhileRemoving2fa": MessageLookupByLibrary.simpleMessage(
+            "Erreur lors de la suppression du 2FA"),
         "errorWhileSavingChanges": MessageLookupByLibrary.simpleMessage(
             "Erreur lors de la sauvegarde des changements"),
         "errorWhileSavingFile": MessageLookupByLibrary.simpleMessage(
@@ -186,10 +202,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "helpMeKeepThisAppAlive": MessageLookupByLibrary.simpleMessage(
             "Aidez-moi à garder cette application en vie"),
         "home": MessageLookupByLibrary.simpleMessage("Accueil"),
+        "howCanILogIn": MessageLookupByLibrary.simpleMessage(
+            "Comment puis-je me connecter ?"),
+        "howCanILogInText": MessageLookupByLibrary.simpleMessage(
+            "Après avoir installé le plugin sur votre serveur Bukkit / Spigot / Paper, le plugin affichera le mot de passe de l\'utilisateur \"admin\" dans votre console. Ceci n\'arrive qu\'au premier démarrage ou lorsqu\'aucun utilisateur nommé \"admin\" n\'est enregistré.\n\nSi vous avez oublié le mot de passe ou que vous n\'avez plus le log de la console, supprimez simplement le fichier \"config.yml\" à l\'intérieur du dossier \"ServerCtrl\" ou juste l\'utilisateur \"admin\" à l\'intérieur de ce fichier.\nPour plus d\'aide, rejoignez mon serveur Discord."),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
         "important": MessageLookupByLibrary.simpleMessage("IMPORTANT!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
             "N’oubliez pas que vous devez d’abord installer le plugin ServerCtrl"),
+        "inputYourPassword": MessageLookupByLibrary.simpleMessage(
+            "Saisissez votre mot de passe"),
+        "inputYourPasswordAndCurrent2fa": MessageLookupByLibrary.simpleMessage(
+            "Saisissez votre mot de passe et votre 2FA actuel"),
         "ipOrHostname":
             MessageLookupByLibrary.simpleMessage("IP ou nom d’hôte"),
         "kick": MessageLookupByLibrary.simpleMessage("KICK"),
@@ -227,19 +251,30 @@ class MessageLookup extends MessageLookupByLibrary {
         "op": MessageLookupByLibrary.simpleMessage("OP"),
         "openWith": MessageLookupByLibrary.simpleMessage("Ouvrir avec"),
         "password": MessageLookupByLibrary.simpleMessage("Mot de passe"),
+        "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Le mot de passe a été modifié avec succès"),
         "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
             "Les mots de passe ne correspondent pas"),
         "permissions": MessageLookupByLibrary.simpleMessage("Permissions"),
         "players": MessageLookupByLibrary.simpleMessage("Joueurs"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Veuillez autoriser l’accès à l’espace de stockage"),
+        "pleaseInputYourCode":
+            MessageLookupByLibrary.simpleMessage("Veuillez saisir votre code"),
         "pleaseInputYourUsernameAndPassword":
             MessageLookupByLibrary.simpleMessage(
                 "Veuillez saisir votre nom d\'utilisateur et votre mot de passe"),
+        "pleasePutInYourCurrentPassword": MessageLookupByLibrary.simpleMessage(
+            "Veuillez saisir votre mot de passe actuel"),
+        "pleaseWait":
+            MessageLookupByLibrary.simpleMessage("Veuillez patienter"),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort": MessageLookupByLibrary.simpleMessage(
             "Port du plugin et du serveur Web"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
+        "remove": MessageLookupByLibrary.simpleMessage("Retirer"),
+        "removeTwofactorAuthentication": MessageLookupByLibrary.simpleMessage(
+            "Supprimer l\'authentification à deux facteurs ?"),
         "rename": MessageLookupByLibrary.simpleMessage("Renommer"),
         "repeatNewPassword": MessageLookupByLibrary.simpleMessage(
             "Répéter le nouveau mot de passe"),
@@ -258,6 +293,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "savedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Sauvegardé avec succès"),
         "saving": MessageLookupByLibrary.simpleMessage("Sauvegarde"),
+        "secretCopiedToClipboard": MessageLookupByLibrary.simpleMessage(
+            "Secret copié dans le presse-papiers"),
         "selectFile":
             MessageLookupByLibrary.simpleMessage("Séléctionner un fichier"),
         "selectedEntryWIllBeDeleted": MessageLookupByLibrary.simpleMessage(
@@ -274,6 +311,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Veuillez spécifier le domaine ou l’adresse IP du serveur Minecraft"),
         "spigotmc": MessageLookupByLibrary.simpleMessage("SpigotMC"),
         "success": MessageLookupByLibrary.simpleMessage("Succès"),
+        "successfullyAdded2faToYourAccount":
+            MessageLookupByLibrary.simpleMessage(
+                "L\'ajout de 2FA à votre compte a été effectué avec succès"),
         "successfullyCreatedFile":
             MessageLookupByLibrary.simpleMessage("Fichier créé avec succès"),
         "successfullyCreatedFolder":
@@ -287,6 +327,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Nouveau certificat généré avec succès"),
         "successfullyLoggedIn":
             MessageLookupByLibrary.simpleMessage("Connecté avec succès"),
+        "successfullyRemoved2fa":
+            MessageLookupByLibrary.simpleMessage("Supression du 2FA réussie"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Renommé avec succès"),
         "successfullyResetPassword": MessageLookupByLibrary.simpleMessage(
@@ -302,7 +344,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeColor": MessageLookupByLibrary.simpleMessage("Couleur du thème"),
         "total_system_memory":
             MessageLookupByLibrary.simpleMessage("Mémoire système totale"),
+        "totpCode": MessageLookupByLibrary.simpleMessage("Code TOTP"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Réessayer"),
+        "twofactorAuthentication": MessageLookupByLibrary.simpleMessage(
+            "Authentification à deux facteurs"),
         "untrustedCertificate":
             MessageLookupByLibrary.simpleMessage("Certificat non fiable"),
         "upload": MessageLookupByLibrary.simpleMessage("Télécharger"),
@@ -318,11 +363,21 @@ class MessageLookup extends MessageLookupByLibrary {
             "Utiliser les paramètres du système"),
         "used_memory": MessageLookupByLibrary.simpleMessage("Mémoire utilisée"),
         "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
+        "verifyPasswordForRemoving2FA": MessageLookupByLibrary.simpleMessage(
+            "Veuillez vérifier votre mot de passe et le code 2FA pour supprimer l\'authentification à deux facteurs."),
+        "verifyYourTwofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage(
+                "Vérifier avec l\'authentification à deux facteurs"),
         "version": m9,
+        "wrongCode": MessageLookupByLibrary.simpleMessage("Code erroné"),
+        "wrongPassword":
+            MessageLookupByLibrary.simpleMessage("Mot de passe erroné"),
         "wrongUsernameOrPassword": MessageLookupByLibrary.simpleMessage(
             "Nom d’utilisateur ou mot de passe erroné"),
         "yes": MessageLookupByLibrary.simpleMessage("Oui"),
         "youAlreadyAddedThisServer": MessageLookupByLibrary.simpleMessage(
-            "Vous avez déjà ajouté ce serveur")
+            "Vous avez déjà ajouté ce serveur"),
+        "youAlreadyConfigured2FA": MessageLookupByLibrary.simpleMessage(
+            "Vous avez déjà configuré l\'authentification à deux facteurs, voulez-vous la supprimer ?")
       };
 }

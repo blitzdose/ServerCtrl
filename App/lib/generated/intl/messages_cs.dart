@@ -51,8 +51,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Certifikát změněn. Prosím ověřte a přijměte nový certifikát."),
         "acceptWarningTryAgain": MessageLookupByLibrary.simpleMessage(
             "Přijměte prosím varování a přihlašte se znovu"),
+        "account": MessageLookupByLibrary.simpleMessage("Účet"),
         "accountAndName": m0,
         "accounts": MessageLookupByLibrary.simpleMessage("Účty"),
+        "add2FAtoApp": MessageLookupByLibrary.simpleMessage(
+            "Prosím přidejte toto dvoufázové ověření do Vaší aplikace (např. Google Authenticator) pomocí skenu QR-kódu nebo zkopírování tajného klíče."),
         "addMinecraftServer":
             MessageLookupByLibrary.simpleMessage("Přidat Minecraft server"),
         "add_server": MessageLookupByLibrary.simpleMessage("Přidat Server"),
@@ -78,12 +81,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Soubor certifikátu"),
         "certificateUploadedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Certifikát úspěšně nahrán"),
+        "changePassword": MessageLookupByLibrary.simpleMessage("Změnit heslo"),
         "close": MessageLookupByLibrary.simpleMessage("Zavřít"),
         "codedBy": m3,
         "command": MessageLookupByLibrary.simpleMessage("Příkaz"),
+        "configureTwofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage(
+                "Nastavit dvoufázové ověřování"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Potvrdit"),
         "connectionFailed":
             MessageLookupByLibrary.simpleMessage("Připojení se nezdařilo"),
         "console": MessageLookupByLibrary.simpleMessage("Konzole"),
+        "copySecret": MessageLookupByLibrary.simpleMessage("Zkopírovat klíč"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("GPU jádra"),
         "cpu_load": MessageLookupByLibrary.simpleMessage("CPU zátěž"),
         "cpu_usage": MessageLookupByLibrary.simpleMessage("Využití CPU"),
@@ -91,6 +100,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Vytvořit heslo"),
         "createFile": MessageLookupByLibrary.simpleMessage("Vytvořit soubor"),
         "createFolder": MessageLookupByLibrary.simpleMessage("Vytvořit složku"),
+        "currentPassword":
+            MessageLookupByLibrary.simpleMessage("Aktuální heslo"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Tmavý režim"),
         "dataPrivacy": MessageLookupByLibrary.simpleMessage("Soukromí dat"),
         "defaultStr": MessageLookupByLibrary.simpleMessage("Výchozí"),
@@ -103,7 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteFiles": MessageLookupByLibrary.simpleMessage("Smazat soubory?"),
         "deleteRoutetitle": m6,
         "deop": MessageLookupByLibrary.simpleMessage("DE-OP"),
-        "design": MessageLookupByLibrary.simpleMessage("Téma"),
+        "design": MessageLookupByLibrary.simpleMessage("Vzhled"),
         "directory": MessageLookupByLibrary.simpleMessage("složka"),
         "discard": MessageLookupByLibrary.simpleMessage("Zrušit"),
         "discardChanges": MessageLookupByLibrary.simpleMessage("Zrušit změny?"),
@@ -116,6 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "dynamicColor":
             MessageLookupByLibrary.simpleMessage("Dynamické zabarvení"),
         "edit": MessageLookupByLibrary.simpleMessage("Upravit"),
+        "egWithGoogleAuthenticator": MessageLookupByLibrary.simpleMessage(
+            "např. pomocí Google Authenticator"),
         "email": MessageLookupByLibrary.simpleMessage("E-Mail"),
         "errorCreatingAccount": MessageLookupByLibrary.simpleMessage(
             "Během tvoření nového účtu se naskytl problém"),
@@ -141,6 +154,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chyba při stahování souboru"),
         "errorWhileGeneratingCertificate": MessageLookupByLibrary.simpleMessage(
             "Během vytváření certifikátu se naskytl problém"),
+        "errorWhileRemoving2fa":
+            MessageLookupByLibrary.simpleMessage("Chyba při odebírání 2FA"),
         "errorWhileSavingChanges": MessageLookupByLibrary.simpleMessage(
             "Během ukládání změn se naskytl problém"),
         "errorWhileSavingFile":
@@ -175,10 +190,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "helpMeKeepThisAppAlive":
             MessageLookupByLibrary.simpleMessage("Pomozte mi udržet aplikaci"),
         "home": MessageLookupByLibrary.simpleMessage("Domů"),
+        "howCanILogIn":
+            MessageLookupByLibrary.simpleMessage("Jak se přihlásit?"),
+        "howCanILogInText": MessageLookupByLibrary.simpleMessage(
+            "Po té co nainstalujete tento plugin na Vašem Bukkit / Spigot / Paper serveru, v konzoli se Vám ukáže heslo pro uživatele \"admin\". Heslo se ukáže pouze po prvním spuštění pluginu nebo pokud žádný \"admin\" uživatel neexistuje.\n\nPokud jste zapomněl heslo nebo nemůže heslo najít v záznamu konzole (log), jednoduše stačí smazat soubor \"config.yml\" ve složce \"ServerCtrl\", případně pouze uživatele \"admin\" uvnitř souboru.\n\nPokud potřebujete pomoc, připojte se na můj Discord server."),
         "https": MessageLookupByLibrary.simpleMessage("HTTPS"),
         "important": MessageLookupByLibrary.simpleMessage("DŮLEŽITÝ!"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
             "Prosím, ujistěte se, že máte nainstalován ServerCtrl-Plugin"),
+        "inputYourPassword":
+            MessageLookupByLibrary.simpleMessage("Napište Vaše heslo"),
+        "inputYourPasswordAndCurrent2fa": MessageLookupByLibrary.simpleMessage(
+            "Napište Vaše heslo a aktuální 2FA"),
         "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP nebo Doména"),
         "kick": MessageLookupByLibrary.simpleMessage("VYHODIT"),
         "language": MessageLookupByLibrary.simpleMessage("Jazyk"),
@@ -212,19 +235,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "op": MessageLookupByLibrary.simpleMessage("OP"),
         "openWith": MessageLookupByLibrary.simpleMessage("Otevřít pomocí"),
         "password": MessageLookupByLibrary.simpleMessage("Heslo"),
+        "passwordChangedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Heslo úspěšně změněno"),
         "passwordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("Hesla nesouhlasí"),
         "permissions": MessageLookupByLibrary.simpleMessage("Oprávnění"),
         "players": MessageLookupByLibrary.simpleMessage("Hráči"),
         "pleaseAllowAccessToTheStorage": MessageLookupByLibrary.simpleMessage(
             "Prosím povolte přístup k souborům"),
+        "pleaseInputYourCode":
+            MessageLookupByLibrary.simpleMessage("Prosím vložte Váš kód"),
         "pleaseInputYourUsernameAndPassword":
             MessageLookupByLibrary.simpleMessage(
                 "Prosím zadejte svoji přezdívku a heslo"),
+        "pleasePutInYourCurrentPassword":
+            MessageLookupByLibrary.simpleMessage("Prosím napište vaše heslo"),
+        "pleaseWait": MessageLookupByLibrary.simpleMessage("Prosím počkejte"),
         "plugin": MessageLookupByLibrary.simpleMessage("Plugin"),
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin a Webserver port"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
+        "remove": MessageLookupByLibrary.simpleMessage("Odebrat"),
+        "removeTwofactorAuthentication": MessageLookupByLibrary.simpleMessage(
+            "Odebrat dvoufázové ověřování?"),
         "rename": MessageLookupByLibrary.simpleMessage("Přejmenovat"),
         "repeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Zopakovat nové heslo"),
@@ -241,6 +274,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "savedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Úspěšně uloženo"),
         "saving": MessageLookupByLibrary.simpleMessage("Ukládání"),
+        "secretCopiedToClipboard":
+            MessageLookupByLibrary.simpleMessage("Klíč zkopírován"),
         "selectFile": MessageLookupByLibrary.simpleMessage("Vybrat soubor"),
         "selectedEntryWIllBeDeleted": MessageLookupByLibrary.simpleMessage(
             "Vybraný záznam bude odstraněn z aplikace"),
@@ -256,6 +291,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Prosím upřesni doménu nebo IP adresu Minecraft serveru"),
         "spigotmc": MessageLookupByLibrary.simpleMessage("SpigotMC"),
         "success": MessageLookupByLibrary.simpleMessage("Úspěch"),
+        "successfullyAdded2faToYourAccount":
+            MessageLookupByLibrary.simpleMessage(
+                "Dvoufázové ověřování úspěšně přidán k Vašemu účtu"),
         "successfullyCreatedFile":
             MessageLookupByLibrary.simpleMessage("Soubor úspěšně vytvořen"),
         "successfullyCreatedFolder":
@@ -269,6 +307,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Nový certifikát úspěšně vytvořen"),
         "successfullyLoggedIn":
             MessageLookupByLibrary.simpleMessage("Úspěšně přihlášen"),
+        "successfullyRemoved2fa":
+            MessageLookupByLibrary.simpleMessage("2FA úspěšně odebrán"),
         "successfullyRenamed":
             MessageLookupByLibrary.simpleMessage("Úspěšně přejmenováno"),
         "successfullyResetPassword": MessageLookupByLibrary.simpleMessage(
@@ -284,7 +324,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeColor": MessageLookupByLibrary.simpleMessage("Barva témy"),
         "total_system_memory":
             MessageLookupByLibrary.simpleMessage("Celková paměť systému"),
+        "totpCode": MessageLookupByLibrary.simpleMessage("TOTP Kód"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Zkusit znovu"),
+        "twofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage("Dvoufázové ověření"),
         "untrustedCertificate":
             MessageLookupByLibrary.simpleMessage("Nedůvěryhodný certifikát"),
         "upload": MessageLookupByLibrary.simpleMessage("Nahrát"),
@@ -299,11 +342,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Použít systémová nastavení"),
         "used_memory": MessageLookupByLibrary.simpleMessage("Využitá paměť"),
         "username": MessageLookupByLibrary.simpleMessage("Přezdívka"),
+        "verifyPasswordForRemoving2FA": MessageLookupByLibrary.simpleMessage(
+            "Prosím ověřte Vaše heslo a 2FA kód pro odebrání Vašeho dvoufázového ověřování"),
+        "verifyYourTwofactorAuthentication":
+            MessageLookupByLibrary.simpleMessage(
+                "Ověřte se pomocí dvoufázového ověření"),
         "version": m9,
+        "wrongCode": MessageLookupByLibrary.simpleMessage("Nesprávný kód"),
+        "wrongPassword":
+            MessageLookupByLibrary.simpleMessage("Nesprávné heslo"),
         "wrongUsernameOrPassword": MessageLookupByLibrary.simpleMessage(
             "Nesprávná přezdívka nebo heslo"),
         "yes": MessageLookupByLibrary.simpleMessage("Ano"),
-        "youAlreadyAddedThisServer":
-            MessageLookupByLibrary.simpleMessage("Tento server jste již přidal")
+        "youAlreadyAddedThisServer": MessageLookupByLibrary.simpleMessage(
+            "Tento server jste již přidal"),
+        "youAlreadyConfigured2FA": MessageLookupByLibrary.simpleMessage(
+            "Již jste nastavil dvoufázové ověřování, chcete ho odstranit?")
       };
 }

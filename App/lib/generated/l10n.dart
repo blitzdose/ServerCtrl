@@ -61,7 +61,7 @@ class S {
   }
 
   /// `Version: {version}`
-  String version(String version) {
+  String version(Object version) {
     return Intl.message(
       'Version: $version',
       name: 'version',
@@ -147,16 +147,6 @@ class S {
       name: 'accounts',
       desc: '',
       args: [],
-    );
-  }
-
-  /// `Account {name}`
-  String accountAndName(String name) {
-    return Intl.message(
-      'Account $name',
-      name: 'accountAndName',
-      desc: 'Example: Account Admin',
-      args: [name],
     );
   }
 
@@ -371,7 +361,7 @@ class S {
   }
 
   /// `The account "{accountName}" will be permanently removed.`
-  String deleteAccountMessage(String accountName) {
+  String deleteAccountMessage(Object accountName) {
     return Intl.message(
       'The account "$accountName" will be permanently removed.',
       name: 'deleteAccountMessage',
@@ -871,7 +861,7 @@ class S {
   }
 
   /// `"{name}" will be permanently removed.`
-  String deleteFileMessage(String name) {
+  String deleteFileMessage(Object name) {
     return Intl.message(
       '"$name" will be permanently removed.',
       name: 'deleteFileMessage',
@@ -881,7 +871,7 @@ class S {
   }
 
   /// `File "{name}"`
-  String fileAndName(String name) {
+  String fileAndName(Object name) {
     return Intl.message(
       'File "$name"',
       name: 'fileAndName',
@@ -1131,7 +1121,7 @@ class S {
   }
 
   /// `Downloaded "{filename}" successfully.`
-  String downloadedFilenameSuccessfully(String filename) {
+  String downloadedFilenameSuccessfully(Object filename) {
     return Intl.message(
       'Downloaded "$filename" successfully.',
       name: 'downloadedFilenameSuccessfully',
@@ -1301,7 +1291,7 @@ class S {
   }
 
   /// `Coded by {name}`
-  String codedBy(String name) {
+  String codedBy(Object name) {
     return Intl.message(
       'Coded by $name',
       name: 'codedBy',
@@ -1351,7 +1341,7 @@ class S {
   }
 
   /// `Delete "{routeTitle}"`
-  String deleteRoutetitle(String routeTitle) {
+  String deleteRoutetitle(Object routeTitle) {
     return Intl.message(
       'Delete "$routeTitle"',
       name: 'deleteRoutetitle',
@@ -1581,7 +1571,7 @@ class S {
   }
 
   /// `Cannot reach "{ip}"`
-  String cannotReachIp(String ip) {
+  String cannotReachIp(Object ip) {
     return Intl.message(
       'Cannot reach "$ip"',
       name: 'cannotReachIp',
@@ -1591,7 +1581,7 @@ class S {
   }
 
   /// `Cannot reach "{ip}" over HTTPS`
-  String cannotReachIpOverHttps(String ip) {
+  String cannotReachIpOverHttps(Object ip) {
     return Intl.message(
       'Cannot reach "$ip" over HTTPS',
       name: 'cannotReachIpOverHttps',
@@ -1760,6 +1750,16 @@ class S {
     );
   }
 
+  /// `Account {name}`
+  String accountAndName(Object name) {
+    return Intl.message(
+      'Account $name',
+      name: 'accountAndName',
+      desc: 'Example: Account Admin',
+      args: [name],
+    );
+  }
+
   /// `Generate`
   String get generate {
     return Intl.message(
@@ -1870,10 +1870,10 @@ class S {
     );
   }
 
-  /// `After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn't got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord channel.`
+  /// `After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn't got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord server.`
   String get howCanILogInText {
     return Intl.message(
-      'After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn\'t got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord channel.',
+      'After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn\'t got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord server.',
       name: 'howCanILogInText',
       desc: '',
       args: [],
@@ -2090,10 +2090,10 @@ class S {
     );
   }
 
-  /// `Verify your two-factor authentication`
+  /// `Verify with two-factor authentication`
   String get verifyYourTwofactorAuthentication {
     return Intl.message(
-      'Verify your two-factor authentication',
+      'Verify with two-factor authentication',
       name: 'verifyYourTwofactorAuthentication',
       desc: '',
       args: [],
@@ -2161,7 +2161,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'es'),
       Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'it'),
       Locale.fromSubtags(languageCode: 'nl'),
+      Locale.fromSubtags(languageCode: 'zh', countryCode: 'TW'),
     ];
   }
 
