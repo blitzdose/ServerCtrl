@@ -1,5 +1,6 @@
 package de.blitzdose.minecraftserverremote.logging;
 
+import org.apache.commons.codec.Charsets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.layout.MessageLayout;
@@ -27,7 +28,7 @@ public class ConsoleSaver {
 
     public static String getLogFile() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("plugins/ServerCtrl/log/console.log"));
+            BufferedReader reader = new BufferedReader(new FileReader("plugins/ServerCtrl/log/console.log", Charsets.UTF_8));
             String log = reader.lines().collect(Collectors.joining("\n"));
             reader.close();
             return log;

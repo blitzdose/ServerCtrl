@@ -1,5 +1,6 @@
 package de.blitzdose.minecraftserverremote.logging;
 
+import org.apache.commons.codec.Charsets;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.Layout;
@@ -39,7 +40,7 @@ public class ConsoleAppender extends AbstractAppender {
                 new File("plugins/ServerCtrl/log/console.log").createNewFile();
             }
 
-            FileWriter fileWriter = new FileWriter("plugins/ServerCtrl/log/console.log", true);
+            FileWriter fileWriter = new FileWriter("plugins/ServerCtrl/log/console.log", Charsets.UTF_8, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             message = message.replace("\u007F", "!_/");
