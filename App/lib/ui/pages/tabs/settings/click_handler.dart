@@ -461,7 +461,7 @@ class ClickHandler {
   void serverClick(RxList<ServerSetting> settings, ServerSetting serverSetting, BuildContext context) {
     InputDialog(
         title: serverSetting.name,
-        textInputType: TextInputType.visiblePassword,
+        textInputType: TextInputType.text,
         inputFieldText: serverSetting.value,
         inputFieldBorder: const OutlineInputBorder(),
         leftButtonText: S.current.cancel,
