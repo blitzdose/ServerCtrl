@@ -190,7 +190,7 @@ class AccountsController extends TabxController {
           child: AlertDialog(
             insetPadding: EdgeInsets.zero,
             contentPadding: const EdgeInsets.only(top: 16),
-            title: Text(S.current.resetPassword),
+            title: Text(S.current.permissions),
             content: SizedBox(
               width: min(500, MediaQuery.of(context).size.width),
               child: ListView.builder(
