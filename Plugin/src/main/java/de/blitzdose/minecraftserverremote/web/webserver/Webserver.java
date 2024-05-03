@@ -10,6 +10,9 @@ import io.javalin.community.ssl.SSLPlugin;
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.jetty.JettyServer;
+import io.javalin.util.JavalinLogger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONObject;
 
@@ -38,8 +41,8 @@ public class Webserver {
         this.frontend = frontend;
         this.ssl = ssl;
         if (!debug) {
-            //JavalinLogger.enabled = false;
-            //Configurator.setLevel("org.eclipse.jetty", Level.OFF);
+            JavalinLogger.enabled = false;
+            Configurator.setLevel("org.eclipse.jetty", Level.OFF);
         }
 
         userManager = new UserManager();

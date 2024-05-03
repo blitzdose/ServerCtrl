@@ -7,18 +7,15 @@ import org.bukkit.entity.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PlayerApi {
 
     static private final String API_HEAD_LINK = "https://crafatar.com/avatars/";
 
     public static void getOnline(Context context) {
-        JSONObject requestJson = new JSONObject(context);
+        JSONObject requestJson = new JSONObject(context.body());
         int limit = -1;
         if (requestJson.has("limit")) {
             limit = requestJson.getInt("limit");
