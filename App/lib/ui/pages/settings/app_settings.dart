@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -49,7 +48,7 @@ class AppSettings extends StatelessWidget {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 title: SettingsTileTitle(S.current.language),
-                description: Text(LocaleNames.of(context)!.nameOf(MyAppController.locale.value.languageCode)!),
+                description: Text(controller.transformLocale(context, MyAppController.locale.value)),
                 leading: const Icon(Icons.translate_rounded),
                 onPressed: (context) => controller.language(context),
               ),

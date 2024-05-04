@@ -89,14 +89,21 @@ class MyAppController extends GetxController {
     locale(selectedLocale);
     locale.refresh();
     SharedPreferences storage = await SharedPreferences.getInstance();
-    await storage.setString("locale", selectedLocale.languageCode);
+    await storage.setString("locale", selectedLocale.countryCode != null ? "_${selectedLocale.languageCode}_${selectedLocale.countryCode!}" : selectedLocale.languageCode);
   }
 
   void loadLocale() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     String? valueString = storage.getString("locale");
     if (valueString != null) {
-      Locale savedLocale = Locale(valueString);
+      Locale savedLocale;
+      if (valueString.startsWith("_")) {
+        String languageCode = valueString.substring(1).split("_")[0];
+        String countryCode = valueString.substring(1).split("_")[1];
+        savedLocale = Locale.fromSubtags(languageCode: languageCode, countryCode: countryCode);
+      }  else {
+        savedLocale = Locale(valueString);
+      }
       locale(savedLocale);
       await Get.updateLocale(savedLocale);
     }

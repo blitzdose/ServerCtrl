@@ -46,7 +46,7 @@ class PlayersController extends TabxController {
 
   @override
   Future<http.Response> fetchData() async {
-    return await Session.post("/api/player/online", null);
+    return await Session.post("/api/player/online", "{}");
   }
 
   Widget createPlayerWidget(Player player) {

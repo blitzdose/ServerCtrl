@@ -21,7 +21,8 @@ class AppSettingsController extends GetxController {
     var locales = S.delegate.supportedLocales.obs;
     var selectedLocale = MyAppController.locale.value.obs;
     for (var locale in locales) {
-      if (locale.languageCode == MyAppController.locale.value.languageCode) {
+      if (locale.languageCode == MyAppController.locale.value.languageCode &&
+          locale.countryCode == MyAppController.locale.value.countryCode) {
         selectedLocale = locale.obs;
         break;
       }
@@ -39,14 +40,14 @@ class AppSettingsController extends GetxController {
                 for(Locale locale in locales)
                   RadioListTile<Locale>(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                    title: Text(LocaleNames.of(context)!.nameOf(locale.languageCode)!),
+                    title: Text(transformLocale(context, locale)),
                     value: locale,
                     groupValue: selectedLocale.value,
                     onChanged: (Locale? value) {
                       if (value != null) {
                         selectedLocale(value);
                       }
-                    },
+                      },
                   ),
                 const SizedBox(height: 24),
               ],
@@ -66,7 +67,19 @@ class AppSettingsController extends GetxController {
           );
         }
     );
+  }
 
+  String transformLocale(BuildContext context, Locale locale) {
+    if (locale.countryCode != null) {
+      if (locale.languageCode == "zh" && locale.countryCode == "TW") {
+        return LocaleNames.of(context)!.nameOf("${locale.languageCode}_Hant")!;
+      } else if (locale.languageCode == "zh" && locale.countryCode == "CN") {
+        return LocaleNames.of(context)!.nameOf("${locale.languageCode}_Hans")!;
+      }
+      return LocaleNames.of(context)!.nameOf("${locale.languageCode}_${locale.countryCode}")!;
+    }
+
+    return LocaleNames.of(context)!.nameOf(locale.languageCode)!;
   }
 
   void design(context) async {
