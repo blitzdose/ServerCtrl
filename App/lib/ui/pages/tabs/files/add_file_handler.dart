@@ -26,7 +26,7 @@ class AddFileHandler {
     }
     InputDialog(
         title: title,
-        textInputType: TextInputType.visiblePassword,
+        textInputType: TextInputType.text,
         inputFieldHintText: hint,
         inputFieldBorder: const OutlineInputBorder(),
         rightButtonDisableEmpty: true,
