@@ -31,34 +31,45 @@ class LoginWeb extends StatelessWidget {
                     Text(S.current.login, style: const TextStyle(fontSize: 32, ), textAlign: TextAlign.center),
                     const Divider(),
                     const Padding(padding: EdgeInsets.only(top: 48.0)),
-                    TextField(
-                      decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: S.current.username
-                      ),
-                      maxLines: 1,
-                      controller: controller.usernameController.value,
-                      onChanged: (value) => controller.usernameController.refresh(),
-                      keyboardType: TextInputType.name,
-                      autocorrect: false,
-                      enableSuggestions: false,
-                    ),
-                    const Padding(padding: EdgeInsets.only(top: 8.0)),
-                    TextField(
-                      decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: S.current.password
-                      ),
-                      maxLines: 1,
-                      obscureText: true,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      controller: controller.passwordController.value,
-                      onChanged: (value) => controller.passwordController.refresh(),
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.go,
-                      onSubmitted: (value) => controller.login(),
-                    ),
+                    AutofillGroup(child: Column(
+                      children: [
+                        TextField(
+                          autofillHints: [
+                            AutofillHints.username,
+                            AutofillHints.email
+                          ],
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              hintText: S.current.username
+                          ),
+                          maxLines: 1,
+                          controller: controller.usernameController.value,
+                          onChanged: (value) => controller.usernameController.refresh(),
+                          keyboardType: TextInputType.name,
+                          autocorrect: false,
+                          enableSuggestions: false,
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 8.0)),
+                        TextField(
+                          autofillHints: [
+                            AutofillHints.password
+                          ],
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              hintText: S.current.password
+                          ),
+                          maxLines: 1,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          autocorrect: false,
+                          controller: controller.passwordController.value,
+                          onChanged: (value) => controller.passwordController.refresh(),
+                          keyboardType: TextInputType.visiblePassword,
+                          textInputAction: TextInputAction.go,
+                          onSubmitted: (value) => controller.login(),
+                        )
+                      ],
+                    )),
                     const Padding(padding: EdgeInsets.only(top: 18.0)),
                     if (controller.errorMessage.isNotEmpty) Text(controller.errorMessage.value, style: const TextStyle(color: Colors.red),),
                     const Padding(padding: EdgeInsets.only(top: 18.0)),
