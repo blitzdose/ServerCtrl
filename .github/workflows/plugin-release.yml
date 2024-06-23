@@ -28,7 +28,7 @@ jobs:
         run: flutter config --enable-web
         working-directory: ./App
       - name: Build Web files
-        run: flutter build web --release
+        run: flutter build web --release --web-renderer canvaskit
         working-directory: ./App
       - name: Copy Web build
         run: rm -rf ./Plugin/src/main/resources/html/* && cp -r ./App/build/web/* ./Plugin/src/main/resources/html/
