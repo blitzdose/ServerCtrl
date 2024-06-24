@@ -33,25 +33,27 @@ class AppSettingsController extends GetxController {
           return AlertDialog(
             title: Text(S.current.language),
             contentPadding: EdgeInsets.zero,
-            content: Obx(() => Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const SizedBox(height: 16),
-                for(Locale locale in locales)
-                  RadioListTile<Locale>(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                    title: Text(transformLocale(context, locale)),
-                    value: locale,
-                    groupValue: selectedLocale.value,
-                    onChanged: (Locale? value) {
-                      if (value != null) {
-                        selectedLocale(value);
-                      }
+            content: Obx(() => SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const SizedBox(height: 16),
+                  for(Locale locale in locales)
+                    RadioListTile<Locale>(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                      title: Text(transformLocale(context, locale)),
+                      value: locale,
+                      groupValue: selectedLocale.value,
+                      onChanged: (Locale? value) {
+                        if (value != null) {
+                          selectedLocale(value);
+                        }
                       },
-                  ),
-                const SizedBox(height: 24),
-              ],
-            ),
+                    ),
+                  const SizedBox(height: 24),
+                ],
+              ),
+            )
             ),
             actions: [
               TextButton(onPressed: () {
@@ -162,24 +164,18 @@ class AppSettingsController extends GetxController {
             ),
           ),
           actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextButton(onPressed: () {
-                  selectedColor(MColors.seed);
-                  MyAppController.updateMainColor(selectedColor.value);
-                }, child: Text(S.current.defaultStr)),
-                const Spacer(),
-                TextButton(onPressed: () {
-                  MyAppController.updateMainColor(initialColor);
-                  Navigator.pop(context, true);
-                }, child: Text(S.current.cancel)),
-                TextButton(onPressed: () {
-                  MyAppController.updateMainColor(selectedColor.value);
-                  Navigator.pop(context, true);
-                }, child: Text(S.current.save)),
-              ],
-            )
+            TextButton(onPressed: () {
+              selectedColor(MColors.seed);
+              MyAppController.updateMainColor(selectedColor.value);
+            }, child: Text(S.current.defaultStr)),
+            TextButton(onPressed: () {
+              MyAppController.updateMainColor(initialColor);
+              Navigator.pop(context, true);
+            }, child: Text(S.current.cancel)),
+            TextButton(onPressed: () {
+              MyAppController.updateMainColor(selectedColor.value);
+              Navigator.pop(context, true);
+            }, child: Text(S.current.save)),
           ],
         );
       },
