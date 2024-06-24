@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_TW';
 
-  static String m0(name) => "帳號 ${name}";
+  static String m0(name) => "帳戶 ${name}";
 
   static String m1(ip) => "無法連線到 \"${ip}\"";
 
@@ -28,13 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(name) => "作者： ${name}";
 
-  static String m4(accountName) => "帳號 \"${accountName}\" 將永久移除。";
+  static String m4(accountName) => "帳號 \"${accountName}\" 將永久移除";
 
   static String m5(name) => "\"${name}\" 將永久刪除。";
 
   static String m6(routeTitle) => "刪除 \"${routeTitle}\"";
 
-  static String m7(filename) => "已成功下載 \"${filename}\"。";
+  static String m7(filename) => "已成功下載 \"${filename}\"";
 
   static String m8(name) => "檔案 \"${name}\"";
 
@@ -43,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "InstallPlugin": MessageLookupByLibrary.simpleMessage(
-            "此應用程式需要在您現有的 Minecraft 伺服器上安裝外掛。請點擊 \"更多資訊\" 以獲取更多資訊 :)"),
+            "此應用程式需要在您現有的 Minecraft 伺服器上安裝本插件。請點擊 \"更多資訊\" 查看更多哦~ :)"),
         "about": MessageLookupByLibrary.simpleMessage("關於"),
         "aboutServerctrl":
             MessageLookupByLibrary.simpleMessage("關於 ServerCtrl"),
@@ -51,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("金鑰已變更。請驗證並接受新金鑰。"),
         "acceptWarningTryAgain":
             MessageLookupByLibrary.simpleMessage("請接受警告並重新登入"),
-        "account": MessageLookupByLibrary.simpleMessage("帳號"),
+        "account": MessageLookupByLibrary.simpleMessage("帳戶"),
         "accountAndName": m0,
         "accounts": MessageLookupByLibrary.simpleMessage("帳戶"),
         "add2FAtoApp": MessageLookupByLibrary.simpleMessage(
@@ -59,15 +59,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "addMinecraftServer": MessageLookupByLibrary.simpleMessage("新增伺服器"),
         "add_server": MessageLookupByLibrary.simpleMessage("新增伺服器"),
         "allYourChangesWillBeLost":
-            MessageLookupByLibrary.simpleMessage("所有變更將遺失"),
+            MessageLookupByLibrary.simpleMessage("將不會儲存變更"),
         "allocated_memory": MessageLookupByLibrary.simpleMessage("分配記憶體"),
         "appearance": MessageLookupByLibrary.simpleMessage("外觀"),
         "ban": MessageLookupByLibrary.simpleMessage("封鎖"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "cannotConnectMaybeCredentials":
-            MessageLookupByLibrary.simpleMessage("無法連接到伺服器，可能是金鑰變更了？"),
+            MessageLookupByLibrary.simpleMessage("無法連接到伺服器，可能是金鑰變更了?"),
         "cannotFindCredentials":
-            MessageLookupByLibrary.simpleMessage("找不到與此伺服器相關的金鑰，請重新新增"),
+            MessageLookupByLibrary.simpleMessage("找不到與此伺服器相關的金鑰，請重新輸入"),
         "cannotReachIp": m1,
         "cannotReachIpOverHttps": m2,
         "cannotReachTheServer":
@@ -89,10 +89,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "console": MessageLookupByLibrary.simpleMessage("控制台"),
         "copySecret": MessageLookupByLibrary.simpleMessage("複製金鑰"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU 核心數"),
-        "cpu_load": MessageLookupByLibrary.simpleMessage("CPU 載入"),
+        "cpu_load": MessageLookupByLibrary.simpleMessage("CPU 使用率"),
         "cpu_usage": MessageLookupByLibrary.simpleMessage("CPU 使用率"),
         "create": MessageLookupByLibrary.simpleMessage("建立"),
-        "createAccount": MessageLookupByLibrary.simpleMessage("建立帳號"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("建立帳戶"),
         "createFile": MessageLookupByLibrary.simpleMessage("建立檔案"),
         "createFolder": MessageLookupByLibrary.simpleMessage("建立資料夾"),
         "currentPassword": MessageLookupByLibrary.simpleMessage("目前密碼"),
@@ -100,17 +100,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "dataPrivacy": MessageLookupByLibrary.simpleMessage("隱私權"),
         "defaultStr": MessageLookupByLibrary.simpleMessage("預設"),
         "delete": MessageLookupByLibrary.simpleMessage("刪除"),
-        "deleteAccount": MessageLookupByLibrary.simpleMessage("刪除帳號?"),
+        "deleteAccount": MessageLookupByLibrary.simpleMessage("你確定要刪除帳號?"),
         "deleteAccountMessage": m4,
-        "deleteFile": MessageLookupByLibrary.simpleMessage("刪除檔案?"),
+        "deleteFile": MessageLookupByLibrary.simpleMessage("你確定要刪除檔案?"),
         "deleteFileMessage": m5,
-        "deleteFiles": MessageLookupByLibrary.simpleMessage("刪除檔案？"),
+        "deleteFiles": MessageLookupByLibrary.simpleMessage("確定要刪除檔案嗎?"),
         "deleteRoutetitle": m6,
-        "deop": MessageLookupByLibrary.simpleMessage("移除OP權限"),
+        "deop": MessageLookupByLibrary.simpleMessage("移除伺服器管理員權限"),
         "design": MessageLookupByLibrary.simpleMessage("外觀主題"),
         "directory": MessageLookupByLibrary.simpleMessage("目錄"),
         "discard": MessageLookupByLibrary.simpleMessage("捨棄"),
-        "discardChanges": MessageLookupByLibrary.simpleMessage("捨棄變更？"),
+        "discardChanges": MessageLookupByLibrary.simpleMessage("確定要捨棄變更?"),
         "discord": MessageLookupByLibrary.simpleMessage("Discord"),
         "donate": MessageLookupByLibrary.simpleMessage("捐款"),
         "download": MessageLookupByLibrary.simpleMessage("下載"),
@@ -119,11 +119,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloading": MessageLookupByLibrary.simpleMessage("下載中"),
         "dynamicColor": MessageLookupByLibrary.simpleMessage("動態顏色"),
         "edit": MessageLookupByLibrary.simpleMessage("編輯"),
-        "egWithGoogleAuthenticator":
-            MessageLookupByLibrary.simpleMessage("例如，使用 Google Authenticator"),
+        "egWithGoogleAuthenticator": MessageLookupByLibrary.simpleMessage(
+            "例如：使用 Google Authenticator(沒有業配)"),
         "email": MessageLookupByLibrary.simpleMessage("電子郵件"),
         "errorCreatingAccount":
-            MessageLookupByLibrary.simpleMessage("建立帳號時發生錯誤"),
+            MessageLookupByLibrary.simpleMessage("建立帳戶時發生錯誤"),
         "errorCreatingFile": MessageLookupByLibrary.simpleMessage("建立檔案時發生錯誤"),
         "errorCreatingFolder":
             MessageLookupByLibrary.simpleMessage("建立資料夾時發生錯誤"),
@@ -132,9 +132,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorDeletingFile": MessageLookupByLibrary.simpleMessage("刪除檔案時發生錯誤"),
         "errorDeletingFiles": MessageLookupByLibrary.simpleMessage("刪除檔案時發生錯誤"),
         "errorInputMissing":
-            MessageLookupByLibrary.simpleMessage("請輸入伺服器IP、使用者名稱和密碼"),
-        "errorRenamingType":
-            MessageLookupByLibrary.simpleMessage("重新命名物件時發生錯誤"),
+            MessageLookupByLibrary.simpleMessage("請輸入伺服器IP、帳戶名稱和密碼"),
+        "errorRenamingType": MessageLookupByLibrary.simpleMessage("重新命名時發生錯誤"),
         "errorResettingPassword":
             MessageLookupByLibrary.simpleMessage("更改密碼時發生錯誤"),
         "errorSavingPermissions":
@@ -154,17 +153,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorWhileUploadingFile":
             MessageLookupByLibrary.simpleMessage("上傳檔案時發生錯誤"),
         "error_sending_command":
-            MessageLookupByLibrary.simpleMessage("發送指令時發生錯誤"),
+            MessageLookupByLibrary.simpleMessage("執行指令時發生錯誤"),
         "file": MessageLookupByLibrary.simpleMessage("檔案"),
         "fileAndName": m8,
         "fileSavedSuccessfully": MessageLookupByLibrary.simpleMessage("檔案儲存成功"),
-        "fileTooLarge": MessageLookupByLibrary.simpleMessage("檔案太大"),
+        "fileTooLarge": MessageLookupByLibrary.simpleMessage("檔案太大ㄌ"),
         "fileTooLargeText":
-            MessageLookupByLibrary.simpleMessage("您嘗試開啟的檔案對於內部編輯器來說太大。"),
+            MessageLookupByLibrary.simpleMessage("這個檔案對於內部編輯器來說太大了"),
         "files": MessageLookupByLibrary.simpleMessage("檔案"),
         "filesUploadedSuccessfully":
             MessageLookupByLibrary.simpleMessage("檔案成功上傳。"),
-        "free_memory": MessageLookupByLibrary.simpleMessage("可用記憶體"),
+        "free_memory": MessageLookupByLibrary.simpleMessage("剩餘記憶體"),
         "generate": MessageLookupByLibrary.simpleMessage("生成"),
         "generateCertificate": MessageLookupByLibrary.simpleMessage("產生金鑰"),
         "generateNewHttpsCertificate":
@@ -175,17 +174,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "helpMe": MessageLookupByLibrary.simpleMessage("支持"),
         "helpMeKeepThisAppAlive": MessageLookupByLibrary.simpleMessage("感謝支持!"),
         "home": MessageLookupByLibrary.simpleMessage("首頁"),
-        "howCanILogIn": MessageLookupByLibrary.simpleMessage("如何登入？"),
+        "howCanILogIn": MessageLookupByLibrary.simpleMessage("如何登入?"),
         "howCanILogInText": MessageLookupByLibrary.simpleMessage(
-            "在您的Bukkit/Spigot/Paper伺服器上安裝插件後，插件將在控制台中顯示使用者\"admin\"的密碼。這只在第一次開啟伺服器或未註冊名為\"admin\"的使用者時出現。\n\n如果您忘記密碼或無法再取得控制台日誌，請刪除\"ServerCtrl\"文件夾中的\"config.yml\"文件或僅刪除此文件中的\"admin\"使用者。\n\n如需求助，請加入我的Discord伺服器。"),
+            "在您的 Bukkit / Spigot / Paper 伺服器上安裝本插件後，插件將在控制台中顯示帳戶 \"admin\" 的密碼。注意！這只在第一次安裝插件並開啟伺服器或未註冊名為\"admin\"的帳戶時出現。\n\n如果您忘記密碼了...又或是無法再取得控制台日誌，請刪除插\"ServerCtrl\"資料夾中的\"config.yml\"文件或僅刪除此檔案中的\"admin\"使用者。\n\n如果需要場外援助，請加入Discord伺服器！"),
         "https": MessageLookupByLibrary.simpleMessage("通訊埠(HTTPS)"),
         "important": MessageLookupByLibrary.simpleMessage("重要！"),
         "infoInstallPlugin":
-            MessageLookupByLibrary.simpleMessage("必須安裝 ServerCtrl 插件"),
+            MessageLookupByLibrary.simpleMessage("你必須先安裝 ServerCtrl 插件"),
         "inputYourPassword": MessageLookupByLibrary.simpleMessage("輸入您的密碼"),
         "inputYourPasswordAndCurrent2fa":
-            MessageLookupByLibrary.simpleMessage("輸入您的密碼和當前的 2FA 6位數字驗證碼"),
-        "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP 或主機名稱"),
+            MessageLookupByLibrary.simpleMessage("輸入您的密碼和此刻 2FA 的動態密碼"),
+        "ipOrHostname": MessageLookupByLibrary.simpleMessage("IP 或 網址"),
         "kick": MessageLookupByLibrary.simpleMessage("踢出"),
         "language": MessageLookupByLibrary.simpleMessage("語言"),
         "licenses": MessageLookupByLibrary.simpleMessage("執照"),
@@ -194,7 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loggingIn": MessageLookupByLibrary.simpleMessage("正在登入"),
         "login": MessageLookupByLibrary.simpleMessage("登入"),
         "longPressEntryToDeleteIt":
-            MessageLookupByLibrary.simpleMessage("長按項目以刪除"),
+            MessageLookupByLibrary.simpleMessage("長按伺服器以刪除"),
         "material3": MessageLookupByLibrary.simpleMessage("背景(Material 3)"),
         "memory_usage": MessageLookupByLibrary.simpleMessage("記憶體使用率"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("更多資訊"),
@@ -207,28 +206,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "newServerAdded": MessageLookupByLibrary.simpleMessage("成功新增伺服器"),
         "no": MessageLookupByLibrary.simpleMessage("否"),
         "noFileSelected": MessageLookupByLibrary.simpleMessage("未選取檔案"),
-        "noPlayersOnline": MessageLookupByLibrary.simpleMessage("沒有玩家在線上"),
+        "noPlayersOnline": MessageLookupByLibrary.simpleMessage("伺服器線上沒有玩家"),
         "nothingSelected": MessageLookupByLibrary.simpleMessage("未選取"),
-        "ok": MessageLookupByLibrary.simpleMessage("了解"),
-        "op": MessageLookupByLibrary.simpleMessage("給予OP權限"),
+        "ok": MessageLookupByLibrary.simpleMessage("確定"),
+        "op": MessageLookupByLibrary.simpleMessage("給予伺服器管理員權限"),
         "openWith": MessageLookupByLibrary.simpleMessage("開啟方式"),
         "password": MessageLookupByLibrary.simpleMessage("密碼"),
         "passwordChangedSuccessfully":
             MessageLookupByLibrary.simpleMessage("密碼成功更改"),
         "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage("密碼不一致"),
         "permissions": MessageLookupByLibrary.simpleMessage("權限"),
-        "players": MessageLookupByLibrary.simpleMessage("玩家"),
+        "players": MessageLookupByLibrary.simpleMessage("在線玩家"),
         "pleaseAllowAccessToTheStorage":
             MessageLookupByLibrary.simpleMessage("請允許存取儲存空間"),
-        "pleaseInputYourCode": MessageLookupByLibrary.simpleMessage("請輸入您的代碼"),
+        "pleaseInputYourCode":
+            MessageLookupByLibrary.simpleMessage("請輸入您的動態密碼"),
         "pleaseInputYourUsernameAndPassword":
-            MessageLookupByLibrary.simpleMessage("請輸入您的使用者名稱和密碼"),
+            MessageLookupByLibrary.simpleMessage("請輸入您的帳戶名稱和密碼"),
         "pleasePutInYourCurrentPassword":
             MessageLookupByLibrary.simpleMessage("請輸入您目前的密碼"),
         "pleaseWait": MessageLookupByLibrary.simpleMessage("請稍後"),
-        "plugin": MessageLookupByLibrary.simpleMessage("插件連結"),
+        "plugin": MessageLookupByLibrary.simpleMessage("插件"),
         "pluginAndWebserverPort":
-            MessageLookupByLibrary.simpleMessage("伺服器連接埠(port)"),
+            MessageLookupByLibrary.simpleMessage("web伺服器連接埠(port)"),
         "port": MessageLookupByLibrary.simpleMessage("連接埠"),
         "remove": MessageLookupByLibrary.simpleMessage("停用"),
         "removeTwofactorAuthentication":
@@ -236,8 +236,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rename": MessageLookupByLibrary.simpleMessage("重新命名"),
         "repeatNewPassword": MessageLookupByLibrary.simpleMessage("確認新密碼"),
         "reset": MessageLookupByLibrary.simpleMessage("重設"),
-        "resetPassword": MessageLookupByLibrary.simpleMessage("更改密碼"),
-        "reset_password": MessageLookupByLibrary.simpleMessage("更換密碼"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("重設密碼"),
+        "reset_password": MessageLookupByLibrary.simpleMessage("重設密碼"),
         "restartToApplyLanguage":
             MessageLookupByLibrary.simpleMessage("請重新啟動應用程式以更新語言"),
         "save": MessageLookupByLibrary.simpleMessage("儲存"),
@@ -249,15 +249,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("金鑰已複製到剪貼簿"),
         "selectFile": MessageLookupByLibrary.simpleMessage("選擇檔案"),
         "selectedEntryWIllBeDeleted":
-            MessageLookupByLibrary.simpleMessage("所選項目將永久從應用程式中刪除"),
+            MessageLookupByLibrary.simpleMessage("你選取的伺服器將永久從列表中刪除"),
         "server": MessageLookupByLibrary.simpleMessage("伺服器設定檔"),
-        "serverNameInput": MessageLookupByLibrary.simpleMessage("伺服器名稱"),
+        "serverNameInput":
+            MessageLookupByLibrary.simpleMessage("伺服器名稱 (可自由命名)"),
         "server_ctrl": MessageLookupByLibrary.simpleMessage("ServerCtrl"),
         "settings": MessageLookupByLibrary.simpleMessage("設定"),
         "share": MessageLookupByLibrary.simpleMessage("分享"),
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage("發生錯誤"),
         "specifyIpOrAddr":
-            MessageLookupByLibrary.simpleMessage("請指定 Minecraft 伺服器的網域或 IP 位址"),
+            MessageLookupByLibrary.simpleMessage("請輸入 Minecraft 伺服器的網域或 IP "),
         "spigotmc": MessageLookupByLibrary.simpleMessage("SpigotMC"),
         "success": MessageLookupByLibrary.simpleMessage("成功"),
         "successfullyAdded2faToYourAccount":
@@ -267,7 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyCreatedFolder":
             MessageLookupByLibrary.simpleMessage("成功建立資料夾"),
         "successfullyCreatedNewAccount":
-            MessageLookupByLibrary.simpleMessage("成功建立新帳號"),
+            MessageLookupByLibrary.simpleMessage("成功建立新帳戶"),
         "successfullyDeleted": MessageLookupByLibrary.simpleMessage("成功刪除"),
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage("成功產生新金鑰"),
@@ -276,16 +277,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("成功停用2FA(雙重驗證)"),
         "successfullyRenamed": MessageLookupByLibrary.simpleMessage("成功重新命名"),
         "successfullyResetPassword":
-            MessageLookupByLibrary.simpleMessage("成功更改密碼"),
+            MessageLookupByLibrary.simpleMessage("成功重設密碼"),
         "successfullySavedPermissions":
-            MessageLookupByLibrary.simpleMessage("成功儲存權限"),
+            MessageLookupByLibrary.simpleMessage("成功修改權限"),
         "test": MessageLookupByLibrary.simpleMessage("測試"),
-        "thanks": MessageLookupByLibrary.simpleMessage("我很感謝所有支持我的人!"),
+        "thanks": MessageLookupByLibrary.simpleMessage("我很感謝支持我的人!"),
         "theSelectedFilesWillBePermanentlyDeleted":
             MessageLookupByLibrary.simpleMessage("選取的檔案將永久刪除"),
         "themeColor": MessageLookupByLibrary.simpleMessage("主題顏色"),
         "total_system_memory": MessageLookupByLibrary.simpleMessage("系統總記憶體"),
-        "totpCode": MessageLookupByLibrary.simpleMessage("TOTP 代碼"),
+        "totpCode": MessageLookupByLibrary.simpleMessage("動態密碼 (TOTP)"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("重試"),
         "twofactorAuthentication":
             MessageLookupByLibrary.simpleMessage("2FA 雙重驗證"),
@@ -296,21 +297,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadHttpsCertificate":
             MessageLookupByLibrary.simpleMessage("上傳通訊埠(HTTPS)金鑰"),
         "usable_memory": MessageLookupByLibrary.simpleMessage("可用記憶體"),
-        "useSystemSettings": MessageLookupByLibrary.simpleMessage("使用系統設定"),
+        "useSystemSettings": MessageLookupByLibrary.simpleMessage("系統預設"),
         "used_memory": MessageLookupByLibrary.simpleMessage("已使用記憶體"),
-        "username": MessageLookupByLibrary.simpleMessage("使用者名稱"),
+        "username": MessageLookupByLibrary.simpleMessage("帳戶名稱"),
         "verifyPasswordForRemoving2FA":
-            MessageLookupByLibrary.simpleMessage("請輸入您的密碼和6位數字驗證碼"),
+            MessageLookupByLibrary.simpleMessage("請輸入您的密碼並停用2FA(雙重驗證)"),
         "verifyYourTwofactorAuthentication":
             MessageLookupByLibrary.simpleMessage("2FA(雙重驗證)"),
         "version": m9,
-        "wrongCode": MessageLookupByLibrary.simpleMessage("代碼錯誤"),
-        "wrongPassword": MessageLookupByLibrary.simpleMessage("錯誤的密碼"),
+        "wrongCode": MessageLookupByLibrary.simpleMessage("密碼輸入錯誤"),
+        "wrongPassword": MessageLookupByLibrary.simpleMessage("密碼錯誤"),
         "wrongUsernameOrPassword":
-            MessageLookupByLibrary.simpleMessage("錯誤的使用者名稱或密碼"),
+            MessageLookupByLibrary.simpleMessage("賬戶名稱或密碼錯誤"),
         "yes": MessageLookupByLibrary.simpleMessage("是"),
         "youAlreadyAddedThisServer":
-            MessageLookupByLibrary.simpleMessage("您已經新增了此伺服器"),
+            MessageLookupByLibrary.simpleMessage("您已經新增了伺服器"),
         "youAlreadyConfigured2FA":
             MessageLookupByLibrary.simpleMessage("您已經啟用了2FA(雙重驗證)，是否要移除？")
       };
