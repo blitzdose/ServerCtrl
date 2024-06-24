@@ -38,7 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(name) => "Имя файла";
 
-  static String m9(version) => "Версия";
+  static String m9(version) => "Версия 4.1.2";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -96,7 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "console": MessageLookupByLibrary.simpleMessage("Консоль"),
         "copySecret":
             MessageLookupByLibrary.simpleMessage("Копировальный секрет"),
-        "cpu_cores": MessageLookupByLibrary.simpleMessage("Ядра"),
+        "cpu_cores": MessageLookupByLibrary.simpleMessage("Количество ядер"),
         "cpu_load": MessageLookupByLibrary.simpleMessage("Нагрузка"),
         "cpu_usage": MessageLookupByLibrary.simpleMessage("Нагрузка"),
         "create": MessageLookupByLibrary.simpleMessage("Сделать"),
@@ -124,7 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "discard": MessageLookupByLibrary.simpleMessage("Отбрасывать"),
         "discardChanges":
             MessageLookupByLibrary.simpleMessage("Сбросить изменения"),
-        "discord": MessageLookupByLibrary.simpleMessage("Дискорд"),
+        "discord": MessageLookupByLibrary.simpleMessage("Discord"),
         "donate": MessageLookupByLibrary.simpleMessage("Пожертвовать"),
         "download": MessageLookupByLibrary.simpleMessage("Скачать"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Загрузилось"),
@@ -135,7 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
         "egWithGoogleAuthenticator": MessageLookupByLibrary.simpleMessage(
             "Например, с помощью Google Authenticator"),
-        "email": MessageLookupByLibrary.simpleMessage("Емайл"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "errorCreatingAccount": MessageLookupByLibrary.simpleMessage(
             "Ошибка создания учетной записи"),
         "errorCreatingFile":
@@ -148,8 +148,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ошибка удаления файла"),
         "errorDeletingFiles":
             MessageLookupByLibrary.simpleMessage("Ошибка удаления файлов"),
-        "errorInputMissing": MessageLookupByLibrary.simpleMessage(
-            "Ошибка при отправке сообщения об ошибке"),
+        "errorInputMissing":
+            MessageLookupByLibrary.simpleMessage("Пустые поля ввода"),
         "errorRenamingType": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "errorResettingPassword": MessageLookupByLibrary.simpleMessage(
             "Ошибка при повторной установке пароля"),
@@ -194,7 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "help": MessageLookupByLibrary.simpleMessage("Помощь"),
         "helpMe": MessageLookupByLibrary.simpleMessage("Помогите мне"),
         "helpMeKeepThisAppAlive": MessageLookupByLibrary.simpleMessage(
-            "Помогите сохранить это ощущение."),
+            "Помогите сохранить этот проект"),
         "home": MessageLookupByLibrary.simpleMessage("Дом"),
         "howCanILogIn":
             MessageLookupByLibrary.simpleMessage("Как можно войти в систему?"),
@@ -202,8 +202,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Как настроить логинтекст?"),
         "https": MessageLookupByLibrary.simpleMessage("https"),
         "important": MessageLookupByLibrary.simpleMessage("Импорт"),
-        "infoInstallPlugin":
-            MessageLookupByLibrary.simpleMessage("Информация о плагине"),
+        "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
+            "Введите данных для управления вашим сервером "),
         "inputYourPassword":
             MessageLookupByLibrary.simpleMessage("Введите ваш пароль"),
         "inputYourPasswordAndCurrent2fa": MessageLookupByLibrary.simpleMessage(
@@ -216,12 +216,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "lightMode": MessageLookupByLibrary.simpleMessage("Светлая тема"),
         "log": MessageLookupByLibrary.simpleMessage("Логи"),
         "loggingIn": MessageLookupByLibrary.simpleMessage("Вход в систему"),
-        "login": MessageLookupByLibrary.simpleMessage("Имя пользователя"),
+        "login": MessageLookupByLibrary.simpleMessage("Войти"),
         "longPressEntryToDeleteIt":
             MessageLookupByLibrary.simpleMessage("Длинный ввод данных"),
         "material3": MessageLookupByLibrary.simpleMessage("Материал"),
         "memory_usage":
-            MessageLookupByLibrary.simpleMessage("Использовано памяти"),
+            MessageLookupByLibrary.simpleMessage("Использовано ОЗУ"),
         "moreInfo":
             MessageLookupByLibrary.simpleMessage("Дополнительная информация"),
         "multipleFiles": MessageLookupByLibrary.simpleMessage(
@@ -261,7 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Пожалуйста, введите ваш текущий пароль"),
         "pleaseWait":
             MessageLookupByLibrary.simpleMessage("Пожалуйста, подождите"),
-        "plugin": MessageLookupByLibrary.simpleMessage("Плагины "),
+        "plugin": MessageLookupByLibrary.simpleMessage("Настройка веб сервера"),
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Порт веб сервара"),
         "port": MessageLookupByLibrary.simpleMessage("Порт"),
