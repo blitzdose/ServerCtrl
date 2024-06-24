@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:is_first_run/is_first_run.dart';
 import 'package:server_ctrl/ui/navigation/layout_structure.dart';
+import 'package:server_ctrl/ui/navigation/navigator.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
 import 'package:server_ctrl/values/navigation_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -129,23 +130,29 @@ class AddServerController extends GetxController {
         serverList ??= [];
         serverList.add(Session.baseURL);
         await storage.write(key: "servers", value: serverList.join("~*~*~"));
-    
-        NavigationRoutes.routes.insert(
-            0,
-            NavigationRoute(
-                id: Session.baseURL,
-                title: servername,
-                icon: Icons.dns_rounded,
-                route: () {return MainLogin.mainLogin(Session.baseURL);}
-            )
-        );
-        LayoutStructureState.navigator?.onItemTap_(0, false);
+
+        NavigationRoutes.routes.removeRange(0, NavigationRoutes.routes.length-3);
+
+        MNavigator.initialSetup = true;
+        MNavigator.initRoutes(openNewestEntry: true);
+
+        //NavigationRoutes.routes.insert(
+        //    NavigationRoutes.routes.length-3,
+        //    NavigationRoute(
+        //        id: Session.baseURL,
+        //        title: servername,
+       //         icon: Icons.dns_rounded,
+       //         route: () {return MainLogin.mainLogin(Session.baseURL);}
+        //    )
+        //);
+        //LayoutStructureState.navigator?.onItemTap_(NavigationRoutes.routes.length-3, false);
         Snackbar.createWithTitle(S.current.newServer, S.current.newServerAdded);
         servernameController.value.text = "";
         ipController.value.text = "";
         usernameController.value.text = "";
         passwordController.value.text = "";
         isHttps(true);
+        FocusManager.instance.primaryFocus?.unfocus();
       }
     } on SocketException catch (_) {
       errorMessage(S.current.cannotReachIp(ip));

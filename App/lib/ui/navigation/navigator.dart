@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:server_ctrl/main_controller.dart';
 import 'package:server_ctrl/ui/navigation/layout_structure.dart';
 import 'package:server_ctrl/ui/navigation/navigation_drawer_impl.dart' as my_nav_drawer;
@@ -107,7 +108,7 @@ class MNavigator {
     }
   }
 
-  void initRoutes() async {
+  static void initRoutes({openNewestEntry = false}) async {
     if (initialSetup) {
       const storage = FlutterSecureStorage();
       String? servers = await storage.read(key: "servers");
@@ -134,7 +135,7 @@ class MNavigator {
         }
       }
 
-      LayoutStructureState.navigator?.onItemTap_(0, false);
+      LayoutStructureState.navigator?.onItemTap_(openNewestEntry ? NavigationRoutes.routes.length-4 : 0, false);
       initialSetup = false;
     }
   }
