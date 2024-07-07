@@ -203,7 +203,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "https": MessageLookupByLibrary.simpleMessage("https"),
         "important": MessageLookupByLibrary.simpleMessage("Импорт"),
         "infoInstallPlugin": MessageLookupByLibrary.simpleMessage(
-            "Введите данных для управления вашим сервером "),
+            "Введите данные для управления вашим сервером "),
         "inputYourPassword":
             MessageLookupByLibrary.simpleMessage("Введите ваш пароль"),
         "inputYourPasswordAndCurrent2fa": MessageLookupByLibrary.simpleMessage(

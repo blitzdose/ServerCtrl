@@ -1,6 +1,6 @@
 {
     "@@locale": "ru",
-    "@@last_modified": "2024-06-24T12:36:41+00:00",
+    "@@last_modified": "2024-06-24T16:57:17+00:00",
     "server_ctrl": "Server ctrl",
     "version": "Версия 4.1.2",
     "@version": {
@@ -135,7 +135,7 @@
     "discard": "Отбрасывать",
     "fileSavedSuccessfully": "Файл успешно сохранен",
     "addMinecraftServer": "Добавить Minecraft сервер",
-    "infoInstallPlugin": "Введите данных для управления вашим сервером ",
+    "infoInstallPlugin": "Введите данные для управления вашим сервером ",
     "ipOrHostname": "Имя хоста IPORHOST",
     "password": "Пароль",
     "login": "Войти",
