@@ -76,8 +76,6 @@ class FilesController extends TabxController {
       position = 0;
     }
 
-    List<Widget> fileEntriesTmp = [];
-
     http.Response? response;
     try {
       response = await fetchData();
@@ -86,11 +84,9 @@ class FilesController extends TabxController {
       canUpdate = true;
       return;
     }
+    List<FileEntry> fileEntriesResponse = [];
     if (HttpUtils.isSuccess(response)) {
-      List<FileEntry> entries = FileEntry.parseEntries(response.body);
-      for (FileEntry fileEntry in entries) {
-        fileEntriesTmp.add(createListItem(fileEntry));
-      }
+      fileEntriesResponse.addAll(FileEntry.parseEntries(response.body));
       response = await fetchEditableFiles();
       if (HttpUtils.isSuccess(response)) {
         var jsonResponse = jsonDecode(response.body);
@@ -111,7 +107,9 @@ class FilesController extends TabxController {
         fileEntries.add(createListItem(FileEntry("..", 0, 2, DateTime.now())));
       }
     }
-    fileEntries.addAll(fileEntriesTmp);
+    for (FileEntry fileEntry in fileEntriesResponse) {
+      fileEntries.add(createListItem(fileEntry));
+    }
     position = fileEntries.length;
     if (fileEntries.isNotEmpty && path.isNotEmpty) {
       position = fileEntries.length + -1;
