@@ -1,8 +1,8 @@
 {
     "@@locale": "ru",
-    "@@last_modified": "2024-06-24T16:57:17+00:00",
+    "@@last_modified": "2024-07-11T20:11:34+00:00",
     "server_ctrl": "Server ctrl",
-    "version": "Версия 4.1.2",
+    "version": "Версия: {version}",
     "@version": {
         "description": "Example: Version: 1.0.0"
     },
@@ -35,7 +35,7 @@
     "reset_password": "Изменить пароль",
     "delete": "Удалить",
     "deleteAccount": "Удалить аккаунт",
-    "deleteAccountMessage": "Удалить сообщения учетной записи",
+    "deleteAccountMessage": "Аккаунт \"{accountName}\" будет удален без возможности восстановления.",
     "@deleteAccountMessage": {
         "description": "Example: The account \"Admin\" will be permanently removed."
     },
@@ -88,11 +88,11 @@
     "download": "Скачать",
     "rename": "Удалить",
     "deleteFile": "Удалить файл",
-    "deleteFileMessage": "Будет удалено без возможности восстановления",
+    "deleteFileMessage": "\"{name}\" будет удален без возможности восстановления.",
     "@deleteFileMessage": {
         "description": "Example: \"config.yml\" will be permanently removed."
     },
-    "fileAndName": "Имя файла",
+    "fileAndName": "Файл \"{name}\"",
     "@fileAndName": {
         "description": "Example: File \"config.yml\""
     },
@@ -120,7 +120,7 @@
     "successfullyRenamed": "Успешно",
     "file": "Файлы",
     "directory": "Каталог",
-    "downloadedFilenameSuccessfully": "Успешно загружен",
+    "downloadedFilenameSuccessfully": "\"{filename}\" успешно загружен.",
     "@downloadedFilenameSuccessfully": {
         "description": "Example: Downloaded \"config.yml\" successfully."
     },
@@ -140,7 +140,7 @@
     "password": "Пароль",
     "login": "Войти",
     "loggingIn": "Вход в систему",
-    "codedBy": "Успешно",
+    "codedBy": "Программировано {name}",
     "@codedBy": {
         "description": "Example: Coded by Max Mustermann"
     },
@@ -148,7 +148,7 @@
     "untrustedCertificate": "Ненадежный сертификат",
     "certCannotBeVerified": "Сертификат не может быть подтвержден",
     "yes": "Да",
-    "deleteRoutetitle": "Удалить сервер",
+    "deleteRoutetitle": "Удалить сервер {routeTitle}",
     "@deleteRoutetitle": {
         "description": "Example: Delete \"Server-1\""
     },
@@ -174,11 +174,11 @@
     "newServerAdded": "Добавлен сервер",
     "acceptWarningTryAgain": "Попробуйте еще раз",
     "somethingWentWrong": "Что-то пошло не так",
-    "cannotReachIp": "Не возможно установить соединение",
+    "cannotReachIp": "\"{ip}\" недоступен",
     "@cannotReachIp": {
         "description": "Example: Cannot reach \"192.168.2.100\""
     },
-    "cannotReachIpOverHttps": "Не удалось подключится по https",
+    "cannotReachIpOverHttps": "\"{ip}\" не может быть достигнут через HTTPS",
     "@cannotReachIpOverHttps": {
         "description": "Example: Cannot reach \"192.168.2.100\" over HTTPS"
     },
@@ -187,7 +187,7 @@
     "helpMeKeepThisAppAlive": "Помогите сохранить этот проект",
     "appearance": "Внешность",
     "language": "Языки",
-    "material3": "Материал",
+    "material3": "Материал 3",
     "dynamicColor": "Динамический цвет",
     "getInTouch": "Получить доступ к касанию",
     "discord": "Discord",
@@ -198,7 +198,7 @@
     "licenses": "Лицензия",
     "dataPrivacy": "Конфиденциальность данных",
     "aboutServerctrl": "О сервеисе Serverctrl",
-    "accountAndName": "Администратор учетной записи",
+    "accountAndName": "Аккаунт {name}",
     "@accountAndName": {
         "description": "Example: Account Admin"
     },

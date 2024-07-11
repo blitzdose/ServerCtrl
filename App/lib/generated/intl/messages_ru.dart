@@ -20,25 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(name) => "Администратор учетной записи";
+  static String m0(name) => "Аккаунт ${name}";
 
-  static String m1(ip) => "Не возможно установить соединение";
+  static String m1(ip) => "\"${ip}\" недоступен";
 
-  static String m2(ip) => "Не удалось подключится по https";
+  static String m2(ip) => "\"${ip}\" не может быть достигнут через HTTPS";
 
-  static String m3(name) => "Успешно";
+  static String m3(name) => "Программировано ${name}";
 
-  static String m4(accountName) => "Удалить сообщения учетной записи";
+  static String m4(accountName) =>
+      "Аккаунт \"${accountName}\" будет удален без возможности восстановления.";
 
-  static String m5(name) => "Будет удалено без возможности восстановления";
+  static String m5(name) =>
+      "\"${name}\" будет удален без возможности восстановления.";
 
-  static String m6(routeTitle) => "Удалить сервер";
+  static String m6(routeTitle) => "Удалить сервер ${routeTitle}";
 
-  static String m7(filename) => "Успешно загружен";
+  static String m7(filename) => "\"${filename}\" успешно загружен.";
 
-  static String m8(name) => "Имя файла";
+  static String m8(name) => "Файл \"${name}\"";
 
-  static String m9(version) => "Версия 4.1.2";
+  static String m9(version) => "Версия: ${version}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -219,7 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Войти"),
         "longPressEntryToDeleteIt":
             MessageLookupByLibrary.simpleMessage("Длинный ввод данных"),
-        "material3": MessageLookupByLibrary.simpleMessage("Материал"),
+        "material3": MessageLookupByLibrary.simpleMessage("Материал 3"),
         "memory_usage":
             MessageLookupByLibrary.simpleMessage("Использовано ОЗУ"),
         "moreInfo":
