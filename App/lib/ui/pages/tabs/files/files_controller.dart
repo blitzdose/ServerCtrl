@@ -20,7 +20,7 @@ import '../../../../utilities/http/http_utils.dart';
 import '../../../navigation/layout_structure.dart';
 import 'file_entry.dart';
 
-enum PopupMenuItems {edit, download, rename, delete}
+enum PopupMenuItems {edit, extract, download, rename, delete}
 
 class FilesController extends TabxController {
 
@@ -29,6 +29,7 @@ class FilesController extends TabxController {
   final fileScrollController = ScrollController().obs;
 
   List<String> editableFiles = [];
+  List<String> extractableFiles = ["zip", "tar"];
 
   bool canUpdate = true;
 
@@ -240,6 +241,11 @@ class FilesController extends TabxController {
                 value: PopupMenuItems.edit, 
                 child: Text(S.current.edit)
             ),
+          if (fileEntry.type == FileEntry.FILE && extractableFiles.contains(fileEntry.name.split(".").last))
+            PopupMenuItem<PopupMenuItems>(
+                value: PopupMenuItems.extract,
+                child: Text(S.current.extract)
+            ),
           PopupMenuItem<PopupMenuItems>(
             value: PopupMenuItems.download,
             child: Text(S.current.download)
@@ -267,6 +273,8 @@ class FilesController extends TabxController {
       case PopupMenuItems.edit:
         fileHandler.edit();
         break;
+      case PopupMenuItems.extract:
+        fileHandler.extract();
       default:
         break;
     }

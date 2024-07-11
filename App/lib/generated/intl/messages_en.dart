@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(filename) => "Downloaded \"${filename}\" successfully.";
 
+  static String m10(fileEntry) =>
+      "${fileEntry} will be extracted, overwriting files if they already exist. This action cannot be undone!";
+
   static String m8(name) => "File \"${name}\"";
 
   static String m9(version) => "Version: ${version}";
@@ -145,6 +148,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error deleting Object"),
         "errorDeletingFiles":
             MessageLookupByLibrary.simpleMessage("Error deleting files"),
+        "errorExtractingFile":
+            MessageLookupByLibrary.simpleMessage("Error extracting file"),
         "errorInputMissing": MessageLookupByLibrary.simpleMessage(
             "Please input your server address, username AND password"),
         "errorRenamingType":
@@ -169,6 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error while uploading file"),
         "error_sending_command":
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
+        "extract": MessageLookupByLibrary.simpleMessage("Extract"),
+        "extractFile": MessageLookupByLibrary.simpleMessage("Extract file"),
+        "extractFileMessage": m10,
         "file": MessageLookupByLibrary.simpleMessage("file"),
         "fileAndName": m8,
         "fileSavedSuccessfully":
@@ -302,6 +310,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Successfully created new account"),
         "successfullyDeleted":
             MessageLookupByLibrary.simpleMessage("Successfully deleted"),
+        "successfullyExtracted":
+            MessageLookupByLibrary.simpleMessage("Successfully extracted"),
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Successfully generated new certificate"),

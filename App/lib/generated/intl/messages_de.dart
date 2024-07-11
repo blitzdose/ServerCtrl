@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(filename) => "\"${filename}\" erfolgreich heruntergeladen.";
 
+  static String m10(fileEntry) =>
+      "${fileEntry} wird extrahiert, dabei werden vorhandene Dateien überschrieben. Dies kann nicht Rückgängig gemacht werden!";
+
   static String m8(name) => "Datei \"${name}\"";
 
   static String m9(version) => "Version: ${version}";
@@ -148,6 +151,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fehler beim Löschen des Objekts"),
         "errorDeletingFiles": MessageLookupByLibrary.simpleMessage(
             "Fehler beim Löschen der Dateien"),
+        "errorExtractingFile":
+            MessageLookupByLibrary.simpleMessage("Fehler beim Extrahieren"),
         "errorInputMissing": MessageLookupByLibrary.simpleMessage(
             "Bitte gebe deine Serveradresse, deinen Benutzernamen UND dein Passwort ein"),
         "errorRenamingType": MessageLookupByLibrary.simpleMessage(
@@ -172,6 +177,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fehler beim Hochladen der Datei"),
         "error_sending_command": MessageLookupByLibrary.simpleMessage(
             "Fehler beim Senden des Befehls"),
+        "extract": MessageLookupByLibrary.simpleMessage("Extrahieren"),
+        "extractFile":
+            MessageLookupByLibrary.simpleMessage("Datei extrahieren"),
+        "extractFileMessage": m10,
         "file": MessageLookupByLibrary.simpleMessage("Datei"),
         "fileAndName": m8,
         "fileSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -309,6 +318,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Neuer Account erfolgreich erstellt"),
         "successfullyDeleted":
             MessageLookupByLibrary.simpleMessage("Erfolgreich gelöscht"),
+        "successfullyExtracted":
+            MessageLookupByLibrary.simpleMessage("Erfolgreich extrahiert"),
         "successfullyGeneratedNewCertificate":
             MessageLookupByLibrary.simpleMessage(
                 "Neues Zertifikat erfolgreich generiert"),

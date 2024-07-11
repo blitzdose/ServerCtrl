@@ -2149,6 +2149,57 @@ class S {
       args: [],
     );
   }
+
+  /// `Extract`
+  String get extract {
+    return Intl.message(
+      'Extract',
+      name: 'extract',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Extract file`
+  String get extractFile {
+    return Intl.message(
+      'Extract file',
+      name: 'extractFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{fileEntry} will be extracted, overwriting files if they already exist. This action cannot be undone!`
+  String extractFileMessage(String fileEntry) {
+    return Intl.message(
+      '$fileEntry will be extracted, overwriting files if they already exist. This action cannot be undone!',
+      name: 'extractFileMessage',
+      desc:
+          'Example: datafile.zip will be extracted, overwriting files if they already exist. This action cannot be undone!',
+      args: [fileEntry],
+    );
+  }
+
+  /// `Successfully extracted`
+  String get successfullyExtracted {
+    return Intl.message(
+      'Successfully extracted',
+      name: 'successfullyExtracted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error extracting file`
+  String get errorExtractingFile {
+    return Intl.message(
+      'Error extracting file',
+      name: 'errorExtractingFile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

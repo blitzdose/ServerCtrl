@@ -466,6 +466,39 @@ class FileHandler {
     }
   }
 
+  void extract() async {
+    await showDialog(
+      context: navigatorKey.currentContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(S.current.extractFile),
+          content: Text(S.current.extractFileMessage(fileEntry.name)),
+          actions: <Widget>[
+            TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.no)),
+            TextButton(onPressed: () {
+              _extract(fileEntry);
+              Navigator.pop(context, true);
+            }, child: Text(S.current.extract)),
+          ],
+        );
+      },
+    );
+  }
+
+  void _extract(FileEntry fileEntry) async {
+    controller.showProgress(true);
+    Map<String, dynamic> jsonData = {};
+    jsonData['path'] = path;
+    jsonData['name'] = fileEntry.name;
+    var response = await Session.post("/api/files/extract-file", jsonEncode(jsonData));
+    if (HttpUtils.isSuccess(response)) {
+      Snackbar.createWithTitle(fileEntry.name, S.current.successfullyExtracted);
+    } else {
+      Snackbar.createWithTitle(fileEntry.name, S.current.errorExtractingFile, true);
+    }
+    controller.updateData(true);
+  }
+
   Future<void> saveInWeb(CodeController codeController, bool fileChanged) async {
     String editedText = codeController.text;
     Uint8List bytes = utf8.encode(editedText);

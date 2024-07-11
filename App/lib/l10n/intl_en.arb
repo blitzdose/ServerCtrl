@@ -240,5 +240,18 @@
     "secretCopiedToClipboard": "Secret copied to clipboard",
     "copySecret": "Copy secret",
     "successfullyAdded2faToYourAccount": "Successfully added 2FA to your account",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "extract": "Extract",
+    "extractFile": "Extract file",
+    "extractFileMessage": "{fileEntry} will be extracted, overwriting files if they already exist. This action cannot be undone!",
+    "@extractFileMessage": {
+        "description": "Example: datafile.zip will be extracted, overwriting files if they already exist. This action cannot be undone!",
+        "placeholders": {
+            "fileEntry": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyExtracted": "Successfully extracted",
+    "errorExtractingFile": "Error extracting file"
 }

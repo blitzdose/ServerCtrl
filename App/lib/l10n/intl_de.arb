@@ -1,6 +1,6 @@
 {
     "@@locale": "de",
-    "@@last_modified": "2024-03-09T20:39:58+00:00",
+    "@@last_modified": "2024-07-11T20:05:16+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -240,5 +240,13 @@
     "secretCopiedToClipboard": "Secret in die Zwischenablage kopiert",
     "copySecret": "Secret kopieren",
     "successfullyAdded2faToYourAccount": "2FA erfolgreich zu deinem Konto hinzugefügt",
-    "confirm": "Bestätigen"
+    "confirm": "Bestätigen",
+    "extract": "Extrahieren",
+    "extractFile": "Datei extrahieren",
+    "extractFileMessage": "{fileEntry} wird extrahiert, dabei werden vorhandene Dateien überschrieben. Dies kann nicht Rückgängig gemacht werden!",
+    "@extractFileMessage": {
+        "description": "Example: datafile.zip will be extracted, overwriting files if they already exist. This action cannot be undone!"
+    },
+    "successfullyExtracted": "Erfolgreich extrahiert",
+    "errorExtractingFile": "Fehler beim Extrahieren"
 }
