@@ -9,7 +9,12 @@ import io.javalin.http.Context;
 import io.javalin.http.UploadedFile;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
+import org.apache.commons.compress.archivers.ArchiveEntry;
+import org.apache.commons.compress.archivers.ArchiveException;
+import org.apache.commons.compress.archivers.ArchiveInputStream;
+import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,8 +25,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class FilesApi {
 
@@ -200,35 +203,60 @@ public class FilesApi {
         Webserver.returnJson(context, jsonObject);
     }
 
-    private static void uploadZip(Context context, String path, UploadedFile uploadedFile) throws IOException {
-        ZipInputStream zipInputStream = new ZipInputStream(uploadedFile.content());
-        ZipEntry zipEntry;
-        while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-            String name = parsePath(zipEntry.getName(), true);
-            File file = new File(path + name);
-            if (zipEntry.isDirectory()) {
-                file.mkdirs();
-                zipInputStream.closeEntry();
-                continue;
-            }
-            if (isPluginFolder(file.getPath())) {
-                throw new IOException("Not allowed");
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(zipInputStream));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+    public static void extractFile(Context context) {
+        JSONObject returnJson = new JSONObject();
 
-            writer.write(reader.lines().collect(Collectors.joining("\n")));
-            writer.flush();
-            writer.close();
-            zipInputStream.closeEntry();
+        JSONObject requestJson = new JSONObject(context.body());
+        String path = parsePath(requestJson.getString("path"), false);
+        String fileName = parsePath(requestJson.getString("name"), true);
 
-            LoggingSaver.addLogEntry(LoggingType.UPLOADED_FILES, context, path + name);
+        File file = new File(path + fileName);
+
+        if (isPluginFolder(file.getPath())) {
+            returnJson.put("success", false);
+            Webserver.returnJson(context, returnJson);
+            return;
         }
 
-        zipInputStream.close();
+        boolean success = true;
 
-        JSONObject returnJson = new JSONObject();
-        returnJson.put("success", true);
+        BufferedInputStream bufferedInputStream = null;
+        try {
+            bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+            ArchiveInputStream<? extends ArchiveEntry> inputStream = new ArchiveStreamFactory()
+                    .createArchiveInputStream(bufferedInputStream);
+            ArchiveEntry entry;
+            while ((entry = inputStream.getNextEntry()) != null) {
+                if (!inputStream.canReadEntryData(entry)) {
+                    continue;
+                }
+
+                String name = path + entry.getName();
+                File f = new File(name);
+                if (entry.isDirectory()) {
+                    if (!f.isDirectory() && !f.mkdirs()) {
+                        throw new IOException("Failed to create directory: " + name);
+                    }
+                } else {
+                    File parent = f.getParentFile();
+                    if (!parent.isDirectory() && !parent.mkdirs()) {
+                        throw new IOException("Failed to create directory: " + name);
+                    }
+                    try(OutputStream out = new FileOutputStream(f)) {
+                        IOUtils.copy(inputStream, out);
+                    }
+                }
+            }
+            inputStream.close();
+        } catch (ArchiveException | IOException e) {
+            success = false;
+        }
+
+        try {
+            if (bufferedInputStream != null) bufferedInputStream.close();
+        } catch (IOException ignored) { }
+
+        returnJson.put("success", success);
         Webserver.returnJson(context, returnJson);
     }
 

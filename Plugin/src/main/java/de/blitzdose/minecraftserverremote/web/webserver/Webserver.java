@@ -131,6 +131,7 @@ public class Webserver {
                     post("download", FilesApi::downloadFilePost, Role.FILES);
                     get("download", FilesApi::downloadFileGet, Role.FILES);
                     post("upload", FilesApi::uploadFile, Role.FILES);
+                    post("extract-file", FilesApi::extractFile, Role.FILES);
                     post("delete", FilesApi::deleteFile, Role.FILES);
                     post("create-file", FilesApi::createFile, Role.FILES);
                     post("create-dir", FilesApi::createDir, Role.FILES);
