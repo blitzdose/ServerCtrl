@@ -4,7 +4,10 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
+import 'package:server_ctrl/utilities/code_controller/code_field.dart';
 import 'package:universal_html/html.dart' as html;
+
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -333,23 +336,38 @@ class FileHandler {
         }
         var codeController = MyCodeController(
           text: code.replaceAll("\r\n", "\n"),
-          languageName: fileEntry.name.split(".").last,
-        );
+          languageName: fileEntry.name.split(".").last
+        ).obs;
+
+        LinkedScrollControllerGroup codeScrollController = LinkedScrollControllerGroup();
         
+        Widget codeField = Obx(() =>MyCodeField(
+            controller: codeController.value,
+            expands: true,
+            textStyle: const TextStyle(fontFamily: 'SourceCode'),
+            lineNumberStyle: LineNumberStyle(width: 14.0 * linesOfCode.toString().length),
+            onChanged: (p0) {
+              fileChanged = true;
+            },
+            codeScroll: codeScrollController,
+        ));
+
         var codeEditor = CodeTheme(
             data: const CodeThemeData(styles: tomorrowNightTheme),
-            child: CodeField(
-              controller: codeController,
-              expands: true,
-              textStyle: const TextStyle(fontFamily: 'SourceCode'),
-              lineNumberStyle: LineNumberStyle(width: 14.0 * linesOfCode.toString().length),
-              onChanged: (p0) {
-                fileChanged = true;
-              },
-            )
+            child: codeField
         );
 
         controller.showProgress(false);
+
+        var appBarTitle = (Text(fileEntry.name) as Widget).obs;
+        var searchIcon = const Icon(Icons.search_rounded).obs;
+        TextEditingController searchController = TextEditingController();
+        var caseSensitive = false.obs;
+        var regexSearch = false.obs;
+
+        searchController.addListener(() {
+          updateCodeController(codeController, code, searchController, caseSensitive, regexSearch, codeScrollController);
+        });
 
         showDialog(
             barrierDismissible: false,
@@ -385,7 +403,7 @@ class FileHandler {
                 child: Dialog.fullscreen(
                   child: Scaffold(
                     appBar: AppBar(
-                      title: Text(fileEntry.name),
+                      title: Obx(() => appBarTitle.value),
                       leading: IconButton(
                         icon: const Icon(Icons.close_rounded),
                         onPressed: () async {
@@ -413,13 +431,71 @@ class FileHandler {
                       ),
                       actions: [
                         IconButton(
+                          icon: Obx(() => searchIcon.value),
+                          onPressed: () {
+                            if (searchIcon.value.icon == Icons.search_rounded) {
+                              searchIcon(const Icon(Icons.search_off_rounded));
+                              appBarTitle(TextField(
+                                controller: searchController,
+                                maxLines: 1,
+                                autofocus: true,
+                                style: const TextStyle(fontSize: 21),
+                                decoration: InputDecoration(
+                                    hintText: "Search ...",
+                                    border: InputBorder.none,
+                                    suffixIcon: IconButton(
+                                        icon: const Icon(Icons.tune_rounded),
+                                        onPressed: () {
+                                          showDialog(
+                                          context: navigatorKey.currentContext!,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text(S.current.settings),
+                                              content: SizedBox(
+                                                width: min(300, MediaQuery.of(context).size.width),
+                                                child: Obx(() => ListView(
+                                                  shrinkWrap: true,
+                                                    children: [
+                                                      CheckboxListTile(
+                                                          value: caseSensitive.value,
+                                                          title: Text(S.current.casesensitive),
+                                                          onChanged: (value) {
+                                                            caseSensitive(value);
+                                                            updateCodeController(codeController, code, searchController, caseSensitive, regexSearch, codeScrollController);
+                                                      }),
+                                                      CheckboxListTile(
+                                                          value: regexSearch.value,
+                                                          title: Text(S.current.regex),
+                                                          onChanged: (value) {
+                                                            regexSearch(value);
+                                                            updateCodeController(codeController, code, searchController, caseSensitive, regexSearch, codeScrollController);
+                                                          })
+                                                    ],
+                                                  ),
+                                              )),
+                                              actions: <Widget>[
+                                                TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.ok)),
+                                              ],
+                                            );
+                                          });
+                                    })
+                                ),
+                              ) as Widget);
+                            } else {
+                              searchController.clear();
+                              searchIcon(const Icon(Icons.search_rounded));
+                              appBarTitle(Text(fileEntry.name) as Widget);
+                            }
+                          },
+                        ),
+                        IconButton(
                           icon: const Icon(Icons.save_rounded),
                           onPressed: () async {
                             if (kIsWeb) {
-                              await saveInWeb(codeController, fileChanged);
+                              await saveInWeb(codeController.value, fileChanged);
                               return;
                             }
-                            String editedText = codeController.text;
+                            String editedText = codeController.value.text;
                             final Directory cacheDir = await getApplicationCacheDirectory();
                             File file = File("${cacheDir.path}/${fileEntry.name}");
                             File savedFile = await file.writeAsBytes(utf8.encode(editedText), flush: true);
@@ -463,6 +539,27 @@ class FileHandler {
     } else {
       Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileDownloadingFile, true);
       controller.showProgress(false);
+    }
+  }
+
+  void updateCodeController(Rx<MyCodeController> codeController, String code, TextEditingController searchController, RxBool caseSensitive, RxBool regexSearch, codeScrollController) {
+    codeController(MyCodeController(
+        text: codeController.value.text,
+        languageName: fileEntry.name.split(".").last,
+        stringMap: {
+          searchController.value.text: const TextStyle(backgroundColor: Colors.amber, color: Colors.black)
+        },
+        caseSensitiveStringMap: caseSensitive.value,
+        regexSearch: regexSearch.value
+    ));
+
+    if (codeController.value.styleRegExp != null && searchController.text.isNotEmpty) {
+      int? index = codeController.value.styleRegExp!.firstMatch(codeController.value.text)?.start;
+      if (index != null) {
+        String codeSubstring = codeController.value.text.substring(0, index);
+        int lines = "\n".allMatches(codeSubstring).length;
+        codeScrollController.animateTo(24.0*lines, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      }
     }
   }
 

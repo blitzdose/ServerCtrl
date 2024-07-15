@@ -253,5 +253,7 @@
         }
     },
     "successfullyExtracted": "Successfully extracted",
-    "errorExtractingFile": "Error extracting file"
+    "errorExtractingFile": "Error extracting file",
+  "casesensitive": "Case-sensitive",
+    "regex": "RegEx"
 }

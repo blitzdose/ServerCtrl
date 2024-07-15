@@ -78,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cannotReachIpOverHttps": m2,
         "cannotReachTheServer":
             MessageLookupByLibrary.simpleMessage("Cannot reach the server"),
+        "casesensitive": MessageLookupByLibrary.simpleMessage("Case-sensitive"),
         "certCannotBeVerified": MessageLookupByLibrary.simpleMessage(
             "The certificate of the server cannot be verified. Do you want to trust it? SHA1 fingerprint of the certificate:"),
         "certificateFile":
@@ -264,6 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin and Webserver Port"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
+        "regex": MessageLookupByLibrary.simpleMessage("RegEx"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
         "removeTwofactorAuthentication": MessageLookupByLibrary.simpleMessage(
             "Remove two-factor authentication?"),

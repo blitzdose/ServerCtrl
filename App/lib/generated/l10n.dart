@@ -2200,6 +2200,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Case-sensitive`
+  String get casesensitive {
+    return Intl.message(
+      'Case-sensitive',
+      name: 'casesensitive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RegEx`
+  String get regex {
+    return Intl.message(
+      'RegEx',
+      name: 'regex',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

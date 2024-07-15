@@ -20,11 +20,14 @@ class MyCodeController extends CodeController {
 
   final _modifierMap = <String, CodeModifier>{};
   final _styleList = <TextStyle>[];
-  RegExp? _styleRegExp;
+  RegExp? styleRegExp;
 
   MyCodeController({
     String? text,
-    String? languageName
+    String? languageName,
+    Map<String, TextStyle>? stringMap,
+    bool caseSensitiveStringMap = false,
+    bool regexSearch = false
   }) : super(text: text) {
     _languageName = languageName;
     // Create modifier map
@@ -35,14 +38,23 @@ class MyCodeController extends CodeController {
     // Build styleRegExp
     final patternList = <String>[];
     if (stringMap != null) {
-      patternList.addAll(stringMap!.keys.map((e) => r'(\b' + e + r'\b)'));
-      _styleList.addAll(stringMap!.values);
+      patternList.addAll(stringMap.keys.map((e) => regexSearch ? e : escape(e)));
+      _styleList.addAll(stringMap.values);
     }
     if (patternMap != null) {
       patternList.addAll(patternMap!.keys.map((e) => '($e)'));
       _styleList.addAll(patternMap!.values);
     }
-    _styleRegExp = RegExp(patternList.join('|'), multiLine: true);
+    try {
+      styleRegExp = RegExp(patternList.join('|'), multiLine: true, caseSensitive: caseSensitiveStringMap);
+    } on FormatException catch (_) {
+
+    }
+  }
+
+
+  escape(String s) {
+    return s.replaceAllMapped(RegExp(r'[.*+?^${}()|[\]\\]'), (x) {return "\\${x[0]}";});
   }
 
   int? _insertedLoc(String a, String b) {
@@ -79,7 +91,7 @@ class MyCodeController extends CodeController {
     final children = <TextSpan>[];
 
     text.splitMapJoin(
-      _styleRegExp!,
+      styleRegExp!,
       onMatch: (Match m) {
         if (_styleList.isEmpty) {
           return '';
@@ -128,7 +140,7 @@ class MyCodeController extends CodeController {
       if (val != null) {
         var child = TextSpan(text: val, style: nodeStyle);
 
-        if (_styleRegExp != null) {
+        if (styleRegExp != null) {
           child = _processPatterns(val, nodeStyle);
         }
 
@@ -170,7 +182,7 @@ class MyCodeController extends CodeController {
     if (_languageName != null) {
       return _processLanguage(text, CodeTheme.of(context), style);
     }
-    if (_styleRegExp != null) {
+    if (styleRegExp != null) {
       return _processPatterns(text, style);
     }
     return TextSpan(text: text, style: style);
