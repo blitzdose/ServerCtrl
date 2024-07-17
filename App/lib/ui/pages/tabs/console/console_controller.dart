@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
@@ -8,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:server_ctrl/utilities/api/api_utilities.dart';
 import 'package:server_ctrl/utilities/http/http_utils.dart';
 import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/session.dart';
@@ -56,7 +60,8 @@ class ConsoleController extends TabxController {
     return log;
   }
 
-  void formatLog(String log, List<TextSpan> textSpans) {
+  void formatLog(String log, List<TextSpan> textSpansFinal) {
+    List<TextSpan> textSpans = [];
     List<String> logLines = log.split(newlineRegExp);
     for(String logLine in logLines)  {
       if (logLine.contains(RegExp(r"\[\d\d:\d\d:\d\d WARN\]"))) {
@@ -132,6 +137,32 @@ class ConsoleController extends TabxController {
       }
       textSpans.add(const TextSpan(text: "\n"));
     }
+    for(TextSpan span in textSpans) {
+      for(String word in span.text!.split(" ")) {
+        if (_isLink(word)) {
+          textSpansFinal.add(TextSpan(
+              text: word,
+              style: const TextStyle(color: Colors.blue, decoration: TextDecoration.underline, decorationColor: Colors.blue),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () async {
+                  if (await canLaunchUrlString(word)) {
+                    await launchUrlString(word);
+                  }
+                }
+          ));
+        } else {
+          textSpansFinal.add(TextSpan(text: word, style: span.style));
+        }
+        textSpansFinal.add(TextSpan(text: " ", style: span.style));
+      }
+      textSpansFinal.removeLast();
+    }
+  }
+
+  bool _isLink(String s) {
+    final urlRegExp = RegExp(
+        r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+    return urlRegExp.hasMatch(s);
   }
 
   void handleSend(String value, context) async {

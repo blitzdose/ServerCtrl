@@ -71,14 +71,22 @@ class ConsoleTab extends StatelessWidget {
 
   Padding buildRichText() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: RichText(
-          softWrap: controller.softwrap.value,
-          text: TextSpan(
-              style: GoogleFonts.robotoMono(fontSize: 12),
-              children: controller.consoleLog.toList()
-          )
-      ),
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: double.maxFinite,
+          child: Row(
+              children: [
+                Flexible(
+                  child: SelectableText.rich(
+                    TextSpan(
+                      style: GoogleFonts.robotoMono(fontSize: 12),
+                      children: controller.consoleLog.toList()
+                    )
+                  ),
+                ),
+              ],
+            ),
+        ),
     );
   }
 }
