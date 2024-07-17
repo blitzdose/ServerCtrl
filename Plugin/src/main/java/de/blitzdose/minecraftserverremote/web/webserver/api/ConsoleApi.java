@@ -44,7 +44,7 @@ public class ConsoleApi {
         JSONObject commandJsonObject = new JSONObject(commandJson);
         if (commandJsonObject.get("command") != null) {
             returnJsonObject.put("success", true);
-            String command = new String(Base64.getDecoder().decode(commandJsonObject.get("command").toString()));
+            String command = new String(Base64.getUrlDecoder().decode(commandJsonObject.get("command").toString()));
             command = command.trim();
             if (command.startsWith("msr") || command.contains(":msr")) {
                 returnJsonObject.put("success", false);
