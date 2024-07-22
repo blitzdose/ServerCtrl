@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:server_ctrl/main_controller.dart';
 import 'package:server_ctrl/ui/navigation/layout_structure.dart';
 import 'package:server_ctrl/ui/navigation/navigation_drawer_impl.dart' as my_nav_drawer;
@@ -128,7 +127,7 @@ class MNavigator {
                     id: serverId,
                     title: name,
                     icon: Icons.dns_rounded,
-                    route: () {return MainLogin.mainLogin(serverId);}
+                    route: () {return MainLogin.mainLogin(serverId, name);}
                 )
             );
           }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:server_ctrl/utilities/http/session.dart';
 
 import '../../../../generated/l10n.dart';
 import 'home_controller.dart';
@@ -155,6 +156,16 @@ class HomeTab extends StatelessWidget {
                       ),
                     )
                   ],
+                ),
+              ),
+              Container(
+                transform: Matrix4.translationValues(0, -20, 0),
+                child: Center(
+                  child: RawChip(
+                      labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface),
+                      label: Text(Session.baseURL),
+                    selected: false,
+                  ),
                 ),
               ),
               Expanded(

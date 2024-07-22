@@ -118,7 +118,7 @@ class LoginController extends GetxController {
             id: Session.baseURL,
             title: "Control",
             icon: Icons.dns_rounded,
-            route: () {return MainLogin.mainLogin(Session.baseURL);}
+            route: () {return MainLogin.mainLogin(Session.baseURL, S.current.server_ctrl);}
         )
     );
     LayoutStructureState.navigator?.onItemTap_(0, false);

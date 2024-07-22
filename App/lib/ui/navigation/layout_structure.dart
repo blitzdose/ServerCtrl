@@ -57,11 +57,11 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
     Widget widget = Obx(() =>
         Scaffold(
               appBar: controller.actions.isNotEmpty ? AppBar(
-                title: Text(S.current.server_ctrl, style: const TextStyle(fontWeight: FontWeight.w500)),
+                title: Text(controller.title.value, style: const TextStyle(fontWeight: FontWeight.w500)),
                 actions: controller.actions,
                 leading: controller.leading.value,
               ) : AppBar(
-                  title: Text(S.current.server_ctrl, style: const TextStyle(fontWeight: FontWeight.w500)),
+                  title: Text(controller.title.value, style: const TextStyle(fontWeight: FontWeight.w500)),
               ),
               drawer: controller.leading.value == null ? navigator!.buildNavDrawer() : null,
               floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -74,6 +74,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
   }
 
   void onItemTap(int index, bool pop) async {
+    controller.title(S.current.server_ctrl);
     if (loginRunning) {
       return;
     }

@@ -16,13 +16,13 @@ import 'package:server_ctrl/ui/pages/tabs/settings/settings.dart';
 import 'package:server_ctrl/ui/pages/tabs/log/log.dart';
 
 class MainLogin {
-  static Future<Main> mainLogin(String baseUrl) async {
+  static Future<Main> mainLogin(String baseUrl, String name) async {
     final controller = Get.put(MainController());
     controller.baseURL = baseUrl;
     MainControllerObject object = await controller.init();
     bool success = object.success;
     Permissions permissions = object.permissions;
-    return Main(success, permissions);
+    return Main(success, permissions, name);
   }
 }
 
@@ -44,7 +44,9 @@ class Main extends StatelessWidget {
 
   final Permissions permissions;
 
-  Main(bool success, this.permissions, {super.key}) {
+  final String name;
+
+  Main(bool success, this.permissions, this.name, {super.key}) {
     loginSuccess = success;
     LayoutStructureState.controller.fab(Container());
     if (!loginSuccess) {
@@ -61,6 +63,7 @@ class Main extends StatelessWidget {
       settingsTab.controller
     ]);
     onTabChanged(0);
+    LayoutStructureState.controller.title(name);
   }
 
   @override
