@@ -69,6 +69,7 @@ dependencies:
   dio: ^5.4.0
   qr_flutter: ^4.1.0
   convert: ^3.1.1
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:

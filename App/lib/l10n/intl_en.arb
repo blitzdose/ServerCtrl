@@ -254,6 +254,24 @@
     },
     "successfullyExtracted": "Successfully extracted",
     "errorExtractingFile": "Error extracting file",
-  "casesensitive": "Case-sensitive",
-    "regex": "RegEx"
+    "casesensitive": "Case-sensitive",
+    "regex": "RegEx",
+    "diskUsage": "Disk usage ({diskname})",
+    "@diskUsage": {
+        "description": "Disk usage (C:)",
+        "placeholders": {
+            "diskname": {
+                "type": "String"
+            }
+        }
+    },
+    "availableDiskSpace": "Available disk space ({diskname})",
+    "@availableDiskSpace": {
+        "description": "Available disk space (C:)",
+        "placeholders": {
+            "diskname": {
+                "type": "String"
+            }
+        }
+    }
 }

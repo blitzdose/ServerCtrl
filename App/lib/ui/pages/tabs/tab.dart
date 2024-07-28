@@ -40,7 +40,7 @@ abstract class TabxController extends GetxController {
   void continueTimer() {
     if (timer == null || !timer!.isActive) {
       updateData();
-      timer = Timer.periodic(const Duration(seconds: 5), (timer) => updateData());
+      timer = Timer.periodic(const Duration(seconds: 3), (timer) => updateData());
     }
   }
 }

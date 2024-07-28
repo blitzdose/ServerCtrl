@@ -1,6 +1,6 @@
 {
     "@@locale": "de",
-    "@@last_modified": "2024-07-11T20:05:16+00:00",
+    "@@last_modified": "2024-07-28T17:41:13+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -248,5 +248,15 @@
         "description": "Example: datafile.zip will be extracted, overwriting files if they already exist. This action cannot be undone!"
     },
     "successfullyExtracted": "Erfolgreich extrahiert",
-    "errorExtractingFile": "Fehler beim Extrahieren"
+    "errorExtractingFile": "Fehler beim Extrahieren",
+    "casesensitive": "Groß-\/Kleinschreibung beachten",
+    "regex": "RegEx",
+    "diskUsage": "Festplattennutzung ({diskname})",
+    "@diskUsage": {
+        "description": "Disk usage (C:)"
+    },
+    "availableDiskSpace": "Freier Festplattenspeicher ({diskname})",
+    "@availableDiskSpace": {
+        "description": "Available disk space (C:)"
+    }
 }

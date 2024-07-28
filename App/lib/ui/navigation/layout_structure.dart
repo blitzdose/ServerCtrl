@@ -56,17 +56,18 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
 
     Widget widget = Obx(() =>
         Scaffold(
-              appBar: controller.actions.isNotEmpty ? AppBar(
-                title: Text(controller.title.value, style: const TextStyle(fontWeight: FontWeight.w500)),
-                actions: controller.actions,
-                leading: controller.leading.value,
-              ) : AppBar(
-                  title: Text(controller.title.value, style: const TextStyle(fontWeight: FontWeight.w500)),
-              ),
-              drawer: controller.leading.value == null ? navigator!.buildNavDrawer() : null,
-              floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-              floatingActionButton: controller.fab.value.runtimeType != Container ? Obx(() => controller.fab.value) : null,
-              body: screen
+            appBar: controller.actions.isNotEmpty ? AppBar(
+              title: Text(controller.title.value, style: const TextStyle(fontWeight: FontWeight.w500)),
+              actions: controller.actions,
+              leading: controller.leading.value,
+            ) : AppBar(
+              title: Text(controller.title.value, style: const TextStyle(fontWeight: FontWeight.w500)),
+            ),
+            drawer: controller.leading.value == null ? navigator!.buildNavDrawer() : null,
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: controller.fab.value.runtimeType != Container ? Obx(() => controller.fab.value) : null,
+            body: screen,
+            bottomNavigationBar: controller.bottomNavigationBar.value
           ),
     );
     initDone = true;
@@ -74,6 +75,7 @@ class LayoutStructureState extends State<LayoutStructure> with SingleTickerProvi
   }
 
   void onItemTap(int index, bool pop) async {
+    controller.bottomNavigationBar.value = null;
     controller.title(S.current.server_ctrl);
     if (loginRunning) {
       return;

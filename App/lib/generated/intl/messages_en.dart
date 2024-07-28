@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(name) => "Account ${name}";
 
+  static String m10(diskname) => "Available disk space (${diskname})";
+
   static String m1(ip) => "Cannot reach \"${ip}\"";
 
   static String m2(ip) => "Cannot reach \"${ip}\" over HTTPS";
@@ -35,9 +37,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(routeTitle) => "Delete \"${routeTitle}\"";
 
+  static String m11(diskname) => "Disk usage (${diskname})";
+
   static String m7(filename) => "Downloaded \"${filename}\" successfully.";
 
-  static String m10(fileEntry) =>
+  static String m12(fileEntry) =>
       "${fileEntry} will be extracted, overwriting files if they already exist. This action cannot be undone!";
 
   static String m8(name) => "File \"${name}\"";
@@ -68,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allocated_memory":
             MessageLookupByLibrary.simpleMessage("Allocated memory"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
+        "availableDiskSpace": m10,
         "ban": MessageLookupByLibrary.simpleMessage("BAN"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cannotConnectMaybeCredentials": MessageLookupByLibrary.simpleMessage(
@@ -127,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "discardChanges":
             MessageLookupByLibrary.simpleMessage("Discard changes?"),
         "discord": MessageLookupByLibrary.simpleMessage("Discord"),
+        "diskUsage": m11,
         "donate": MessageLookupByLibrary.simpleMessage("Donate"),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
@@ -177,7 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "extract": MessageLookupByLibrary.simpleMessage("Extract"),
         "extractFile": MessageLookupByLibrary.simpleMessage("Extract file"),
-        "extractFileMessage": m10,
+        "extractFileMessage": m12,
         "file": MessageLookupByLibrary.simpleMessage("file"),
         "fileAndName": m8,
         "fileSavedSuccessfully":

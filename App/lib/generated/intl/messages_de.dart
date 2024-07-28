@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(name) => "Account ${name}";
 
+  static String m10(diskname) => "Freier Festplattenspeicher (${diskname})";
+
   static String m1(ip) => "\"${ip}\" kann nicht erreicht werden";
 
   static String m2(ip) => "\"${ip}\" kann nicht über HTTPS erreicht werden";
@@ -35,9 +37,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(routeTitle) => "\"${routeTitle}\" löschen";
 
+  static String m11(diskname) => "Festplattennutzung (${diskname})";
+
   static String m7(filename) => "\"${filename}\" erfolgreich heruntergeladen.";
 
-  static String m10(fileEntry) =>
+  static String m12(fileEntry) =>
       "${fileEntry} wird extrahiert, dabei werden vorhandene Dateien überschrieben. Dies kann nicht Rückgängig gemacht werden!";
 
   static String m8(name) => "Datei \"${name}\"";
@@ -68,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allocated_memory":
             MessageLookupByLibrary.simpleMessage("Zugewiesener Speicher"),
         "appearance": MessageLookupByLibrary.simpleMessage("Erscheinungsbild"),
+        "availableDiskSpace": m10,
         "ban": MessageLookupByLibrary.simpleMessage("BAN"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "cannotConnectMaybeCredentials": MessageLookupByLibrary.simpleMessage(
@@ -78,6 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cannotReachIpOverHttps": m2,
         "cannotReachTheServer": MessageLookupByLibrary.simpleMessage(
             "Der Server kann nicht erreicht werden"),
+        "casesensitive": MessageLookupByLibrary.simpleMessage(
+            "Groß-/Kleinschreibung beachten"),
         "certCannotBeVerified": MessageLookupByLibrary.simpleMessage(
             "Das Zertifikat des Servers kann nicht überprüft werden. Wilst du ihm vertrauen? SHA1-Fingerabdruck des Zertifikats:"),
         "certificateFile":
@@ -128,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "discardChanges":
             MessageLookupByLibrary.simpleMessage("Änderungen verwerfen?"),
         "discord": MessageLookupByLibrary.simpleMessage("Discord"),
+        "diskUsage": m11,
         "donate": MessageLookupByLibrary.simpleMessage("Spenden"),
         "download": MessageLookupByLibrary.simpleMessage("Herunterladen"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Heruntergeladen"),
@@ -180,7 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "extract": MessageLookupByLibrary.simpleMessage("Extrahieren"),
         "extractFile":
             MessageLookupByLibrary.simpleMessage("Datei extrahieren"),
-        "extractFileMessage": m10,
+        "extractFileMessage": m12,
         "file": MessageLookupByLibrary.simpleMessage("Datei"),
         "fileAndName": m8,
         "fileSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -270,6 +278,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin- und Webserver-Port"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
+        "regex": MessageLookupByLibrary.simpleMessage("RegEx"),
         "remove": MessageLookupByLibrary.simpleMessage("Entfernen"),
         "removeTwofactorAuthentication": MessageLookupByLibrary.simpleMessage(
             "Zwei-Faktor-Authentisierung entfernen?"),

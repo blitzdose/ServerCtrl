@@ -2220,6 +2220,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Disk usage ({diskname})`
+  String diskUsage(String diskname) {
+    return Intl.message(
+      'Disk usage ($diskname)',
+      name: 'diskUsage',
+      desc: 'Disk usage (C:)',
+      args: [diskname],
+    );
+  }
+
+  /// `Available disk space ({diskname})`
+  String availableDiskSpace(String diskname) {
+    return Intl.message(
+      'Available disk space ($diskname)',
+      name: 'availableDiskSpace',
+      desc: 'Available disk space (C:)',
+      args: [diskname],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

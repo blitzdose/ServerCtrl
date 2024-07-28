@@ -41,6 +41,7 @@ class Main extends StatelessWidget {
   final settingsTab = SettingsTab();
 
   final List<TabxController> tabs = [];
+  final List<Widget> tabViews = [];
 
   final Permissions permissions;
 
@@ -58,12 +59,53 @@ class Main extends StatelessWidget {
       if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) consoleTab.controller,
       if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) playersTab.controller,
       if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) filesTab.controller,
-      if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) logTab.controller,
-      if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) accountsTab.controller,
       settingsTab.controller
     ]);
+
+    tabViews.clear();
+    tabViews.addAll([
+      homeTab,
+      if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) consoleTab,
+      if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) playersTab,
+      if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) filesTab,
+      settingsTab
+    ]);
+
     onTabChanged(0);
     LayoutStructureState.controller.title(name);
+    LayoutStructureState.controller.bottomNavigationBar(
+      Obx(() =>
+        NavigationBar(
+          onDestinationSelected: (int index) {
+            onTabChanged(index);
+            controller.selectedIndex(index);
+          },
+          selectedIndex: controller.selectedIndex.value,
+          destinations: <Widget>[
+            NavigationDestination(
+              icon: const Icon(Icons.home_rounded),
+              label: S.current.home,
+            ),
+            if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) NavigationDestination(
+                icon: const Icon(Icons.code_rounded),
+                label: S.current.console
+            ),
+            if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) NavigationDestination(
+                icon: const Icon(Icons.group_rounded),
+                label: S.current.players
+            ),
+            if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) NavigationDestination(
+                icon: const Icon(Icons.folder_rounded),
+                label: S.current.files
+            ),
+            NavigationDestination(
+                icon: const Icon(Icons.settings_rounded),
+                label: S.current.settings
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -83,53 +125,8 @@ class Main extends StatelessWidget {
           length: permissions.getTabCount(),
           child: Column(
             children: <Widget>[
-              TabBar(
-                controller: tabController,
-                isScrollable: true,
-                tabAlignment: TabAlignment.center,
-                tabs: <Widget>[
-                  Tab(
-                    icon: const Icon(Icons.home_rounded),
-                    text: S.current.home,
-                  ),
-                  if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) Tab(
-                    icon: const Icon(Icons.code_rounded),
-                    text: S.current.console,
-                  ),
-                  if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) Tab(
-                    icon: const Icon(Icons.group_rounded),
-                    text: S.current.players,
-                  ),
-                  if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) Tab(
-                    icon: const Icon(Icons.folder_rounded),
-                    text: S.current.files,
-                  ),
-                  if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) Tab(
-                    icon: const Icon(Icons.notes_rounded),
-                    text: S.current.log,
-                  ),
-                  if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) Tab(
-                    icon: const Icon(Icons.manage_accounts_rounded),
-                    text: S.current.accounts,
-                  ),
-                  Tab(
-                    icon: const Icon(Icons.settings_rounded),
-                    text: S.current.settings,
-                  ),
-                ],
-              ),
-              Expanded(
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    homeTab,
-                    if (permissions.hasPermissionsFor(Permissions.TAB_CONSOLE)) consoleTab,
-                    if (permissions.hasPermissionsFor(Permissions.TAB_PLAYERS)) playersTab,
-                    if (permissions.hasPermissionsFor(Permissions.TAB_FILES)) filesTab,
-                    if (permissions.hasPermissionsFor(Permissions.TAB_LOG)) logTab,
-                    if (permissions.hasPermissionsFor(Permissions.TAB_ACCOUNTS)) accountsTab,
-                    settingsTab
-                  ],
+              Obx(() => Expanded(
+                    child: tabViews.isNotEmpty ? tabViews[controller.selectedIndex.value] : homeTab
                 ),
               ),
             ],

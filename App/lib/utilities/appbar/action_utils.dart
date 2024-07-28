@@ -9,6 +9,7 @@ class ActionUtils extends GetxController {
   final fab = Rx<Widget>(Container());
   final fabVisible = RxBool(true);
   final title = S.current.server_ctrl.obs;
+  final bottomNavigationBar = Rxn<Widget>(null);
 
   ActionUtils();
 }

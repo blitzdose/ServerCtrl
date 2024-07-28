@@ -21,6 +21,8 @@ class MainControllerObject {
 
 class MainController extends GetxController with GetTickerProviderStateMixin {
 
+  final selectedIndex = 0.obs;
+
   String baseURL = "";
 
   var scrollableTabs = true.obs;
