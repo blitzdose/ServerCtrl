@@ -40,10 +40,21 @@ class SettingsTab extends StatelessWidget {
                     )
                   ]
               ),
-              if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsSection(
+              if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS) ||
+                  controller.userPermissions!.hasPermission(Permissions.PERMISSION_ADMIN)) SettingsSection(
                 title: SettingsSectionTitle(S.current.plugin),
                 tiles: <SettingsTile>[
-                  SettingsTile.switchTile(
+                  if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_ADMIN)) SettingsTile.navigation(
+                    title: SettingsTileTitle(S.current.accounts),
+                    onPressed: (context) => clickHandler.openAccounts(context),
+                    trailing: const Icon(Icons.group_rounded),
+                  ),
+                  if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_LOG)) SettingsTile.navigation(
+                    title: SettingsTileTitle(S.current.log),
+                    onPressed: (context) => clickHandler.openLog(context),
+                    trailing: const Icon(Icons.notes_rounded),
+                  ),
+                  if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.switchTile(
                     onToggle: (value) {
                       controller.useHttps(value);
                       controller.dataChanged(true);
@@ -51,15 +62,15 @@ class SettingsTab extends StatelessWidget {
                     initialValue: controller.useHttps.value,
                     title: SettingsTileTitle(S.current.https),
                   ),
-                  SettingsTile.navigation(
+                  if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.navigation(
                       title: SettingsTileTitle(S.current.uploadHttpsCertificate),
                       onPressed: (context) => clickHandler.pickCert(context),
                   ),
-                  SettingsTile.navigation(
+                  if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.navigation(
                       title: SettingsTileTitle(S.current.generateNewHttpsCertificate),
                     onPressed: (context) => clickHandler.genCert(context),
                   ),
-                  SettingsTile.navigation(
+                  if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.navigation(
                     title: SettingsTileTitle(S.current.pluginAndWebserverPort),
                     value: Text(controller.port.value.toString()),
                     onPressed: (context) => clickHandler.portClick(controller.port, context),

@@ -446,6 +446,7 @@ class AccountsController extends TabxController {
   void continueTimer() {
     updateData();
   }
+
   @override
   void cancelTimer() {}
 }
