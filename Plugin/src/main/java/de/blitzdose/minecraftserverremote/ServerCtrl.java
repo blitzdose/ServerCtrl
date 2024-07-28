@@ -5,6 +5,7 @@ import de.blitzdose.minecraftserverremote.logging.ConsoleSaver;
 import de.blitzdose.minecraftserverremote.logging.Logger;
 import de.blitzdose.minecraftserverremote.logging.LoggingSaver;
 import de.blitzdose.minecraftserverremote.logging.LoggingType;
+import de.blitzdose.minecraftserverremote.systemdata.SystemDataLogger;
 import de.blitzdose.minecraftserverremote.web.webserver.Webserver;
 import de.blitzdose.minecraftserverremote.web.webserver.auth.Role;
 import de.blitzdose.minecraftserverremote.web.webserver.auth.UserManager;
@@ -53,7 +54,7 @@ public final class ServerCtrl extends JavaPlugin implements Listener {
 
         new Thread(this::startWebserver).start();
 
-        //Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ConsoleSaver(), 20L, 20L);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new SystemDataLogger(), 20L, 20L);
     }
 
     private void startWebserver() {

@@ -76,7 +76,10 @@ public class Webserver {
         app.routes(() -> {
             get("/favicon.ico", ctx -> ctx.redirect("/view/favicon.ico"));
             path("/api", () -> {
-                path("system", () -> get("data", SystemApi::getData, Role.ANYONE));
+                path("system", () -> {
+                    get("data", SystemApi::getData, Role.ANYONE);
+                    get("historicData", SystemApi::getHistoricData, Role.ANYONE);
+                });
                 path("server", () -> {
                     get("icon", ServerApi::getIcon, Role.ANYONE);
                     get("name", ServerApi::getName);
