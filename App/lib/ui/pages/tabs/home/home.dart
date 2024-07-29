@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/utilities/http/session.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../generated/l10n.dart';
 import 'home_controller.dart';
@@ -27,8 +28,11 @@ class HomeTab extends StatelessWidget {
               Center(
                 child: RawChip(
                   labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface),
-                  label: Text(Session.baseURL),
+                  label: Text(Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "")),
                   selected: false,
+                  onPressed: () {
+                    launchUrl(Uri.parse(Session.baseURL));
+                  },
                 ),
               ),
               Expanded(
