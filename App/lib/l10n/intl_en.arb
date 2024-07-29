@@ -273,5 +273,18 @@
                 "type": "String"
             }
         }
-    }
+    },
+  "reload": "Reload",
+    "reloadInfo": "Reloading the server is not supported by every plugin. You might experience some errors.",
+    "serverReloadSuccessfully": "Server reload successfully",
+    "errorWhileReloadingServer": "Error while reloading server",
+    "reloadServer": "Reload server",
+    "restartServer": "Restart server",
+    "errorWhileRestartingServer": "Error while restarting server",
+    "serverRestartedSuccessfully": "Server restarted successfully",
+    "stopServer": "Stop server",
+    "errorWhileStoppingServer": "Error while stopping server",
+    "serverStoppedSuccessfully": "Server stopped successfully",
+    "power": "Power",
+    "restartInfo": "Restart only works if you configure the restart-script in the spigot.yml"
 }

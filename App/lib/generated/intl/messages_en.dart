@@ -169,12 +169,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error while downloading file"),
         "errorWhileGeneratingCertificate": MessageLookupByLibrary.simpleMessage(
             "Error while generating certificate"),
+        "errorWhileReloadingServer": MessageLookupByLibrary.simpleMessage(
+            "Error while reloading server"),
         "errorWhileRemoving2fa":
             MessageLookupByLibrary.simpleMessage("Error while removing 2FA"),
+        "errorWhileRestartingServer": MessageLookupByLibrary.simpleMessage(
+            "Error while restarting server"),
         "errorWhileSavingChanges":
             MessageLookupByLibrary.simpleMessage("Error while saving changes"),
         "errorWhileSavingFile":
             MessageLookupByLibrary.simpleMessage("Error while saving file"),
+        "errorWhileStoppingServer":
+            MessageLookupByLibrary.simpleMessage("Error while stopping server"),
         "errorWhileUploadingCertificate": MessageLookupByLibrary.simpleMessage(
             "Error while uploading certificate"),
         "errorWhileUploadingFile":
@@ -271,7 +277,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "pluginAndWebserverPort":
             MessageLookupByLibrary.simpleMessage("Plugin and Webserver Port"),
         "port": MessageLookupByLibrary.simpleMessage("Port"),
+        "power": MessageLookupByLibrary.simpleMessage("Power"),
         "regex": MessageLookupByLibrary.simpleMessage("RegEx"),
+        "reload": MessageLookupByLibrary.simpleMessage("Reload"),
+        "reloadInfo": MessageLookupByLibrary.simpleMessage(
+            "Reloading the server is not supported by every plugin. You might experience some errors."),
+        "reloadServer": MessageLookupByLibrary.simpleMessage("Reload server"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
         "removeTwofactorAuthentication": MessageLookupByLibrary.simpleMessage(
             "Remove two-factor authentication?"),
@@ -282,6 +293,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "restartInfo": MessageLookupByLibrary.simpleMessage(
+            "Restart only works if you configure the restart-script in the spigot.yml"),
+        "restartServer": MessageLookupByLibrary.simpleMessage("Restart server"),
         "restartToApplyLanguage": MessageLookupByLibrary.simpleMessage(
             "Please restart the App to fully apply the new language"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
@@ -298,6 +312,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "server": MessageLookupByLibrary.simpleMessage("Server"),
         "serverNameInput": MessageLookupByLibrary.simpleMessage(
             "Server name (freely selectable)"),
+        "serverReloadSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Server reload successfully"),
+        "serverRestartedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Server restarted successfully"),
+        "serverStoppedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Server stopped successfully"),
         "server_ctrl": MessageLookupByLibrary.simpleMessage("ServerCtrl"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -306,6 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "specifyIpOrAddr": MessageLookupByLibrary.simpleMessage(
             "Please specify the domain or IP-Address of the Minecraft server"),
         "spigotmc": MessageLookupByLibrary.simpleMessage("SpigotMC"),
+        "stopServer": MessageLookupByLibrary.simpleMessage("Stop server"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "successfullyAdded2faToYourAccount":
             MessageLookupByLibrary.simpleMessage(

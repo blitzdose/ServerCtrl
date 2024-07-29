@@ -3,6 +3,7 @@ package de.blitzdose.minecraftserverremote.web.webserver.api;
 import de.blitzdose.minecraftserverremote.ServerCtrl;
 import de.blitzdose.minecraftserverremote.web.webserver.Webserver;
 import io.javalin.http.Context;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.json.JSONObject;
 
@@ -81,15 +82,6 @@ public class ServerApi {
             String key = (String) keyObject;
             String value = props.getProperty(key);
             data.put(key, value);
-            //try {
-            //    data.put(key, Integer.parseInt(value));
-            //} catch (NumberFormatException ignored) {
-            //    if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
-            //        data.put(key, Boolean.parseBoolean(value));
-            //    } else {
-            //        data.put(key, value);
-            //    }
-            //}
         }
 
         returnJsonObject.put("success", true);
@@ -133,5 +125,29 @@ public class ServerApi {
         }
 
         Webserver.returnJson(context, returnJsonObject);
+    }
+
+    public static void stop(Context context) {
+        JSONObject returnJsonObject = new JSONObject();
+        returnJsonObject.put("success", true);
+        Webserver.returnJson(context, returnJsonObject);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(ServerCtrl.getPlugin(), () -> Bukkit.getServer().shutdown(), 20L);
+    }
+
+    public static void restart(Context context) {
+        JSONObject returnJsonObject = new JSONObject();
+        returnJsonObject.put("success", true);
+        Webserver.returnJson(context, returnJsonObject);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(ServerCtrl.getPlugin(), () -> Bukkit.getServer().spigot().restart(), 20L);
+    }
+
+    public static void reload(Context context) {
+        JSONObject returnJsonObject = new JSONObject();
+        returnJsonObject.put("success", true);
+        Webserver.returnJson(context, returnJsonObject);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(ServerCtrl.getPlugin(), () -> Bukkit.getServer().reload(), 20L);
     }
 }

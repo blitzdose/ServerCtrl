@@ -43,10 +43,10 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
           http.Response response = await login(username, password);
           if (response.statusCode != 200) throw Exception();
         } on SocketException catch (_) {
-          Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
+          Snackbar.createWithTitle(name, S.current.cannotReachTheServer, true);
           success = false;
         } on TimeoutException catch (_) {
-          Snackbar.createWithTitle(name, S.current.cannotReachTheServer);
+          Snackbar.createWithTitle(name, S.current.cannotReachTheServer, true);
           success = false;
         } on HandshakeException catch (p) {
           if (p.osError != null && p.osError!.message.contains("CERTIFICATE_VERIFY_FAILED")) {
@@ -54,11 +54,11 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
           }
           success = false;
         } on Exception catch (_) {
-          Snackbar.createWithTitle(name, S.current.cannotConnectMaybeCredentials);
+          Snackbar.createWithTitle(name, S.current.cannotConnectMaybeCredentials, true);
           success = false;
         }
       } else {
-        Snackbar.createWithTitle(baseURL, S.current.cannotFindCredentials);
+        Snackbar.createWithTitle(baseURL, S.current.cannotFindCredentials, true);
         success = false;
       }
     }

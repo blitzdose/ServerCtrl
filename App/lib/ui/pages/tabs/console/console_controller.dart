@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +12,7 @@ import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../../navigator_key.dart';
 import '../../../../utilities/http/session.dart';
 import '../../../../values/colors.dart';
 import '../../../navigation/layout_structure.dart';
@@ -178,6 +177,81 @@ class ConsoleController extends TabxController {
   @override
   void setAction() {
     LayoutStructureState.controller.actions.clear();
+    LayoutStructureState.controller.actions.add(
+        IconButton(
+            onPressed: () {
+              showDialog(
+                context: navigatorKey.currentContext!,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: Text(S.current.power),
+                      content: Text(S.current.restartInfo),
+                      actions: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: () async {
+                              Navigator.pop(context);
+                              http.Response response = await Session.post("/api/server/stop", null);
+                              if (HttpUtils.isSuccess(response)) {
+                                Snackbar.createWithTitle(S.current.server, S.current.serverStoppedSuccessfully);
+                              }  else {
+                                Snackbar.createWithTitle(S.current.files, S.current.errorWhileStoppingServer, true);
+                              }
+                            }, child: Text(S.current.stopServer)),
+                            TextButton(onPressed: () async {
+                              Navigator.pop(context);
+                              http.Response response = await Session.post("/api/server/restart", null);
+                              if (HttpUtils.isSuccess(response)) {
+                                Snackbar.createWithTitle(S.current.server, S.current.serverRestartedSuccessfully);
+                              }  else {
+                                Snackbar.createWithTitle(S.current.files, S.current.errorWhileRestartingServer, true);
+                              }
+                            }, child: Text(S.current.restartServer))
+                          ],
+                        )
+                      ]
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.power_settings_new_rounded)
+        )
+    );
+    LayoutStructureState.controller.actions.add(
+        IconButton(
+            onPressed: () {
+              showDialog(
+                context: navigatorKey.currentContext!,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: Text(S.current.reload),
+                      content: Text(S.current.reloadInfo),
+                      actions: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(onPressed: () async {
+                              Navigator.pop(context);
+                              http.Response response = await Session.post("/api/server/reload", null);
+                              if (HttpUtils.isSuccess(response)) {
+                                Snackbar.createWithTitle(S.current.server, S.current.serverReloadSuccessfully);
+                              }  else {
+                                Snackbar.createWithTitle(S.current.files, S.current.errorWhileReloadingServer, true);
+                              }
+                            }, child: Text(S.current.reloadServer)),
+                          ],
+                        )
+                      ]
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.refresh_rounded)
+        )
+    );
     LayoutStructureState.controller.actions.add(
         PopupMenuButton(
           padding: EdgeInsets.zero,

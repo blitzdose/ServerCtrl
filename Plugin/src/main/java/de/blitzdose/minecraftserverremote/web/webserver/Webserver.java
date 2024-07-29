@@ -87,6 +87,9 @@ public class Webserver {
                     get("data", ServerApi::getData, Role.ANYONE);
                     get("settings", ServerApi::getSettings, Role.SERVERSETTINGS);
                     post("settings", ServerApi::setSettings, Role.SERVERSETTINGS);
+                    post("restart", ServerApi::restart, Role.CONSOLE);
+                    post("reload", ServerApi::reload, Role.CONSOLE);
+                    post("stop", ServerApi::stop, Role.CONSOLE);
                 });
                 path("plugin", () -> {
                     get("settings", PluginApi::getSettings, Role.PLUGINSETTINGS);

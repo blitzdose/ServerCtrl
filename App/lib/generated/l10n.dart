@@ -2240,6 +2240,136 @@ class S {
       args: [diskname],
     );
   }
+
+  /// `Reload`
+  String get reload {
+    return Intl.message(
+      'Reload',
+      name: 'reload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reloading the server is not supported by every plugin. You might experience some errors.`
+  String get reloadInfo {
+    return Intl.message(
+      'Reloading the server is not supported by every plugin. You might experience some errors.',
+      name: 'reloadInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server reload successfully`
+  String get serverReloadSuccessfully {
+    return Intl.message(
+      'Server reload successfully',
+      name: 'serverReloadSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while reloading server`
+  String get errorWhileReloadingServer {
+    return Intl.message(
+      'Error while reloading server',
+      name: 'errorWhileReloadingServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reload server`
+  String get reloadServer {
+    return Intl.message(
+      'Reload server',
+      name: 'reloadServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restart server`
+  String get restartServer {
+    return Intl.message(
+      'Restart server',
+      name: 'restartServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while restarting server`
+  String get errorWhileRestartingServer {
+    return Intl.message(
+      'Error while restarting server',
+      name: 'errorWhileRestartingServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server restarted successfully`
+  String get serverRestartedSuccessfully {
+    return Intl.message(
+      'Server restarted successfully',
+      name: 'serverRestartedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stop server`
+  String get stopServer {
+    return Intl.message(
+      'Stop server',
+      name: 'stopServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while stopping server`
+  String get errorWhileStoppingServer {
+    return Intl.message(
+      'Error while stopping server',
+      name: 'errorWhileStoppingServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server stopped successfully`
+  String get serverStoppedSuccessfully {
+    return Intl.message(
+      'Server stopped successfully',
+      name: 'serverStoppedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power`
+  String get power {
+    return Intl.message(
+      'Power',
+      name: 'power',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restart only works if you configure the restart-script in the spigot.yml`
+  String get restartInfo {
+    return Intl.message(
+      'Restart only works if you configure the restart-script in the spigot.yml',
+      name: 'restartInfo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
