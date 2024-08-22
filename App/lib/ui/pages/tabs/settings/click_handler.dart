@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
@@ -15,6 +16,7 @@ import 'package:server_ctrl/ui/pages/tabs/settings/models/server_setting.dart';
 import 'package:server_ctrl/ui/pages/tabs/settings/settings_controller.dart';
 import 'package:server_ctrl/ui/pages/tabs/tab.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
+import 'package:server_ctrl/utilities/http/http_utils.dart';
 import 'package:server_ctrl/utilities/http/session.dart';
 import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -460,6 +462,91 @@ class ClickHandler {
           port(int.parse(text));
           controller.dataChanged(true);
         }).showInputDialog(context);
+  }
+
+  void editableFilesClick(BuildContext context) async {
+    var response = await Session.get("/api/files/editable-files");
+    if (!HttpUtils.isSuccess(response)) {
+      return;
+    }
+
+    var fileExtensions = <String>[].obs;
+    fileExtensions.addAll(
+        (jsonDecode(response.body)["fileExtensions"] as List<dynamic>)
+            .map((e) => e.toString()).toList()
+    );
+
+    var controller = TextEditingController().obs;
+    
+    await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(S.current.editableFiles),
+            content: SizedBox(
+              width: min(500, MediaQuery.of(context).size.width),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Obx(() => Wrap(
+                    direction: Axis.horizontal,
+                    spacing: 4,
+                    runSpacing: 4,
+                    children: [
+                      for(var key in fileExtensions)
+                        InputChip(
+                          label: Text(".$key"),
+                          onDeleted: () => fileExtensions.remove(key),
+                          onSelected: (value) {},
+                        ),
+                    ],
+                  ),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 24)),
+                  Obx(() => TextField(
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: S.current.newExtension,
+                          suffixIcon: controller.value.text.isNotEmpty ? IconButton(onPressed: () {
+                            fileExtensions.add(
+                                controller.value.text.replaceAll(" ", "")
+                                    .replaceAll(".", "")
+                            );
+                            controller.value.clear();
+                          }, icon: const Icon(Icons.add_rounded)) : null
+                      ),
+                      maxLines: 1,
+                      maxLength: 20,
+                      controller: controller.value,
+                      onChanged: (value) => controller.refresh(),
+                      keyboardType: TextInputType.text,
+                      autocorrect: false,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(onPressed: () {
+                Navigator.pop(context, true);
+              }, child: Text(S.current.cancel)),
+              TextButton(onPressed: () async {
+                Navigator.pop(context, true);
+                Map<String, dynamic> data = {
+                  "fileExtensions": fileExtensions
+                };
+                var response = await Session.post("/api/files/editable-files", jsonEncode(data));
+                if (HttpUtils.isSuccess(response)) {
+                  Snackbar.createWithTitle(S.current.editableFiles, S.current.savedSuccessfully);
+                } else {
+                  Snackbar.createWithTitle(S.current.editableFiles, S.current.errorWhileSavingChanges, true);
+                }
+              }, child: Text(S.current.save))
+            ],
+          );
+        });
   }
 
   void serverClick(RxList<ServerSetting> settings, ServerSetting serverSetting, BuildContext context) {

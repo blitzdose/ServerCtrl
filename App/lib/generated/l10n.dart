@@ -2370,6 +2370,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Editable files`
+  String get editableFiles {
+    return Intl.message(
+      'Editable files',
+      name: 'editableFiles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New extension`
+  String get newExtension {
+    return Intl.message(
+      'New extension',
+      name: 'newExtension',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

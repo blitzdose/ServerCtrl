@@ -286,5 +286,7 @@
     "errorWhileStoppingServer": "Error while stopping server",
     "serverStoppedSuccessfully": "Server stopped successfully",
     "power": "Power",
-    "restartInfo": "Restart only works if you configure the restart-script in the spigot.yml"
+    "restartInfo": "Restart only works if you configure the restart-script in the spigot.yml",
+  "editableFiles": "Editable files",
+    "newExtension": "New extension"
 }

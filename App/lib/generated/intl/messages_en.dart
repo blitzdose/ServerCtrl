@@ -140,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloading": MessageLookupByLibrary.simpleMessage("Downloading"),
         "dynamicColor": MessageLookupByLibrary.simpleMessage("Dynamic color"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "editableFiles": MessageLookupByLibrary.simpleMessage("Editable files"),
         "egWithGoogleAuthenticator": MessageLookupByLibrary.simpleMessage(
             "e.g. with Google Authenticator"),
         "email": MessageLookupByLibrary.simpleMessage("E-Mail"),
@@ -240,6 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "moreInfo": MessageLookupByLibrary.simpleMessage("More info"),
         "multipleFiles": MessageLookupByLibrary.simpleMessage("Multiple files"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "newExtension": MessageLookupByLibrary.simpleMessage("New extension"),
         "newFile": MessageLookupByLibrary.simpleMessage("New File"),
         "newFolder": MessageLookupByLibrary.simpleMessage("New Folder"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New password"),

@@ -144,7 +144,8 @@ public class Webserver {
                     post("rename", FilesApi::renameFile, Role.FILES);
                     post("download-multiple", FilesApi::downloadMultiple, Role.FILES);
                     post("delete-multiple", FilesApi::deleteMultiple, Role.FILES);
-                    get("editable-files", FilesApi::getEditableFiles, Role.FILES);
+                    get("editable-files", FilesApi::getEditableFiles, Role.FILES, Role.PLUGINSETTINGS);
+                    post("editable-files", FilesApi::setEditableFiles, Role.FILES, Role.PLUGINSETTINGS);
                 });
             });
 

@@ -63,17 +63,20 @@ class SettingsTab extends StatelessWidget {
                     title: SettingsTileTitle(S.current.https),
                   ),
                   if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.navigation(
-                      title: SettingsTileTitle(S.current.uploadHttpsCertificate),
-                      onPressed: (context) => clickHandler.pickCert(context),
+                    title: SettingsTileTitle(S.current.uploadHttpsCertificate),
+                    onPressed: (context) => clickHandler.pickCert(context),
                   ),
                   if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.navigation(
-                      title: SettingsTileTitle(S.current.generateNewHttpsCertificate),
+                    title: SettingsTileTitle(S.current.generateNewHttpsCertificate),
                     onPressed: (context) => clickHandler.genCert(context),
                   ),
                   if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.navigation(
                     title: SettingsTileTitle(S.current.pluginAndWebserverPort),
                     value: Text(controller.port.value.toString()),
                     onPressed: (context) => clickHandler.portClick(controller.port, context),
+                  ), if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.navigation(
+                    title: SettingsTileTitle(S.current.editableFiles),
+                    onPressed: (context) => clickHandler.editableFilesClick(context),
                   ),
                 ],
               ),
