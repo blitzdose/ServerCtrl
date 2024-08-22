@@ -10,7 +10,7 @@ Logging-types:
 Webserver:
   users:
   permissions:
-  https: false
+  https: true
   frontend: true
   servername: Server Remote
   port: 5718
