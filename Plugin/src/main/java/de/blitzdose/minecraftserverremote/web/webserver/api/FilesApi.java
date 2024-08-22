@@ -440,6 +440,24 @@ public class FilesApi {
         Webserver.returnJson(context, returnJson);
     }
 
+    public static void setEditableFiles(Context context) {
+        JSONObject returnJson = new JSONObject();
+
+        JSONObject jsonObject = new JSONObject(context.body());
+        JSONArray fileExtensions = jsonObject.getJSONArray("fileExtensions");
+        List<String> editableFiles = new ArrayList<>();
+        for (int i=0; i<fileExtensions.length(); i++) {
+            editableFiles.add(fileExtensions.getString(i));
+        }
+
+        FileConfiguration config = ServerCtrl.getPlugin().getConfig();
+        config.set("Webserver.editable-files", editableFiles);
+        ServerCtrl.getPlugin().saveConfig();
+        returnJson.put("success", true);
+
+        Webserver.returnJson(context, returnJson);
+    }
+
     private static boolean isPluginFolder(String path) {
         return path.startsWith("plugins\\ServerCtrl") || path.startsWith("plugins/ServerCtrl");
     }
