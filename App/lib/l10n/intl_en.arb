@@ -288,5 +288,6 @@
     "power": "Power",
     "restartInfo": "Restart only works if you configure the restart-script in the spigot.yml",
   "editableFiles": "Editable files",
-    "newExtension": "New extension"
+    "newExtension": "New extension",
+  "copiedToClipboard": "Copied to clipboard"
 }

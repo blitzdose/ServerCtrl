@@ -104,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "connectionFailed":
             MessageLookupByLibrary.simpleMessage("Connection failed"),
         "console": MessageLookupByLibrary.simpleMessage("Console"),
+        "copiedToClipboard":
+            MessageLookupByLibrary.simpleMessage("Copied to clipboard"),
         "copySecret": MessageLookupByLibrary.simpleMessage("Copy secret"),
         "cpu_cores": MessageLookupByLibrary.simpleMessage("CPU cores"),
         "cpu_load": MessageLookupByLibrary.simpleMessage("CPU load"),

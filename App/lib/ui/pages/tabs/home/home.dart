@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/utilities/http/session.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 
 import '../../../../generated/l10n.dart';
 import 'home_controller.dart';
@@ -31,7 +32,8 @@ class HomeTab extends StatelessWidget {
                   label: Text(Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "")),
                   selected: false,
                   onPressed: () {
-                    launchUrl(Uri.parse(Session.baseURL));
+                    Clipboard.setData(ClipboardData(text: Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "")));
+                    Snackbar.create(S.current.copiedToClipboard);
                   },
                 ),
               ),

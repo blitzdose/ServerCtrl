@@ -2390,6 +2390,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Copied to clipboard`
+  String get copiedToClipboard {
+    return Intl.message(
+      'Copied to clipboard',
+      name: 'copiedToClipboard',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
