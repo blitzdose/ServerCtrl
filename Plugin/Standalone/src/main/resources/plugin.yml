@@ -1,0 +1,5 @@
+name: ServerCtrl
+version: ${project.version}
+main: de.blitzdose.serverctrl.standalone.ServerCtrl
+api-version: 1.16
+description: A plugin to manage your Server via an Android App or Webinterface
