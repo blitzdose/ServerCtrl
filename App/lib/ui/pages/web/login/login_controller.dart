@@ -35,7 +35,7 @@ class LoginController extends GetxController {
     final cookieMap = Map.fromEntries(entity);
     String? token = cookieMap["token"];
     if (token != null) {
-      Session.setBaseURL("");
+      Session.setBaseURL("/main");
       var response = Session.get("/api/server/data");
       response.then((value) {
         if (value.statusCode == 200) {
@@ -60,7 +60,7 @@ class LoginController extends GetxController {
   }
 
   loginProcess(String username, String password, String? code) async {
-    Session.setBaseURL("");
+    Session.setBaseURL("/main");
     var map = <String, dynamic>{};
     map['username'] = username;
     map['password'] = base64.encode(utf8.encode(password));
@@ -117,7 +117,7 @@ class LoginController extends GetxController {
         NavigationRoute(
             id: Session.baseURL,
             title: "Control",
-            icon: Icons.dns_rounded,
+            icon: const Icon(Icons.dns_rounded),
             route: () {return MainLogin.mainLogin(Session.baseURL, S.current.server_ctrl);}
         )
     );

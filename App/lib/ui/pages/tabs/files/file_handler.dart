@@ -64,8 +64,8 @@ class FileHandler {
       }
 
       if (kIsWeb) {
-        html.AnchorElement anchorElement =  html.AnchorElement(href: "/api/files/download?id=$id");
-        anchorElement.download = "/api/files/download?id=$id";
+        html.AnchorElement anchorElement =  html.AnchorElement(href: "${Session.baseURL}/api/files/download?id=$id");
+        anchorElement.download = "${Session.baseURL}/api/files/download?id=$id";
         anchorElement.click();
         return;
       }

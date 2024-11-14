@@ -179,6 +179,7 @@ class SettingsController extends TabxController {
         servername = credsArr[0];
         username = credsArr[1];
       } else {
+        if (kIsWeb) return 200;
         return -1;
       }
 

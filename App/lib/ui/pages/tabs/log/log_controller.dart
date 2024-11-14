@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +38,7 @@ class LogController extends TabxController {
     var response = await fetchData();
     List<Widget> logEntriesTmp = [];
     if (HttpUtils.isSuccess(response)) {
-      List<LogEntry> entries = LogEntry.parseLog(response.body);
+      List<LogEntry> entries = LogEntry.parseLog(jsonDecode(response.body)['log']);
       for(LogEntry logEntry in entries) {
         logEntriesTmp.add(createListItem(logEntry));
       }

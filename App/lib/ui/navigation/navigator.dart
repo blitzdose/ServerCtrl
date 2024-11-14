@@ -45,7 +45,7 @@ class MNavigator {
             }
 
             return my_nav_drawer.NavigationDrawerDestination(
-                icon: Icon(navRoute.icon, /*color: _getIconColor(screenIndex, index)*/),
+                icon: navRoute.icon!, /*color: _getIconColor(screenIndex, index)*/
                 label: Text(navRoute.title!, /*style: _getDrawerTextColor(screenIndex, index)*/)
             );
           }),
@@ -126,7 +126,7 @@ class MNavigator {
                 NavigationRoute(
                     id: serverId,
                     title: name,
-                    icon: Icons.dns_rounded,
+                    icon: Icon(Icons.dns_rounded),
                     route: () {return MainLogin.mainLogin(serverId, name);}
                 )
             );

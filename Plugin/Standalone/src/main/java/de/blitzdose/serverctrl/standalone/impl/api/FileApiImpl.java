@@ -126,7 +126,7 @@ public class FileApiImpl extends AbstractFileApi {
                     continue;
                 }
 
-                String name = path + entry.getName();
+                String name = path.substring(0, path.lastIndexOf("/")+1) + entry.getName();
                 File f = new File(name);
                 if (entry.isDirectory()) {
                     if (!f.isDirectory() && !f.mkdirs()) {

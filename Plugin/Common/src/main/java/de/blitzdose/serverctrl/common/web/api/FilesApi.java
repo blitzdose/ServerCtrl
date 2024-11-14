@@ -189,7 +189,7 @@ public class FilesApi {
         String path = parsePath(requestJson.getString("path"), false);
         String fileName = parsePath(requestJson.getString("name"), true);
 
-        if (Webserver.abstractFileApi.isValidFile(system, path + fileName)) {
+        if (!Webserver.abstractFileApi.isValidFile(system, path + fileName)) {
             returnJson.put("success", false);
             Webserver.returnJson(context, returnJson);
             return;

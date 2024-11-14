@@ -395,7 +395,7 @@ class ClickHandler {
                                       size: 200,
                                     ),
                                     const Padding(padding: EdgeInsets.only(top: 16)),
-                                    Text("Secret: $secret"),
+                                    SelectableText("Secret: $secret"),
                                   ],
                                 ),
                               ),
@@ -679,15 +679,15 @@ class ClickHandler {
 
   openAccounts(BuildContext context) async {
     AccountsTab accountsTab = AccountsTab();
-    await openView(context, accountsTab, accountsTab.controller);
+    await openView(context, S.current.accounts, accountsTab, accountsTab.controller);
   }
 
   openLog(BuildContext context) async {
     LogTab logTab = LogTab();
-    await openView(context, logTab, logTab.controller);
+    await openView(context, S.current.log ,logTab, logTab.controller);
   }
 
-  openView(BuildContext context, Widget view, TabxController viewController) async {
+  openView(BuildContext context, String title, Widget view, TabxController viewController) async {
     viewController.continueTimer();
     viewController.setFab();
     viewController.setAction();
@@ -696,7 +696,7 @@ class ClickHandler {
       return Dialog.fullscreen(
         child: Scaffold(
           appBar: AppBar(
-            title: Text(S.current.accounts),
+            title: Text(title),
             leading: IconButton(
               icon: const Icon(Icons.close_rounded),
               onPressed: () async {

@@ -17,7 +17,7 @@ class LogEntry {
 
   static List<LogEntry> parseLog(String entries) {
     List<LogEntry> logEntries = <LogEntry>[];
-    List<String> logLines = entries.split("\\n");
+    List<String> logLines = entries.split("\n");
     for (String logLine in logLines) {
       RegExp pattern = RegExp("(\\[\\d\\d\\.\\d\\d\\.\\d\\d \\d\\d:\\d\\d:\\d\\d]) (\\[.+?]) (.*)");
       RegExpMatch? match = pattern.firstMatch(logLine);
