@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:is_first_run/is_first_run.dart';
-import 'package:server_ctrl/ui/navigation/layout_structure.dart';
 import 'package:server_ctrl/ui/navigation/navigator.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
 import 'package:server_ctrl/values/navigation_routes.dart';
@@ -16,8 +15,6 @@ import '../../../generated/l10n.dart';
 import '../../../navigator_key.dart';
 import '../../../utilities/http/session.dart';
 import '../../../utilities/snackbar/snackbar.dart';
-import '../../navigation/nav_route.dart';
-import '../main/main.dart';
 
 class AddServerController extends GetxController {
 
@@ -72,6 +69,8 @@ class AddServerController extends GetxController {
       isLoggingIn(false);
       return;
     }
+
+    ip = "$ip/main";
 
     String protocol = "http://";
     if (isHttps.isTrue) {

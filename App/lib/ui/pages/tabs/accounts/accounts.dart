@@ -15,22 +15,29 @@ class AccountsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() =>
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (controller.showProgress.value) const LinearProgressIndicator() else const SizedBox(height: 4.0),
             Expanded(
-              child: SizedBox(
-                width: min(700, MediaQuery.of(context).size.width),
-                child: Scrollbar(
-                  controller: scrollController,
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    controller: scrollController,
-                    children: controller.accountItems,
-                  ),
-                ),
+              child: Column(
+                children: [
+                  if (controller.showProgress.value) const LinearProgressIndicator() else const SizedBox(height: 4.0),
+                  Expanded(
+                    child: SizedBox(
+                      width: min(700, MediaQuery.of(context).size.width),
+                      child: Scrollbar(
+                        controller: scrollController,
+                        child: ListView(
+                          scrollDirection: Axis.vertical,
+                          controller: scrollController,
+                          children: controller.accountItems,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
+            ),
           ],
         )
     );
