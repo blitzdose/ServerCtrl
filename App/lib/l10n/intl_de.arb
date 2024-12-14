@@ -1,6 +1,6 @@
 {
     "@@locale": "de",
-    "@@last_modified": "2024-07-28T17:41:13+00:00",
+    "@@last_modified": "2024-12-14T20:38:04+00:00",
     "server_ctrl": "ServerCtrl",
     "version": "Version: {version}",
     "@version": {
@@ -258,5 +258,43 @@
     "availableDiskSpace": "Freier Festplattenspeicher ({diskname})",
     "@availableDiskSpace": {
         "description": "Available disk space (C:)"
+    },
+    "reload": "Neuladen",
+    "reloadInfo": "Neuladen des Servers wird nicht von jedem Plugin unterstützt. Es können Fehler auftreten.",
+    "serverReloadSuccessfully": "Server erfolgreich neugeladen",
+    "errorWhileReloadingServer": "Fehler beim Neuladen des Servers",
+    "reloadServer": "Server neuladen",
+    "restartServer": "Server neustarten",
+    "errorWhileRestartingServer": "Fehler beim Neustarten des Servers",
+    "serverRestartedSuccessfully": "Server erfolgreich neugestartet",
+    "stopServer": "Server stoppen",
+    "errorWhileStoppingServer": "Fehler beim Stoppen des Servers",
+    "serverStoppedSuccessfully": "Server erfolgreich gestoppt",
+    "power": "Power",
+    "restartInfo": "Der Neustart funktioniert nur, wenn du das Neustart-Skript in der spigot.yml konfiguriert hast",
+    "editableFiles": "Bearbeitbare Dateien",
+    "newExtension": "Neue Dateiendung",
+    "copiedToClipboard": "Kopiert in die Zwischenablage",
+    "backup": "Backup",
+    "backup_is_running": "Das Backup läuft noch",
+    "delete_backup": "Backup löschen?",
+    "error_deleting_backup": "Fehler beim Löschen des Backups",
+    "deleted_backup": "Backup erfolgreich gelöscht",
+    "backup_failed": "Backup fehlgeschlagen",
+    "backup_started": "Backup erfolgreich gestartet",
+    "error_getting_worlds": "Fehler beim Abrufen der Welten",
+    "create_backup": "Backup erstellen",
+    "start": "Start",
+    "select_worlds": "Welten auswählen",
+    "full_backup": "Vollständiges Backup",
+    "next": "Weiter",
+    "no_backups": "Du hast noch keine Backups",
+    "finished": "Fertig",
+    "error": "Fehler",
+    "running": "Läuft",
+    "waiting": "Warten",
+    "backup_delete_confirmation": "Bist du sicher das du {filename} löschen möchtest?\n\nDies kann nicht rückgängig gemacht werden.",
+    "@backup_delete_confirmation": {
+        "description": "Are you sure you want to delete 281726_2024-12-12.tar.gz?\n\nThis cannot be undone."
     }
 }
