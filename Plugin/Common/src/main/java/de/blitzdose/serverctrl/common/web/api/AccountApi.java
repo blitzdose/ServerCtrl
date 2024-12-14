@@ -77,7 +77,7 @@ public class AccountApi {
             String password = requestJson.getString("new-password");
             password = new String(Base64.getDecoder().decode(password));
 
-            String passwordHash = CryptManager.getHash(password);
+            String passwordHash = CryptManager.getLegacyHash(password);
 
             if (passwordHash == null) {
                 returnJson.put("success", false);

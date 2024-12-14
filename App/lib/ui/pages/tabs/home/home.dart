@@ -29,7 +29,7 @@ class HomeTab extends StatelessWidget {
               Center(
                 child: RawChip(
                   labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface),
-                  label: Text(Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "")),
+                  label: Text(Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "").replaceAll(RegExp("/.*\$"), "")),
                   selected: false,
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "")));

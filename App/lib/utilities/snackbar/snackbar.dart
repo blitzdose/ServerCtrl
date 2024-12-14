@@ -5,6 +5,7 @@ import '../../values/colors.dart';
 
 class Snackbar {
   static createWithTitle(title, message, [bool isError=false, int duration=2]) {
+    Get.closeAllSnackbars();
     Get.snackbar(
         title,
         message,
@@ -14,7 +15,7 @@ class Snackbar {
         colorText: isError ? Colors.white : Colors.black,
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
-        duration: Duration(seconds: duration)
+        duration: Duration(seconds: duration),
     );
   }
 

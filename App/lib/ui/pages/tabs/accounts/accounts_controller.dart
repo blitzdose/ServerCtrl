@@ -8,6 +8,7 @@ import 'package:server_ctrl/navigator_key.dart';
 import 'package:server_ctrl/ui/pages/tabs/tab.dart';
 import 'package:server_ctrl/utilities/http/session.dart';
 import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
+import 'package:server_ctrl/values/colors.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../utilities/http/http_utils.dart';
@@ -367,6 +368,7 @@ class AccountsController extends TabxController {
 
   Widget createAccountWidget(String accountName) {
     return Card(
+      surfaceTintColor: MColors.cardTint(navigatorKey.currentContext!),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
         child: Row(

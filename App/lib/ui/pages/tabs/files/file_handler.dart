@@ -5,22 +5,19 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:server_ctrl/utilities/code_controller/code_field.dart';
-import 'package:universal_html/html.dart' as html;
+import 'package:server_ctrl/utilities/http/download/downloader.dart';
 
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_highlight/themes/tomorrow-night.dart';
 
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:server_ctrl/utilities/code_controller/code_controller.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../navigator_key.dart';
@@ -63,114 +60,13 @@ class FileHandler {
         fileEntry.name = "$id.zip";
       }
 
-      if (kIsWeb) {
-        html.AnchorElement anchorElement =  html.AnchorElement(href: "${Session.baseURL}/api/files/download?id=$id");
-        anchorElement.download = "${Session.baseURL}/api/files/download?id=$id";
-        anchorElement.click();
-        return;
-      }
-
-      StreamSubscription? listener;
-      List<int> bytes = [];
-      var receivedLength = 0.obs;
-      var fileSaved = false.obs;
-      String? filePath;
-      var status = S.current.downloading.obs;
-
-      var (stream, totalLength) = await Session.getFile("/api/files/download?id=$id");
-
-      showDialog(
-        context: navigatorKey.currentContext!,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Obx(() => WillPopScope(
-            onWillPop: () async {
-              return fileSaved.value;
-            },
-            child: AlertDialog(
-              title: Text(status.value),
-              content: Obx(() => !fileSaved.value ?
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  LinearProgressIndicator(
-                    value: receivedLength.value != totalLength ? (receivedLength.value / totalLength) : null,
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 4.0)),
-                  Text(totalLength != 0 ? "${(receivedLength.value / totalLength * 100).round()}%" : "100%", textAlign: TextAlign.end)
-                ],
-              ) : Text(S.current.downloadedFilenameSuccessfully(fileEntry.name)),
-              ),
-              actions: !fileSaved.value ? <Widget>[
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context, true);
-                    },
-                    child: Text(S.current.cancel)),
-              ] : <Widget>[
-                if(Platform.isAndroid || Platform.isIOS) TextButton(
-                    onPressed: () async {
-                      await Share.shareXFiles([XFile(filePath!, name: filePath!.split("/").last)]);
-                    },
-                    child: Text(S.current.share)),
-                TextButton(
-                    onPressed: () async {
-                      status(S.current.saving);
-                      fileSaved(false);
-                      if (Platform.isAndroid || Platform.isIOS) {
-                        var params = SaveFileDialogParams(sourceFilePath: filePath);
-                        String? savedFilePath = await FlutterFileDialog.saveFile(params: params);
-                        if (savedFilePath != null) {
-                          Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.savedSuccessfully, false, 5);
-                        } else {
-                          Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileSavingFile, true);
-                        }
-                      } else {
-                        String? outputFile = await FilePicker.platform.saveFile(
-                          fileName: fileEntry.name,
-                        );
-
-                        if (outputFile != null) {
-                          File sourceFile = File(filePath!);
-                          sourceFile.copy(outputFile);
-                        }
-                      }
-                      fileSaved(true);
-                    },
-                    child: Text(S.current.saveFile)),
-                TextButton(
-                    onPressed: () {
-                      if (listener != null) {
-                        listener.cancel();
-                      }
-                      Navigator.pop(context, true);
-                    },
-                    child: Text(S.current.close)),
-              ],
-            ),
-          ));
-        },
-      );
-
-      listener = stream.listen((value) {
-        bytes.addAll(value);
-        receivedLength(receivedLength.value + value.length);
+      DownloaderDialog downloaderDialog = DownloaderDialog((progress) {}, (success) {
+        if (!success) {
+          Navigator.pop(navigatorKey.currentContext!, true);
+          Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileDownloadingFile, true);
+        }
       });
-      listener.onDone(() async {
-        receivedLength(totalLength);
-        final Directory cacheDir = await getApplicationCacheDirectory();
-        File file = File("${cacheDir.path}/${fileEntry.name}");
-        File savedFile = await file.writeAsBytes(bytes, flush: true);
-        filePath = savedFile.path;
-        fileSaved(true);
-        status(S.current.downloaded);
-      });
-      listener.onError((object) {
-        Navigator.pop(navigatorKey.currentContext!, true);
-        Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileDownloadingFile, true);
-      });
-
+      downloaderDialog.startDownload("${Session.baseURL}/api/files/download?id=$id", fileEntry.name, Session.headers);
     } else {
       Snackbar.createWithTitle(S.current.fileAndName(fileEntry.name), S.current.errorWhileDownloadingFile, true);
     }
@@ -302,7 +198,7 @@ class FileHandler {
       List<int> bytes = [];
       var receivedLength = 0.obs;
 
-      var (stream, totalLength) = await Session.getFile("/api/files/download?id=$id");
+      var (client, stream, totalLength) = await Session.getFile("/api/files/download?id=$id");
 
       listener = stream.listen((value) {
         bytes.addAll(value);
@@ -314,6 +210,7 @@ class FileHandler {
         controller.showProgress(false);
       });
       listener.onDone(() async {
+        client.close();
         receivedLength(totalLength);
         var code = utf8.decode(bytes);
         var linesOfCode = code.split("\n").length;

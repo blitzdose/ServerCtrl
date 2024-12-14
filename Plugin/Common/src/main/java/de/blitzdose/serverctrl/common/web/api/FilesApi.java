@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-import static de.blitzdose.serverctrl.common.web.api.AbstractFileApi.isPluginFolder;
 import static de.blitzdose.serverctrl.common.web.parser.PathParser.parsePath;
 
 public class FilesApi {
@@ -62,7 +61,7 @@ public class FilesApi {
                 break;
             }
             AbstractFileApi.AbstractFile file = filesInDirSorted.get(i);
-            if (isPluginFolder(file.path())) {
+            if (Webserver.abstractFileApi.isPluginFolder(file.path())) {
                 continue;
             }
             JSONObject fileJson = new JSONObject();
@@ -162,7 +161,7 @@ public class FilesApi {
 
         for (UploadedFile uploadedFile : uploadedFiles) {
             String filename = parsePath(uploadedFile.filename(), true);
-            if (isPluginFolder(path + filename)) {
+            if (Webserver.abstractFileApi.isPluginFolder(path + filename)) {
                 Webserver.return404(context);
                 return;
             }
@@ -243,7 +242,7 @@ public class FilesApi {
         String name = parsePath(jsonObject.getString("name"), true);
 
         boolean success = false;
-        if (!isPluginFolder(path + name)) {
+        if (!Webserver.abstractFileApi.isPluginFolder(path + name)) {
             success = Webserver.abstractFileApi.createFile(system, path + name);
         }
 
@@ -261,7 +260,7 @@ public class FilesApi {
         String name = parsePath(jsonObject.getString("name"), true);
 
         boolean success = false;
-        if (!isPluginFolder(path + name)) {
+        if (!Webserver.abstractFileApi.isPluginFolder(path + name)) {
             success = Webserver.abstractFileApi.createDirs(system, path + name);
         }
 

@@ -2,15 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:server_ctrl/generated/l10n.dart';
 
-import 'players_controller.dart';
 
-class PlayersTab extends StatelessWidget {
-  final controller = Get.put(PlayersController());
+import 'backups_controller.dart';
+
+class BackupTab extends StatelessWidget {
+  final controller = Get.put(BackupsController());
 
   final ScrollController scrollController = ScrollController();
 
-  PlayersTab({super.key});
+  BackupTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,11 @@ class PlayersTab extends StatelessWidget {
                         controller: scrollController,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: ListView(
+                          child: controller.backupItems.isNotEmpty ? ListView(
                             scrollDirection: Axis.vertical,
                             controller: scrollController,
-                            children: controller.playerItems,
-                          ),
+                            children: controller.backupItems.values.toList(),
+                          ) :  Center(child: Text(S.current.no_backups),),
                         ),
                       ),
                     ),

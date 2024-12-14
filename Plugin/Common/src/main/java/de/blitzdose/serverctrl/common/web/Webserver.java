@@ -109,8 +109,8 @@ public class Webserver {
                 staticFileConfig.hostedPath = "/";
                 staticFileConfig.directory = "/html";
                 staticFileConfig.location = Location.CLASSPATH;
-                staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
-                staticFileConfig.location = Location.EXTERNAL;
+                //staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
+                //staticFileConfig.location = Location.EXTERNAL;
             });
             config.router.apiBuilder(() -> {
                 path("/{system}/api", () -> {
@@ -186,18 +186,23 @@ public class Webserver {
                         post("editable-files", FilesApi::setEditableFiles, Role.FILES, Role.PLUGINSETTINGS);
                     });
                     path("backup", () -> {
-                        path("list", () -> {
-                            get("worlds", BackupApi.Worlds::listWorlds, Role.ADMIN);
+                        path("worlds", () -> {
+                            get("list", BackupApi.Worlds::listWorlds, Role.ADMIN);
                         });
+                        get("list", BackupApi::list, Role.ADMIN);
                         path("create", () -> {
-                            post("world", BackupApi.Worlds::startCreateBackup, Role.ADMIN);
+                            post("world", BackupApi.Worlds::startCreateWorldsBackup, Role.ADMIN);
+                            post("full", BackupApi::startCreateFullBackup, Role.ADMIN);
                         });
+                        post("delete", BackupApi::delete, Role.ADMIN);
+                        get("download", BackupApi::download, Role.ADMIN);
                     });
                 });
             });
         });
 
         app.beforeMatched(new AccessManager(userManager));
+        userManager.replaceOldHashes();
     }
 
     private String[] getCertsFromKeystore() throws Exception {

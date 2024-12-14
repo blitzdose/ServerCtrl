@@ -54,6 +54,11 @@ class SettingsTab extends StatelessWidget {
                     onPressed: (context) => clickHandler.openLog(context),
                     trailing: const Icon(Icons.notes_rounded),
                   ),
+                  if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_ADMIN)) SettingsTile.navigation(
+                    title: SettingsTileTitle("Backups"),
+                    onPressed: (context) => clickHandler.openBackups(context),
+                    trailing: const Icon(Icons.settings_backup_restore_rounded),
+                  ),
                   if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) SettingsTile.switchTile(
                     onToggle: (value) {
                       controller.useHttps(value);

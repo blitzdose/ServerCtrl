@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:server_ctrl/generated/l10n.dart';
 
 class InputDialog {
 
@@ -92,5 +93,66 @@ class InputDialog {
         );
       },
     );
+  }
+}
+
+class ConfirmationDialog {
+
+  final String title;
+  final String message;
+  String? confirmButtonText;
+  String? dismissButtonText;
+  final Function(BuildContext) onConfirm;
+  final Function(BuildContext) onCanceled;
+
+  ConfirmationDialog({
+    required this.title,
+    required this.message,
+    required this.onConfirm,
+    required this.onCanceled,
+    this.confirmButtonText,
+    this.dismissButtonText,
+  }) {
+    confirmButtonText ??= S.current.yes;
+    dismissButtonText ??= S.current.cancel;
+  }
+
+  showConfirmationDialog(var context) {
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+      return Padding(
+          padding: const EdgeInsets.all(32),
+          child: AlertDialog(
+              insetPadding: EdgeInsets.zero,
+              title: Text(title),
+              content: SizedBox(
+                width: min(500, MediaQuery
+                    .of(context)
+                    .size
+                    .width),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(message),
+                  ],
+                ),
+              ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(onPressed: () => onCanceled(context),
+                        child: Text(dismissButtonText!)),
+                    TextButton(onPressed: () => onConfirm(context),
+                        child: Text(confirmButtonText!)),
+                  ],
+                )
+              ]
+          )
+      );
+    });
   }
 }

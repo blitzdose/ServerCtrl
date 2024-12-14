@@ -24,6 +24,11 @@ public class FileApiImpl extends AbstractFileApi {
     }
 
     @Override
+    public boolean isPluginFolder(String path) {
+        return path.startsWith("plugins\\ServerCtrl") || path.startsWith("plugins/ServerCtrl");
+    }
+
+    @Override
     public List<AbstractFile> listFiles(String system, String path) {
         File dir = new File(path);
         if (!dir.exists() || !dir.isDirectory()) {
@@ -51,7 +56,7 @@ public class FileApiImpl extends AbstractFileApi {
         try {
             ZipFile zipFile = new ZipFile(file);
             ZipParameters zipParameters = new ZipParameters();
-            zipParameters.setExcludeFileFilter(file1 -> file1.getName().equals(token + ".zip"));
+            zipParameters.setExcludeFileFilter(file1 -> file1.getName().equals(token + ".zip") || file1.getName().equals("session.lock"));
 
             for (String name : names) {
                 File sourceFile = new File(path + name);

@@ -66,7 +66,7 @@ dependencies:
   flutter_material_color_picker: ^1.2.0
   is_first_run: ^1.0.0
   universal_html: ^2.2.4
-  dio: ^5.4.0
+  dio: ^5.7.0
   qr_flutter: ^4.1.0
   convert: ^3.1.1
   fl_chart: ^0.68.0

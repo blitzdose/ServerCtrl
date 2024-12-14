@@ -23,18 +23,20 @@ public class UserApi {
         String passwordBase64 = context.formParam("password");
         String code = context.formParam("code");
         String needsAppPassword = context.formParam("needsAppPassword");
-        String passwordHash = null;
+        String password = null;
         if (passwordBase64 != null) {
-            String password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
-            passwordHash = CryptManager.getHash(password);
+            password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
         }
-        if (username == null || passwordHash == null) {
+        if (username == null || password == null) {
             context.status(HttpStatus.UNAUTHORIZED_401);
             context.result();
             return;
         }
 
-        int result = userManager.authenticateUser(username, passwordHash, code);
+        int result = userManager.authenticateUser(username, password, code);
+
+
+
         if (result == UserManager.SUCCESS) {
             Webserver.loggingSaver.addLogEntry(LoggingType.LOGIN_SUCCESS, username + " (" + context.ip() + ")");
 
@@ -135,12 +137,11 @@ public class UserApi {
             return;
         }
         String password = new String(Base64.getUrlDecoder().decode(passwordBase64));
-        String passwordHash = CryptManager.getHash(password);
 
-        int result = userManager.authenticateUser(username, passwordHash, code);
+        int result = userManager.authenticateUser(username, password, code);
         if (result == UserManager.SUCCESS) {
             String newPassword = new String(Base64.getUrlDecoder().decode(newPasswordBase64));
-            String newPasswordHash = CryptManager.getHash(newPassword);
+            String newPasswordHash = CryptManager.getLegacyHash(newPassword);
             userManager.setPassword(username, newPasswordHash);
 
             JSONObject resultJson = new JSONObject();
@@ -161,13 +162,12 @@ public class UserApi {
         JSONObject resultJson = new JSONObject();
 
         String passwordBase64 = context.formParam("password");
-        String passwordHash = null;
+        String password = null;
         if (passwordBase64 != null) {
-            String password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
-            passwordHash = CryptManager.getHash(password);
+            password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
         }
 
-        if (passwordHash == null || passwordHash.isEmpty()) {
+        if (password == null || password.isEmpty()) {
             context.status(HttpStatus.UNAUTHORIZED_401);
             context.result();
             return;
@@ -176,7 +176,7 @@ public class UserApi {
         String token = context.cookie("token");
         String username = userManager.getUsername(token);
 
-        int result = userManager.authenticateUser(username, passwordHash, null);
+        int result = userManager.authenticateUser(username, password, null);
 
         if (result == UserManager.SUCCESS) {
             String secret = userManager.initTOTP(username);
@@ -222,19 +222,18 @@ public class UserApi {
         String username = userManager.getUsername(token);
         String code = context.formParam("code");
         String passwordBase64 = context.formParam("password");
-        String passwordHash = null;
+        String password = null;
         if (passwordBase64 != null) {
-            String password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
-            passwordHash = CryptManager.getHash(password);
+            password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()));
         }
 
-        if (passwordHash == null || passwordHash.isEmpty()) {
+        if (password == null || password.isEmpty()) {
             context.status(HttpStatus.UNAUTHORIZED_401);
             context.result();
             return;
         }
 
-        int result = userManager.authenticateUser(username, passwordHash, code);
+        int result = userManager.authenticateUser(username, password, code);
         if (result == UserManager.WRONG_TOTP) {
             context.status(HttpStatus.PAYMENT_REQUIRED_402);
             context.result();

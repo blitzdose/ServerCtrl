@@ -8,9 +8,7 @@ import java.util.List;
 
 public abstract class AbstractFileApi {
 
-    public static boolean isPluginFolder(String path) {
-        return path.startsWith("plugins\\ServerCtrl") || path.startsWith("plugins/ServerCtrl");
-    }
+    public abstract boolean isPluginFolder(String path);
 
     public abstract List<AbstractFile> listFiles(String system, String path);
 

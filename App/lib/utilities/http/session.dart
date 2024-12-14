@@ -22,15 +22,19 @@ class Session {
     return response;
   }
 
-  static Future<(http.ByteStream, int)> getFile(String url) async {
+  static Future<(http.Client, http.ByteStream, int)> getFile(String url) async {
+    return getFileFullURL(baseURL + url);
+  }
+
+  static Future<(http.Client, http.ByteStream, int)> getFileFullURL(String url) async {
     var client = http.Client();
-    http.Request request = http.Request('GET', Uri.parse(baseURL + url));
+    http.Request request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);
 
     var response = await client.send(request);
     var totalLength = response.contentLength ?? 0;
 
-    return (response.stream, totalLength);
+    return (client, response.stream, totalLength);
   }
 
   static Future<http.Response> post(String url, dynamic data) async {

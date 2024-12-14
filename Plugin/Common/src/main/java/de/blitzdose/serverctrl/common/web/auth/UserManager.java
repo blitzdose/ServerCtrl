@@ -4,6 +4,7 @@ import com.amdelamar.jotp.OTP;
 import com.amdelamar.jotp.type.Type;
 import de.blitzdose.serverctrl.common.crypt.CryptManager;
 import de.blitzdose.serverctrl.common.web.Webserver;
+import kotlin.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -55,16 +56,54 @@ public abstract class UserManager {
 
     public abstract void setAppHashes(String username, List<String> appHashes);
 
+    public void replaceOldHashes() {
+        Set<String> usernames = getUsers();
+        if (usernames == null) return;
+        for (String user : usernames) {
+            List<String> appHashes = getAppHashes(user);
+            List<String> newAppHashes = new ArrayList<>();
+            for (String appHash : appHashes) {
+                Pair<String, String> newAppSaltHash = CryptManager.getPBKDF2Hash(appHash);
+                if (appHash.startsWith("pbkdf2:") || newAppSaltHash == null) {
+                    newAppHashes.add(appHash);
+                    continue;
+                }
+                newAppHashes.add(String.format("pbkdf2:%s:%s", newAppSaltHash.component1(), newAppSaltHash.component2()));
+            }
+            setAppHashes(user, newAppHashes);
+
+            String legacyHash = getUserHash(user);
+            Pair<String, String> newSaltHash = CryptManager.getPBKDF2Hash(legacyHash);
+            if (newSaltHash == null || legacyHash.startsWith("pbkdf2:")) continue;
+            String newHash = String.format("pbkdf2:%s:%s", newSaltHash.component1(), newSaltHash.component2());
+            setUser(user, newHash);
+        }
+    }
+
     public ArrayList<Role> getRoles(TokenUser user) {
         List<String> permissions = getPermissions(user.getUsername());
         return permissions.stream().map(Role::valueOf).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int authenticateUser(String username, String hash, @Nullable String code) {
+    public int authenticateUser(String username, String password, @Nullable String code) {
         String savedHash = getUserHash(username);
         List<String> savedAppHashes = getAppHashes(username);
+        String hash;
+        if (savedHash.startsWith("pbkdf2:")) {
+            String[] savedHashPair = savedHash.split(":");
+            byte[] salt = Base64.getUrlDecoder().decode(savedHashPair[1]);
+
+            String legacyHash = CryptManager.getLegacyHash(password);
+            if (legacyHash == null) return WRONG_PASSWORD_OR_USERNAME;
+            Pair<String, String> hashPair = CryptManager.getPBKDF2Hash(salt, legacyHash);
+            if (hashPair == null) return WRONG_PASSWORD_OR_USERNAME;
+            hash = String.format("pbkdf2:%s:%s", hashPair.component1(), hashPair.component2());
+        } else {
+            hash = CryptManager.getLegacyHash(password);
+        }
+
         String totpSecret = getTOTPSecret(username);
-        if (hash != null && !hash.isEmpty() && savedAppHashes.contains(hash)) {
+        if (hash != null && !hash.isEmpty() && isInAppHashes(savedAppHashes, password)) {
             savedHash = hash;
         } else {
             if (totpSecret != null) {
@@ -88,6 +127,26 @@ public abstract class UserManager {
         } else {
             return WRONG_PASSWORD_OR_USERNAME;
         }
+    }
+
+    private boolean isInAppHashes(List<String> savedAppHashes, String password) {
+        for (String appHash : savedAppHashes) {
+            String hash;
+            if (appHash.startsWith("pbkdf2:")) {
+                String[] savedHashPair = appHash.split(":");
+                byte[] salt = Base64.getUrlDecoder().decode(savedHashPair[1]);
+
+                String legacyHash = CryptManager.getLegacyHash(password);
+                if (legacyHash == null) continue;
+                Pair<String, String> hashPair = CryptManager.getPBKDF2Hash(salt, legacyHash);
+                if (hashPair == null) continue;
+                hash = String.format("pbkdf2:%s:%s", hashPair.component1(), hashPair.component2());
+            } else {
+                hash = CryptManager.getLegacyHash(password);
+            }
+            if (Objects.equals(hash, appHash)) return true;
+        }
+        return false;
     }
 
     public int authenticateUser(String token, Role role) {
@@ -181,12 +240,12 @@ public abstract class UserManager {
     }
 
     public boolean createUser(String username, String password) {
-        String passwordHash = CryptManager.getHash(password);
-        if (passwordHash == null || userExists(username)) {
+        String legacyHash = CryptManager.getLegacyHash(password);
+        if (legacyHash == null || userExists(username)) {
             return false;
         }
-
-        setUser(username, passwordHash);
+        Pair<String, String> passwordHash = CryptManager.getPBKDF2Hash(legacyHash);
+        setUser(username, String.format("pbkdf2:%s:%s", passwordHash.component1(), passwordHash.component2()));
         return true;
     }
 
@@ -266,9 +325,11 @@ public abstract class UserManager {
             return null;
         }
         String appPassword = OTP.randomBase32(128);
-        String appPasswordHash = CryptManager.getHash(appPassword);
+        String legacyHash = CryptManager.getLegacyHash(appPassword);
+        Pair<String, String> appPasswordHash = CryptManager.getPBKDF2Hash(legacyHash);
+
         List<String> appPasswords = getAppHashes(username);
-        appPasswords.add(appPasswordHash);
+        appPasswords.add(String.format("pbkdf2:%s:%s", appPasswordHash.component1(), appPasswordHash.component2()));
         setAppHashes(username, appPasswords);
         return appPassword;
     }

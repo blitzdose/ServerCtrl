@@ -2400,6 +2400,197 @@ class S {
       args: [],
     );
   }
+
+  /// `Backup`
+  String get backup {
+    return Intl.message(
+      'Backup',
+      name: 'backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This backup is still running`
+  String get backup_is_running {
+    return Intl.message(
+      'This backup is still running',
+      name: 'backup_is_running',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete backup?`
+  String get delete_backup {
+    return Intl.message(
+      'Delete backup?',
+      name: 'delete_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error while deleting backup`
+  String get error_deleting_backup {
+    return Intl.message(
+      'Error while deleting backup',
+      name: 'error_deleting_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully deleted backup`
+  String get deleted_backup {
+    return Intl.message(
+      'Successfully deleted backup',
+      name: 'deleted_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup failed`
+  String get backup_failed {
+    return Intl.message(
+      'Backup failed',
+      name: 'backup_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup successfully started`
+  String get backup_started {
+    return Intl.message(
+      'Backup successfully started',
+      name: 'backup_started',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error getting worlds`
+  String get error_getting_worlds {
+    return Intl.message(
+      'Error getting worlds',
+      name: 'error_getting_worlds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create backup`
+  String get create_backup {
+    return Intl.message(
+      'Create backup',
+      name: 'create_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select worlds`
+  String get select_worlds {
+    return Intl.message(
+      'Select worlds',
+      name: 'select_worlds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full Backup`
+  String get full_backup {
+    return Intl.message(
+      'Full Backup',
+      name: 'full_backup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any backups yet`
+  String get no_backups {
+    return Intl.message(
+      'You don\'t have any backups yet',
+      name: 'no_backups',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finished`
+  String get finished {
+    return Intl.message(
+      'Finished',
+      name: 'finished',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Running`
+  String get running {
+    return Intl.message(
+      'Running',
+      name: 'running',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting`
+  String get waiting {
+    return Intl.message(
+      'Waiting',
+      name: 'waiting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete {filename}?\n\nThis cannot be undone.`
+  String backup_delete_confirmation(String filename) {
+    return Intl.message(
+      'Are you sure you want to delete $filename?\n\nThis cannot be undone.',
+      name: 'backup_delete_confirmation',
+      desc:
+          'Are you sure you want to delete 281726_2024-12-12.tar.gz?\n\nThis cannot be undone.',
+      args: [filename],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

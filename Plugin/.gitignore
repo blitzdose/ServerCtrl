@@ -1,3 +1,6 @@
 # Project exclude paths
 /out/
 /target/
+/ConsoleSaver/target/
+/Standalone/target/
+/Common/target/

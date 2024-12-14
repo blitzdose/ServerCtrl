@@ -24,6 +24,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m10(diskname) => "Available disk space (${diskname})";
 
+  static String m13(filename) =>
+      "Are you sure you want to delete ${filename}?\n\nThis cannot be undone.";
+
   static String m1(ip) => "Cannot reach \"${ip}\"";
 
   static String m2(ip) => "Cannot reach \"${ip}\" over HTTPS";
@@ -73,6 +76,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Allocated memory"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
         "availableDiskSpace": m10,
+        "backup": MessageLookupByLibrary.simpleMessage("Backup"),
+        "backup_delete_confirmation": m13,
+        "backup_failed": MessageLookupByLibrary.simpleMessage("Backup failed"),
+        "backup_is_running": MessageLookupByLibrary.simpleMessage(
+            "This backup is still running"),
+        "backup_started":
+            MessageLookupByLibrary.simpleMessage("Backup successfully started"),
         "ban": MessageLookupByLibrary.simpleMessage("BAN"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cannotConnectMaybeCredentials": MessageLookupByLibrary.simpleMessage(
@@ -114,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
         "createFile": MessageLookupByLibrary.simpleMessage("Create File"),
         "createFolder": MessageLookupByLibrary.simpleMessage("Create Folder"),
+        "create_backup": MessageLookupByLibrary.simpleMessage("Create backup"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current password"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
@@ -127,6 +138,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteFileMessage": m5,
         "deleteFiles": MessageLookupByLibrary.simpleMessage("Delete files?"),
         "deleteRoutetitle": m6,
+        "delete_backup": MessageLookupByLibrary.simpleMessage("Delete backup?"),
+        "deleted_backup":
+            MessageLookupByLibrary.simpleMessage("Successfully deleted backup"),
         "deop": MessageLookupByLibrary.simpleMessage("DE-OP"),
         "design": MessageLookupByLibrary.simpleMessage("Design"),
         "directory": MessageLookupByLibrary.simpleMessage("directory"),
@@ -146,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "egWithGoogleAuthenticator": MessageLookupByLibrary.simpleMessage(
             "e.g. with Google Authenticator"),
         "email": MessageLookupByLibrary.simpleMessage("E-Mail"),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorCreatingAccount":
             MessageLookupByLibrary.simpleMessage("Error creating account"),
         "errorCreatingFile":
@@ -188,6 +203,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error while uploading certificate"),
         "errorWhileUploadingFile":
             MessageLookupByLibrary.simpleMessage("Error while uploading file"),
+        "error_deleting_backup":
+            MessageLookupByLibrary.simpleMessage("Error while deleting backup"),
+        "error_getting_worlds":
+            MessageLookupByLibrary.simpleMessage("Error getting worlds"),
         "error_sending_command":
             MessageLookupByLibrary.simpleMessage("Error while sending command"),
         "extract": MessageLookupByLibrary.simpleMessage("Extract"),
@@ -203,7 +222,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "files": MessageLookupByLibrary.simpleMessage("Files"),
         "filesUploadedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "File(s) uploaded successfully."),
+        "finished": MessageLookupByLibrary.simpleMessage("Finished"),
         "free_memory": MessageLookupByLibrary.simpleMessage("Free memory"),
+        "full_backup": MessageLookupByLibrary.simpleMessage("Full Backup"),
         "generate": MessageLookupByLibrary.simpleMessage("Generate"),
         "generateCertificate":
             MessageLookupByLibrary.simpleMessage("Generate certificate"),
@@ -250,11 +271,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "newServer": MessageLookupByLibrary.simpleMessage("New server"),
         "newServerAdded": MessageLookupByLibrary.simpleMessage(
             "The new server got added successfully"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noFileSelected":
             MessageLookupByLibrary.simpleMessage("No file selected"),
         "noPlayersOnline":
             MessageLookupByLibrary.simpleMessage("No players online"),
+        "no_backups": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have any backups yet"),
         "nothingSelected":
             MessageLookupByLibrary.simpleMessage("Nothing selected"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
@@ -302,6 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "restartServer": MessageLookupByLibrary.simpleMessage("Restart server"),
         "restartToApplyLanguage": MessageLookupByLibrary.simpleMessage(
             "Please restart the App to fully apply the new language"),
+        "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveFile": MessageLookupByLibrary.simpleMessage("Save file"),
         "savedChanges": MessageLookupByLibrary.simpleMessage("Saved changes"),
@@ -311,6 +336,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "secretCopiedToClipboard":
             MessageLookupByLibrary.simpleMessage("Secret copied to clipboard"),
         "selectFile": MessageLookupByLibrary.simpleMessage("Select file"),
+        "select_worlds": MessageLookupByLibrary.simpleMessage("Select worlds"),
         "selectedEntryWIllBeDeleted": MessageLookupByLibrary.simpleMessage(
             "The selected Entry will be permanently deleted from the app"),
         "server": MessageLookupByLibrary.simpleMessage("Server"),
@@ -330,6 +356,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "specifyIpOrAddr": MessageLookupByLibrary.simpleMessage(
             "Please specify the domain or IP-Address of the Minecraft server"),
         "spigotmc": MessageLookupByLibrary.simpleMessage("SpigotMC"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
         "stopServer": MessageLookupByLibrary.simpleMessage("Stop server"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "successfullyAdded2faToYourAccount":
@@ -390,6 +417,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Verify with two-factor authentication"),
         "version": m9,
+        "waiting": MessageLookupByLibrary.simpleMessage("Waiting"),
         "wrongCode": MessageLookupByLibrary.simpleMessage("Wrong Code"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage("Wrong password"),
         "wrongUsernameOrPassword":

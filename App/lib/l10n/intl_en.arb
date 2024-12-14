@@ -289,5 +289,32 @@
     "restartInfo": "Restart only works if you configure the restart-script in the spigot.yml",
   "editableFiles": "Editable files",
     "newExtension": "New extension",
-  "copiedToClipboard": "Copied to clipboard"
+  "copiedToClipboard": "Copied to clipboard",
+  "backup": "Backup",
+    "backup_is_running": "This backup is still running",
+    "delete_backup": "Delete backup?",
+    "error_deleting_backup": "Error while deleting backup",
+    "deleted_backup": "Successfully deleted backup",
+    "backup_failed": "Backup failed",
+    "backup_started": "Backup successfully started",
+    "error_getting_worlds": "Error getting worlds",
+    "create_backup": "Create backup",
+    "start": "Start",
+    "select_worlds": "Select worlds",
+    "full_backup": "Full Backup",
+    "next": "Next",
+    "no_backups": "You don't have any backups yet",
+    "finished": "Finished",
+    "error": "Error",
+    "running": "Running",
+    "waiting": "Waiting",
+    "backup_delete_confirmation": "Are you sure you want to delete {filename}?\n\nThis cannot be undone.",
+    "@backup_delete_confirmation": {
+        "description": "Are you sure you want to delete 281726_2024-12-12.tar.gz?\n\nThis cannot be undone.",
+        "placeholders": {
+            "filename": {
+                "type": "String"
+            }
+        }
+    }
 }

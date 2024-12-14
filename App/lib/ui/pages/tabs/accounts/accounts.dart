@@ -27,10 +27,13 @@ class AccountsTab extends StatelessWidget {
                       width: min(700, MediaQuery.of(context).size.width),
                       child: Scrollbar(
                         controller: scrollController,
-                        child: ListView(
-                          scrollDirection: Axis.vertical,
-                          controller: scrollController,
-                          children: controller.accountItems,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: ListView(
+                            scrollDirection: Axis.vertical,
+                            controller: scrollController,
+                            children: controller.accountItems,
+                          ),
                         ),
                       ),
                     ),

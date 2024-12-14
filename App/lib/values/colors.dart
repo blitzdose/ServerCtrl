@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:server_ctrl/main_controller.dart';
+
 final class MColors {
   static const seed = Color(0xFF2E7D32);
 
@@ -27,4 +30,9 @@ final class MColors {
   static const minecraftDarkGreen = Color(0xFF00AA00);
   static const minecraftGold = Color(0xFFFFAA00);
   static const minecraftRed = Color(0xFFFF5555);
+
+  static Color cardTint(BuildContext context) {
+    return MyAppController.themeMode.value == ThemeMode.light ? Theme.of(context).primaryColorDark : Theme.of(context).primaryIconTheme.color!;
+
+  }
 }

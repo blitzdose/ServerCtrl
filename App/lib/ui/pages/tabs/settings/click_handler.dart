@@ -22,6 +22,7 @@ import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../generated/l10n.dart';
+import '../backups/backups.dart';
 
 class ClickHandler {
 
@@ -687,6 +688,11 @@ class ClickHandler {
     await openView(context, S.current.log ,logTab, logTab.controller);
   }
 
+  openBackups(BuildContext context) async {
+    BackupTab backupTab = BackupTab();
+    await openView(context, "Backups", backupTab, backupTab.controller);
+  }
+
   openView(BuildContext context, String title, Widget view, TabxController viewController) async {
     viewController.continueTimer();
     viewController.setFab();
@@ -710,6 +716,8 @@ class ClickHandler {
         ),
       );
     });
+
+    viewController.cancelTimer();
 
     LayoutStructureState.controller.fab(Container());
     LayoutStructureState.controller.actions.clear();
