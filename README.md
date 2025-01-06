@@ -25,10 +25,10 @@ You can install this Plugin like any other for your Spigot (Paper, etc.) server.
 
 ## 📷 Screenshots
 <p align="center">
-  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-1.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-2.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-3.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-4.png", width=200></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-1.png", width=180></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-2.png", width=180></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-3.png", width=180></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <picture><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/Screenshots/Android-4.png", width=180></picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
 ## ⬇️ Download
