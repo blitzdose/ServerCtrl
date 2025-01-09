@@ -10,6 +10,9 @@
   <a href="https://discord.gg/SewjCwVpaa" target="_blank"><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/discord.png", width=400></a>
   <br>
   <a href="https://www.spigotmc.org/resources/minecraft-server-remote.72231/" target="_blank"><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/spigot.png", width=400></a>
+  <br>
+  <a href="https://serverctrl.blitzdose.de/docs/intro" target="_blank"><img src="https://raw.githubusercontent.com/blitzdose/ServerCtrl/master/Images/wiki.png", width=400></a>
+</p>
 </p>
 
 ## 🛫 Getting Started
