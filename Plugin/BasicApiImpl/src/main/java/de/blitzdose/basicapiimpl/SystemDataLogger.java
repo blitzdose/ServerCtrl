@@ -1,4 +1,4 @@
-package de.blitzdose.serverctrl.standalone.impl;
+package de.blitzdose.basicapiimpl;
 
 import com.sun.management.OperatingSystemMXBean;
 import org.json.JSONArray;

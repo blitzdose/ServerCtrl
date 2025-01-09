@@ -1,7 +1,7 @@
-package de.blitzdose.serverctrl.standalone.impl.api;
+package de.blitzdose.basicapiimpl.api;
 
+import de.blitzdose.basicapiimpl.SystemDataLogger;
 import de.blitzdose.serverctrl.common.web.api.AbstractSystemApi;
-import de.blitzdose.serverctrl.standalone.impl.SystemDataLogger;
 import org.json.JSONArray;
 
 public class SystemApiImpl extends AbstractSystemApi {

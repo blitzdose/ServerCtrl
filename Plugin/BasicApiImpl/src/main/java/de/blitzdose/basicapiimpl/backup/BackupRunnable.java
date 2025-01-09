@@ -1,4 +1,4 @@
-package de.blitzdose.serverctrl.standalone.impl.backup;
+package de.blitzdose.basicapiimpl.backup;
 
 import de.blitzdose.serverctrl.common.Backup.Backup;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;

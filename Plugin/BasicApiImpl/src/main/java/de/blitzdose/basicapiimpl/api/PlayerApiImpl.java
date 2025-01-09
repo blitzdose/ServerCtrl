@@ -1,4 +1,4 @@
-package de.blitzdose.serverctrl.standalone.impl.api;
+package de.blitzdose.basicapiimpl.api;
 
 import de.blitzdose.serverctrl.common.web.api.AbstractPlayerApi;
 import org.bukkit.Bukkit;

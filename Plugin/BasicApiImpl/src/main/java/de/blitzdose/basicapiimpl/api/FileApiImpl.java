@@ -1,4 +1,4 @@
-package de.blitzdose.serverctrl.standalone.impl.api;
+package de.blitzdose.basicapiimpl.api;
 
 import de.blitzdose.serverctrl.common.web.api.AbstractFileApi;
 import net.lingala.zip4j.ZipFile;

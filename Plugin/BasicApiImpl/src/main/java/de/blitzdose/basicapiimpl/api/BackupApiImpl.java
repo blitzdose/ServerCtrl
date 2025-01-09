@@ -1,8 +1,8 @@
-package de.blitzdose.serverctrl.standalone.impl.api;
+package de.blitzdose.basicapiimpl.api;
 
+import de.blitzdose.basicapiimpl.backup.BackupRunnable;
 import de.blitzdose.serverctrl.common.Backup.Backup;
 import de.blitzdose.serverctrl.common.web.api.AbstractBackupApi;
-import de.blitzdose.serverctrl.standalone.impl.backup.BackupRunnable;
 import kotlin.Pair;
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;

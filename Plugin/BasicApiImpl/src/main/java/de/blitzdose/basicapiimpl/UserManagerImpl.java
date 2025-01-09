@@ -1,4 +1,4 @@
-package de.blitzdose.serverctrl.standalone.impl;
+package de.blitzdose.basicapiimpl;
 
 import de.blitzdose.serverctrl.common.web.auth.UserManager;
 import org.bukkit.configuration.ConfigurationSection;

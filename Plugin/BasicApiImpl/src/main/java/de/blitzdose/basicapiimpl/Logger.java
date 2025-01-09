@@ -1,4 +1,4 @@
-package de.blitzdose.serverctrl.standalone.impl;
+package de.blitzdose.basicapiimpl;
 
 import de.blitzdose.serverctrl.common.logging.LoggingType;
 import org.bukkit.Bukkit;
