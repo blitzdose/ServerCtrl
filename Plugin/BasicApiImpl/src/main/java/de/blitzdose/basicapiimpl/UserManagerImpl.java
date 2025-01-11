@@ -1,8 +1,7 @@
 package de.blitzdose.basicapiimpl;
 
+import de.blitzdose.basicapiimpl.instance.ApiInstance;
 import de.blitzdose.serverctrl.common.web.auth.UserManager;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,45 +9,40 @@ import java.util.Set;
 
 public class UserManagerImpl extends UserManager {
 
-    Plugin plugin;
+    private final ApiInstance instance;
 
-    public UserManagerImpl(Plugin plugin) {
-        this.plugin = plugin;
+    public UserManagerImpl(ApiInstance instance) {
+        this.instance = instance;
     }
 
     @Override
     public Set<String> getUsers() {
-        ConfigurationSection users = plugin.getConfig().getConfigurationSection("Webserver.users");
-        if (users == null) {
-            return null;
-        } else {
-            return users.getKeys(false);
-        }
+        return instance.getUsers();
     }
 
     @Override
     public String getUserHash(String username) {
-        return plugin.getConfig().getString("Webserver.users." + username);
+        return instance.configGetString("Webserver.users." + username);
     }
 
     @Override
     public List<String> getAppHashes(String username) {
-        return plugin.getConfig().getStringList("Webserver.apppasswords." + username);
+        return instance.configGetStringList("Webserver.apppasswords." + username);
     }
 
     @Override
     public String getTOTPSecret(String username) {
-        return plugin.getConfig().getString("Webserver.totp." + username);
+        return instance.configGetString("Webserver.totp." + username);
     }
 
     @Override
     public List<String> getPermissions(String username) {
-        return plugin.getConfig().getStringList("Webserver.permissions." + username);
+        return instance.configGetStringList("Webserver.permissions." + username);
     }
 
     @Override
     public boolean userExists(String username) {
-        return plugin.getConfig().contains("Webserver.users." + username);
+        return instance.configContains("Webserver.users." + username);
     }
 
     @Override
@@ -56,68 +50,54 @@ public class UserManagerImpl extends UserManager {
         if (!userExists(username)) {
             return false;
         }
-        return plugin.getConfig().contains("Webserver.totp." + username);
+        return instance.configContains("Webserver.totp." + username);
     }
 
     @Override
     public boolean isTOTPPending(String username) {
-        return plugin.getConfig().contains("Webserver.totp-pending." + username);
+        return instance.configContains("Webserver.totp-pending." + username);
     }
 
     @Override
     public String getPendingTOTPSecret(String username) {
-        return plugin.getConfig().getString("Webserver.totp-pending." + username);
+        return instance.configGetString("Webserver.totp-pending." + username);
     }
 
     @Override
     public void setPassword(String username, String newPasswordHash) {
-        plugin.getConfig().set("Webserver.users." + username, newPasswordHash);
-        plugin.getConfig().set("Webserver.apppasswords." + username, new ArrayList<String>());
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.users." + username, newPasswordHash);
+        instance.configUpdate("Webserver.apppasswords." + username, new ArrayList<String>());
     }
 
     @Override
     public void setUser(String username, String passwordHash) {
-        plugin.getConfig().set("Webserver.users." + username, passwordHash);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.users." + username, passwordHash);
     }
 
     @Override
     public void deleteUser(String username) {
-        plugin.getConfig().set("Webserver.users." + username, null);
-        plugin.getConfig().set("Webserver.permissions." + username, null);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.users." + username, null);
+        instance.configUpdate("Webserver.permissions." + username, null);
     }
 
     @Override
     public void setPermissions(String username, String[] rolesArray) {
-        plugin.getConfig().set("Webserver.permissions." + username, rolesArray);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.permissions." + username, rolesArray);
     }
 
     @Override
     public void setPendingTOTPSecret(String username, String secret) {
-        plugin.getConfig().set("Webserver.totp-pending." + username, secret);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.totp-pending." + username, secret);
     }
 
     @Override
     public void setTOTPSecret(String username, String secret) {
-        plugin.getConfig().set("Webserver.totp." + username, secret);
-        plugin.getConfig().set("Webserver.totp-pending." + username, null);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.totp." + username, secret);
+        instance.configUpdate("Webserver.totp-pending." + username, null);
     }
 
     @Override
     public void setAppHashes(String username, List<String> appHashes) {
-        plugin.getConfig().set("Webserver.apppasswords." + username, appHashes);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.apppasswords." + username, appHashes);
     }
 }

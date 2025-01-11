@@ -49,7 +49,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <finalName>ServerCtrl_${version}</finalName>
+                            <finalName>ServerCtrl_Spigot_${version}</finalName>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>

@@ -1,38 +1,34 @@
 package de.blitzdose.basicapiimpl.api;
 
+import de.blitzdose.basicapiimpl.instance.ApiInstance;
 import de.blitzdose.serverctrl.common.web.api.AbstractPluginApi;
-import org.bukkit.plugin.Plugin;
 
 public class PluginApiImpl extends AbstractPluginApi {
 
-    private final Plugin plugin;
+    private final ApiInstance instance;
 
-    public PluginApiImpl(Plugin plugin) {
-        this.plugin = plugin;
+    public PluginApiImpl(ApiInstance instance) {
+        this.instance = instance;
     }
 
     @Override
     public void setPort(int port) {
-        plugin.getConfig().set("Webserver.port", port);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.port", port);
     }
 
     @Override
     public void setHTTPS(boolean https) {
-        plugin.getConfig().set("Webserver.https", https);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.https", https);
     }
 
     @Override
     public int getPort() {
-        return plugin.getConfig().getInt("Webserver.port");
+        return instance.configGetInt("Webserver.port");
     }
 
     @Override
     public boolean isHTTPS() {
-        return plugin.getConfig().getBoolean("Webserver.https");
+        return instance.configGetBoolean("Webserver.https");
     }
 
     @Override

@@ -249,6 +249,16 @@ public abstract class UserManager {
         return true;
     }
 
+    public boolean changePassword(String username, String password) {
+        String legacyHash = CryptManager.getLegacyHash(password);
+        if (legacyHash == null || !userExists(username)) {
+            return false;
+        }
+        Pair<String, String> passwordHash = CryptManager.getPBKDF2Hash(legacyHash);
+        setUser(username, String.format("pbkdf2:%s:%s", passwordHash.component1(), passwordHash.component2()));
+        return true;
+    }
+
     public boolean setRoles(String username, List<Role> roles) {
         if (!userExists(username)) {
             return false;

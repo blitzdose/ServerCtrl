@@ -18,6 +18,7 @@
         <module>ConsoleSaver</module>
         <module>Embedded</module>
         <module>BasicApiImpl</module>
+        <module>BungeeCord</module>
     </modules>
     <properties>
         <java.version>17</java.version>

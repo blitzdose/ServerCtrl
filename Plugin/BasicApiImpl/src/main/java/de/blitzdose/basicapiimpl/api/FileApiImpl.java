@@ -1,5 +1,6 @@
 package de.blitzdose.basicapiimpl.api;
 
+import de.blitzdose.basicapiimpl.instance.ApiInstance;
 import de.blitzdose.serverctrl.common.web.api.AbstractFileApi;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
@@ -9,7 +10,6 @@ import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.bukkit.plugin.Plugin;
 
 import java.io.*;
 import java.util.Arrays;
@@ -17,10 +17,10 @@ import java.util.List;
 
 public class FileApiImpl extends AbstractFileApi {
 
-    private final Plugin plugin;
+    private final ApiInstance instance;
 
-    public FileApiImpl(Plugin plugin) {
-        this.plugin = plugin;
+    public FileApiImpl(ApiInstance instance) {
+        this.instance = instance;
     }
 
     @Override
@@ -170,13 +170,11 @@ public class FileApiImpl extends AbstractFileApi {
 
     @Override
     public List<String> getEditableFiles(String system) {
-        return plugin.getConfig().getStringList("Webserver.editable-files");
+        return instance.configGetStringList("Webserver.editable-files");
     }
 
     @Override
     public void setEditableFiles(String system, List<String> editableFiles) {
-        plugin.getConfig().set("Webserver.editable-files", editableFiles);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.editable-files", editableFiles);
     }
 }

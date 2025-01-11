@@ -1,4 +1,4 @@
-package de.blitzdose.serverctrl.consolesaver;
+package de.blitzdose.serverctrl.consolesaver.appenderconsolesaver;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Filter;

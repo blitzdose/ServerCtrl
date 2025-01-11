@@ -1,29 +1,28 @@
 package de.blitzdose.basicapiimpl.api;
 
+import de.blitzdose.basicapiimpl.instance.ApiInstance;
 import de.blitzdose.serverctrl.common.web.api.AbstractConsoleApi;
-import de.blitzdose.serverctrl.consolesaver.ConsoleSaver;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import de.blitzdose.serverctrl.consolesaver.AbstractConsoleSaver;
 
 import java.util.concurrent.ExecutionException;
 
 public class ConsoleApiImpl extends AbstractConsoleApi {
 
-    private final Plugin plugin;
-    private final ConsoleSaver consoleSaver;
+    private final ApiInstance instance;
+    private final AbstractConsoleSaver consoleSaver;
 
-    public ConsoleApiImpl(Plugin plugin, ConsoleSaver consoleSaver) {
-        this.plugin = plugin;
+    public ConsoleApiImpl(ApiInstance instance, AbstractConsoleSaver consoleSaver) {
+        this.instance = instance;
         this.consoleSaver = consoleSaver;
     }
 
     @Override
     public void sendCommand(String system, String command) throws ExecutionException, InterruptedException {
         if (command.equals("restartmsr")) {
-            Bukkit.spigot().restart();
+            instance.restartServer();
         }
 
-        Bukkit.getScheduler().callSyncMethod(plugin, () -> Bukkit.dispatchCommand( Bukkit.getServer().getConsoleSender(), command)).get();
+        instance.sendCommand(command);
     }
 
     @Override
