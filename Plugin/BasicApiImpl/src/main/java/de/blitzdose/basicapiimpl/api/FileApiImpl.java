@@ -1,5 +1,6 @@
 package de.blitzdose.basicapiimpl.api;
 
+import de.blitzdose.basicapiimpl.instance.ApiInstance;
 import de.blitzdose.serverctrl.common.web.api.AbstractFileApi;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
@@ -7,20 +8,23 @@ import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.bukkit.plugin.Plugin;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
 public class FileApiImpl extends AbstractFileApi {
 
-    private final Plugin plugin;
+    private final ApiInstance instance;
 
-    public FileApiImpl(Plugin plugin) {
-        this.plugin = plugin;
+    public FileApiImpl(ApiInstance instance) {
+        this.instance = instance;
     }
 
     @Override
@@ -121,37 +125,51 @@ public class FileApiImpl extends AbstractFileApi {
     public boolean extractFile(String system, String path) {
         File file = new File(path);
 
-        try(BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file))) {
-
-            ArchiveInputStream<? extends ArchiveEntry> inputStream = new ArchiveStreamFactory()
-                    .createArchiveInputStream(bufferedInputStream);
-            ArchiveEntry entry;
-            while ((entry = inputStream.getNextEntry()) != null) {
-                if (!inputStream.canReadEntryData(entry)) {
-                    continue;
+        if (FilenameUtils.getExtension(file.getName()).equalsIgnoreCase("gz")) {
+            try(GzipCompressorInputStream gzIn = new GzipCompressorInputStream(new BufferedInputStream(new FileInputStream(file)))) {
+                try(OutputStream out = Files.newOutputStream(Paths.get(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("."))))) {
+                    IOUtils.copyLarge(gzIn, out);
+                    out.close();
+                    gzIn.close();
+                } catch (IOException e) {
+                    throw new IOException();
                 }
 
-                String name = path.substring(0, path.lastIndexOf("/")+1) + entry.getName();
-                File f = new File(name);
-                if (entry.isDirectory()) {
-                    if (!f.isDirectory() && !f.mkdirs()) {
-                        throw new IOException("Failed to create directory: " + name);
-                    }
-                } else {
-                    File parent = f.getParentFile();
-                    if (!parent.isDirectory() && !parent.mkdirs()) {
-                        throw new IOException("Failed to create directory: " + name);
-                    }
-                    try(OutputStream out = new FileOutputStream(f)) {
-                        IOUtils.copy(inputStream, out);
-                    }
-                }
+            } catch (IOException e) {
+                return false;
             }
-            inputStream.close();
-        } catch (ArchiveException | IOException e) {
-            return false;
-        }
+        } else {
+            try(BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file))) {
 
+                ArchiveInputStream<? extends ArchiveEntry> inputStream = new ArchiveStreamFactory()
+                        .createArchiveInputStream(bufferedInputStream);
+                ArchiveEntry entry;
+                while ((entry = inputStream.getNextEntry()) != null) {
+                    if (!inputStream.canReadEntryData(entry)) {
+                        continue;
+                    }
+
+                    String name = path.substring(0, path.lastIndexOf("/")+1) + entry.getName();
+                    File f = new File(name);
+                    if (entry.isDirectory()) {
+                        if (!f.isDirectory() && !f.mkdirs()) {
+                            throw new IOException("Failed to create directory: " + name);
+                        }
+                    } else {
+                        File parent = f.getParentFile();
+                        if (!parent.isDirectory() && !parent.mkdirs()) {
+                            throw new IOException("Failed to create directory: " + name);
+                        }
+                        try(OutputStream out = new FileOutputStream(f)) {
+                            IOUtils.copy(inputStream, out);
+                        }
+                    }
+                }
+                inputStream.close();
+            } catch (ArchiveException | IOException e) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -170,13 +188,11 @@ public class FileApiImpl extends AbstractFileApi {
 
     @Override
     public List<String> getEditableFiles(String system) {
-        return plugin.getConfig().getStringList("Webserver.editable-files");
+        return instance.configGetStringList("Webserver.editable-files");
     }
 
     @Override
     public void setEditableFiles(String system, List<String> editableFiles) {
-        plugin.getConfig().set("Webserver.editable-files", editableFiles);
-        plugin.saveConfig();
-        plugin.reloadConfig();
+        instance.configUpdate("Webserver.editable-files", editableFiles);
     }
 }

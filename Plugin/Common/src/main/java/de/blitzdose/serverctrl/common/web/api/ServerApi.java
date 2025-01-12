@@ -37,6 +37,13 @@ public class ServerApi {
         JSONObject serverDataJsonObject = new JSONObject();
         AbstractServerApi.ServerData serverData = Webserver.abstractServerApi.getServerData(context.pathParam("system"));
 
+        if (serverData == null) {
+            JSONObject returnObject = new JSONObject();
+            returnObject.put("success", false);
+            Webserver.returnJson(context, returnObject);
+            return;
+        }
+
         serverDataJsonObject.put("motd", serverData.getMotd());
         serverDataJsonObject.put("port", serverData.getPort());
         serverDataJsonObject.put("version", serverData.getVersion());
@@ -46,6 +53,7 @@ public class ServerApi {
         serverDataJsonObject.put("allowNether", serverData.isAllowNether());
         serverDataJsonObject.put("hasWhitelist", serverData.hasWhitelist());
         serverDataJsonObject.put("allowCommandBlock", serverData.isAllowCommandBlock());
+        serverDataJsonObject.put("type", serverData.getType().toString());
 
         JSONObject returnObject = new JSONObject();
         returnObject.put("success", true);

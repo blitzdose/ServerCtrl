@@ -11,7 +11,8 @@ import de.blitzdose.serverctrl.common.logging.LoggingType;
 import de.blitzdose.serverctrl.common.web.Webserver;
 import de.blitzdose.serverctrl.common.web.auth.Role;
 import de.blitzdose.serverctrl.common.web.auth.UserManager;
-import de.blitzdose.serverctrl.consolesaver.ConsoleSaver;
+import de.blitzdose.serverctrl.consolesaver.appenderconsolesaver.AppenderConsoleSaver;
+import de.blitzdose.serverctrl.standalone.basicapiimpl.SpigotApiInstance;
 import io.javalin.util.JavalinBindException;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bukkit.Bukkit;
@@ -31,9 +32,11 @@ import java.util.stream.Collectors;
 
 public class ServerCtrl extends JavaPlugin implements Listener {
 
+    private SpigotApiInstance spigotApiInstance;
+
     private Logger logger;
     private LoggingSaver loggingSaver;
-    private ConsoleSaver consoleSaver;
+    private AppenderConsoleSaver appenderConsoleSaver;
     private SystemDataLogger dataLogger;
     private UserManagerImpl userManager;
 
@@ -44,11 +47,13 @@ public class ServerCtrl extends JavaPlugin implements Listener {
         getConfig().options().copyDefaults(true);
         saveConfig();
 
-        logger = new Logger(this);
+        spigotApiInstance = new SpigotApiInstance(this);
+
+        logger = new Logger(spigotApiInstance);
         loggingSaver = new LoggingSaverImpl();
-        consoleSaver = new ConsoleSaver("/plugins/ServerCtrl/log/console.log");
+        appenderConsoleSaver = new AppenderConsoleSaver("/plugins/ServerCtrl/log/console.log", true);
         dataLogger = new SystemDataLogger();
-        userManager = new UserManagerImpl(this);
+        userManager = new UserManagerImpl(spigotApiInstance);
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
@@ -59,17 +64,16 @@ public class ServerCtrl extends JavaPlugin implements Listener {
 
         new Thread(this::startWebserver).start();
 
-
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, dataLogger, 20L, 20L);
     }
 
     private void startWebserver() {
-        BackupApiImpl backupApi = new BackupApiImpl();
-        ConsoleApiImpl consoleApi = new ConsoleApiImpl(this, consoleSaver);
-        FileApiImpl fileApi = new FileApiImpl(this);
-        PlayerApiImpl playerApi = new PlayerApiImpl();
-        PluginApiImpl pluginApi = new PluginApiImpl(this);
-        ServerApiImpl serverApi = new ServerApiImpl(this);
+        BackupApiImpl backupApi = new BackupApiImpl(spigotApiInstance);
+        ConsoleApiImpl consoleApi = new ConsoleApiImpl(spigotApiInstance, appenderConsoleSaver);
+        FileApiImpl fileApi = new FileApiImpl(spigotApiInstance);
+        PlayerApiImpl playerApi = new PlayerApiImpl(spigotApiInstance);
+        PluginApiImpl pluginApi = new PluginApiImpl(spigotApiInstance);
+        ServerApiImpl serverApi = new ServerApiImpl(spigotApiInstance);
         SystemApiImpl systemApi = new SystemApiImpl(dataLogger);
 
         int port = pluginApi.getPort();
@@ -109,7 +113,7 @@ public class ServerCtrl extends JavaPlugin implements Listener {
     }
 
     private void createAdminUserIfNotExists() {
-        if (!getConfig().contains("Webserver.users.admin")) {
+        if (!spigotApiInstance.configContains("Webserver.users.admin")) {
             String password = UserManager.generateNewToken().replaceAll("_", "").substring(0, 12);
             userManager.createUser("admin", password);
             userManager.setRoles("admin", Arrays.stream(Role.values()).collect(Collectors.toList()));
@@ -162,7 +166,7 @@ public class ServerCtrl extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        consoleSaver.clearLogFile();
+        appenderConsoleSaver.clearLogFile();
         webserver.stop();
     }
 }

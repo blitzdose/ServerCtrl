@@ -19,11 +19,13 @@ import 'models/player.dart';
 class PlayersController extends TabxController {
 
   final playerItems = <Widget>[].obs;
+  ServerType? type;
 
   PlayersController();
 
   @override
   void updateData() async {
+    type ??= await ApiUtilities.getServerType();
     var response = await fetchData();
     if (HttpUtils.isSuccess(response)) {
       var data = jsonDecode(response.body);
@@ -79,7 +81,7 @@ class PlayersController extends TabxController {
                 )
               ],
             ),
-            Row(
+            type == ServerType.SPIGOT ? Row(
               children: <Widget>[
                 if (userPermissions!.hasPermission(Permissions.PERMISSION_KICK)) TextButton(
                     onPressed: () => sendCommand("kick", player),
@@ -94,7 +96,7 @@ class PlayersController extends TabxController {
                     child: Text(player.isOp ? S.current.deop : S.current.op)
                 ),
               ],
-            )
+            ) : Container()
           ],
         ),
       ),

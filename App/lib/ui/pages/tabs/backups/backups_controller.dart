@@ -10,6 +10,7 @@ import 'package:server_ctrl/ui/navigation/layout_structure.dart';
 import 'package:server_ctrl/ui/pages/tabs/backups/models/backup_state.dart';
 import 'package:server_ctrl/ui/pages/tabs/home/home.dart';
 import 'package:server_ctrl/ui/pages/tabs/tab.dart';
+import 'package:server_ctrl/utilities/api/api_utilities.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
 import 'package:server_ctrl/utilities/http/download/downloader.dart';
 import 'package:server_ctrl/utilities/http/http_utils.dart';
@@ -21,6 +22,8 @@ import 'package:server_ctrl/values/colors.dart';
 class BackupsController extends TabxController {
   final RxMap<String, Widget> backupItems = <String, Widget>{}.obs;
   bool initDone = false;
+
+  ServerType? type;
 
   BackupsController() {
     updateData();
@@ -34,6 +37,7 @@ class BackupsController extends TabxController {
 
   @override
   void updateData() async {
+    type ??= await ApiUtilities.getServerType();
     var response = await fetchData();
     if (!HttpUtils.isSuccess(response)) {
       return;
@@ -292,7 +296,7 @@ class BackupsController extends TabxController {
                     content: Obx(() => Column(
                       mainAxisSize: MainAxisSize.min,
                         children: [
-                          ListTile(
+                          if (type == ServerType.SPIGOT) ListTile(
                             title: Text(S.current.select_worlds),
                             leading: Radio<bool>(
                                 value: false,

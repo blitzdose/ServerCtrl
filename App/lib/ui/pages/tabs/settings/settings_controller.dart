@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:server_ctrl/ui/pages/tabs/settings/models/server_setting.dart';
 import 'package:server_ctrl/ui/pages/tabs/tab.dart';
+import 'package:server_ctrl/utilities/api/api_utilities.dart';
 import 'package:server_ctrl/utilities/http/http_utils.dart';
 import 'package:server_ctrl/utilities/http/session.dart';
 import 'package:server_ctrl/utilities/permissions/permissions.dart';
@@ -24,6 +25,8 @@ class SettingsController extends TabxController {
 
   final serverSettings = <ServerSetting>[].obs;
   final dataChanged = false.obs;
+
+  ServerType? type;
 
   SettingsController() {
     dataChanged.listen((p0) {
@@ -42,6 +45,7 @@ class SettingsController extends TabxController {
 
   @override
   Future<void> updateData() async {
+    type ??= await ApiUtilities.getServerType();
     showProgress(true);
     dataChanged(false);
     if (userPermissions!.hasPermission(Permissions.PERMISSION_PLUGINSETTINGS)) {

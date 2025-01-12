@@ -29,7 +29,7 @@ class FilesController extends TabxController {
   final fileScrollController = ScrollController().obs;
 
   List<String> editableFiles = [];
-  List<String> extractableFiles = ["zip", "tar"];
+  List<String> extractableFiles = ["zip", "tar", "gz"];
 
   bool canUpdate = true;
 

@@ -109,8 +109,8 @@ public class Webserver {
                 staticFileConfig.hostedPath = "/";
                 staticFileConfig.directory = "/html";
                 staticFileConfig.location = Location.CLASSPATH;
-                //staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
-                //staticFileConfig.location = Location.EXTERNAL;
+                staticFileConfig.directory = "G:\\Projekte\\server_ctrl\\App\\build\\web";
+                staticFileConfig.location = Location.EXTERNAL;
             });
             config.router.apiBuilder(() -> {
                 path("/{system}/api", () -> {

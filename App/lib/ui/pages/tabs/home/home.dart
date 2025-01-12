@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,12 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String currentUrl = "";
+    if (kIsWeb) {
+      currentUrl = Uri.base.toString().replaceAll(RegExp("http[s]?:\/\/"), "").replaceAll(RegExp("/.*\$"), "");
+    } else {
+      currentUrl = Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "").replaceAll(RegExp("/.*\$"), "");
+    }
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(top: 12.0),
@@ -29,10 +36,10 @@ class HomeTab extends StatelessWidget {
               Center(
                 child: RawChip(
                   labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface),
-                  label: Text(Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "").replaceAll(RegExp("/.*\$"), "")),
+                  label: Text(currentUrl),
                   selected: false,
                   onPressed: () {
-                    Clipboard.setData(ClipboardData(text: Session.baseURL.replaceAll(RegExp("http[s]?:\/\/"), "")));
+                    Clipboard.setData(ClipboardData(text: currentUrl));
                     Snackbar.create(S.current.copiedToClipboard);
                   },
                 ),

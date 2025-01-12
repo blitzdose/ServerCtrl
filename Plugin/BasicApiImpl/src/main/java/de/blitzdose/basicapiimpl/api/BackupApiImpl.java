@@ -1,12 +1,11 @@
 package de.blitzdose.basicapiimpl.api;
 
 import de.blitzdose.basicapiimpl.backup.BackupRunnable;
+import de.blitzdose.basicapiimpl.instance.ApiInstance;
 import de.blitzdose.serverctrl.common.Backup.Backup;
 import de.blitzdose.serverctrl.common.web.api.AbstractBackupApi;
 import kotlin.Pair;
-import org.apache.commons.lang.math.NumberUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -15,18 +14,21 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class BackupApiImpl extends AbstractBackupApi {
+
+    private final ApiInstance instance;
+
+    public BackupApiImpl(ApiInstance instance) {
+        this.instance = instance;
+    }
+
     @Override
     public List<String> getWorldPaths(String system, List<UUID> worlds) {
-        return worlds.stream().map(Bukkit::getWorld).filter(Objects::nonNull).map(World::getWorldFolder).map(File::getPath).toList();
+        return instance.getWorldPaths(worlds);
     }
 
     @Override
     public Map<String, UUID> getWorlds(String system) {
-        Map<String, UUID> worlds = new HashMap<>();
-        for (World world : Bukkit.getWorlds()) {
-            worlds.put(world.getName(), world.getUID());
-        }
-        return worlds;
+        return instance.getWorlds();
     }
 
     @Override

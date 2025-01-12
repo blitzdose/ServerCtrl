@@ -89,13 +89,13 @@ public class BackupRunnable implements Runnable {
             entryName = f.getName();
         }
         TarArchiveEntry tarEntry = new TarArchiveEntry(f, entryName);
-        tOut.putArchiveEntry(tarEntry);
         InputStream inputStream = null;
         try {
             if (f.isFile()) {
+                tOut.putArchiveEntry(tarEntry);
                 FileChannel fileChannel = FileChannel.open(f.toPath(), StandardOpenOption.READ);
                 inputStream = Channels.newInputStream(fileChannel);
-                IOUtils.copy(inputStream, tOut);
+                IOUtils.copyLarge(inputStream, tOut, 0, tarEntry.getSize());
                 tOut.closeArchiveEntry();
                 inputStream.close();
                 processedFileCount += 1;
@@ -103,7 +103,10 @@ public class BackupRunnable implements Runnable {
                 File file = tmpOutputPath.toFile();
                 Backup.backupThreads.get(id).size = file.length();
             } else {
-                tOut.closeArchiveEntry();
+                if (!entryName.equalsIgnoreCase(".")) {
+                    tOut.putArchiveEntry(tarEntry);
+                    tOut.closeArchiveEntry();
+                }
                 File[] children = f.listFiles();
                 if (children != null) {
                     for (File child : children) {
@@ -112,6 +115,7 @@ public class BackupRunnable implements Runnable {
                 }
             }
         } catch (Exception ignored) {
+            ignored.printStackTrace();
             if (inputStream != null) inputStream.close();
         }
     }

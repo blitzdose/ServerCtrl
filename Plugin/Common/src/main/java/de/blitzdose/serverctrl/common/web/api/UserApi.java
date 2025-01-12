@@ -1,6 +1,5 @@
 package de.blitzdose.serverctrl.common.web.api;
 
-import de.blitzdose.serverctrl.common.crypt.CryptManager;
 import de.blitzdose.serverctrl.common.logging.LoggingType;
 import de.blitzdose.serverctrl.common.web.Webserver;
 import de.blitzdose.serverctrl.common.web.auth.UserManager;
@@ -141,11 +140,10 @@ public class UserApi {
         int result = userManager.authenticateUser(username, password, code);
         if (result == UserManager.SUCCESS) {
             String newPassword = new String(Base64.getUrlDecoder().decode(newPasswordBase64));
-            String newPasswordHash = CryptManager.getLegacyHash(newPassword);
-            userManager.setPassword(username, newPasswordHash);
+            boolean success = userManager.changePassword(username, newPassword);
 
             JSONObject resultJson = new JSONObject();
-            resultJson.put("success", true);
+            resultJson.put("success", success);
             Webserver.returnJson(context, resultJson);
         } else if (result == UserManager.WRONG_TOTP) {
             context.status(HttpStatus.PAYMENT_REQUIRED_402);

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:server_ctrl/ui/components/settings.dart';
 import 'package:server_ctrl/ui/pages/tabs/settings/click_handler.dart';
 import 'package:server_ctrl/ui/pages/tabs/settings/models/server_setting.dart';
+import 'package:server_ctrl/utilities/api/api_utilities.dart';
 import 'package:server_ctrl/utilities/permissions/permissions.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -85,7 +86,8 @@ class SettingsTab extends StatelessWidget {
                   ),
                 ],
               ),
-              if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_SERVERSETTINGS)) SettingsSection(
+              if (controller.userPermissions!.hasPermission(Permissions.PERMISSION_SERVERSETTINGS) &&
+                  controller.type == ServerType.SPIGOT) SettingsSection(
                 title: SettingsSectionTitle(S.current.server),
                 tiles: createTiles(clickHandler)
               )

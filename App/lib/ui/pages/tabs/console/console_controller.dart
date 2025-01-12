@@ -26,11 +26,13 @@ class ConsoleController extends TabxController {
   final consoleLog = <TextSpan>[].obs;
 
   final softwrap = true.obs;
+  ServerType? type;
 
   ConsoleController();
 
   @override
   void updateData() async {
+    type ??= await ApiUtilities.getServerType();
     List<TextSpan> textSpans = <TextSpan>[];
     http.Response response = await fetchData();
     if (response.body.isEmpty || !HttpUtils.isSuccess(response)) {
@@ -186,10 +188,10 @@ class ConsoleController extends TabxController {
                 builder: (BuildContext context) {
                   return AlertDialog(
                       title: Text(S.current.power),
-                      content: Text(S.current.restartInfo),
+                      content: (type == ServerType.SPIGOT) ? Text(S.current.restartInfo) : null,
                       actions: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: (type == ServerType.SPIGOT) ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
                           children: [
                             TextButton(onPressed: () async {
                               Navigator.pop(context);
@@ -200,7 +202,7 @@ class ConsoleController extends TabxController {
                                 Snackbar.createWithTitle(S.current.files, S.current.errorWhileStoppingServer, true);
                               }
                             }, child: Text(S.current.stopServer)),
-                            TextButton(onPressed: () async {
+                            if (type == ServerType.SPIGOT) TextButton(onPressed: () async {
                               Navigator.pop(context);
                               http.Response response = await Session.post("/api/server/restart", null);
                               if (HttpUtils.isSuccess(response)) {
