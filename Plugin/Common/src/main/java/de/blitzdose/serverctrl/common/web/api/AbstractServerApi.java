@@ -88,7 +88,8 @@ public abstract class AbstractServerApi {
 
         public enum ServerType {
             BUNGEE,
-            SPIGOT
+            SPIGOT,
+            VELOCITY
         }
     }
 }

@@ -28,6 +28,7 @@ class ApiUtilities {
 
 enum ServerType {
   BUNGEE,
+  VELOCITY,
   SPIGOT;
 
   static ServerType parse(String s) {
@@ -36,6 +37,8 @@ enum ServerType {
         return ServerType.BUNGEE;
       case ("SPIGOT"):
         return ServerType.SPIGOT;
+      case("VELOCITY"):
+        return ServerType.VELOCITY;
       default:
         return ServerType.SPIGOT;
     }

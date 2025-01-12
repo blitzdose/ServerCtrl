@@ -17,9 +17,11 @@ public class ConsoleAppender extends AbstractAppender {
     private final SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss");
 
     private final String path;
+    private final boolean includeLoggerName;
 
-    protected ConsoleAppender(String name, Filter filter, Layout<? extends Serializable> layout, String path) {
+    protected ConsoleAppender(String name, Filter filter, Layout<? extends Serializable> layout, String path, boolean includeLoggerName) {
         super(name, filter, layout);
+        this.includeLoggerName = includeLoggerName;
         this.path = path;
     }
 
@@ -27,7 +29,7 @@ public class ConsoleAppender extends AbstractAppender {
     public void append(LogEvent logEvent) {
         String message = logEvent.getMessage().getFormattedMessage();
         String loggerName = "";
-        if (!logEvent.getLoggerName().isBlank()) {
+        if (!logEvent.getLoggerName().isBlank() && includeLoggerName) {
             loggerName = "[" + logEvent.getLoggerName() + "] ";
         }
         String colorWhole = "";

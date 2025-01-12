@@ -15,10 +15,10 @@ public class AppenderConsoleSaver extends AbstractConsoleSaver {
     ConsoleAppender consoleAppender;
     String path;
 
-    public AppenderConsoleSaver(String path) {
+    public AppenderConsoleSaver(String path, boolean includeLoggerName) {
         this.path = path;
         logger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
-        consoleAppender = new ConsoleAppender("ServerCtrl", null, new MessageLayout(), path);
+        consoleAppender = new ConsoleAppender("ServerCtrl", null, new MessageLayout(), path, includeLoggerName);
         consoleAppender.start();
         new Thread(new Runnable() {
             @Override

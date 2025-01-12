@@ -8,16 +8,20 @@ import de.blitzdose.basicapiimpl.api.*;
 import de.blitzdose.serverctrl.bungeeCord.basicapiimpl.BungeeApiInstance;
 import de.blitzdose.serverctrl.common.crypt.CertManager;
 import de.blitzdose.serverctrl.common.logging.LoggingSaver;
+import de.blitzdose.serverctrl.common.logging.LoggingType;
 import de.blitzdose.serverctrl.common.web.Webserver;
 import de.blitzdose.serverctrl.common.web.auth.Role;
 import de.blitzdose.serverctrl.common.web.auth.UserManager;
 import de.blitzdose.serverctrl.consolesaver.filterconsolesaver.FilterConsoleSaver;
 import io.javalin.util.JavalinBindException;
+import net.md_5.bungee.api.event.PlayerDisconnectEvent;
+import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import net.md_5.bungee.event.EventHandler;
 import org.bouncycastle.operator.OperatorCreationException;
 
 import java.io.File;
@@ -132,6 +136,16 @@ public final class ServerCtrl extends Plugin implements Listener {
             onDisable();
             getProxy().getPluginManager().unregisterListener(this);
         }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PostLoginEvent e) {
+        loggingSaver.addLogEntry(LoggingType.PLAYER_JOINED, e.getPlayer().getName());
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerDisconnectEvent e){
+        loggingSaver.addLogEntry(LoggingType.PLAYER_QUIT, e.getPlayer().getName());
     }
 
     private void getVersion() {

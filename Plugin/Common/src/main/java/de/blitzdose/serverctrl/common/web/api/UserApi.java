@@ -139,7 +139,8 @@ public class UserApi {
 
         int result = userManager.authenticateUser(username, password, code);
         if (result == UserManager.SUCCESS) {
-            boolean success = userManager.changePassword(username, password);
+            String newPassword = new String(Base64.getUrlDecoder().decode(newPasswordBase64));
+            boolean success = userManager.changePassword(username, newPassword);
 
             JSONObject resultJson = new JSONObject();
             resultJson.put("success", success);

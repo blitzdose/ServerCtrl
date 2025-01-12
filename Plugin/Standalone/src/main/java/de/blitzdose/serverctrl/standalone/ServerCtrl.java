@@ -51,7 +51,7 @@ public class ServerCtrl extends JavaPlugin implements Listener {
 
         logger = new Logger(spigotApiInstance);
         loggingSaver = new LoggingSaverImpl();
-        appenderConsoleSaver = new AppenderConsoleSaver("/plugins/ServerCtrl/log/console.log");
+        appenderConsoleSaver = new AppenderConsoleSaver("/plugins/ServerCtrl/log/console.log", true);
         dataLogger = new SystemDataLogger();
         userManager = new UserManagerImpl(spigotApiInstance);
 
