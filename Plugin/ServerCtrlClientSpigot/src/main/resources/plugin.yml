@@ -1,0 +1,5 @@
+name: ServerCtrlClient
+version: '4.1.3'
+main: de.blitzdose.serverCtrlClient.ServerCtrlClient
+api-version: '1.21'
+authors: [blitzdose]

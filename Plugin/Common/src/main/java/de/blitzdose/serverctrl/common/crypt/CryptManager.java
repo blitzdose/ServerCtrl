@@ -18,7 +18,17 @@ import java.util.Base64;
  * **/
 
 public class CryptManager {
-    public static String getLegacyHash(String password) {
+    public static String getSHA256(byte[] data) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(data);
+            return Base64.getUrlEncoder().encodeToString(encodedhash);
+        } catch (NoSuchAlgorithmException ignored) {
+            return null;
+        }
+    }
+
+    public static String getSHA256(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -45,5 +55,23 @@ public class CryptManager {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e ) {
             return null;
         }
+    }
+
+    public static String generateSecurePassword(int length) {
+        int byteCount = (int) Math.ceil(length * 0.75) + 2;
+        byte[] randomBytes = new byte[byteCount];
+
+        try {
+            SecureRandom rng = SecureRandom.getInstanceStrong();
+            rng.nextBytes(randomBytes);
+        } catch (NoSuchAlgorithmException e) {
+            SecureRandom rng = new SecureRandom();
+            rng.nextBytes(randomBytes);
+        }
+
+        return Base64.getUrlEncoder()
+                .withoutPadding()
+                .encodeToString(randomBytes)
+                .substring(0, length);
     }
 }

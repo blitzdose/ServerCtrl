@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class FilterConsoleSaver extends AbstractConsoleSaver {
 
-    Logger logger;
+    final Logger logger;
     ConsoleAppender consoleAppender;
-    String path;
+    final String path;
 
     public FilterConsoleSaver(String path, Logger logger, Level minLevel) {
         this.path = path;
@@ -49,9 +49,7 @@ public class FilterConsoleSaver extends AbstractConsoleSaver {
             String log = reader.lines().collect(Collectors.joining("\n"));
             reader.close();
             return log;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) { }
         return "";
     }
 
@@ -69,8 +67,6 @@ public class FilterConsoleSaver extends AbstractConsoleSaver {
             writer.write("");
             writer.flush();
             writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) { }
     }
 }

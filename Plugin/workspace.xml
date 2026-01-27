@@ -1,0 +1,1477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6cefd5bf-1d2f-4617-b374-b48ea850ff3c" name="Changes" comment="Updated .gitignore">
+      <change afterPath="$PROJECT_DIR$/Backend/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/api/BackendApiInstance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/apiimpl/BackendFileApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/apiimpl/BackendLogApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/apiimpl/BackendPluginApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/apiimpl/WebsocketClientManagerImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/WebServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/WebserverConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/AccessManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/InternalRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/RoleSetsArgumentFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/WebserverManagerRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/shiro/SqliteRealm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/shiro/TOTPManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/shiro/UserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/files/FileTransferManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/websocket/WebsocketAccessManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/websocket/WebsocketClientManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/websocket/WebsocketException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/websocket/WebsocketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/websocket/WebsocketSession.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/parser/Pagination.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/websocket/ProvisioningPack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/websocket/requests/RequestMethod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/websocket/requests/WebsocketRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/websocket/requests/WebsocketResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/Implementations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/api/BackupApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/api/ConsoleApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/api/FileApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/api/PlayerApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/api/ServerApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/api/SystemApiImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/models/AbstractFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/models/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/models/ServerData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/websocket/AutoReconnectWebsocketClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/websocket/FunctionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/websocket/WebsocketClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerCtrlBackendSpigot/src/main/java/de/blitzdose/serverCtrlBackendSpigot/BackendApiInstance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerCtrlBackendSpigot/src/main/java/de/blitzdose/serverCtrlBackendSpigot/ConsoleLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerCtrlBackendSpigot/src/main/java/de/blitzdose/serverCtrlBackendSpigot/WebserverConfigParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerCtrlBackendSpigot/src/main/resources/config.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerCtrlClientSpigot/src/main/java/de/blitzdose/serverCtrlClient/ApiInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../App/lib/generated/intl/messages_de.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../App/lib/generated/intl/messages_de.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../App/lib/generated/intl/messages_en.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../App/lib/generated/intl/messages_en.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../App/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../App/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/ConsoleLogger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/LoggingSaverImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/SystemDataLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/SystemDataLogger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/UserManagerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/api/BackupApiImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/api/ConsoleApiImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/api/FileApiImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/api/PlayerApiImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/api/PluginApiImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/api/ServerApiImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/api/SystemApiImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/backup/BackupRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/backup/BackupRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BasicApiImpl/src/main/java/de/blitzdose/basicapiimpl/instance/ApiInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/Embedded/src/main/java/de/blitzdose/serverctrl/embedded/instance/ApiInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BungeeCord/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BungeeCord/src/main/java/de/blitzdose/serverctrl/bungeeCord/ServerCtrl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BungeeCord/src/main/java/de/blitzdose/serverctrl/bungeeCord/basicapiimpl/BungeeApiInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BungeeCord/src/main/resources/bungee.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BungeeCord/src/main/resources/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/Backup/Backup.java" beforeDir="false" afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/Backup/Backup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/crypt/CertManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/crypt/CertManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/crypt/CryptManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/crypt/CryptManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/crypt/GeneratedCert.java" beforeDir="false" afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/crypt/GeneratedCert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/logging/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/logging/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/logging/LoggingSaver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/logging/LoggingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/logging/SecurityLogType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/Webserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AbstractBackupApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AbstractConsoleApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AbstractFileApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AbstractPlayerApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AbstractPluginApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AbstractServerApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AbstractSystemApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/AccountApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/AccountApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/BackupApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/BackupApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/ConsoleApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/ConsoleApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/FilesApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/FilesApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/LogApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/LogApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/PlayerApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/PlayerApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/PluginApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/PluginApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/ServerApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/ServerApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/SystemApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/SystemApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/api/UserApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/api/UserApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/auth/AccessManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/auth/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/de/blitzdose/webserver/auth/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/auth/TokenUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/auth/UserManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/parser/PathParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Common/src/main/java/de/blitzdose/serverctrl/common/web/parser/PathParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleSaver/src/main/java/de/blitzdose/serverctrl/consolesaver/appenderconsolesaver/AppenderConsoleSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleSaver/src/main/java/de/blitzdose/serverctrl/consolesaver/appenderconsolesaver/AppenderConsoleSaver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Embedded/src/main/resources/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Standalone/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Standalone/src/main/java/de/blitzdose/serverctrl/standalone/ServerCtrl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Standalone/src/main/java/de/blitzdose/serverctrl/standalone/basicapiimpl/SpigotApiInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Standalone/src/main/resources/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Standalone/src/main/resources/plugin.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Velocity/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Velocity/src/main/java/de/blitzdose/serverctrl/velocity/ServerCtrl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Velocity/src/main/java/de/blitzdose/serverctrl/velocity/basicapiimpl/VelocityApiInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Velocity/src/main/resources/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="Interface" />
+        <option value="package-info" />
+        <option value="Exception" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="appwrite-dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;blitzdose&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/blitzdose/ServerCtrl.git&quot;,
+    &quot;accountId&quot;: &quot;1b8fb30f-07fa-4958-b544-8784c6d4d415&quot;
+  }
+}</component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="true" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/corretto-17.0.10/lib/src.zip!/java.base/java/io/BufferedReader.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.jdks/corretto-17.0.10/lib/src.zip!/java.base/java/io/FileReader.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/io/javalin/javalin/5.6.3/javalin-5.6.3-sources.jar!/io/javalin/http/Context.kt" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/io/javalin/javalin/5.6.3/javalin-5.6.3-sources.jar!/io/javalin/http/staticfiles/StaticFileConfig.kt" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot-api/1.20.4-R0.1-SNAPSHOT/spigot-api-1.20.4-R0.1-20231212.204618-11.jar!/org/bukkit/plugin/PluginDescriptionFile.class" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="MinecraftServerRemote/invalid/Obfuscation" />
+    </ignored-facets>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2GolkV4exPNC5AOkrpu7VHABsnO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Maven.Backend [clean,package,verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Common [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Common [clean,package,verify,-U].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Common [clean,package,verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Embedded [clean,package,verify,-U].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Embedded [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ServerCtrl [-pl,Embedded,-am,clean...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ServerCtrl [-pl,ServerCtrlClientSpigot...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ServerCtrl [clean,package,verify,-e].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ServerCtrl [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ServerCtrl [versions:display-dependency-updates].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ServerCtrlBackendSpigot.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build Backend.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build BasicApiImpl.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build BungeeCord.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build Common.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build ConsoleSaver.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build Embedded.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build ServerCtrlBackendSpigot.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build ServerCtrlClientSpigot.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build SpigotClient.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build SpigotServer.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build Velocity.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Shell Script.Build and copy (Backend and Client).executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Build and copy jar (BungeeCord).executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Build and copy jar (Embedded).executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Build and copy jar (ServerCtrlBackendSpigot).executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Build and copy jar (ServerCtrlClientSpigot).executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Build and copy jar (Standalone).executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Build and copy jar (Velocity).executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Build and copy jar.executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Copy Jar.executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.Minecraft 1.19.2.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JDK&quot;: &quot;corretto-21&quot;,
+    &quot;jdk.selected.com.intellij.ui.dsl.builder.impl.RowImpl.sdk&quot;: &quot;corretto-17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Christian/Christian/Programmierung/Blueprints&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;G:/Projekte/server_ctrl/Plugin/Tests/src/main/java/de/blitzdose/serverctrl/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.41494253&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;78c4b3a6a256322e93db530038e721d3&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;jdk.preference.JDK&quot;: [
+      &quot;17=C:/Users/blitz/.jdks/corretto-17.0.15&quot;
+    ],
+    &quot;jdk.preference.com.intellij.ui.dsl.builder.impl.RowImpl.sdk&quot;: [
+      &quot;17=C:/Users/blitz/.jdks/corretto-17.0.11&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="de.blitzdose.minecraftserverremote" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\Projekte\server_ctrl\Plugin\Backend\src\main\java\de\blitzdose\webserver\auth" />
+      <recent name="G:\Projekte\server_ctrl\Plugin\Velocity\src\main\resources" />
+      <recent name="G:\Projekte\server_ctrl\Plugin\Common\src\main\resources\html" />
+      <recent name="G:\Projekte\server_ctrl\Plugin\BungeeCord\src\main\resources" />
+      <recent name="G:\Projekte\server_ctrl\Plugin\BasicApiImpl\src\main\java\de\blitzdose\basicapiimpl" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\Projekte\server_ctrl\Plugin\Common\src\main\resources\html" />
+      <recent name="G:\Projekte\server_ctrl\Plugin\Common\src\main\resources" />
+      <recent name="G:\Projekte\server_ctrl\Plugin\Standalone\src\main\resources" />
+      <recent name="G:\Projekte\server_ctrl\Plugin\Standalone\src\main\java\de\blitzdose" />
+      <recent name="E:\Christian\Christian\Programmierung\Minecraft Plugins\MinecraftServerRemote2\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="de.blitzdose.webserver.api" />
+      <recent name="de.blitzdose.basicapiimpl.backup" />
+      <recent name="de.blitzdose.serverctrl.common.crypt" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn compile -X" />
+      <command value="mvn clean package verify -X" />
+      <command value="mvn clean package verify -e" />
+      <command value="mvn clean" />
+      <command value="mvn clean package verify" />
+      <command value="mvn versions:display-dependency-updates" />
+      <command value="mvn clean package verify -U" />
+      <command value="mvn clean install" />
+      <command value="mvn -pl Embedded -am clean package" />
+      <command value="mvn -pl ServerCtrlClientSpigot -am clean package" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Maven.build SpigotClient">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Velocity" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Velocity" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="build Backend" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="corretto-21" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="true" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/Backend" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="build BasicApiImpl" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="17 (2)" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" value="$PROJECT_DIR$" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="true" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/BasicApiImpl" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="build Common" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="true" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/Common" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="build ConsoleSaver" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="true" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/ConsoleSaver" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="build Embedded" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="corretto-21" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="true" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/Embedded" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="build SpigotClient" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="-pl" />
+                <option value="ServerCtrlClientSpigot" />
+                <option value="-am" />
+                <option value="clean" />
+                <option value="package" />
+                <option value="verify" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="true" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="build SpigotServer" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="-pl" />
+                <option value="ServerCtrlBackendSpigot" />
+                <option value="-am" />
+                <option value="clean" />
+                <option value="package" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="true" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="build" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="package" />
+                <option value="verify" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="Velocity" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Build and copy jar (BungeeCord)" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="copy &quot;G:\Projekte\server_ctrl\Plugin\BungeeCord\target\ServerCtrl_BungeeCord_*.jar&quot; &quot;E:\Spiele\minecraft test server\bungeecord\plugins&quot;; copy &quot;G:\Projekte\server_ctrl\Plugin\BungeeCord\target\ServerCtrl_BungeeCord_*.jar&quot; &quot;E:\Spiele\minecraft test server\bungeecord2\plugins&quot;" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="powershell.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="build BasicApiImpl" run_configuration_type="MavenRunConfiguration" />
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="build Common" run_configuration_type="MavenRunConfiguration" />
+      </method>
+    </configuration>
+    <configuration name="Build and copy jar (Embedded)" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="copy &quot;G:\Projekte\server_ctrl\Plugin\Embedded\target\ServerCtrl_Embedded_*.jar&quot; &quot;E:\Spiele\minecraft test server\1.19.2\plugins&quot;" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="powershell.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="build Embedded" run_configuration_type="MavenRunConfiguration" />
+      </method>
+    </configuration>
+    <configuration name="Build and copy jar (Standalone)" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="copy &quot;G:\Projekte\server_ctrl\Plugin\Standalone\target\ServerCtrl_*.jar&quot; &quot;E:\Spiele\minecraft test server\1.19.2\plugins&quot;" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="powershell.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="build" run_configuration_type="MavenRunConfiguration" />
+      </method>
+    </configuration>
+    <configuration name="Build and copy jar (Velocity)" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="copy &quot;G:\Projekte\server_ctrl\Plugin\Velocity\target\ServerCtrl_Velocity_*.jar&quot; &quot;E:\Spiele\minecraft test server\Velocity\plugins&quot;" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+      <option name="SCRIPT_PATH" value="copy &quot;$PROJECT_DIR$/Embedded/target/ServerCtrl_Embedded_*.jar&quot; &quot;$PROJECT_DIR$/../../../Spiele/minecraft test server/1.19.2/plugins&quot;" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="powershell.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="build Common" run_configuration_type="MavenRunConfiguration" />
+      </method>
+    </configuration>
+    <configuration name="Minecraft 1.19.2" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/../../../Spiele/minecraft test server/1.19.2/start.bat" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="false" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../Spiele/minecraft test server/1.19.2" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="false" />
+      <option name="INTERPRETER_PATH" value="C:/Windows/System32/cmd.exe" />
+      <option name="INTERPRETER_OPTIONS" value="/c" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="Velocity" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="lua.app" factoryName="Lua Application">
+      <option name="program" value="lua.exe" />
+      <option name="file" value="" />
+      <option name="workingDir" value="$PROJECT_DIR$/Velocity/src/main/java" />
+      <option name="debuggerType" value="1" />
+      <option name="params" value="" />
+      <option name="charset" value="UTF-8" />
+      <option name="showConsole" value="true" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Maven.build SpigotClient" />
+      <item itemvalue="Maven.build SpigotServer" />
+      <item itemvalue="Maven.build Backend" />
+      <item itemvalue="Maven.build Common" />
+      <item itemvalue="Maven.build BasicApiImpl" />
+      <item itemvalue="Maven.build" />
+      <item itemvalue="Maven.build Embedded" />
+      <item itemvalue="Maven.build ConsoleSaver" />
+      <item itemvalue="Shell Script.Build and copy jar (Velocity)" />
+      <item itemvalue="Shell Script.Build and copy jar (BungeeCord)" />
+      <item itemvalue="Shell Script.Build and copy jar (Standalone)" />
+      <item itemvalue="Shell Script.Build and copy jar (Embedded)" />
+      <item itemvalue="Shell Script.Minecraft 1.19.2" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\blitz\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6cefd5bf-1d2f-4617-b374-b48ea850ff3c" name="Changes" comment="" />
+      <created>1667062960999</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667062960999</updated>
+      <workItem from="1667062962337" duration="34258000" />
+      <workItem from="1667129536982" duration="7025000" />
+      <workItem from="1667136646626" duration="2825000" />
+      <workItem from="1667141077892" duration="10783000" />
+      <workItem from="1667304970246" duration="16552000" />
+      <workItem from="1667331440822" duration="9658000" />
+      <workItem from="1667420597877" duration="6005000" />
+      <workItem from="1667502860265" duration="353000" />
+      <workItem from="1667655631106" duration="97000" />
+      <workItem from="1667688260025" duration="11746000" />
+      <workItem from="1667739759498" duration="11629000" />
+      <workItem from="1668112582408" duration="16046000" />
+      <workItem from="1668129852271" duration="13000" />
+      <workItem from="1668361136580" duration="53000" />
+      <workItem from="1668369730159" duration="1648000" />
+      <workItem from="1668371427475" duration="6914000" />
+      <workItem from="1668378466545" duration="87000" />
+      <workItem from="1668694385165" duration="4636000" />
+      <workItem from="1669638793221" duration="125000" />
+      <workItem from="1669674508087" duration="968000" />
+      <workItem from="1669675632470" duration="119000" />
+      <workItem from="1671551274590" duration="356000" />
+      <workItem from="1671814299903" duration="5236000" />
+      <workItem from="1671885906247" duration="2049000" />
+      <workItem from="1671983717369" duration="6970000" />
+      <workItem from="1672004123989" duration="1484000" />
+      <workItem from="1672066553065" duration="3422000" />
+      <workItem from="1672612221017" duration="5183000" />
+      <workItem from="1672664896623" duration="5610000" />
+      <workItem from="1672750870197" duration="3250000" />
+      <workItem from="1672781352434" duration="624000" />
+      <workItem from="1673009394607" duration="2808000" />
+      <workItem from="1673211998481" duration="201000" />
+      <workItem from="1673212490283" duration="178000" />
+      <workItem from="1673212946966" duration="697000" />
+      <workItem from="1673461065555" duration="887000" />
+      <workItem from="1673819711303" duration="1914000" />
+      <workItem from="1674156289725" duration="2597000" />
+      <workItem from="1674298152036" duration="1891000" />
+      <workItem from="1674331228539" duration="695000" />
+      <workItem from="1674499734814" duration="618000" />
+      <workItem from="1674508365135" duration="22000" />
+      <workItem from="1674508417607" duration="71000" />
+      <workItem from="1675093126673" duration="366000" />
+      <workItem from="1675093786330" duration="3998000" />
+      <workItem from="1675195940611" duration="1421000" />
+      <workItem from="1675200955658" duration="199000" />
+      <workItem from="1675452947620" duration="1613000" />
+      <workItem from="1675602783029" duration="4394000" />
+      <workItem from="1675713757502" duration="593000" />
+      <workItem from="1675794150320" duration="753000" />
+      <workItem from="1675794967001" duration="81000" />
+      <workItem from="1675880427578" duration="3907000" />
+      <workItem from="1675976647429" duration="617000" />
+      <workItem from="1676076809312" duration="23000" />
+      <workItem from="1676144326121" duration="1298000" />
+      <workItem from="1676202489595" duration="897000" />
+      <workItem from="1676235713857" duration="737000" />
+      <workItem from="1676318704991" duration="1843000" />
+      <workItem from="1676363000799" duration="32000" />
+      <workItem from="1676578552763" duration="615000" />
+      <workItem from="1676579502129" duration="68000" />
+      <workItem from="1676668737941" duration="15000" />
+      <workItem from="1677350471034" duration="3499000" />
+      <workItem from="1677361166526" duration="21000" />
+      <workItem from="1677431907180" duration="41000" />
+      <workItem from="1688142813016" duration="419000" />
+      <workItem from="1688143301152" duration="1245000" />
+      <workItem from="1688145525431" duration="14000" />
+      <workItem from="1688145866938" duration="88000" />
+      <workItem from="1688146305359" duration="1248000" />
+      <workItem from="1688313514813" duration="211000" />
+      <workItem from="1688313761952" duration="1771000" />
+      <workItem from="1691328284611" duration="115000" />
+      <workItem from="1691616254479" duration="19000" />
+      <workItem from="1691928026260" duration="36000" />
+      <workItem from="1692455246709" duration="3713000" />
+      <workItem from="1692545490428" duration="3018000" />
+      <workItem from="1694586946398" duration="147000" />
+      <workItem from="1696148510814" duration="118000" />
+      <workItem from="1696334574837" duration="6618000" />
+      <workItem from="1696363486617" duration="113000" />
+      <workItem from="1696620900775" duration="6008000" />
+      <workItem from="1696773726100" duration="2928000" />
+      <workItem from="1697053629912" duration="1316000" />
+      <workItem from="1697745129532" duration="1021000" />
+      <workItem from="1697825091610" duration="798000" />
+      <workItem from="1697839733128" duration="2167000" />
+      <workItem from="1698001166463" duration="806000" />
+      <workItem from="1698170317926" duration="79000" />
+      <workItem from="1698842439818" duration="1248000" />
+      <workItem from="1699194796698" duration="641000" />
+      <workItem from="1699648274519" duration="33000" />
+      <workItem from="1701006228065" duration="2212000" />
+      <workItem from="1701205011432" duration="2952000" />
+      <workItem from="1701287208034" duration="1772000" />
+      <workItem from="1701291097651" duration="356000" />
+      <workItem from="1701464412216" duration="641000" />
+      <workItem from="1702061820010" duration="3589000" />
+      <workItem from="1702065484045" duration="67000" />
+      <workItem from="1702065667725" duration="3868000" />
+      <workItem from="1702071115149" duration="180000" />
+      <workItem from="1702222767214" duration="2214000" />
+      <workItem from="1702239890104" duration="4637000" />
+      <workItem from="1702322474381" duration="7515000" />
+      <workItem from="1702332043974" duration="57000" />
+      <workItem from="1702332358774" duration="617000" />
+      <workItem from="1702413770070" duration="1877000" />
+      <workItem from="1702581697618" duration="1980000" />
+      <workItem from="1702587845707" duration="10000" />
+      <workItem from="1702727424318" duration="8286000" />
+      <workItem from="1703359885186" duration="1002000" />
+      <workItem from="1704209792528" duration="2703000" />
+      <workItem from="1704214381548" duration="1365000" />
+      <workItem from="1704215768684" duration="21000" />
+      <workItem from="1704384116060" duration="1618000" />
+      <workItem from="1704476133634" duration="674000" />
+      <workItem from="1704483434932" duration="15000" />
+      <workItem from="1704489230090" duration="616000" />
+      <workItem from="1705440186055" duration="2415000" />
+      <workItem from="1706819688589" duration="277000" />
+      <workItem from="1707080803545" duration="935000" />
+      <workItem from="1707159917270" duration="7000" />
+      <workItem from="1707165353437" duration="711000" />
+      <workItem from="1707415498722" duration="42000" />
+      <workItem from="1707416205707" duration="2706000" />
+      <workItem from="1707499143346" duration="3348000" />
+      <workItem from="1707564748750" duration="7402000" />
+      <workItem from="1707587942742" duration="40000" />
+      <workItem from="1707599161670" duration="157000" />
+      <workItem from="1707669220877" duration="4488000" />
+      <workItem from="1708108840167" duration="619000" />
+      <workItem from="1710017287115" duration="603000" />
+      <workItem from="1710018848392" duration="991000" />
+      <workItem from="1710020243647" duration="268000" />
+      <workItem from="1710067158173" duration="12000" />
+      <workItem from="1710092859839" duration="700000" />
+      <workItem from="1710185340406" duration="249000" />
+      <workItem from="1710518623847" duration="2771000" />
+      <workItem from="1710535024526" duration="11000" />
+      <workItem from="1714679296024" duration="118000" />
+      <workItem from="1714680345966" duration="328000" />
+      <workItem from="1714751604886" duration="434000" />
+      <workItem from="1714823314215" duration="2294000" />
+      <workItem from="1715270130063" duration="2000" />
+      <workItem from="1719061013375" duration="2898000" />
+      <workItem from="1719142380390" duration="2638000" />
+      <workItem from="1719226867705" duration="5083000" />
+      <workItem from="1720376711009" duration="1849000" />
+      <workItem from="1720461198193" duration="1147000" />
+      <workItem from="1720548505923" duration="1766000" />
+      <workItem from="1720637453457" duration="5946000" />
+      <workItem from="1720724757757" duration="3413000" />
+      <workItem from="1721070458299" duration="8288000" />
+      <workItem from="1721240247685" duration="2604000" />
+      <workItem from="1721246965367" duration="130000" />
+      <workItem from="1721571637545" duration="12000" />
+      <workItem from="1721675714215" duration="4755000" />
+      <workItem from="1721839250470" duration="501000" />
+      <workItem from="1721845579084" duration="186000" />
+      <workItem from="1721847796333" duration="838000" />
+      <workItem from="1721927314892" duration="53000" />
+      <workItem from="1722020085186" duration="47000" />
+      <workItem from="1722027222347" duration="274000" />
+      <workItem from="1722167821936" duration="1476000" />
+      <workItem from="1722182474712" duration="6276000" />
+      <workItem from="1722277256157" duration="5727000" />
+      <workItem from="1724351116039" duration="366000" />
+      <workItem from="1724351503651" duration="232000" />
+      <workItem from="1724351810506" duration="3765000" />
+      <workItem from="1724438745006" duration="5048000" />
+      <workItem from="1724529770707" duration="26000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <created>1667063103693</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1667063103693</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added Javalin">
+      <created>1667141840617</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1667141840617</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added some Routes">
+      <created>1667145928640</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667145928640</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added more apis">
+      <created>1667321830573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667321830573</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added more apis">
+      <created>1667341089437</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1667341089437</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added more apis">
+      <created>1667502947765</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1667502947765</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Finished FileApi">
+      <created>1667699502391</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1667699502391</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added more apis">
+      <created>1667700035837</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1667700035837</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added more Logging and Czech">
+      <created>1667742828354</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667742828354</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fixed design and start adding user management">
+      <created>1667751396706</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667751396706</updated>
+    </task>
+    <task id="LOCAL-00011" summary="finished account management">
+      <created>1668119980017</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1668119980017</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added cert manager">
+      <created>1668129831440</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1668129831440</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added library">
+      <created>1668361177159</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1668361177159</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added cert option">
+      <created>1668378524098</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1668378524098</updated>
+    </task>
+    <task id="LOCAL-00015" summary="added some stuff">
+      <created>1668704677211</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1668704677211</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fixed some stuff">
+      <created>1673461722813</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1673461722813</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fixed Logs returning false success when no more found">
+      <created>1675457594351</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1675457594351</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fixed name and reloading of config">
+      <option name="closed" value="true" />
+      <created>1702224975932</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1702224975932</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fixed folder name">
+      <option name="closed" value="true" />
+      <created>1702239934217</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1702239934217</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fixed security issue">
+      <option name="closed" value="true" />
+      <created>1702322518209</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1702322518209</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Implemented RootCA-Engine">
+      <option name="closed" value="true" />
+      <created>1702331796159</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1702331796159</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fixed Cookie attributes">
+      <option name="closed" value="true" />
+      <created>1702414580169</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1702414580169</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added web content">
+      <option name="closed" value="true" />
+      <created>1702587615435</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1702587615435</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Added more web content">
+      <option name="closed" value="true" />
+      <created>1702587721693</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1702587721693</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Fixed some bugs">
+      <option name="closed" value="true" />
+      <created>1702735449205</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1702735449205</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Moved copying jar from maven goal to IntelliJ tasks">
+      <option name="closed" value="true" />
+      <created>1704213706316</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1704213706316</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Fixed error message and console width">
+      <option name="closed" value="true" />
+      <created>1704215721606</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1704215721606</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Lowered supported Minecraft version to 1.16">
+      <option name="closed" value="true" />
+      <created>1707081242480</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1707081242480</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Updated version">
+      <option name="closed" value="true" />
+      <created>1710018968679</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1710018968679</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Fixed debug stuff">
+      <option name="closed" value="true" />
+      <created>1710092956383</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1710092956383</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Fixed encoding">
+      <option name="closed" value="true" />
+      <created>1710521170681</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1710521170681</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Fixed PlayerApi">
+      <option name="closed" value="true" />
+      <created>1714751816807</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1714751816807</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Updated dependencies">
+      <option name="closed" value="true" />
+      <created>1720549243648</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1720549243648</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Implemented archive extract">
+      <option name="closed" value="true" />
+      <created>1720727819063</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1720727819063</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fixed unicode character error">
+      <option name="closed" value="true" />
+      <created>1721241453487</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1721241453487</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Set default to https">
+      <option name="closed" value="true" />
+      <created>1724353088100</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1724353088100</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Reworked the architecture of the plugin to allow fore bungeecord support">
+      <option name="closed" value="true" />
+      <created>1731536381293</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1731536381293</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Deleted build files">
+      <option name="closed" value="true" />
+      <created>1734208174398</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1734208174398</updated>
+    </task>
+    <task id="LOCAL-00044" summary="New screenshots">
+      <option name="closed" value="true" />
+      <created>1736166535402</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1736166535402</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Changed structure">
+      <option name="closed" value="true" />
+      <created>1736442337865</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1736442337865</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Changed structure">
+      <option name="closed" value="true" />
+      <created>1736442400910</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1736442400910</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Added BungeeCord support">
+      <option name="closed" value="true" />
+      <created>1736612257913</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1736612257913</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Added Velocity support">
+      <option name="closed" value="true" />
+      <created>1736696199646</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1736696199646</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Updated .gitignore">
+      <option name="closed" value="true" />
+      <created>1736697625160</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1736697625160</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Updated .gitignore">
+      <option name="closed" value="true" />
+      <created>1736697672624</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1736697672624</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Updated .gitignore">
+      <option name="closed" value="true" />
+      <created>1736697721518</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1736697721518</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Updated .gitignore">
+      <option name="closed" value="true" />
+      <created>1736697747070</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1736697747070</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Updated .gitignore">
+      <option name="closed" value="true" />
+      <created>1736697883615</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1736697883615</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Updated .gitignore">
+      <option name="closed" value="true" />
+      <created>1736697991382</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1736697991382</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="Fixed security issue" />
+    <MESSAGE value="Implemented RootCA-Engine" />
+    <MESSAGE value="Fixed Cookie attributes" />
+    <MESSAGE value="Added web content" />
+    <MESSAGE value="Added more web content" />
+    <MESSAGE value="Fixed some bugs" />
+    <MESSAGE value="Moved copying jar from maven goal to IntelliJ tasks" />
+    <MESSAGE value="Fixed error message and console width" />
+    <MESSAGE value="Lowered supported Minecraft version to 1.16" />
+    <MESSAGE value="Updated version" />
+    <MESSAGE value="Fixed debug stuff" />
+    <MESSAGE value="Fixed encoding" />
+    <MESSAGE value="Fixed PlayerApi" />
+    <MESSAGE value="Updated dependencies" />
+    <MESSAGE value="Implemented archive extract" />
+    <MESSAGE value="Fixed unicode character error" />
+    <MESSAGE value="Set default to https" />
+    <MESSAGE value="Reworked the architecture of the plugin to allow fore bungeecord support" />
+    <MESSAGE value="- Added backup functionality&#10;- improved password security" />
+    <MESSAGE value="Deleted build files" />
+    <MESSAGE value="New screenshots" />
+    <MESSAGE value="Changed structure" />
+    <MESSAGE value="Added BungeeCord support" />
+    <MESSAGE value="Added Velocity support" />
+    <MESSAGE value="Updated .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated .gitignore" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>false</integration-enabled>
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NoSuchMethodError" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

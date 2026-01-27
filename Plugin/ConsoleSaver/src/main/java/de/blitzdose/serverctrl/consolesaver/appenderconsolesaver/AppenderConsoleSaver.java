@@ -11,21 +11,18 @@ import java.util.stream.Collectors;
 
 public class AppenderConsoleSaver extends AbstractConsoleSaver {
 
-    Logger logger;
-    ConsoleAppender consoleAppender;
-    String path;
+    final Logger logger;
+    final ConsoleAppender consoleAppender;
+    final String path;
 
     public AppenderConsoleSaver(String path, boolean includeLoggerName) {
         this.path = path;
         logger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
         consoleAppender = new ConsoleAppender("ServerCtrl", null, new MessageLayout(), path, includeLoggerName);
         consoleAppender.start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!consoleAppender.isStarted()) { }
-                logger.addAppender(consoleAppender);
-            }
+        new Thread(() -> {
+            while (!consoleAppender.isStarted()) { }
+            logger.addAppender(consoleAppender);
         }).start();
     }
 
@@ -36,9 +33,7 @@ public class AppenderConsoleSaver extends AbstractConsoleSaver {
             String log = reader.lines().collect(Collectors.joining("\n"));
             reader.close();
             return log;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) { }
         return "";
     }
 
@@ -56,8 +51,6 @@ public class AppenderConsoleSaver extends AbstractConsoleSaver {
             writer.write("");
             writer.flush();
             writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) { }
     }
 }

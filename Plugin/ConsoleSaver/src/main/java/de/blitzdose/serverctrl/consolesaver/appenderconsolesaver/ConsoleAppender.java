@@ -37,7 +37,6 @@ public class ConsoleAppender extends AbstractAppender {
             colorWhole = "§4";
         }
         message = colorWhole + "[" + formatter.format(new Date(logEvent.getTimeMillis())) + " " + logEvent.getLevel() + "]§f " + loggerName + message;
-        //messages.add(message);
 
         try {
             new File(path.substring(0, path.lastIndexOf("/"))).mkdirs();
@@ -62,9 +61,7 @@ public class ConsoleAppender extends AbstractAppender {
             bufferedWriter.newLine();
             bufferedWriter.flush();
             bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) { }
     }
 
     @NotNull

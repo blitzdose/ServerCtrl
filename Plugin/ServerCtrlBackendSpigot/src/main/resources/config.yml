@@ -1,0 +1,10 @@
+Webserver:
+  https: true
+  frontend: true
+  port: 5718
+  editable-files:
+    - txt
+    - yml
+    - json
+    - properties
+    - log

@@ -63,7 +63,6 @@ public class CertManager {
             return keystore;
 
         } catch (IOException | KeyStoreException | CertificateException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -88,8 +87,7 @@ public class CertManager {
 
         if (bouncyCastleResult instanceof PrivateKeyInfo) {
             info = (PrivateKeyInfo) bouncyCastleResult;
-        } else if ( bouncyCastleResult instanceof PEMKeyPair) {
-            PEMKeyPair keys = (PEMKeyPair) bouncyCastleResult;
+        } else if (bouncyCastleResult instanceof PEMKeyPair keys) {
             info = keys.getPrivateKeyInfo();
         }
 
@@ -102,6 +100,18 @@ public class CertManager {
         CertificateFactory factory = CertificateFactory.getInstance("X.509");
 
         return (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(certBytes));
+    }
+
+    public static X509Certificate generateCertificateFromPEM(String pem) throws Exception {
+        pem = pem
+                .replace("-----BEGIN CERTIFICATE-----", "")
+                .replace("-----END CERTIFICATE-----", "")
+                .replaceAll("\\s", "");
+
+
+        byte[] der = Base64.getDecoder().decode(pem);
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        return (X509Certificate) cf.generateCertificate(new ByteArrayInputStream(der));
     }
 
     static GeneratedCert generateCertificate(String cnName, String domain, GeneratedCert issuer, boolean isCA)
@@ -124,8 +134,8 @@ public class CertManager {
             issuerName = name;
             issuerKey = certKeyPair.getPrivate();
         } else {
-            issuerName = new X500Name(issuer.certificate.getSubjectX500Principal().getName());
-            issuerKey = issuer.privateKey;
+            issuerName = new X500Name(issuer.certificate().getSubjectX500Principal().getName());
+            issuerKey = issuer.privateKey();
         }
 
         // The cert builder to build up our certificate information
@@ -157,7 +167,7 @@ public class CertManager {
         return new GeneratedCert(certKeyPair.getPrivate(), cert);
     }
 
-    public static void generateAndSaveSelfSignedCertificate(String domain, String path1, String path2) throws GeneralSecurityException, IOException, OperatorCreationException {
+    public static void generateAndSaveSelfSignedCertificate(String domain, String keystorePath, String rootCAPath) throws GeneralSecurityException, IOException, OperatorCreationException {
         KeyStore ks = KeyStore.getInstance("PKCS12");
 
         char[] pwdArray = "2-X>5h5^-!/'c(ELoT;)8O7I=-I<NMs)/{t8e~#0754>l=4".toCharArray();
@@ -166,23 +176,41 @@ public class CertManager {
         GeneratedCert rootCA = CertManager.generateCertificate("ServerCtrl RootCA", null, null, true);
         GeneratedCert cert = CertManager.generateCertificate("ServerCtrl Certificate", domain, rootCA, false);
 
-        ks.setKeyEntry("cert", cert.privateKey, pwdArray, new Certificate[]{cert.certificate});
-        ks.setKeyEntry("rootCA", rootCA.privateKey, pwdArray, new Certificate[]{rootCA.certificate});
+        ks.setKeyEntry("cert", cert.privateKey(), pwdArray, new Certificate[]{cert.certificate()});
+        ks.setKeyEntry("rootCA", rootCA.privateKey(), pwdArray, new Certificate[]{rootCA.certificate()});
 
-        try (FileOutputStream fos = new FileOutputStream(path1)) {
+        try (FileOutputStream fos = new FileOutputStream(keystorePath)) {
             ks.store(fos, pwdArray);
         }
 
-        if (path2 != null) {
-            PrintWriter printWriter = new PrintWriter(path2);
+        if (rootCAPath != null) {
+            PrintWriter printWriter = new PrintWriter(rootCAPath);
 
             Base64.Encoder encoder = Base64.getEncoder();
             printWriter.println("-----BEGIN CERTIFICATE-----");
-            printWriter.println(encoder.encodeToString(rootCA.certificate.getEncoded()));
+            printWriter.println(encoder.encodeToString(rootCA.certificate().getEncoded()));
             printWriter.println("-----END CERTIFICATE-----");
 
             printWriter.close();
         }
+    }
+
+    public static String[] getCertsFromKeystore(String path) throws Exception {
+        Base64.Encoder encoder = Base64.getEncoder();
+
+        KeyStore keyStore = KeyStore.getInstance(new File(path), "2-X>5h5^-!/'c(ELoT;)8O7I=-I<NMs)/{t8e~#0754>l=4".toCharArray());
+        Key key = keyStore.getKey("cert", "2-X>5h5^-!/'c(ELoT;)8O7I=-I<NMs)/{t8e~#0754>l=4".toCharArray());
+        Certificate certificate = keyStore.getCertificate("cert");
+
+        String certPem = "-----BEGIN CERTIFICATE-----\n";
+        certPem += encoder.encodeToString(certificate.getEncoded());
+        certPem += "\n-----END CERTIFICATE-----\n";
+
+        String keyPem = "-----BEGIN PRIVATE KEY-----\n";
+        keyPem += encoder.encodeToString(key.getEncoded());
+        keyPem += "\n-----END PRIVATE KEY-----";
+
+        return new String[]{certPem, keyPem};
     }
 
     static boolean isIP(HostName host) {

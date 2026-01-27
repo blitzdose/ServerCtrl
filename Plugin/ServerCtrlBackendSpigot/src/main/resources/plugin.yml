@@ -1,0 +1,5 @@
+name: ServerCtrlBackend
+version: '4.1.3'
+main: de.blitzdose.serverCtrlBackendSpigot.ServerCtrlBackend
+api-version: '1.21'
+authors: [blitzdose]

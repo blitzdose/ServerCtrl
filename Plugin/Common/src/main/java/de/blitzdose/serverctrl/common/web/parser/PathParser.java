@@ -3,10 +3,10 @@ package de.blitzdose.serverctrl.common.web.parser;
 public class PathParser {
     public static String parsePath(String path, boolean file) {
         if (path == null) {
-            return "?";
+            return null;
         }
         if (path.contains("\\")) {
-            return "?";
+            return null;
         }
         path = path.replace("../", "");
         path = path.replace("/..", "");

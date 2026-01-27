@@ -14,12 +14,13 @@
     <description>A plugin to manage your Server via an Android App</description>
     <modules>
         <module>Common</module>
-        <module>Standalone</module>
         <module>ConsoleSaver</module>
+<!--        <module>BungeeCord</module>
+        <module>Velocity</module>-->
+        <module>Backend</module>
         <module>Embedded</module>
-        <module>BasicApiImpl</module>
-        <module>BungeeCord</module>
-        <module>Velocity</module>
+        <module>ServerCtrlClientSpigot</module>
+        <module>ServerCtrlBackendSpigot</module>
     </modules>
     <properties>
         <java.version>17</java.version>
@@ -58,7 +59,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <finalName>ServerCtrl_${version}</finalName>
+                            <finalName>ServerCtrl_${project.version}</finalName>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -134,6 +135,7 @@
             </plugin>
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
+                <version>2.2.0</version>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <executions>
                     <execution>
@@ -177,7 +179,7 @@
     <repositories>
         <repository>
             <id>papermc-repo</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>sonatype</id>
@@ -197,26 +199,26 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.17.2</version>
+                <version>2.21.0</version>
             </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>2.0.9</version>
+                <version>2.0.17</version>
             </dependency>
 
             <dependency>
                 <groupId>io.javalin</groupId>
                 <artifactId>javalin</artifactId>
-                <version>6.3.0</version>
+                <version>6.7.0</version>
             </dependency>
 
 
             <dependency>
                 <groupId>io.javalin.community.ssl</groupId>
                 <artifactId>ssl-plugin</artifactId>
-                <version>6.3.0</version>
+                <version>6.7.0</version>
             </dependency>
 
             <dependency>
@@ -225,8 +227,6 @@
                 <version>6.1.0</version>
                 <scope>provided</scope>
             </dependency>
-
-
 
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -253,19 +253,19 @@
             <dependency>
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
-                <version>20240303</version>
+                <version>20251224</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-api</artifactId>
-                <version>2.22.0</version>
+                <version>2.25.3</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
-                <version>2.22.0</version>
+                <version>2.25.3</version>
             </dependency>
 
             <dependency>
@@ -298,7 +298,7 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j-impl</artifactId>
-                <version>2.19.0</version>
+                <version>2.25.3</version>
             </dependency>
             <dependency>
                 <groupId>com.amdelamar</groupId>
@@ -308,14 +308,99 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
-                <version>1.27.1</version>
+                <version>1.28.0</version>
             </dependency>
 
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.17.0</version>
+                <version>2.21.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>24.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>5.3.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.13.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.java-websocket</groupId>
+                <artifactId>Java-WebSocket</artifactId>
+                <version>1.6.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mindrot</groupId>
+                <artifactId>jbcrypt</artifactId>
+                <version>0.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-sqlobject</artifactId>
+                <version>3.51.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-core</artifactId>
+                <version>3.51.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.xerial</groupId>
+                <artifactId>sqlite-jdbc</artifactId>
+                <version>3.51.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>2.0.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.blitzdose.serverctrl</groupId>
+                <artifactId>Backend</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.blitzdose.serverctrl</groupId>
+                <artifactId>Common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.blitzdose.serverctrl</groupId>
+                <artifactId>ConsoleSaver</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.blitzdose.serverctrl</groupId>
+                <artifactId>Embedded</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+    </dependencies>
+
+
 </project>
