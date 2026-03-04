@@ -1,5 +1,6 @@
 package de.blitzdose.serverctrl.embedded.api;
 
+import de.blitzdose.serverctrl.common.web.parser.Pagination;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
 import de.blitzdose.serverctrl.embedded.instance.ApiInstance;
 import de.blitzdose.serverctrl.embedded.models.Player;
@@ -20,9 +21,11 @@ public class PlayerApiImpl {
         return new WebsocketResponse(true, instance.getOnlinePlayerCount());
     }
 
-    public WebsocketResponse getOnline() {
+    public WebsocketResponse getOnline(JSONObject requestData) {
+        Pagination pagination = Pagination.parse(requestData);
+
         JSONArray data = new JSONArray();
-        List<Player> players = instance.getOnlinePlayers();
+        List<Player> players = instance.getOnlinePlayers().stream().skip(pagination.position()).limit(pagination.limit()).toList();
         for (Player player : players) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("uuid", player.getUuid().toString());

@@ -87,7 +87,7 @@ public class FileApiImpl {
             if (instance.isPluginFolder(file.path())) {
                 continue;
             }
-            filesArray.put(new Gson().toJson(file));
+            filesArray.put(new JSONObject(new Gson().toJson(file)));
         }
 
         return new WebsocketResponse(true, filesArray);
@@ -116,7 +116,7 @@ public class FileApiImpl {
         SSLContext sslContext;
         try {
             sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[]{ new BackendTrustManager(CertManager.generateCertificateFromPEM(instance.getProvisioningServerCert())) }, new java.security.SecureRandom());
+            sslContext.init(null, new TrustManager[]{ new BackendTrustManager(CertManager.generateCertificateFromPEM(instance.getProvisioningCACert())) }, new java.security.SecureRandom());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class LogApi {
     public static void getLog(Context context) {
         BackendLogApiImpl logApi = new BackendLogApiImpl(WebServer.backendApiInstance);
-        Pagination pagination = Pagination.parse(WebServer.getData(context, JSONObject.class));
+        Pagination pagination = Pagination.parse(context.queryParamMap());
 
         WebsocketResponse response = logApi.getLog(pagination);
         if (!response.success()) {

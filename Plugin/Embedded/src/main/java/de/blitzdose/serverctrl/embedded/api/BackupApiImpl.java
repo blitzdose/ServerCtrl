@@ -7,6 +7,7 @@ import de.blitzdose.serverctrl.embedded.backup.BackupRunnable;
 import de.blitzdose.serverctrl.embedded.instance.ApiInstance;
 import kotlin.Pair;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -22,8 +23,11 @@ public class BackupApiImpl {
     }
 
     public WebsocketResponse listWorlds() {
-        Map<String, UUID> worlds = instance.getWorlds();
-        return new WebsocketResponse(true, new JSONObject(worlds));
+        JSONArray jsonArray = new JSONArray();
+        for (Map.Entry<String, UUID> entry : instance.getWorlds().entrySet()) {
+            jsonArray.put(new JSONObject().put("name", entry.getKey()).put("uuid", entry.getValue().toString()));
+        }
+        return new WebsocketResponse(true, jsonArray);
     }
 
     public void startBackup(List<String> paths) {
@@ -74,15 +78,15 @@ public class BackupApiImpl {
     }
 
     public WebsocketResponse listBackups() {
-        JSONObject data = new JSONObject();
+        JSONArray data = new JSONArray();
         Gson gson = new Gson();
 
         for (Backup.BackupState backupState : getFinishedBackups()) {
-            data.put(backupState.id.toString(), new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
+            data.put(new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
         }
 
         for (Backup.BackupState backupState: Backup.backupThreads.values()) {
-            data.put(backupState.id.toString(), new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
+            data.put(new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
         }
 
         return new WebsocketResponse(true, data);

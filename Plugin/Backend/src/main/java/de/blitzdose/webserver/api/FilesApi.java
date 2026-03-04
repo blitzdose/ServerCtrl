@@ -3,6 +3,7 @@ package de.blitzdose.webserver.api;
 import de.blitzdose.apiimpl.BackendFileApiImpl;
 import de.blitzdose.clientConnection.websocket.WebsocketException;
 import de.blitzdose.clientConnection.websocket.WebsocketHandler;
+import de.blitzdose.serverctrl.common.web.parser.Pagination;
 import de.blitzdose.serverctrl.common.web.websocket.requests.RequestMethod;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketRequest;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
@@ -22,8 +23,12 @@ import static de.blitzdose.serverctrl.common.web.parser.PathParser.parsePath;
 public class FilesApi {
 
     public static void listFiles(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
-        JSONObject data = WebServer.getData(context, JSONObject.class);
-        data.put("path", parsePath(data.getString("path"), false));
+        Pagination pagination = Pagination.parse(context.queryParamMap());
+
+        JSONObject data = new JSONObject();
+        data.put("limit", pagination.limit());
+        data.put("position", pagination.position());
+        data.put("path", parsePath(context.queryParam("path"), false));
 
         WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -34,7 +39,7 @@ public class FilesApi {
     }
 
     public static void countFiles(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
-        String path = WebServer.getData(context, String.class);
+        String path = context.queryParam("path");
         path = parsePath(path, false);
 
         WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(
@@ -176,7 +181,7 @@ public class FilesApi {
     }
 
     public static void downloadMultiple(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
-        JSONArray data = new JSONArray(Objects.requireNonNull(context.queryParam("data")));
+        JSONArray data = new JSONArray(Objects.requireNonNull(context.queryParam("paths")));
         List<String> paths = data.toList().stream().map(o -> (String) o).map(s -> parsePath(s, true)).toList();
 
         FileTransferManager transferManager = WebServer.fileTransferManager;

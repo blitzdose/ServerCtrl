@@ -14,9 +14,13 @@ import org.json.JSONObject;
 public class PlayerApi {
 
     public static void getOnline(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
-        Pagination pagination = Pagination.parse(WebServer.getData(context, JSONObject.class));
+        Pagination pagination = Pagination.parse(context.queryParamMap());
 
-        WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(context.queryParam("system"), new WebsocketRequest(RequestMethod.GetOnline, null));
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("limit", pagination.limit());
+        jsonObject.put("position", pagination.position());
+
+        WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(context.queryParam("system"), new WebsocketRequest(RequestMethod.GetOnline, jsonObject));
 
         JSONArray data = response.data(JSONArray.class);
         JSONArray returnData = new JSONArray();

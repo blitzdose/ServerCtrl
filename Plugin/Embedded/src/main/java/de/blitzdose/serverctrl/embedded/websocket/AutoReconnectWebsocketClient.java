@@ -16,7 +16,7 @@ public class AutoReconnectWebsocketClient implements WebsocketClient.StatusListe
 
     private final URI serverUri;
     private final String authToken;
-    private final String serverCert;
+    private final String caCertificate;
     private final Implementations implementations;
     private final WebsocketClient.StatusListener statusListener;
 
@@ -25,10 +25,10 @@ public class AutoReconnectWebsocketClient implements WebsocketClient.StatusListe
     private boolean reconnect = false;
     private boolean isReconnecting = false;
 
-    public AutoReconnectWebsocketClient(URI serverUri, String authToken, String serverCert, Implementations implementations, WebsocketClient.StatusListener statusListener) {
+    public AutoReconnectWebsocketClient(URI serverUri, String authToken, String caCertificate, Implementations implementations, WebsocketClient.StatusListener statusListener) {
         this.serverUri = serverUri;
         this.authToken = authToken;
-        this.serverCert = serverCert;
+        this.caCertificate = caCertificate;
         this.implementations = implementations;
         this.statusListener = statusListener;
     }
@@ -38,7 +38,7 @@ public class AutoReconnectWebsocketClient implements WebsocketClient.StatusListe
         websocketClient = new WebsocketClient(
                 serverUri,
                 authToken,
-                serverCert,
+                caCertificate,
                 implementations,
                 this
         );

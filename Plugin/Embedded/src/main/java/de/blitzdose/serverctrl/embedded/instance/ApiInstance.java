@@ -65,8 +65,8 @@ public abstract class ApiInstance {
         return provisioningPack.name() + ":" + provisioningPack.accessToken();
     }
 
-    public String getProvisioningServerCert() {
-        return provisioningPack.cert();
+    public String getProvisioningCACert() {
+        return provisioningPack.caCert();
     }
 
     public void loadProvisioningPack() throws Exception {

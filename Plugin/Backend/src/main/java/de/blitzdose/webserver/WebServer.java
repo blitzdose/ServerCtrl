@@ -215,8 +215,7 @@ public class WebServer {
                         post("reset-password", AccountApi::resetPassword, WebserverManagerRole.SUPERADMIN);
                         post("delete", AccountApi::delete, WebserverManagerRole.SUPERADMIN);
                         post("create", AccountApi::create, WebserverManagerRole.SUPERADMIN);
-                        post("set-superadmin", AccountApi::setSuperAdmin, WebserverManagerRole.SUPERADMIN);
-                        post("unset-superadmin", AccountApi::unsetSuperAdmin, WebserverManagerRole.SUPERADMIN);
+                        post("superadmin", AccountApi::setSuperAdmin, WebserverManagerRole.SUPERADMIN);
                     });
                     path("console", () -> {
                         get("log", ConsoleApi::getLog, Role.CONSOLE);
@@ -228,7 +227,7 @@ public class WebServer {
                     });
                     path("files", () -> {
                         post("list", FilesApi::listFiles, Role.FILES);
-                        post("count", FilesApi::countFiles, Role.FILES);
+                        get("count", FilesApi::countFiles, Role.FILES);
                         get("download", FilesApi::downloadFile, Role.FILES);
                         post("upload", FilesApi::uploadFile, Role.FILES);
                         post("extract-file", FilesApi::extractFile, Role.FILES);

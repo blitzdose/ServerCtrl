@@ -29,7 +29,7 @@ public class FunctionMapper {
             case ReloadServer -> implementations.getServerApi().reloadServer();
 
 
-            case GetOnline -> implementations.getPlayerApi().getOnline();
+            case GetOnline -> implementations.getPlayerApi().getOnline(request.data(JSONObject.class));
             case GetPlayerCount -> implementations.getPlayerApi().getPlayerCount();
 
             case GetConsoleLog -> implementations.getConsoleApi().getLog();

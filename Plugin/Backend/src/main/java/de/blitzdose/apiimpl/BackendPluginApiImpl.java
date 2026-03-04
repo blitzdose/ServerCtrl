@@ -6,10 +6,12 @@ import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.cert.CertificateException;
 import java.util.Base64;
 
 public class BackendPluginApiImpl {
@@ -62,15 +64,17 @@ public class BackendPluginApiImpl {
     }
 
     public WebsocketResponse setCertificate(JSONObject data) {
-        if (!data.has("cert") || !data.has("certKey")) {
+        if (!data.has("cert") || !data.has("certKey") || !data.has("ca")) {
             return new WebsocketResponse(false, null);
         }
 
         String certBase64 = data.getString("cert");
         String keyBase64 = data.getString("certKey");
+        String caBase64 = data.getString("ca");
 
         byte[] cert = Base64.getDecoder().decode(certBase64);
         byte[] key = Base64.getDecoder().decode(keyBase64);
+        byte[] ca = Base64.getDecoder().decode(caBase64);
 
         KeyStore keyStore = CertManager.keystoreFromCertificate(cert, key);
         if (keyStore == null) {
@@ -80,6 +84,12 @@ public class BackendPluginApiImpl {
         try (FileOutputStream fos = new FileOutputStream(getKeystorePath())) {
             keyStore.store(fos, pwdArray);
         } catch (Exception e) {
+            return new WebsocketResponse(false, null);
+        }
+
+        try {
+            CertManager.saveRootCA(ca, getRootCAPath());
+        } catch (CertificateException | FileNotFoundException e) {
             return new WebsocketResponse(false, null);
         }
 

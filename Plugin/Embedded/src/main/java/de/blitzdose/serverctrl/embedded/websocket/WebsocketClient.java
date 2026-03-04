@@ -20,13 +20,13 @@ public class WebsocketClient extends WebSocketClient {
     private final StatusListener statusListener;
 
 
-    public WebsocketClient(URI serverUri, String authToken, String serverCert, Implementations implementations, StatusListener statusListener) {
+    public WebsocketClient(URI serverUri, String authToken, String caCertificate, Implementations implementations, StatusListener statusListener) {
         super(serverUri, Map.of("Authorization", "Bearer " + authToken));
         this.functionMapper = new FunctionMapper(implementations);
         this.statusListener = statusListener;
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[]{ new BackendTrustManager(CertManager.generateCertificateFromPEM(serverCert)) }, new java.security.SecureRandom());
+            sslContext.init(null, new TrustManager[]{ new BackendTrustManager(CertManager.generateCertificateFromPEM(caCertificate)) }, new java.security.SecureRandom());
 
             this.setSocketFactory(sslContext.getSocketFactory());
         } catch (Exception e) {

@@ -26,16 +26,17 @@ public class AccountApi {
     public static void setPermissions(Context context) {
         JSONObject data = WebServer.getData(context, JSONObject.class);
         String username = data.getString("username");
-        String system = data.getString("system");
-        JSONArray permissionsArray = data.getJSONArray("permissions");
-
         User user = WebServer.userManager.getUserByUsername(username);
         List<Role> roles = new ArrayList<>();
-        for (int i=0; i<permissionsArray.length(); i++) {
-            roles.add(Role.valueOf(permissionsArray.getString(i).toUpperCase()));
-        }
 
-        WebServer.userManager.setRoles(user, system, roles);
+        JSONObject systems = data.getJSONObject("systems");
+        for (String system : systems.keySet()) {
+            JSONArray permissionsArray = systems.getJSONArray(system);
+            for (int i=0; i<permissionsArray.length(); i++) {
+                roles.add(Role.valueOf(permissionsArray.getString(i).toUpperCase()));
+            }
+            WebServer.userManager.setRoles(user, system, roles);
+        }
 
         WebServer.returnSuccessfulJson(context, new JSONObject());
     }
@@ -100,17 +101,11 @@ public class AccountApi {
     }
 
     public static void setSuperAdmin(Context context) {
-        String username = WebServer.getData(context, String.class);
+        JSONObject jsonObject = WebServer.getData(context, JSONObject.class);
+        String username = jsonObject.getString("username");
+        boolean isSuperAdmin = jsonObject.getBoolean("superAdmin");
         User user = WebServer.userManager.getUserByUsername(username);
-        WebServer.userManager.setSuperAdmin(user, true);
-
-        WebServer.returnSuccessfulJson(context, new JSONObject());
-    }
-
-    public static void unsetSuperAdmin(Context context) {
-        String username = WebServer.getData(context, String.class);
-        User user = WebServer.userManager.getUserByUsername(username);
-        WebServer.userManager.setSuperAdmin(user, false);
+        WebServer.userManager.setSuperAdmin(user, isSuperAdmin);
 
         WebServer.returnSuccessfulJson(context, new JSONObject());
     }

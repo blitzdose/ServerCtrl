@@ -36,7 +36,7 @@ public final class ServerCtrlClient extends JavaPlugin {
         client = new AutoReconnectWebsocketClient(
                 URI.create(apiInstance.getProvisioningBackendWebsocketURI()),
                 apiInstance.getProvisioningAuthToken(),
-                apiInstance.getProvisioningServerCert(),
+                apiInstance.getProvisioningCACert(),
                 new Implementations(apiInstance, consoleSaver, systemDataLogger),
                 new WebsocketClient.StatusListener() {
                     @Override

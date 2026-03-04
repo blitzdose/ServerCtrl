@@ -21,10 +21,8 @@ import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import java.io.*;
 import java.math.BigInteger;
 import java.security.*;
+import java.security.cert.*;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -33,6 +31,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 public class CertManager {
@@ -184,15 +183,32 @@ public class CertManager {
         }
 
         if (rootCAPath != null) {
-            PrintWriter printWriter = new PrintWriter(rootCAPath);
-
-            Base64.Encoder encoder = Base64.getEncoder();
-            printWriter.println("-----BEGIN CERTIFICATE-----");
-            printWriter.println(encoder.encodeToString(rootCA.certificate().getEncoded()));
-            printWriter.println("-----END CERTIFICATE-----");
-
-            printWriter.close();
+            saveRootCA(rootCA.certificate(), rootCAPath);
         }
+    }
+
+    public static void saveRootCA(X509Certificate rootCA, String rootCAPath) throws FileNotFoundException, CertificateEncodingException {
+        PrintWriter printWriter = new PrintWriter(rootCAPath);
+
+        Base64.Encoder encoder = Base64.getEncoder();
+        printWriter.println("-----BEGIN CERTIFICATE-----");
+        printWriter.println(encoder.encodeToString(rootCA.getEncoded()));
+        printWriter.println("-----END CERTIFICATE-----");
+
+        printWriter.close();
+    }
+
+    public static void saveRootCA(byte[] rootCAPEM, String rootCAPath) throws CertificateException, FileNotFoundException {
+        byte[] certBytes = parseDERFromPEM(rootCAPEM, "-----BEGIN CERTIFICATE-----", "-----END CERTIFICATE-----");
+        X509Certificate cert = generateCertificateFromDER(certBytes);
+        saveRootCA(cert, rootCAPath);
+    }
+
+    public static String getRootCA(String rootCAPath) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(rootCAPath));
+        String rootCA = reader.lines().collect(Collectors.joining("\n"));
+        reader.close();
+        return rootCA;
     }
 
     public static String[] getCertsFromKeystore(String path) throws Exception {

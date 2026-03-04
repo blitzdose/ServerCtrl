@@ -25,8 +25,8 @@ public class ProvisioningApi {
         String publicURL = context.queryParam("publicURL");
         Pair<String, ProvisionedClient> provisionedClientPair = WebServer.websocketClientManager.generateClient(name);
         String accessToken = provisionedClientPair.component1();
-        String cert = CertManager.getCertsFromKeystore(WebServer.backendApiInstance.getKeystorePath())[0];
-        byte[] provisioningPack = new ProvisioningPack(name, accessToken, cert, publicURL).generatePackFile();
+        String caCert = CertManager.getRootCA(WebServer.backendApiInstance.getRootCAPath());
+        byte[] provisioningPack = new ProvisioningPack(name, accessToken, caCert, publicURL).generatePackFile();
         WebServer.returnFile(context, name + ".sctrl", provisioningPack.length, new BufferedInputStream(new ByteArrayInputStream(provisioningPack)));
     }
 

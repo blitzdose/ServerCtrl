@@ -26,7 +26,7 @@ public class BackupApi {
                     )
             );
 
-            WebServer.returnSuccessfulJson(context, new JSONObject().put("data", response.data(JSONObject.class)));
+            WebServer.returnSuccessfulJson(context, new JSONObject().put("data", response.data(JSONArray.class)));
         }
 
         public static void startCreateWorldsBackup(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
@@ -54,7 +54,7 @@ public class BackupApi {
                 )
         );
 
-        WebServer.returnSuccessfulJson(context, new JSONObject().put("data", response.data(JSONObject.class)));
+        WebServer.returnSuccessfulJson(context, new JSONObject().put("data", response.data(JSONArray.class)));
     }
 
     public static void startCreateFullBackup(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
