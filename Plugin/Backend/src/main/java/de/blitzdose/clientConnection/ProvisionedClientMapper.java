@@ -13,7 +13,6 @@ public class ProvisionedClientMapper implements RowMapper<ProvisionedClient> {
         return new ProvisionedClient(
                 rs.getString("name"),
                 rs.getString("accessTokenHash"),
-                rs.getString("accessTokenSalt"),
                 rs.getBoolean("pending"),
                 rs.getLong("lastConnected")
         );

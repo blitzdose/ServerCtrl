@@ -1,105 +1,66 @@
-package de.blitzdose.webserver.auth.shiro;
+package de.blitzdose.webserver.auth.session;
 
 import de.blitzdose.webserver.auth.Role;
 import de.blitzdose.webserver.auth.User;
 import de.blitzdose.webserver.auth.UserDao;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.PasswordService;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.session.SessionException;
-import org.apache.shiro.session.mgt.DefaultSessionKey;
-import org.apache.shiro.session.mgt.DefaultSessionManager;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
-import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
+import jakarta.servlet.http.HttpSession;
 import org.jdbi.v3.core.Jdbi;
 
+import java.security.PublicKey;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class UserManager {
 
-    private final DefaultSessionManager sessionManager;
-    private final PasswordService passwordService;
     private final Jdbi jdbi;
 
-    public UserManager(DefaultSessionManager sessionManager, PasswordService passwordService, Jdbi jdbi) {
-        this.sessionManager = sessionManager;
-        this.passwordService = passwordService;
+    public UserManager(Jdbi jdbi) {
         this.jdbi = jdbi;
     }
 
-    public User getUser(String token) throws UserManagerException {
-       Subject currentUser = getUserSubject(token);
-       return (User) currentUser.getPrincipal();
+    public User getUser(HttpSession httpSession) throws UserManagerException, IllegalStateException {
+        String username = (String) httpSession.getAttribute("user");
+        if (username == null) throw new UserManagerException("Session has no user");
+        User user = getUserByUsername(username);
+        if (user == null) throw new UserManagerException("Invalid user");
+        return user;
     }
 
     public User getUserByUsername(String username) {
         return jdbi.onDemand(UserDao.class).findByUsername(username);
     }
 
-    private Subject getUserSubject(String token) throws UserManagerException {
-        Subject currentUser = null;
-        try {
-            if (token != null) {
-                currentUser = new Subject.Builder()
-                        .session(sessionManager.getSession(new DefaultSessionKey(token)))
-                        .buildSubject();
-            }
-        } catch (SessionException ignored) {}
-        if (currentUser == null || !currentUser.isAuthenticated()) {
-            throw new UserManagerException.WrongCredentialsException("");
-        }
-        return currentUser;
-    }
+    public User login(String username, String password, String code) throws UserManagerException {
+        User user = getUserByUsername(username);
+        String savedHash = user.getPassword();
 
-    public Subject login(String username, String password, String code) throws UserManagerException {
-        Subject currentUser = SecurityUtils.getSubject();
-        try {
-            currentUser.login(new UsernamePasswordToken(
-                    username,
-                    password
-            ));
-        } catch (AuthenticationException ignored) {
+        if (!PasswordVerifier.verify(password, savedHash)) {
             throw new UserManagerException.WrongCredentialsException(username);
         }
-        if (currentUser.isAuthenticated()) {
-            User user = (User) currentUser.getPrincipal();
-            if (TOTPManager.checkTOTP(user.getTotpSecret(), code)) {
-                return currentUser;
-            } else {
-                throw new UserManagerException.WrongTOTPException(username);
-            }
+
+        if (TOTPVerifier.checkTOTP(user.getTotpSecret(), code)) {
+            return user;
+        } else {
+            throw new UserManagerException.WrongTOTPException(username);
+        }
+    }
+
+    public User pubkeyLogin(String username, String publicKeyHash, String challengeId, byte[] signature) throws UserManagerException {
+        if (PublicKeyVerifier.verify(username, publicKeyHash, challengeId, signature)) {
+            return getUserByUsername(username);
         } else {
             throw new UserManagerException.WrongCredentialsException(username);
         }
     }
 
-    public void logout(String token) throws UserManagerException {
-        Subject currentUser = getUserSubject(token);
-        currentUser.logout();
-    }
-
-    public void logout(User user) {
-        SessionDAO sessionDAO = sessionManager.getSessionDAO();
-
-        for (Session session : sessionDAO.getActiveSessions()) {
-            PrincipalCollection pc = (PrincipalCollection) session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-            if (pc != null && user.getUsername().equals(pc.getPrimaryPrincipal())) {
-                session.stop();
-                sessionDAO.delete(session);
-            }
-        }
+    public void logout(HttpSession session) {
+        session.invalidate();
     }
 
     public void changePassword(User user, String newPassword) {
-        user.setPassword(passwordService.encryptPassword(newPassword));
+        user.setPassword(PasswordVerifier.encrypt(newPassword));
         jdbi.useExtension(UserDao.class, dao -> dao.updateUser(user));
-
     }
 
     public void removeTOTP(User user) {
@@ -108,14 +69,14 @@ public class UserManager {
     }
 
     public String initTOTP(User user) {
-        String secret = TOTPManager.generateSecret();
+        String secret = TOTPVerifier.generateSecret();
         user.setTotpSecret("$" + secret);
         jdbi.useExtension(UserDao.class, dao -> dao.updateUser(user));
         return secret;
     }
 
     public boolean verifyTOTP(User user, String code) {
-        String secret = TOTPManager.verifyTOTP(user.getTotpSecret(), code);
+        String secret = TOTPVerifier.verifyTOTP(user.getTotpSecret(), code);
         if (secret == null) {
             return false;
         } else {
@@ -143,17 +104,21 @@ public class UserManager {
         if (!Pattern.matches("^([a-zA-Z0-9]+)$", username) || password.isEmpty()) {
             throw new UserManagerException.InvalidUsernameException(username);
         }
-        User user = new User(username, passwordService.encryptPassword(password), false);
+        User user = new User(username, PasswordVerifier.encrypt(password), false);
         jdbi.useExtension(UserDao.class, dao -> dao.insertUser(user));
     }
 
     public void deleteUser(User user) {
-        logout(user);
         jdbi.useExtension(UserDao.class, dao -> dao.deleteByUsername(user.getUsername()));
     }
 
     public void setSuperAdmin(User user, boolean superAdmin) {
         user.setSuperAdmin(superAdmin);
+        jdbi.useExtension(UserDao.class, dao -> dao.updateUser(user));
+    }
+
+    public void addPublicKey(User user, PublicKey publicKey) {
+        user.addPublicKey(publicKey);
         jdbi.useExtension(UserDao.class, dao -> dao.updateUser(user));
     }
 

@@ -2,10 +2,11 @@ package de.blitzdose.webserver.auth;
 
 import de.blitzdose.clientConnection.websocket.WebsocketAccessManager;
 import de.blitzdose.clientConnection.websocket.WebsocketClientManager;
-import de.blitzdose.webserver.auth.shiro.UserManager;
+import de.blitzdose.webserver.auth.session.UserManager;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.http.UnauthorizedResponse;
+import jakarta.servlet.http.HttpSession;
 import kotlin.Pair;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,16 +38,14 @@ public class AccessManager implements Handler {
             return;
         }
 
-        String token = ctx.cookie("token");
-        if (token == null || token.isEmpty()) {
-            throw new UnauthorizedResponse();
-        }
+        HttpSession session = ctx.req().getSession();
 
         User user;
 
         try {
-            user = userManager.getUser(token);
-        } catch (UserManager.UserManagerException e) {
+            user = userManager.getUser(session);
+        } catch (Exception e) {
+            ctx.req().getSession().invalidate();
             throw new UnauthorizedResponse();
         }
 

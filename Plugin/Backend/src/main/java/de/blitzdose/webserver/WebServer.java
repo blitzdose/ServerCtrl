@@ -12,8 +12,8 @@ import de.blitzdose.serverctrl.common.crypt.CryptManager;
 import de.blitzdose.serverctrl.common.logging.Logger;
 import de.blitzdose.webserver.api.*;
 import de.blitzdose.webserver.auth.*;
-import de.blitzdose.webserver.auth.shiro.SqliteRealm;
-import de.blitzdose.webserver.auth.shiro.UserManager;
+import de.blitzdose.webserver.auth.session.PublicKeyManager;
+import de.blitzdose.webserver.auth.session.UserManager;
 import de.blitzdose.webserver.files.FileTransferManager;
 import de.blitzdose.webserver.logging.SecurityLogType;
 import io.javalin.Javalin;
@@ -24,13 +24,9 @@ import io.javalin.jetty.JettyServer;
 import io.javalin.util.JavalinLogger;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.credential.DefaultPasswordService;
-import org.apache.shiro.authc.credential.PasswordMatcher;
-import org.apache.shiro.mgt.DefaultSecurityManager;
-import org.apache.shiro.session.mgt.DefaultSessionManager;
-import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.eclipse.jetty.http.HttpCookie;
 import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.json.JSONObject;
@@ -47,25 +43,22 @@ import java.util.Objects;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class WebServer {
-    private Javalin app;
+    private final Javalin app;
     private final WebserverConfig webserverConfig;
     private final Logger logger;
     public static BackendApiInstance backendApiInstance;
     public static FileTransferManager fileTransferManager;
 
-    public static final DefaultPasswordService passwordService = new DefaultPasswordService();
-    public static final DefaultSessionManager sessionManager = new DefaultSessionManager();
-
     public static WebsocketClientManager websocketClientManager;
 
     public static UserManager userManager;
+    public static PublicKeyManager publicKeyManager;
 
     public WebServer(
             WebserverConfig webserverConfig,
             Logger logger,
             BackendApiInstance backendApiInstance
     ) {
-        // "Hacky" solution because shiro does not find the Argon2id implementation
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         this.webserverConfig = webserverConfig;
@@ -86,24 +79,13 @@ public class WebServer {
         jdbi.useExtension(ProvisionedClientDao.class, ProvisionedClientDao::createTable);
 
         jdbi.registerArgument(new RoleSetsArgumentFactory());
+        jdbi.registerArgument(new PublicKeysArgumentFactory());
         jdbi.registerRowMapper(new UserMapper());
         jdbi.registerRowMapper(new ProvisionedClientMapper());
 
         WebServer.websocketClientManager = new WebsocketClientManager(jdbi);
 
-        sessionManager.setSessionDAO(new EnterpriseCacheSessionDAO());
-
-        userManager = new UserManager(sessionManager, passwordService, jdbi);
-
-        PasswordMatcher matcher = new PasswordMatcher();
-        matcher.setPasswordService(passwordService);
-
-        SqliteRealm realm = new SqliteRealm(jdbi.onDemand(UserDao.class));
-        realm.setCredentialsMatcher(matcher);
-
-        DefaultSecurityManager securityManager = new DefaultSecurityManager(realm);
-        securityManager.setSessionManager(sessionManager);
-        SecurityUtils.setSecurityManager(securityManager);
+        userManager = new UserManager(jdbi);
 
         if (userManager.getUserByUsername("admin") == null) {
             try {
@@ -119,6 +101,8 @@ public class WebServer {
                      UserManager.UserManagerException.InvalidUsernameException ignored) {
             }
         }
+
+        publicKeyManager = new PublicKeyManager(userManager);
 
         SslPlugin plugin;
         if (this.webserverConfig.https()) {
@@ -140,12 +124,17 @@ public class WebServer {
                 conf.http2 = false;
                 conf.redirect = true;
             });
-            app = Javalin.create(javalinConfig -> javalinConfig.registerPlugin(plugin));
         } else {
             plugin = null;
         }
 
         app = Javalin.create(config -> {
+            SessionHandler sessionHandler = new SessionHandler();
+            sessionHandler.setHttpOnly(true);
+            sessionHandler.setSameSite(HttpCookie.SameSite.LAX);
+            sessionHandler.getSessionCookieConfig().setMaxAge(2592000);
+            config.jetty.modifyServletContextHandler(handler -> handler.setSessionHandler(sessionHandler));
+
             if (plugin != null) config.registerPlugin(plugin);
             if (this.webserverConfig.frontend()) {
                 config.staticFiles.add(staticFileConfig -> {
@@ -198,6 +187,8 @@ public class WebServer {
                     });
                     path("user", () -> {
                         post("login", UserApi::login);
+                        get("challenge", UserApi::challenge);
+                        post("pubkeylogin", UserApi::pubkeyLogin);
                         post("logout", UserApi::logout, WebserverManagerRole.ANYONE);
                         get("current", UserApi::getCurrent, WebserverManagerRole.ANYONE);
                         get("permissions", UserApi::getPermissions, WebserverManagerRole.ANYONE);
@@ -206,6 +197,7 @@ public class WebServer {
                         post("verifytotp", UserApi::verifyTOTP, WebserverManagerRole.ANYONE);
                         post("removetotp", UserApi::removeTOTP, WebserverManagerRole.ANYONE);
                         get("hastotp", UserApi::hasTOTP, WebserverManagerRole.ANYONE);
+                        post("pubkey", UserApi::addPubkey, WebserverManagerRole.ANYONE);
                     });
                     path("account", () -> {
                         get("all", AccountApi::getAccounts, WebserverManagerRole.SUPERADMIN);

@@ -8,19 +8,19 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import java.util.List;
 
 public interface ProvisionedClientDao {
-    @SqlUpdate("CREATE TABLE IF NOT EXISTS clients (name TEXT PRIMARY KEY, accessTokenHash TEXT, accessTokenSalt TEXT, pending BOOLEAN DEFAULT TRUE, lastConnected INTEGER)")
+    @SqlUpdate("CREATE TABLE IF NOT EXISTS clients (name TEXT PRIMARY KEY, accessTokenHash TEXT, pending BOOLEAN DEFAULT TRUE, lastConnected INTEGER)")
     void createTable();
 
-    @SqlUpdate("INSERT INTO clients VALUES (:name, :accessTokenHash, :accessTokenSalt, :pending, :lastConnected)")
+    @SqlUpdate("INSERT INTO clients VALUES (:name, :accessTokenHash, :pending, :lastConnected)")
     void insertClient(@BindBean ProvisionedClient provisionedClient);
 
-    @SqlUpdate("UPDATE clients SET accessTokenHash = :accessTokenHash, accessTokenSalt = :accessTokenSalt, pending = :pending, lastConnected = :lastConnected WHERE name = :name")
+    @SqlUpdate("UPDATE clients SET accessTokenHash = :accessTokenHash, pending = :pending, lastConnected = :lastConnected WHERE name = :name")
     void updateClient(@BindBean ProvisionedClient provisionedClient);
 
-    @SqlQuery("SELECT name, accessTokenHash, accessTokenSalt, pending, lastConnected FROM clients WHERE name = :name")
+    @SqlQuery("SELECT name, accessTokenHash, pending, lastConnected FROM clients WHERE name = :name")
     ProvisionedClient findClientByName(@Bind("name") String name);
 
-    @SqlQuery("SELECT name, accessTokenHash, accessTokenSalt, pending, lastConnected FROM clients")
+    @SqlQuery("SELECT name, accessTokenHash, pending, lastConnected FROM clients")
     List<ProvisionedClient> listAllClients();
 
     @SqlUpdate("DELETE FROM clients WHERE name = :name")

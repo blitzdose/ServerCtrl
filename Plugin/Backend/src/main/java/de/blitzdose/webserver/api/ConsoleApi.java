@@ -8,6 +8,7 @@ import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
 import de.blitzdose.webserver.WebServer;
 import de.blitzdose.webserver.auth.Role;
 import de.blitzdose.webserver.auth.User;
+import de.blitzdose.webserver.auth.session.UserManager;
 import de.blitzdose.webserver.logging.SecurityLogType;
 import io.javalin.http.Context;
 import org.json.JSONObject;
@@ -22,12 +23,12 @@ public class ConsoleApi {
         WebServer.returnSuccessfulJson(context, new JSONObject().put("data",  response.data(String.class)));
     }
 
-    public static void command(Context context) throws de.blitzdose.webserver.auth.shiro.UserManager.UserManagerException, WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
+    public static void command(Context context) throws UserManager.UserManagerException, WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String commandBase64 = WebServer.getData(context, String.class);
-        String command = new String(Base64.getUrlDecoder().decode(commandBase64)).trim();
+        String command = new String(Base64.getDecoder().decode(commandBase64)).trim();
         String system = context.queryParam("system");
 
-        User user = WebServer.userManager.getUser(context.cookie("token"));
+        User user = WebServer.userManager.getUser(context.req().getSession());
 
         if (!hasPermission(user, system, command)) {
             WebServer.returnFailedJson(context);

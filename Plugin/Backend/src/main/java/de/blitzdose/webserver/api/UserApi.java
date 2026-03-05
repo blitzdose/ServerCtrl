@@ -3,15 +3,18 @@ package de.blitzdose.webserver.api;
 import de.blitzdose.webserver.WebServer;
 import de.blitzdose.webserver.auth.Role;
 import de.blitzdose.webserver.auth.User;
-import de.blitzdose.webserver.auth.shiro.UserManager;
+import de.blitzdose.webserver.auth.session.PublicKeyManager;
+import de.blitzdose.webserver.auth.session.UserManager;
 import de.blitzdose.webserver.logging.SecurityLogType;
 import io.javalin.http.Context;
-import io.javalin.http.Cookie;
-import io.javalin.http.SameSite;
-import org.apache.shiro.subject.Subject;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -23,24 +26,13 @@ public class UserApi {
         String username = data.getString("username");
         String passwordBase64 = data.getString("password");
         String code = data.optString("code", "");
-        String password = new String(Base64.getUrlDecoder().decode(passwordBase64.trim()), StandardCharsets.UTF_8);
+        String password = new String(Base64.getDecoder().decode(passwordBase64.trim()), StandardCharsets.UTF_8);
 
-        Subject subject = WebServer.userManager.login(username, password, code);
+        User user = WebServer.userManager.login(username, password, code);
 
-        String token = subject.getSession().getId().toString();
-        Cookie cookie = new Cookie(
-                "token",
-                token,
-                "/",
-                2592000,
-                false,
-                0,
-                false,
-                null,
-                null,
-                SameSite.LAX
-        );
-        context.cookie(cookie);
+        context.req().getSession().invalidate();
+        context.req().getSession().setAttribute("user", user.getUsername());
+
         WebServer.returnSuccessfulJson(context, new JSONObject());
         WebServer.securityLog(SecurityLogType.LOGIN_SUCCESS, username, "User successfully logged in");
     }
@@ -63,8 +55,8 @@ public class UserApi {
         );
     }
 
-    public static void logout(Context context) throws UserManager.UserManagerException {
-        WebServer.userManager.logout(context.cookie("token"));
+    public static void logout(Context context) {
+        WebServer.userManager.logout(context.req().getSession());
         WebServer.returnSuccessfulJson(context, new JSONObject());
     }
 
@@ -80,8 +72,8 @@ public class UserApi {
             return;
         }
 
-        String password = new String(Base64.getUrlDecoder().decode(passwordBase64));
-        String newPassword = new String(Base64.getUrlDecoder().decode(newPasswordBase64));
+        String password = new String(Base64.getDecoder().decode(passwordBase64));
+        String newPassword = new String(Base64.getDecoder().decode(newPasswordBase64));
 
         WebServer.userManager.login(user.getUsername(), password, code);
         WebServer.userManager.changePassword(user, newPassword);
@@ -98,7 +90,7 @@ public class UserApi {
             return;
         }
 
-        String password = new String(Base64.getUrlDecoder().decode(passwordBase64));
+        String password = new String(Base64.getDecoder().decode(passwordBase64));
         WebServer.userManager.login(user.getUsername(), password, null);
 
         String secret = WebServer.userManager.initTOTP(user);
@@ -132,7 +124,7 @@ public class UserApi {
             return;
         }
 
-        String password = new String(Base64.getUrlDecoder().decode(passwordBase64));
+        String password = new String(Base64.getDecoder().decode(passwordBase64));
 
         WebServer.userManager.login(user.getUsername(), password, code);
         WebServer.userManager.removeTOTP(user);
@@ -143,5 +135,48 @@ public class UserApi {
     public static void hasTOTP(Context context) {
         User user = Objects.requireNonNull(context.attribute("user"));
         WebServer.returnSuccessfulJson(context, new JSONObject().put("data", user.getTotpSecret() != null));
+    }
+
+    public static void addPubkey(Context context) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        User user = Objects.requireNonNull(context.attribute("user"));
+        String data = WebServer.getData(context, String.class);
+
+        byte[] keyBytes = Base64.getDecoder().decode(data);
+        KeyFactory kf = KeyFactory.getInstance("EC");
+        PublicKey publicKey = kf.generatePublic(new X509EncodedKeySpec(keyBytes));
+
+        WebServer.userManager.addPublicKey(user, publicKey);
+
+        WebServer.returnSuccessfulJson(context, new JSONObject());
+    }
+
+    public static void challenge(Context context) {
+        PublicKeyManager.Challenge challenge = WebServer.publicKeyManager.createNonce();
+
+        WebServer.returnSuccessfulJson(context,
+                new JSONObject().put("data",
+                        new JSONObject()
+                                .put("id", challenge.id())
+                                .put("nonce", Base64.getEncoder().encodeToString(challenge.nonce()))
+                )
+        );
+    }
+
+
+    public static void pubkeyLogin(Context context) throws UserManager.UserManagerException {
+        JSONObject data = WebServer.getData(context, JSONObject.class);
+
+        String username = data.getString("username");
+        String publicKeyHash = data.getString("publicKeyHash");
+        String challengeId = data.getString("challengeId");
+        String signatureBase64 = data.getString("signature");
+
+        User user = WebServer.userManager.pubkeyLogin(username, publicKeyHash, challengeId, Base64.getDecoder().decode(signatureBase64));
+
+        context.req().getSession().invalidate();
+        context.req().getSession().setAttribute("user", user.getUsername());
+
+        WebServer.returnSuccessfulJson(context, new JSONObject());
+        WebServer.securityLog(SecurityLogType.LOGIN_SUCCESS, username, "User successfully logged in");
     }
 }

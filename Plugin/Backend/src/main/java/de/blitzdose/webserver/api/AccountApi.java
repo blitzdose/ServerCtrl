@@ -3,7 +3,7 @@ package de.blitzdose.webserver.api;
 import de.blitzdose.webserver.WebServer;
 import de.blitzdose.webserver.auth.Role;
 import de.blitzdose.webserver.auth.User;
-import de.blitzdose.webserver.auth.shiro.UserManager;
+import de.blitzdose.webserver.auth.session.UserManager;
 import io.javalin.http.Context;
 import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONArray;

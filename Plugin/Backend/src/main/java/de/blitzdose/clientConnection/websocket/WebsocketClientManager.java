@@ -3,11 +3,14 @@ package de.blitzdose.clientConnection.websocket;
 import de.blitzdose.clientConnection.ProvisionedClient;
 import de.blitzdose.clientConnection.ProvisionedClientDao;
 import de.blitzdose.serverctrl.common.crypt.CryptManager;
+import de.blitzdose.webserver.auth.session.PasswordVerifier;
 import io.javalin.websocket.WsContext;
 import kotlin.Pair;
 import org.jdbi.v3.core.Jdbi;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WebsocketClientManager {
 
@@ -40,9 +43,9 @@ public class WebsocketClientManager {
 
     public Pair<String, ProvisionedClient> generateClient(String name) {
         String accessToken = CryptManager.generateSecurePassword(128);
-        Pair<String, String> accessTokenHash = CryptManager.getPBKDF2Hash(accessToken);
+        String accessTokenHash = PasswordVerifier.encrypt(accessToken);
 
-        ProvisionedClient provisionedClient = new ProvisionedClient(name, accessTokenHash.component2(), accessTokenHash.component1(), true, 0);
+        ProvisionedClient provisionedClient = new ProvisionedClient(name, accessTokenHash, true, 0);
         insertClient(provisionedClient);
         return new Pair<>(accessToken, provisionedClient);
     }
@@ -53,12 +56,7 @@ public class WebsocketClientManager {
             return false;
         }
         try {
-            Pair<String, String> generatedClientTokenHash = CryptManager.getPBKDF2Hash(
-                    Base64.getUrlDecoder().decode(savedClient.getAccessTokenSalt()),
-                    accessToken
-            );
-            if (generatedClientTokenHash == null) return false;
-            return Objects.equals(generatedClientTokenHash.component2(), savedClient.getAccessTokenHash());
+            return PasswordVerifier.verify(accessToken, savedClient.getAccessTokenHash());
         } catch (Exception e) {
             return false;
         }

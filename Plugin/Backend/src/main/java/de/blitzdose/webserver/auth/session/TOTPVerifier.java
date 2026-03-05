@@ -1,4 +1,4 @@
-package de.blitzdose.webserver.auth.shiro;
+package de.blitzdose.webserver.auth.session;
 
 import com.amdelamar.jotp.OTP;
 import com.amdelamar.jotp.type.Type;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class TOTPManager {
+public class TOTPVerifier {
     static boolean checkTOTP(String secret, String code) {
         if (secret == null || secret.startsWith("$")) {
             return true;
