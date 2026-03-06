@@ -7,8 +7,12 @@ import de.blitzdose.clientConnection.websocket.WebsocketAccessManager;
 import de.blitzdose.clientConnection.websocket.WebsocketClientManager;
 import de.blitzdose.clientConnection.websocket.WebsocketException;
 import de.blitzdose.clientConnection.websocket.WebsocketHandler;
+import de.blitzdose.encryption.LocalEncryption;
+import de.blitzdose.encryption.LocalEncryptionDao;
+import de.blitzdose.encryption.LocalEncryptionManager;
 import de.blitzdose.serverctrl.common.crypt.CertManager;
 import de.blitzdose.serverctrl.common.crypt.CryptManager;
+import de.blitzdose.serverctrl.common.crypt.GeneratedCert;
 import de.blitzdose.serverctrl.common.logging.Logger;
 import de.blitzdose.webserver.api.*;
 import de.blitzdose.webserver.auth.*;
@@ -35,6 +39,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.KeyStore;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,9 +55,9 @@ public class WebServer {
     public static FileTransferManager fileTransferManager;
 
     public static WebsocketClientManager websocketClientManager;
-
     public static UserManager userManager;
     public static PublicKeyManager publicKeyManager;
+    public static LocalEncryptionManager localEncryptionManager;
 
     public WebServer(
             WebserverConfig webserverConfig,
@@ -77,13 +82,16 @@ public class WebServer {
         jdbi.installPlugin(new SqlObjectPlugin());
         jdbi.useExtension(UserDao.class, UserDao::createTable);
         jdbi.useExtension(ProvisionedClientDao.class, ProvisionedClientDao::createTable);
+        jdbi.useExtension(LocalEncryptionDao.class, LocalEncryptionDao::createTable);
 
         jdbi.registerArgument(new RoleSetsArgumentFactory());
         jdbi.registerArgument(new PublicKeysArgumentFactory());
         jdbi.registerRowMapper(new UserMapper());
         jdbi.registerRowMapper(new ProvisionedClientMapper());
 
-        WebServer.websocketClientManager = new WebsocketClientManager(jdbi);
+        websocketClientManager = new WebsocketClientManager(jdbi);
+        localEncryptionManager = new LocalEncryptionManager(jdbi);
+        localEncryptionManager.insertIfNotExists(new LocalEncryption(CryptManager.generateSecurePassword(128)));
 
         userManager = new UserManager(jdbi);
 
@@ -107,15 +115,23 @@ public class WebServer {
         SslPlugin plugin;
         if (this.webserverConfig.https()) {
             plugin = new SslPlugin(conf -> {
+                CertManager.KeyStoreManager keyStoreManager = CertManager.withKeyStoreManager(backendApiInstance.getKeystorePath(), localEncryptionManager.getPassword());
                 try {
-                    if (!new File(backendApiInstance.getKeystorePath()).exists()) {
-                        logger.info("No HTTPS found, generating one...");
-                        CertManager.generateAndSaveSelfSignedCertificate("127.0.0.1", backendApiInstance.getKeystorePath(), backendApiInstance.getRootCAPath());
+                    GeneratedCert certificate = keyStoreManager.getCertificateFromKeystore(CertManager.CertificateType.CERTIFICATE);
+                    conf.pemFromString(CertManager.Converter.X509Certificate.toPEM(certificate.certificate()), CertManager.Converter.PrivateKey.toPEM(certificate.privateKey()));
+                } catch (Exception e1) {
+                    logger.error("Could not load HTTPS certificate: " + e1.getMessage());
+                    logger.info("Generating new certificate...");
+                    try {
+                        KeyStore keyStore = keyStoreManager.generator().generateCertificate("127.0.0.1");
+                        keyStoreManager.saveKeyStore(keyStore);
+                        CertManager.saveCertificateToFile(keyStoreManager.getCertificateFromKeystore(CertManager.CertificateType.ROOT_CA).certificate(), backendApiInstance.getRootCAPath());
+                        GeneratedCert certificate = keyStoreManager.getCertificateFromKeystore(CertManager.CertificateType.CERTIFICATE);
+                        conf.pemFromString(CertManager.Converter.X509Certificate.toPEM(certificate.certificate()), CertManager.Converter.PrivateKey.toPEM(certificate.privateKey()));
+                    } catch (Exception e2) {
+                        logger.error("Generation failed");
+                        throw new RuntimeException(e2);
                     }
-                    String[] keypair = CertManager.getCertsFromKeystore(backendApiInstance.getKeystorePath());
-                    conf.pemFromString(keypair[0], keypair[1]);
-                } catch (Exception e) {
-                    logger.error("Could not load HTTPS certificate: " + e.getMessage());
                 }
                 conf.insecure = false;
                 conf.secure = true;

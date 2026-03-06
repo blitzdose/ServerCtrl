@@ -64,7 +64,7 @@ public class BackendApiInstance extends de.blitzdose.api.BackendApiInstance {
 
     @Override
     public String getRootCAPath() {
-        return "plugins/ServerCtrlBackend/RootCA.cer";
+        return "plugins/ServerCtrlBackend/RootCA.crt";
     }
 
     @Override

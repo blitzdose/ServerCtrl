@@ -3,15 +3,14 @@ package de.blitzdose.apiimpl;
 import de.blitzdose.api.BackendApiInstance;
 import de.blitzdose.serverctrl.common.crypt.CertManager;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
+import de.blitzdose.webserver.WebServer;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.security.KeyStore;
+import java.security.*;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Base64;
 
 public class BackendPluginApiImpl {
@@ -35,14 +34,6 @@ public class BackendPluginApiImpl {
 
     public boolean isHTTPS() {
         return instance.configGetBoolean("Webserver.https");
-    }
-
-    public String getKeystorePath() {
-        return instance.getKeystorePath();
-    }
-
-    public String getRootCAPath() {
-        return instance.getRootCAPath();
     }
 
     public WebsocketResponse getPluginSettings() {
@@ -76,20 +67,16 @@ public class BackendPluginApiImpl {
         byte[] key = Base64.getDecoder().decode(keyBase64);
         byte[] ca = Base64.getDecoder().decode(caBase64);
 
-        KeyStore keyStore = CertManager.keystoreFromCertificate(cert, key);
-        if (keyStore == null) {
-            return new WebsocketResponse(false, null);
-        }
-        char[] pwdArray = "2-X>5h5^-!/'c(ELoT;)8O7I=-I<NMs)/{t8e~#0754>l=4".toCharArray();
-        try (FileOutputStream fos = new FileOutputStream(getKeystorePath())) {
-            keyStore.store(fos, pwdArray);
-        } catch (Exception e) {
-            return new WebsocketResponse(false, null);
-        }
-
         try {
-            CertManager.saveRootCA(ca, getRootCAPath());
-        } catch (CertificateException | FileNotFoundException e) {
+            X509Certificate certificate = CertManager.Converter.X509Certificate.fromPEM(new String(cert));
+            PrivateKey privateKey = CertManager.Converter.PrivateKey.fromPEM(new String(key));
+            X509Certificate CACertificate = CertManager.Converter.X509Certificate.fromPEM(new String(ca));
+
+            CertManager.KeyStoreManager keyStoreManager = CertManager.withKeyStoreManager(WebServer.backendApiInstance.getKeystorePath(), WebServer.localEncryptionManager.getPassword());
+            KeyStore keyStore = keyStoreManager.generator().parse(certificate, privateKey);
+            keyStoreManager.saveKeyStore(keyStore);
+            CertManager.saveCertificateToFile(CACertificate, WebServer.backendApiInstance.getRootCAPath());
+        } catch (CertificateException | IOException | KeyStoreException | NoSuchAlgorithmException e) {
             return new WebsocketResponse(false, null);
         }
 
@@ -98,7 +85,10 @@ public class BackendPluginApiImpl {
 
     public WebsocketResponse generateCertificate(String name) {
         try {
-            CertManager.generateAndSaveSelfSignedCertificate(name, getKeystorePath(), getRootCAPath());
+            CertManager.KeyStoreManager keyStoreManager = CertManager.withKeyStoreManager(WebServer.backendApiInstance.getKeystorePath(), WebServer.localEncryptionManager.getPassword());
+            KeyStore keyStore = keyStoreManager.generator().generateCertificate(name);
+            keyStoreManager.saveKeyStore(keyStore);
+            CertManager.saveCertificateToFile(keyStoreManager.getCertificateFromKeystore(CertManager.CertificateType.ROOT_CA).certificate(), WebServer.backendApiInstance.getRootCAPath());
         } catch (GeneralSecurityException | IOException | OperatorCreationException e) {
             return new WebsocketResponse(false, null);
         }

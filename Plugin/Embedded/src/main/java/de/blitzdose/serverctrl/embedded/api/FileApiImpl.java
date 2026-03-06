@@ -116,7 +116,7 @@ public class FileApiImpl {
         SSLContext sslContext;
         try {
             sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[]{ new BackendTrustManager(CertManager.generateCertificateFromPEM(instance.getProvisioningCACert())) }, new java.security.SecureRandom());
+            sslContext.init(null, new TrustManager[]{ new BackendTrustManager(CertManager.Converter.X509Certificate.fromPEM(instance.getProvisioningCACert())) }, new java.security.SecureRandom());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

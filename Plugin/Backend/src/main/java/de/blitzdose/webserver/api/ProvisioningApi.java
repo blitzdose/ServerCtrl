@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.security.cert.X509Certificate;
 import java.util.List;
 
 public class ProvisioningApi {
@@ -25,7 +26,8 @@ public class ProvisioningApi {
         String publicURL = context.queryParam("publicURL");
         Pair<String, ProvisionedClient> provisionedClientPair = WebServer.websocketClientManager.generateClient(name);
         String accessToken = provisionedClientPair.component1();
-        String caCert = CertManager.getRootCA(WebServer.backendApiInstance.getRootCAPath());
+        X509Certificate certificate = CertManager.getCertificateFromFile(WebServer.backendApiInstance.getRootCAPath());
+        String caCert = CertManager.Converter.X509Certificate.toPEM(certificate);
         byte[] provisioningPack = new ProvisioningPack(name, accessToken, caCert, publicURL).generatePackFile();
         WebServer.returnFile(context, name + ".sctrl", provisioningPack.length, new BufferedInputStream(new ByteArrayInputStream(provisioningPack)));
     }
