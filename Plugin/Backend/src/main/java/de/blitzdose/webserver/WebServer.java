@@ -198,7 +198,7 @@ public class WebServer {
                         });
                     });
                     path("player", () -> {
-                        post("online", PlayerApi::getOnline, Role.ANYONE);
+                        get("online", PlayerApi::getOnline, Role.ANYONE);
                         get("count", PlayerApi::countPlayers, Role.ANYONE);
                     });
                     path("user", () -> {
@@ -230,11 +230,11 @@ public class WebServer {
                         post("command", ConsoleApi::command, Role.CONSOLE);
                     });
                     path("log", () -> {
-                        post("log", LogApi::getLog, WebserverManagerRole.SUPERADMIN);
+                        get("log", LogApi::getLog, WebserverManagerRole.SUPERADMIN);
                         get("count", LogApi::countLogs, WebserverManagerRole.SUPERADMIN);
                     });
                     path("files", () -> {
-                        post("list", FilesApi::listFiles, Role.FILES);
+                        get("list", FilesApi::listFiles, Role.FILES);
                         get("count", FilesApi::countFiles, Role.FILES);
                         get("download", FilesApi::downloadFile, Role.FILES);
                         post("upload", FilesApi::uploadFile, Role.FILES);
