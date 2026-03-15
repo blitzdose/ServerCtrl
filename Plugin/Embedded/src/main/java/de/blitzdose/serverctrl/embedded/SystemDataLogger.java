@@ -10,8 +10,6 @@ import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class SystemDataLogger implements Runnable {
 
@@ -45,15 +43,16 @@ public class SystemDataLogger implements Runnable {
         cpuLoad = Math.round(cpuLoad * 100.0) / 100.0;
         cpuLoad = (int) (cpuLoad * 100);
 
-        Map<String, long[]> fileSystemSpaces = new TreeMap<>();
+        JSONObject fileSystemSpaces = new JSONObject();
         for (Path root : FileSystems.getDefault().getRootDirectories()) {
             try {
                 FileStore store = Files.getFileStore(root);
                 String name = "" + root;
                 name = name.replaceAll("\\\\", "");
-                long freeSpace = store.getUsableSpace();
-                long totalSpace = store.getTotalSpace();
-                fileSystemSpaces.put(name, new long[]{freeSpace, totalSpace});
+                JSONObject spaces = new JSONObject();
+                spaces.put("freeSpace", store.getUsableSpace());
+                spaces.put("totalSpace", store.getTotalSpace());
+                fileSystemSpaces.put(name, spaces);
             } catch (IOException ignore) { }
         }
 
