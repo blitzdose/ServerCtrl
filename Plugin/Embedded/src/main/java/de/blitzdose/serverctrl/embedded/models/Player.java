@@ -3,7 +3,7 @@ package de.blitzdose.serverctrl.embedded.models;
 import java.util.UUID;
 
 public class Player {
-    static private final String API_HEAD_LINK = "https://crafatar.com/avatars/";
+    static private final String API_HEAD_LINK = "https://api.mineatar.io/face/";
 
     private final String name;
     private final UUID uuid;
@@ -14,7 +14,7 @@ public class Player {
         this.name = name;
         this.uuid = uuid;
         this.isOp = isOp;
-        this.textureLink = API_HEAD_LINK + this.uuid.toString().replaceAll("-", "") + "?overlay";
+        this.textureLink = API_HEAD_LINK + this.uuid.toString().replaceAll("-", "") + "?scale=50";
     }
 
     public String getName() {

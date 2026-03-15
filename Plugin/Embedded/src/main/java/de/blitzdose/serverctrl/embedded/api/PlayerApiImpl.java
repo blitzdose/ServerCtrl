@@ -24,8 +24,10 @@ public class PlayerApiImpl {
     public WebsocketResponse getOnline(JSONObject requestData) {
         Pagination pagination = Pagination.parse(requestData);
 
+        List<Player> players = instance.getOnlinePlayers();
+
         JSONArray data = new JSONArray();
-        List<Player> players = instance.getOnlinePlayers().stream().skip(pagination.position()).limit(pagination.limit()).toList();
+        players = players.stream().skip(pagination.position()).limit(pagination.limit() != -1 ? pagination.limit() : players.size()).toList();
         for (Player player : players) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("uuid", player.getUuid().toString());
