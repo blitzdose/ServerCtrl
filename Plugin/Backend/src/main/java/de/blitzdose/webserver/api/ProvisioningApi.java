@@ -21,7 +21,7 @@ public class ProvisioningApi {
 
     public static void add(Context context) {
         String name = context.queryParam("name");
-        if (name == null || name.matches("^[A-Za-z0-9_-]+$")) {
+        if (name == null || !name.matches("^[A-Za-z0-9_-]+$")) {
             context.status(HttpStatus.BAD_REQUEST_400);
             context.result();
             return;
