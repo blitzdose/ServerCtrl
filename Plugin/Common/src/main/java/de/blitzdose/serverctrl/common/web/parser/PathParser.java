@@ -5,9 +5,7 @@ public class PathParser {
         if (path == null) {
             return null;
         }
-        if (path.contains("\\")) {
-            return null;
-        }
+        path = path.replace("\\", "/");
         path = path.replace("../", "");
         path = path.replace("/..", "");
         path = path.replace("//", "/");
