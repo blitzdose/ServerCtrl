@@ -379,6 +379,11 @@ public class WebServer {
         context.result();
     }
 
+    public static void return400(Context context) {
+        context.status(HttpStatus.BAD_REQUEST_400);
+        context.result();
+    }
+
     public static void securityLog(SecurityLogType type, Context context, String message) {
         User user = Objects.requireNonNull(context.attribute("user"));
         String username = user.getUsername();
