@@ -64,7 +64,7 @@ public class FileApiImpl {
                 file.length(),
                 file.isFile(),
                 file.lastModified(),
-                file.getPath()
+                FilenameUtils.normalize(file.getPath(), true)
         )).toList();
 
         JSONArray filesArray = new JSONArray();
