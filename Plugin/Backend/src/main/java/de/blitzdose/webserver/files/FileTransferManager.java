@@ -113,7 +113,9 @@ public class FileTransferManager {
         }
 
         public void cancelTimeout() {
-            timeout.cancel(false);
+            if (timeout != null) {
+                timeout.cancel(false);
+            }
         }
 
         public void cancel() {

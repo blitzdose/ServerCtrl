@@ -198,10 +198,11 @@ public class FilesApi {
 
         if (!response.success()) {
             transfer.cancel();
-            WebServer.returnFailedJson(context);
+            WebServer.return400(context);
             return;
         }
 
+        transfer.setTimeout(30, TimeUnit.SECONDS);
         context.future(transfer::registerHandler);
     }
 
