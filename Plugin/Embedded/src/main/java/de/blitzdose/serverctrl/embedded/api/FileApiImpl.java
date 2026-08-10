@@ -262,6 +262,9 @@ public class FileApiImpl {
                     }
 
                     String name = path.substring(0, path.lastIndexOf("/")+1) + entry.getName();
+                    if (instance.isPluginFolder(name)) {
+                        continue;
+                    }
                     File f = new File(name);
                     if (entry.isDirectory()) {
                         if (!f.isDirectory() && !f.mkdirs()) {
