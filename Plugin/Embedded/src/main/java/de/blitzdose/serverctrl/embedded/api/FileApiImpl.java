@@ -30,6 +30,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 
@@ -422,7 +423,7 @@ public class FileApiImpl {
                         .sslContext(sslContext.getFirst())
                         .sslParameters(sslContext.getSecond())
                         .build()) {
-                    httpClient.send(request, HttpResponse.BodyHandlers.ofFile(file.toPath()));
+                    httpClient.send(request, HttpResponse.BodyHandlers.ofFile(file.toPath(), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING));
                 }
 
             } catch (IOException | InterruptedException ignored) {
