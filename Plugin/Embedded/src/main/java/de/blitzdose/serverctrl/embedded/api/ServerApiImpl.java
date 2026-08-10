@@ -34,24 +34,6 @@ public class ServerApiImpl {
         }
     }
     
-    public WebsocketResponse getServerName() {
-        String serverName = instance.configGetString("Webserver.servername");
-        if (serverName == null) {
-            return new WebsocketResponse(false, null);
-        }
-        return new WebsocketResponse(true, serverName);
-    }
-
-    public WebsocketResponse setServerName(String data) {
-        if (data == null || data.isEmpty()) {
-            return new WebsocketResponse(false, null);
-        }
-
-        instance.configUpdate("Webserver.servername", data);
-
-        return new WebsocketResponse(true, null);
-    }
-    
     public WebsocketResponse getServerData() {
         ServerData serverData = instance.getServerData();
 

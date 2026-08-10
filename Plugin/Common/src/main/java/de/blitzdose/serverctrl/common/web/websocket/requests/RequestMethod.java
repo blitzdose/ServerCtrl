@@ -4,8 +4,6 @@ public enum RequestMethod {
     GetHistoricSystemData,
     GetIcon,
 
-    GetName,
-    SetName,
     GetServerData,
     GetServerSettings,
     SetServerSettings,

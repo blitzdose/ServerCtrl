@@ -4,7 +4,6 @@ import de.blitzdose.serverctrl.embedded.models.Player;
 import de.blitzdose.serverctrl.embedded.models.ServerData;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 
 import java.io.*;
@@ -22,44 +21,6 @@ public class ApiInstance extends de.blitzdose.serverctrl.embedded.instance.ApiIn
     @Override
     public void sendMessage(String message) {
         Bukkit.getConsoleSender().sendMessage(message);
-    }
-
-    @Override
-    public List<String> configGetStringList(String key) {
-        return plugin.getConfig().getStringList(key);
-    }
-
-    @Override
-    public String configGetString(String key) {
-        return plugin.getConfig().getString(key);
-    }
-
-    @Override
-    public int configGetInt(String key) {
-        return plugin.getConfig().getInt(key);
-    }
-
-    @Override
-    public boolean configGetBoolean(String key) {
-        return plugin.getConfig().getBoolean(key);
-    }
-
-    @Override
-    public boolean configContains(String key) {
-        return plugin.getConfig().contains(key);
-    }
-
-    @Override
-    public void configUpdate(String key, Object value) {
-        plugin.getConfig().set(key, value);
-        plugin.saveConfig();
-    }
-
-    @Override
-    public List<String> configGetKeys(String key) {
-        ConfigurationSection section = plugin.getConfig().getConfigurationSection(key);
-        if (section == null) return List.of();
-        return section.getKeys(false).stream().toList();
     }
 
     @Override

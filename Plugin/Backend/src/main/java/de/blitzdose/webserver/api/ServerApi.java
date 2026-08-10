@@ -25,13 +25,6 @@ public class ServerApi {
         }
     }
 
-    public static void getName(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
-        WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(context.queryParam("system"), new WebsocketRequest(RequestMethod.GetName, null));
-
-        String serverName = response.data(String.class);
-        WebServer.returnSuccessfulJson(context, new JSONObject().put("data", serverName));
-    }
-
     public static void getData(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(context.queryParam("system"), new WebsocketRequest(RequestMethod.GetServerData, null));
 
@@ -45,14 +38,6 @@ public class ServerApi {
         jsonObject.put("data", response.data(JSONObject.class));
 
         WebServer.returnSuccessfulJson(context, jsonObject);
-    }
-
-    public static void setName(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
-        String data = WebServer.getData(context, String.class);
-
-        WebsocketHandler.tunnelThroughWebsocket(context.queryParam("system"), new WebsocketRequest(RequestMethod.SetName, data));
-
-        WebServer.returnSuccessfulJson(context, new JSONObject());
     }
 
     public static void setSettings(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {

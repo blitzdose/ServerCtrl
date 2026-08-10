@@ -21,14 +21,6 @@ public abstract class ApiInstance {
 
     abstract public void sendMessage(String message);
 
-    public abstract List<String> configGetStringList(String key);
-    public abstract String configGetString(String key);
-    public abstract int configGetInt(String key);
-    public abstract boolean configGetBoolean(String key);
-    public abstract boolean configContains(String key);
-    public abstract void configUpdate(String key, Object value);
-    public abstract List<String> configGetKeys(String key);
-
     public abstract void shutdownServer();
     public abstract void reloadServer();
     public abstract void restartServer();

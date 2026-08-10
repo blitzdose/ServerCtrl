@@ -19,8 +19,6 @@ public class FunctionMapper {
             case GetHistoricSystemData -> implementations.getSystemApi().getHistoricSystemData();
 
             case GetIcon -> implementations.getServerApi().getServerIcon();
-            case GetName -> implementations.getServerApi().getServerName();
-            case SetName -> implementations.getServerApi().setServerName(request.data(String.class));
             case GetServerData -> implementations.getServerApi().getServerData();
             case GetServerSettings -> implementations.getServerApi().getServerProperties();
             case SetServerSettings -> implementations.getServerApi().setServerProperties(request.data(JSONObject.class));
