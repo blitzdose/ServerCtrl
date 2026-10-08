@@ -13,7 +13,7 @@ class LogsController extends SubviewController {
 
   late LazyLoader lazyLoader;
 
-  LogsController({required super.system, required super.userPermissions, required super.onSetActions, required super.onSetLeading, required super.onSetBottom});
+  LogsController({required super.params});
 
   @override
   void onInit() {
@@ -30,7 +30,7 @@ class LogsController extends SubviewController {
   @override
   void onShown() {
     super.onShown();
-    onSetActions.call(
+    params.onSetActions.call(
         [
           IconButton(
               onPressed: () {

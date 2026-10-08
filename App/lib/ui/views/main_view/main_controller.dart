@@ -6,7 +6,6 @@ import 'package:server_ctrl/data_storage/database/models/server.dart';
 import 'package:server_ctrl/data_storage/database/storage_database.dart';
 import 'package:server_ctrl/generated/l10n.dart';
 import 'package:server_ctrl/main_controller.dart';
-import 'package:server_ctrl/navigator_key.dart';
 import 'package:server_ctrl/ui/views/add_client/add_client.dart';
 import 'package:server_ctrl/ui/views/add_server/add_server.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/subview_controller.dart';
@@ -41,6 +40,9 @@ class MainController extends GetxController {
   final appBarActions = <Widget>[].obs;
   final appBarLeading = Rxn<Widget>();
   final appBarBottom = Rxn<PreferredSizeWidget>();
+
+  final floatingActionButton = Rxn<FloatingActionButton>();
+
   UserPermissions userPermissions = UserPermissions(false, {});
 
   @override
@@ -136,16 +138,19 @@ class MainController extends GetxController {
     Get.toNamed(AddClientView.route)?.then((value) => loadClients(),);
   }
 
-  Future<void> navigateClient(SubviewController Function(String system, List<Permission> userPermissions, Function(List<Widget> actions) onSetActions, Function(Widget? leading) onSetLeading, Function(PreferredSizeWidget? onSetBottom) onSetBottom) controller, Widget Function() widget) async {
+  Future<void> navigateClient(SubviewController Function(SubviewControllerParams params) controller, Widget Function() widget) async {
     view(Center(child: CircularProgressIndicator(),));
     var serverData = await ServerApi(currentServer.value!.name).getServerData();
     if (serverData != null) {
       currentSubviewController = controller.call(
-        currentServer.value!.name,
-        userPermissions.getPermissionsForSystem(currentServer.value!.name),
-        (List<Widget> actions) => appBarActions.assignAll(actions),
-        (Widget? leading) => appBarLeading.value = leading,
-        (PreferredSizeWidget? onSetBottom) => appBarBottom.value = onSetBottom
+        SubviewControllerParams(
+            system: currentServer.value!.name,
+            userPermissions: userPermissions.getPermissionsForSystem(currentServer.value!.name),
+            onSetActions: (List<Widget> actions) => appBarActions.assignAll(actions),
+            onSetLeading: (Widget? leading) => appBarLeading.value = leading,
+            onSetBottom: (PreferredSizeWidget? onSetBottom) => appBarBottom.value = onSetBottom,
+            onSetFloatingActionButton: (FloatingActionButton? onSetFloatingActionButton) => floatingActionButton.value = onSetFloatingActionButton
+        )
       );
       currentSubviewController?.onShown();
       currentSubviewController?.updateData();
@@ -156,13 +161,16 @@ class MainController extends GetxController {
     }
   }
 
-  Future<void> navigateWithoutClient(SubviewController Function(String system, List<Permission> userPermissions, Function(List<Widget> actions) onSetActions, Function(Widget? leading) onSetLeading, Function(PreferredSizeWidget?) onSetBottom) controller, Widget Function() widget) async {
+  Future<void> navigateWithoutClient(SubviewController Function(SubviewControllerParams params) controller, Widget Function() widget) async {
     currentSubviewController = controller.call(
-        "",
-        userPermissions.isSuperAdmin ? Permission.values : [],
-            (List<Widget> actions) => appBarActions.assignAll(actions),
-            (Widget? leading) => appBarLeading.value = leading,
-            (PreferredSizeWidget? onSetBottom) => appBarBottom.value = onSetBottom
+      SubviewControllerParams(
+          system: "",
+          userPermissions: userPermissions.isSuperAdmin ? Permission.values : [],
+          onSetActions: (List<Widget> actions) => appBarActions.assignAll(actions),
+          onSetLeading: (Widget? leading) => appBarLeading.value = leading,
+          onSetBottom: (PreferredSizeWidget? onSetBottom) => appBarBottom.value = onSetBottom,
+          onSetFloatingActionButton: (FloatingActionButton? onSetFloatingActionButton) => floatingActionButton.value = onSetFloatingActionButton
+      )
     );
     currentSubviewController?.onShown();
     currentSubviewController?.updateData();

@@ -43,7 +43,7 @@ class PlayersView extends StatelessWidget {
                           return PlayerRow(
                             player: controller.players[index],
                             serverType: controller.serverType.value,
-                            userPermissions: controller.userPermissions,
+                            userPermissions: controller.params.userPermissions,
                             onCommand: (command) => controller.sendCommand(controller.players[index], command),
                           );
                         },

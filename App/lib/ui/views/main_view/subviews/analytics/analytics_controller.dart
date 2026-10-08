@@ -13,16 +13,16 @@ class AnalyticsController extends SubviewController {
   final systemData = SystemData(0, 0, 0, 0, 0, 0, 0, 0, []).obs;
   List<SystemData> historicSystemData = [];
 
-  AnalyticsController({required super.system, required super.userPermissions, required super.onSetActions, required super.onSetLeading, required super.onSetBottom});
+  AnalyticsController({required super.params});
 
   @override
   Future<void> updateData() async {
-    SystemData? systemData = await SystemApi(system).getSystemData();
+    SystemData? systemData = await SystemApi(params.system).getSystemData();
     if (systemData != null) {
       this.systemData(systemData);
     }
 
-    List<SystemData>? historicSystemData = await SystemApi(system).getHistoricSystemData();
+    List<SystemData>? historicSystemData = await SystemApi(params.system).getHistoricSystemData();
     if (historicSystemData != null) {
       this.historicSystemData.clear();
       this.historicSystemData.addAll(historicSystemData);

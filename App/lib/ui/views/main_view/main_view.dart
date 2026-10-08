@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/views/app_settings/app_settings.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_controller.dart';
@@ -94,8 +93,9 @@ class MainView extends GetView<MainController> {
               ),
             ] + getDrawerDestinations(controller)),
         body: Obx(() => controller.loggedIn.isFalse ? Center(
-            child: CircularProgressIndicator()
+            child: CircularProgressIndicator(),
         ) : controller.view.value),
+        floatingActionButton: controller.floatingActionButton.value,
       ),
     );
   }
@@ -108,7 +108,7 @@ class MainView extends GetView<MainController> {
         appBarTitle: controller.currentServer.value?.name,
         enabled: controller.currentServer.value != null,
         onSelected: () {
-          controller.navigateClient((system, userPermissions, onSetActions, onSetLeading, onSetBottom) => Get.put<AnalyticsController>(AnalyticsController(system: system, userPermissions: userPermissions, onSetActions: onSetActions, onSetLeading: onSetLeading, onSetBottom: onSetBottom)), () => AnalyticsView());
+          controller.navigateClient((params) => Get.put<AnalyticsController>(AnalyticsController(params: params)), () => AnalyticsView());
         },
       ),
       DrawerDestination(
@@ -117,7 +117,7 @@ class MainView extends GetView<MainController> {
         appBarTitle: controller.currentServer.value?.name,
         enabled: controller.currentServer.value != null,
         onSelected: () {
-          controller.navigateClient((system, userPermissions, onSetActions, onSetLeading, onSetBottom) => Get.put<ConsoleController>(ConsoleController(system: system, userPermissions: userPermissions, onSetActions: onSetActions, onSetLeading: onSetLeading, onSetBottom: onSetBottom)), () => ConsoleView());
+          controller.navigateClient((params) => Get.put<ConsoleController>(ConsoleController(params: params)), () => ConsoleView());
         },
       ),
       DrawerDestination(
@@ -126,7 +126,7 @@ class MainView extends GetView<MainController> {
         appBarTitle: controller.currentServer.value?.name,
         enabled: controller.currentServer.value != null,
         onSelected: () {
-          controller.navigateClient((system, userPermissions, onSetActions, onSetLeading, onSetBottom) => Get.put<PlayersController>(PlayersController(system: system, userPermissions: userPermissions, onSetActions: onSetActions, onSetLeading: onSetLeading, onSetBottom: onSetBottom)), () => PlayersView());
+          controller.navigateClient((params) => Get.put<PlayersController>(PlayersController(params: params)), () => PlayersView());
         },
       ),
       DrawerDestination(
@@ -135,7 +135,7 @@ class MainView extends GetView<MainController> {
         appBarTitle: controller.currentServer.value?.name,
         enabled: controller.currentServer.value != null,
         onSelected: () {
-          controller.navigateClient((system, userPermissions, onSetActions, onSetLeading, onSetBottom) => Get.put<FilesController>(FilesController(system: system, userPermissions: userPermissions, onSetActions: onSetActions, onSetLeading: onSetLeading, onSetBottom: onSetBottom)), () => FilesView());
+          controller.navigateClient((params) => Get.put<FilesController>(FilesController(params: params)), () => FilesView());
         },
       ),
       DrawerDestination(
@@ -148,7 +148,7 @@ class MainView extends GetView<MainController> {
         label: Text("Logs"),
         appBarTitle: controller.currentBackend.value?.name,
         onSelected: () {
-          controller.navigateWithoutClient((system, userPermissions, onSetActions, onSetLeading, onSetBottom) => Get.put<LogsController>(LogsController(system: system, userPermissions: userPermissions, onSetActions: onSetActions, onSetLeading: onSetLeading, onSetBottom: onSetBottom)), () => LogsView());
+          controller.navigateWithoutClient((params) => Get.put<LogsController>(LogsController(params: params)), () => LogsView());
         },
       ),
       DrawerDestination(

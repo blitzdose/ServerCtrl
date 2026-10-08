@@ -23,13 +23,13 @@ class ConsoleController extends SubviewController {
 
   ServerData? serverData;
 
-  ConsoleController({required super.system, required super.userPermissions, required super.onSetActions, required super.onSetLeading, required super.onSetBottom});
+  ConsoleController({required super.params});
 
   @override
   Future<void> updateData() async {
     List<TextSpan> textSpans = <TextSpan>[];
 
-    String? data = await ConsoleApi(system).getLog();
+    String? data = await ConsoleApi(params.system).getLog();
 
     if (data != null) {
       if (data.length > 20000) {
@@ -42,7 +42,7 @@ class ConsoleController extends SubviewController {
       consoleLog.refresh();
     }
 
-    ServerData? serverData = await ServerApi(system).getServerData();
+    ServerData? serverData = await ServerApi(params.system).getServerData();
     this.serverData = serverData;
   }
 
@@ -155,7 +155,7 @@ class ConsoleController extends SubviewController {
     FocusScope.of(context).unfocus();
     commandTextController.value.clear();
 
-    if (!await ConsoleApi(system).executeCommand(value)) {
+    if (!await ConsoleApi(params.system).executeCommand(value)) {
       Snackbar.createWithTitle(S.current.console, S.current.error_sending_command, true);
     }
     updateData();
@@ -164,7 +164,7 @@ class ConsoleController extends SubviewController {
   @override
   void onShown() {
     super.onShown();
-    onSetActions.call(
+    params.onSetActions.call(
         [
           IconButton(
               onPressed: () {
@@ -182,7 +182,7 @@ class ConsoleController extends SubviewController {
                               children: [
                                 TextButton(onPressed: () async {
                                   Navigator.pop(context);
-                                  if (await ServerApi(system).stopServer()) {
+                                  if (await ServerApi(params.system).stopServer()) {
                                     Snackbar.createWithTitle(S.current.server, S.current.serverStoppedSuccessfully);
                                   }  else {
                                     Snackbar.createWithTitle(S.current.files, S.current.errorWhileStoppingServer, true);
@@ -190,7 +190,7 @@ class ConsoleController extends SubviewController {
                                 }, child: Text(S.current.stopServer)),
                                 TextButton(onPressed: () async {
                                   Navigator.pop(context);
-                                  if (await ServerApi(system).restartServer()) {
+                                  if (await ServerApi(params.system).restartServer()) {
                                     Snackbar.createWithTitle(S.current.server, S.current.serverRestartedSuccessfully);
                                   }  else {
                                     Snackbar.createWithTitle(S.current.files, S.current.errorWhileRestartingServer, true);
@@ -216,7 +216,7 @@ class ConsoleController extends SubviewController {
                                 }, child: Text(S.current.cancel)),
                                 TextButton(onPressed: () async {
                                   Navigator.pop(context);
-                                  if (await ServerApi(system).stopServer()) {
+                                  if (await ServerApi(params.system).stopServer()) {
                                     Snackbar.createWithTitle(S.current.server, S.current.serverStoppedSuccessfully);
                                   }  else {
                                     Snackbar.createWithTitle(S.current.files, S.current.errorWhileStoppingServer, true);
@@ -250,7 +250,7 @@ class ConsoleController extends SubviewController {
                               }, child: Text(S.current.cancel)),
                               TextButton(onPressed: () async {
                                 Navigator.pop(context);
-                                if (await ServerApi(system).reloadServer()) {
+                                if (await ServerApi(params.system).reloadServer()) {
                                   Snackbar.createWithTitle(S.current.server, S.current.serverReloadSuccessfully);
                                 }  else {
                                   Snackbar.createWithTitle(S.current.files, S.current.errorWhileReloadingServer, true);

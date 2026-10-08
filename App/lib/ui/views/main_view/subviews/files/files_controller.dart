@@ -27,7 +27,7 @@ class FilesController extends SubviewController {
   List<String> editableFiles = [];
   final List<String> extractableFiles = ["zip", "tar", "gz"];
 
-  FilesController({required super.system, required super.userPermissions, required super.onSetActions, required super.onSetLeading, required super.onSetBottom});
+  FilesController({required super.params});
 
   @override
   Future<void> updateData() async {
@@ -36,7 +36,7 @@ class FilesController extends SubviewController {
 
   @override void onShown() {
     super.onShown();
-    onSetBottom(FilesView.generateBreadcrumb(this, path));
+    params.onSetBottom(FilesView.generateBreadcrumb(this, path));
   }
 
   @override
@@ -44,7 +44,7 @@ class FilesController extends SubviewController {
     super.onInit();
 
     lazyLoader = LazyLoader<ServerFile>(
-      loadingFunction: (pagination) => FilesApi(system).getFilesList(path, pagination),
+      loadingFunction: (pagination) => FilesApi(params.system).getFilesList(path, pagination),
       pageSize: 50,
       onLoadingChanged: (finished) => showProgress(!finished),
       onEntriesUpdated: (entries) => files.assignAll({ for (var file in entries) file: files[file] ?? false})
@@ -55,7 +55,7 @@ class FilesController extends SubviewController {
   }
 
   Future<void> asyncInit() async {
-    List<String>? editableFiles = await FilesApi(system).getEditableFiles();
+    List<String>? editableFiles = await FilesApi(params.system).getEditableFiles();
     if (editableFiles != null) {
       this.editableFiles.assignAll(editableFiles);
     }
@@ -67,7 +67,7 @@ class FilesController extends SubviewController {
     } else {
       path += "/$subdir";
     }
-    onSetBottom(FilesView.generateBreadcrumb(this, path));
+    params.onSetBottom(FilesView.generateBreadcrumb(this, path));
     lazyLoader.refresh();
   }
 
@@ -84,12 +84,12 @@ class FilesController extends SubviewController {
       }
     }
     path = newPath;
-    onSetBottom(FilesView.generateBreadcrumb(this, path));
+    params.onSetBottom(FilesView.generateBreadcrumb(this, path));
     lazyLoader.refresh();
   }
 
   void downloadSingleFile(ServerFile file) async {
-    DownloadFile? downloadFile = await FilesApi(system).download(file.path);
+    DownloadFile? downloadFile = await FilesApi(params.system).download(file.path);
 
     if (downloadFile == null) {
       Snackbar.createWithTitle("Error", "Error while trying to download file", true);
@@ -165,7 +165,7 @@ class FilesController extends SubviewController {
 
   void extractSingleFile(ServerFile file) async {
     showProgress(true);
-    bool success = await FilesApi(system).extractFile(file.path);
+    bool success = await FilesApi(params.system).extractFile(file.path);
 
     if (success) {
       Snackbar.create("Successfully extracted file");
@@ -182,7 +182,7 @@ class FilesController extends SubviewController {
       return;
     }
     showProgress(true);
-    DownloadFile? downloadFile = await FilesApi(system).download(file.path);
+    DownloadFile? downloadFile = await FilesApi(params.system).download(file.path);
 
     if (downloadFile == null) {
       Snackbar.createWithTitle("Error", "Error while trying to download file", true);
@@ -236,7 +236,7 @@ class FilesController extends SubviewController {
           },
           onSave: (String newCode) async {
             Uint8List data = utf8.encode(newCode);
-            bool success = await FilesApi(system).upload(UploadFile(file.path, data, data.lengthInBytes), (sent, total, finished) {
+            bool success = await FilesApi(params.system).upload(UploadFile(file.path, data, data.lengthInBytes), (sent, total, finished) {
 
             },);
             if (success) {
@@ -270,7 +270,7 @@ class FilesController extends SubviewController {
 
   void renameFile(ServerFile file, String newName) async {
     showProgress(true);
-    bool success = await FilesApi(system).rename(file.path, p.join(p.dirname(file.path), newName));
+    bool success = await FilesApi(params.system).rename(file.path, p.join(p.dirname(file.path), newName));
 
     if (success) {
       Snackbar.create("Successfully renamed file");
@@ -284,7 +284,7 @@ class FilesController extends SubviewController {
 
   void deleteSingleFile(ServerFile file) async {
     showProgress(true);
-    bool success = await FilesApi(system).delete(file.path);
+    bool success = await FilesApi(params.system).delete(file.path);
 
     if (success) {
       Snackbar.create("Successfully deleted file");
@@ -297,7 +297,7 @@ class FilesController extends SubviewController {
 
   void deleteMultipleFile(List<ServerFile> files) async {
     showProgress(true);
-    bool success = await FilesApi(system).deleteMultiple(files.map((e) => e.path).toList());
+    bool success = await FilesApi(params.system).deleteMultiple(files.map((e) => e.path).toList());
 
     if (success) {
       Snackbar.create("Successfully deleted files");
@@ -309,7 +309,7 @@ class FilesController extends SubviewController {
   }
 
   void downloadMultipleFile(List<ServerFile> files) async {
-    DownloadFile? downloadFile = await FilesApi(system).downloadMultiple(
+    DownloadFile? downloadFile = await FilesApi(params.system).downloadMultiple(
         files.map((file) => file.path).toList());
 
     if (downloadFile == null) {

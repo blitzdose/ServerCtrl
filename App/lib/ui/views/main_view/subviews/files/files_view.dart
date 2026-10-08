@@ -1,12 +1,9 @@
-import 'package:code_forge/code_forge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
-import 'package:flutter_highlight/themes/tomorrow-night.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:re_highlight/re_highlight.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_controller.dart';
 import 'package:server_ctrl/ui/widgets/animated_linear_progress_indicator.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
@@ -74,14 +71,14 @@ class FilesView extends StatelessWidget {
                                     },
                                     onLongPressed: () {
                                       controller.multiSelectMode(true);
-                                      controller.onSetLeading(IconButton(
+                                      controller.params.onSetLeading(IconButton(
                                           onPressed: () {
                                             controller.files.updateAll((key, value) => false);
                                             controller.multiSelectMode(false);
                                             controller.onShown();
                                           },
                                           icon: Icon(Icons.close_rounded)));
-                                      controller.onSetActions([
+                                      controller.params.onSetActions([
                                         IconButton(
                                             onPressed: () async {
                                               controller.downloadMultipleFile(controller.files.entries.where((e) => e.value).map((e) => e.key).toList());

@@ -17,13 +17,13 @@ class PlayersController extends SubviewController {
 
   late LazyLoader lazyLoader;
 
-  PlayersController({required super.system, required super.userPermissions, required super.onSetActions, required super.onSetLeading, required super.onSetBottom});
+  PlayersController({required super.params});
 
   @override
   void onInit() {
     super.onInit();
     lazyLoader = LazyLoader<Player>(
-        loadingFunction: (pagination) => PlayerApi(system).getOnlinePlayer(pagination),
+        loadingFunction: (pagination) => PlayerApi(params.system).getOnlinePlayer(pagination),
         pageSize: 10,
         onLoadingChanged: (finished) => showProgress(!finished),
         onEntriesUpdated: (entries) => players.assignAll(entries),
@@ -34,7 +34,7 @@ class PlayersController extends SubviewController {
   @override
   void onShown() {
     super.onShown();
-    onSetActions.call(
+    params.onSetActions.call(
         [
           IconButton(
               onPressed: () {
@@ -52,7 +52,7 @@ class PlayersController extends SubviewController {
   }
 
   Future<void> asyncInit() async {
-    ServerData? serverData = await ServerApi(system).getServerData();
+    ServerData? serverData = await ServerApi(params.system).getServerData();
     if (serverData != null) {
       serverType(serverData.type);
     }
@@ -60,7 +60,7 @@ class PlayersController extends SubviewController {
   }
 
   Future<void> sendCommand(Player player, String command) async {
-    if (!await ConsoleApi(system).executeCommand("$command ${player.name}")) {
+    if (!await ConsoleApi(params.system).executeCommand("$command ${player.name}")) {
       Snackbar.createWithTitle(S.current.players, S.current.error_sending_command, true);
     }
   }
