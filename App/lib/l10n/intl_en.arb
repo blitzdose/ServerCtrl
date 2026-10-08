@@ -213,7 +213,7 @@
     "fileTooLarge": "File too large",
     "fileTooLargeText": "The file you are trying to open is too large for the internal editor.",
     "howCanILogIn": "How can I log in?",
-    "howCanILogInText": "After you installed the Plugin on your Bukkit \/ Spigot \/ Paper server, the Plugin will show the password for the user \"admin\" in your console. This only happens on the first startup or when no user named \"admin\" is registered.\n\nIf you forgot the password or didn't got the console log anymore simple delete the \"config.yml\" file inside the \"ServerCtrl\" folder or just the user \"admin\" inside this file.\n\nFor more help join my Discord server.",
+    "howCanILogInText": "After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user \"admin\" in your console. This only happens on the first startup or when no user named \"admin\" is registered.\n\nIf you forgot the password or didn't got the console log anymore simple delete the \"data.db\" file inside the \"ServerCtrlBackend\". Please note that this deletes all users and provisioned clients.\n\nFor more help join my Discord server.",
     "twofactorAuthentication": "Two-factor authentication",
     "pleaseInputYourCode": "Please input your Code",
     "totpCode": "TOTP Code",
@@ -316,5 +316,7 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "thisFieldIsRequired": "This field is required",
+    "loading": "Loading"
 }

@@ -21,6 +21,11 @@ version: 4.1.3+59
 environment:
   sdk: '>=3.2.3 <4.0.0'
 
+analyzer:
+  exclude:
+    - lib/ui.old/**
+    - lib/values/**
+
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -70,6 +75,18 @@ dependencies:
   qr_flutter: ^4.1.0
   convert: ^3.1.1
   fl_chart: ^1.1.1
+  sqflite_sqlcipher: ^3.4.0
+  path: ^1.9.1
+  intl_utils: 2.8.12
+  pointycastle: ^4.0.0
+  crypto: ^3.0.7
+  flutter_breadcrumb: ^1.0.1
+  background_downloader:
+    path: "E:/Programmierung/background_downloader"
+  flutter_markdown_plus: ^1.0.12
+  linked_scroll_controller: ^0.2.0
+  code_forge: ^4.3.0
+  re_highlight: ^0.0.3
 
 dev_dependencies:
   flutter_test:

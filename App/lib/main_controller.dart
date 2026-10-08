@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:server_ctrl/values/navigation_routes.dart';
+//import 'package:server_ctrl/values/navigation_routes.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:server_ctrl/data_storage/database/storage_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'values/colors.dart';
@@ -9,35 +12,41 @@ import 'values/colors.dart';
 class MyAppController extends GetxController {
 
   static var usesDynamicColor = true.obs;
-  static var usesMaterial3 = true.obs;
   static var themeMode = ThemeMode.system.obs;
   static var locale = (Get.deviceLocale != null) ? Get.deviceLocale!.obs : const Locale("en").obs;
   static var mainColor = MColors.seed.obs;
   static var appVersion = "".obs;
   static var appName = "ServerCtrl".obs;
+  static StorageDatabase storageDatabase = StorageDatabase();
 
-  static bool isInitialized = false;
+  static bool initStarted = false;
+  static final Completer<void> initFinished = Completer<void>();
 
   void init() {
-    if (MyAppController.isInitialized) {
+    if (MyAppController.initStarted) {
       return;
     }
-    loadMainColor();
-    loadLocale();
-    loadThemeMode();
-    loadUsesMaterial3();
-    loadUsesDynamicColor();
-    loadMetadata();
-    MyAppController.isInitialized = true;
+    asyncInit();
+    MyAppController.initStarted = true;
   }
 
-  static updateUsesDynamicColor(bool newValue) async {
+  Future<void> asyncInit() async {
+    await loadMainColor();
+    await loadLocale();
+    await loadThemeMode();
+    await loadUsesDynamicColor();
+    await loadMetadata();
+    await loadStorageDatabase();
+    initFinished.complete();
+  }
+
+  static Future<void> updateUsesDynamicColor(bool newValue) async {
     usesDynamicColor(newValue);
     SharedPreferences storage = await SharedPreferences.getInstance();
     await storage.setString("useDynamicColor", newValue.toString());
   }
 
-  void loadUsesDynamicColor() async {
+  Future<void> loadUsesDynamicColor() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     String? valueString = storage.getString("useDynamicColor");
     if (valueString != null) {
@@ -46,28 +55,13 @@ class MyAppController extends GetxController {
     }
   }
 
-  static updateUsesMaterial3(bool newValue) async {
-    usesMaterial3(newValue);
-    SharedPreferences storage = await SharedPreferences.getInstance();
-    await storage.setString("useMaterial3", newValue.toString());
-  }
-
-  void loadUsesMaterial3() async {
-    SharedPreferences storage = await SharedPreferences.getInstance();
-    String? valueString = storage.getString("useMaterial3");
-    if (valueString != null) {
-      bool value = bool.parse(valueString);
-      usesMaterial3(value);
-    }
-  }
-
-  static updateThemeMode(ThemeMode themeMode) async {
+  static Future<void> updateThemeMode(ThemeMode themeMode) async {
     MyAppController.themeMode(themeMode);
     SharedPreferences storage = await SharedPreferences.getInstance();
     await storage.setString("themeMode", themeMode.name);
   }
 
-  void loadThemeMode() async {
+  Future<void> loadThemeMode() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     String? valueString = storage.getString("themeMode");
     if (valueString != null) {
@@ -85,14 +79,14 @@ class MyAppController extends GetxController {
     }
   }
 
-  static void updateLanguage(Locale selectedLocale) async {
+  static Future<void> updateLanguage(Locale selectedLocale) async {
     locale(selectedLocale);
     locale.refresh();
     SharedPreferences storage = await SharedPreferences.getInstance();
     await storage.setString("locale", selectedLocale.countryCode != null ? "_${selectedLocale.languageCode}_${selectedLocale.countryCode!}" : selectedLocale.languageCode);
   }
 
-  void loadLocale() async {
+  Future<void> loadLocale() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     String? valueString = storage.getString("locale");
     if (valueString != null) {
@@ -107,16 +101,16 @@ class MyAppController extends GetxController {
       locale(savedLocale);
       await Get.updateLocale(savedLocale);
     }
-    NavigationRoutes.init();
+    //NavigationRoutes.init();
   }
 
-  static void updateMainColor(Color color) async {
+  static Future<void> updateMainColor(Color color) async {
     MyAppController.mainColor(color);
     SharedPreferences storage = await SharedPreferences.getInstance();
-    await storage.setString("mainColor", color.value.toString());
+    await storage.setString("mainColor", color.toARGB32().toString());
   }
 
-  void loadMainColor() async {
+  Future<void> loadMainColor() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     String? valueString = storage.getString("mainColor");
     if (valueString != null) {
@@ -125,9 +119,13 @@ class MyAppController extends GetxController {
     }
   }
 
-  void loadMetadata() async {
+  Future<void> loadMetadata() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     appVersion(packageInfo.version);
+  }
+
+  Future<void> loadStorageDatabase() async {
+    await storageDatabase.open();
   }
 
 }

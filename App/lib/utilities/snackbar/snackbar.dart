@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../values/colors.dart';
 
 class Snackbar {
-  static createWithTitle(title, message, [bool isError=false, int duration=2]) {
+  static void createWithTitle(String title, String message, [bool isError=false, int duration=2]) {
     Get.closeAllSnackbars();
     Get.snackbar(
         title,
@@ -19,7 +19,8 @@ class Snackbar {
     );
   }
 
-  static create(message, [bool isError=false, int duration=2]) {
+  static void create(String message, [bool isError=false, int duration=2]) {
+    Get.closeAllSnackbars();
     Get.rawSnackbar(
         messageText: Text(
             message,
@@ -36,7 +37,7 @@ class Snackbar {
         backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.white.withAlpha(156),
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),
-        duration: Duration(seconds: duration)
+        duration: Duration(seconds: duration),
     );
   }
 

@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,12 +56,7 @@ class S {
 
   /// `ServerCtrl`
   String get server_ctrl {
-    return Intl.message(
-      'ServerCtrl',
-      name: 'server_ctrl',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('ServerCtrl', name: 'server_ctrl', desc: '', args: []);
   }
 
   /// `Version: {version}`
@@ -72,102 +71,52 @@ class S {
 
   /// `Settings`
   String get settings {
-    return Intl.message(
-      'Settings',
-      name: 'settings',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
   }
 
   /// `Add Server`
   String get add_server {
-    return Intl.message(
-      'Add Server',
-      name: 'add_server',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Add Server', name: 'add_server', desc: '', args: []);
   }
 
   /// `Home`
   String get home {
-    return Intl.message(
-      'Home',
-      name: 'home',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Home', name: 'home', desc: '', args: []);
   }
 
   /// `Console`
   String get console {
-    return Intl.message(
-      'Console',
-      name: 'console',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Console', name: 'console', desc: '', args: []);
   }
 
   /// `Players`
   String get players {
-    return Intl.message(
-      'Players',
-      name: 'players',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Players', name: 'players', desc: '', args: []);
   }
 
   /// `Files`
   String get files {
-    return Intl.message(
-      'Files',
-      name: 'files',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Files', name: 'files', desc: '', args: []);
   }
 
   /// `Log`
   String get log {
-    return Intl.message(
-      'Log',
-      name: 'log',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Log', name: 'log', desc: '', args: []);
   }
 
   /// `Accounts`
   String get accounts {
-    return Intl.message(
-      'Accounts',
-      name: 'accounts',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Accounts', name: 'accounts', desc: '', args: []);
   }
 
   /// `CPU cores`
   String get cpu_cores {
-    return Intl.message(
-      'CPU cores',
-      name: 'cpu_cores',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('CPU cores', name: 'cpu_cores', desc: '', args: []);
   }
 
   /// `CPU load`
   String get cpu_load {
-    return Intl.message(
-      'CPU load',
-      name: 'cpu_load',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('CPU load', name: 'cpu_load', desc: '', args: []);
   }
 
   /// `Usable memory`
@@ -192,12 +141,7 @@ class S {
 
   /// `Used memory`
   String get used_memory {
-    return Intl.message(
-      'Used memory',
-      name: 'used_memory',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Used memory', name: 'used_memory', desc: '', args: []);
   }
 
   /// `Total system memory`
@@ -212,22 +156,12 @@ class S {
 
   /// `Free memory`
   String get free_memory {
-    return Intl.message(
-      'Free memory',
-      name: 'free_memory',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Free memory', name: 'free_memory', desc: '', args: []);
   }
 
   /// `CPU Usage`
   String get cpu_usage {
-    return Intl.message(
-      'CPU Usage',
-      name: 'cpu_usage',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('CPU Usage', name: 'cpu_usage', desc: '', args: []);
   }
 
   /// `Memory Usage`
@@ -242,22 +176,12 @@ class S {
 
   /// `test`
   String get test {
-    return Intl.message(
-      'test',
-      name: 'test',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('test', name: 'test', desc: '', args: []);
   }
 
   /// `Command`
   String get command {
-    return Intl.message(
-      'Command',
-      name: 'command',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Command', name: 'command', desc: '', args: []);
   }
 
   /// `Error while sending command`
@@ -272,62 +196,32 @@ class S {
 
   /// `KICK`
   String get kick {
-    return Intl.message(
-      'KICK',
-      name: 'kick',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('KICK', name: 'kick', desc: '', args: []);
   }
 
   /// `BAN`
   String get ban {
-    return Intl.message(
-      'BAN',
-      name: 'ban',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('BAN', name: 'ban', desc: '', args: []);
   }
 
   /// `DE-OP`
   String get deop {
-    return Intl.message(
-      'DE-OP',
-      name: 'deop',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('DE-OP', name: 'deop', desc: '', args: []);
   }
 
   /// `OP`
   String get op {
-    return Intl.message(
-      'OP',
-      name: 'op',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('OP', name: 'op', desc: '', args: []);
   }
 
   /// `Success`
   String get success {
-    return Intl.message(
-      'Success',
-      name: 'success',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Success', name: 'success', desc: '', args: []);
   }
 
   /// `Permissions`
   String get permissions {
-    return Intl.message(
-      'Permissions',
-      name: 'permissions',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Permissions', name: 'permissions', desc: '', args: []);
   }
 
   /// `Reset Password`
@@ -342,12 +236,7 @@ class S {
 
   /// `Delete`
   String get delete {
-    return Intl.message(
-      'Delete',
-      name: 'delete',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
   }
 
   /// `Delete account?`
@@ -392,32 +281,17 @@ class S {
 
   /// `No`
   String get no {
-    return Intl.message(
-      'No',
-      name: 'no',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('No', name: 'no', desc: '', args: []);
   }
 
   /// `Cancel`
   String get cancel {
-    return Intl.message(
-      'Cancel',
-      name: 'cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
   /// `Reset`
   String get reset {
-    return Intl.message(
-      'Reset',
-      name: 'reset',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Reset', name: 'reset', desc: '', args: []);
   }
 
   /// `Reset password`
@@ -482,12 +356,7 @@ class S {
 
   /// `Save`
   String get save {
-    return Intl.message(
-      'Save',
-      name: 'save',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Save', name: 'save', desc: '', args: []);
   }
 
   /// `Successfully saved permissions`
@@ -522,22 +391,12 @@ class S {
 
   /// `Username`
   String get username {
-    return Intl.message(
-      'Username',
-      name: 'username',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Username', name: 'username', desc: '', args: []);
   }
 
   /// `Create`
   String get create {
-    return Intl.message(
-      'Create',
-      name: 'create',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Create', name: 'create', desc: '', args: []);
   }
 
   /// `Successfully created new account`
@@ -562,22 +421,12 @@ class S {
 
   /// `Ok`
   String get ok {
-    return Intl.message(
-      'Ok',
-      name: 'ok',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ok', name: 'ok', desc: '', args: []);
   }
 
   /// `Port`
   String get port {
-    return Intl.message(
-      'Port',
-      name: 'port',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Port', name: 'port', desc: '', args: []);
   }
 
   /// `Generate certificate`
@@ -642,12 +491,7 @@ class S {
 
   /// `Select file`
   String get selectFile {
-    return Intl.message(
-      'Select file',
-      name: 'selectFile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Select file', name: 'selectFile', desc: '', args: []);
   }
 
   /// `Certificate key file`
@@ -662,42 +506,22 @@ class S {
 
   /// `Upload`
   String get upload {
-    return Intl.message(
-      'Upload',
-      name: 'upload',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Upload', name: 'upload', desc: '', args: []);
   }
 
   /// `Help`
   String get help {
-    return Intl.message(
-      'Help',
-      name: 'help',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Help', name: 'help', desc: '', args: []);
   }
 
   /// `Plugin`
   String get plugin {
-    return Intl.message(
-      'Plugin',
-      name: 'plugin',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Plugin', name: 'plugin', desc: '', args: []);
   }
 
   /// `HTTPS`
   String get https {
-    return Intl.message(
-      'HTTPS',
-      name: 'https',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('HTTPS', name: 'https', desc: '', args: []);
   }
 
   /// `Upload HTTPS certificate`
@@ -732,12 +556,7 @@ class S {
 
   /// `Server`
   String get server {
-    return Intl.message(
-      'Server',
-      name: 'server',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Server', name: 'server', desc: '', args: []);
   }
 
   /// `Error while saving changes`
@@ -812,52 +631,27 @@ class S {
 
   /// `Open with`
   String get openWith {
-    return Intl.message(
-      'Open with',
-      name: 'openWith',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Open with', name: 'openWith', desc: '', args: []);
   }
 
   /// `Share`
   String get share {
-    return Intl.message(
-      'Share',
-      name: 'share',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Share', name: 'share', desc: '', args: []);
   }
 
   /// `Download`
   String get download {
-    return Intl.message(
-      'Download',
-      name: 'download',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Download', name: 'download', desc: '', args: []);
   }
 
   /// `Rename`
   String get rename {
-    return Intl.message(
-      'Rename',
-      name: 'rename',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Rename', name: 'rename', desc: '', args: []);
   }
 
   /// `Delete?`
   String get deleteFile {
-    return Intl.message(
-      'Delete?',
-      name: 'deleteFile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Delete?', name: 'deleteFile', desc: '', args: []);
   }
 
   /// `"{name}" will be permanently removed.`
@@ -892,22 +686,12 @@ class S {
 
   /// `Create File`
   String get createFile {
-    return Intl.message(
-      'Create File',
-      name: 'createFile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Create File', name: 'createFile', desc: '', args: []);
   }
 
   /// `New File`
   String get newFile {
-    return Intl.message(
-      'New File',
-      name: 'newFile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('New File', name: 'newFile', desc: '', args: []);
   }
 
   /// `Create Folder`
@@ -922,12 +706,7 @@ class S {
 
   /// `New Folder`
   String get newFolder {
-    return Intl.message(
-      'New Folder',
-      name: 'newFolder',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('New Folder', name: 'newFolder', desc: '', args: []);
   }
 
   /// `Successfully created file`
@@ -1002,22 +781,12 @@ class S {
 
   /// `Downloading`
   String get downloading {
-    return Intl.message(
-      'Downloading',
-      name: 'downloading',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Downloading', name: 'downloading', desc: '', args: []);
   }
 
   /// `Saving`
   String get saving {
-    return Intl.message(
-      'Saving',
-      name: 'saving',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Saving', name: 'saving', desc: '', args: []);
   }
 
   /// `Saved successfully`
@@ -1042,32 +811,17 @@ class S {
 
   /// `Save file`
   String get saveFile {
-    return Intl.message(
-      'Save file',
-      name: 'saveFile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Save file', name: 'saveFile', desc: '', args: []);
   }
 
   /// `Close`
   String get close {
-    return Intl.message(
-      'Close',
-      name: 'close',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Close', name: 'close', desc: '', args: []);
   }
 
   /// `Downloaded`
   String get downloaded {
-    return Intl.message(
-      'Downloaded',
-      name: 'downloaded',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Downloaded', name: 'downloaded', desc: '', args: []);
   }
 
   /// `Error while downloading file`
@@ -1082,12 +836,7 @@ class S {
 
   /// `Name`
   String get name {
-    return Intl.message(
-      'Name',
-      name: 'name',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Name', name: 'name', desc: '', args: []);
   }
 
   /// `Successfully renamed`
@@ -1102,22 +851,12 @@ class S {
 
   /// `file`
   String get file {
-    return Intl.message(
-      'file',
-      name: 'file',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('file', name: 'file', desc: '', args: []);
   }
 
   /// `directory`
   String get directory {
-    return Intl.message(
-      'directory',
-      name: 'directory',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('directory', name: 'directory', desc: '', args: []);
   }
 
   /// `Downloaded "{filename}" successfully.`
@@ -1182,12 +921,7 @@ class S {
 
   /// `Edit`
   String get edit {
-    return Intl.message(
-      'Edit',
-      name: 'edit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Edit', name: 'edit', desc: '', args: []);
   }
 
   /// `Discard changes?`
@@ -1212,12 +946,7 @@ class S {
 
   /// `Discard`
   String get discard {
-    return Intl.message(
-      'Discard',
-      name: 'discard',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Discard', name: 'discard', desc: '', args: []);
   }
 
   /// `File saved successfully`
@@ -1262,32 +991,17 @@ class S {
 
   /// `Password`
   String get password {
-    return Intl.message(
-      'Password',
-      name: 'password',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Password', name: 'password', desc: '', args: []);
   }
 
   /// `Login`
   String get login {
-    return Intl.message(
-      'Login',
-      name: 'login',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Login', name: 'login', desc: '', args: []);
   }
 
   /// `Logging in`
   String get loggingIn {
-    return Intl.message(
-      'Logging in',
-      name: 'loggingIn',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Logging in', name: 'loggingIn', desc: '', args: []);
   }
 
   /// `Coded by {name}`
@@ -1332,12 +1046,7 @@ class S {
 
   /// `Yes`
   String get yes {
-    return Intl.message(
-      'Yes',
-      name: 'yes',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Yes', name: 'yes', desc: '', args: []);
   }
 
   /// `Delete "{routeTitle}"`
@@ -1392,12 +1101,7 @@ class S {
 
   /// `Try again`
   String get tryAgain {
-    return Intl.message(
-      'Try again',
-      name: 'tryAgain',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Try again', name: 'tryAgain', desc: '', args: []);
   }
 
   /// `Cannot reach the server`
@@ -1442,12 +1146,7 @@ class S {
 
   /// `Design`
   String get design {
-    return Intl.message(
-      'Design',
-      name: 'design',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Design', name: 'design', desc: '', args: []);
   }
 
   /// `Use system settings`
@@ -1462,42 +1161,22 @@ class S {
 
   /// `Light Mode`
   String get lightMode {
-    return Intl.message(
-      'Light Mode',
-      name: 'lightMode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Light Mode', name: 'lightMode', desc: '', args: []);
   }
 
   /// `Dark Mode`
   String get darkMode {
-    return Intl.message(
-      'Dark Mode',
-      name: 'darkMode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dark Mode', name: 'darkMode', desc: '', args: []);
   }
 
   /// `Theme color`
   String get themeColor {
-    return Intl.message(
-      'Theme color',
-      name: 'themeColor',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Theme color', name: 'themeColor', desc: '', args: []);
   }
 
   /// `Default`
   String get defaultStr {
-    return Intl.message(
-      'Default',
-      name: 'defaultStr',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Default', name: 'defaultStr', desc: '', args: []);
   }
 
   /// `Please input your server address, username AND password`
@@ -1532,12 +1211,7 @@ class S {
 
   /// `New server`
   String get newServer {
-    return Intl.message(
-      'New server',
-      name: 'newServer',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('New server', name: 'newServer', desc: '', args: []);
   }
 
   /// `The new server got added successfully`
@@ -1592,22 +1266,12 @@ class S {
 
   /// `Support me`
   String get helpMe {
-    return Intl.message(
-      'Support me',
-      name: 'helpMe',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Support me', name: 'helpMe', desc: '', args: []);
   }
 
   /// `Donate`
   String get donate {
-    return Intl.message(
-      'Donate',
-      name: 'donate',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Donate', name: 'donate', desc: '', args: []);
   }
 
   /// `Help me keep this app alive`
@@ -1622,32 +1286,17 @@ class S {
 
   /// `Appearance`
   String get appearance {
-    return Intl.message(
-      'Appearance',
-      name: 'appearance',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Appearance', name: 'appearance', desc: '', args: []);
   }
 
   /// `Language`
   String get language {
-    return Intl.message(
-      'Language',
-      name: 'language',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Language', name: 'language', desc: '', args: []);
   }
 
   /// `Material 3`
   String get material3 {
-    return Intl.message(
-      'Material 3',
-      name: 'material3',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Material 3', name: 'material3', desc: '', args: []);
   }
 
   /// `Dynamic color`
@@ -1662,72 +1311,37 @@ class S {
 
   /// `Get in touch`
   String get getInTouch {
-    return Intl.message(
-      'Get in touch',
-      name: 'getInTouch',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Get in touch', name: 'getInTouch', desc: '', args: []);
   }
 
   /// `Discord`
   String get discord {
-    return Intl.message(
-      'Discord',
-      name: 'discord',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Discord', name: 'discord', desc: '', args: []);
   }
 
   /// `E-Mail`
   String get email {
-    return Intl.message(
-      'E-Mail',
-      name: 'email',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('E-Mail', name: 'email', desc: '', args: []);
   }
 
   /// `SpigotMC`
   String get spigotmc {
-    return Intl.message(
-      'SpigotMC',
-      name: 'spigotmc',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('SpigotMC', name: 'spigotmc', desc: '', args: []);
   }
 
   /// `GitHub`
   String get github {
-    return Intl.message(
-      'GitHub',
-      name: 'github',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('GitHub', name: 'github', desc: '', args: []);
   }
 
   /// `About`
   String get about {
-    return Intl.message(
-      'About',
-      name: 'about',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('About', name: 'about', desc: '', args: []);
   }
 
   /// `Licenses`
   String get licenses {
-    return Intl.message(
-      'Licenses',
-      name: 'licenses',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Licenses', name: 'licenses', desc: '', args: []);
   }
 
   /// `Data privacy`
@@ -1762,12 +1376,7 @@ class S {
 
   /// `Generate`
   String get generate {
-    return Intl.message(
-      'Generate',
-      name: 'generate',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Generate', name: 'generate', desc: '', args: []);
   }
 
   /// `Nothing selected`
@@ -1782,12 +1391,7 @@ class S {
 
   /// `IMPORTANT!`
   String get important {
-    return Intl.message(
-      'IMPORTANT!',
-      name: 'important',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('IMPORTANT!', name: 'important', desc: '', args: []);
   }
 
   /// `This app requires a plugin to be installed on your existing Minecraft server. Please click "More info" for ... well ... more info :)`
@@ -1802,12 +1406,7 @@ class S {
 
   /// `More info`
   String get moreInfo {
-    return Intl.message(
-      'More info',
-      name: 'moreInfo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('More info', name: 'moreInfo', desc: '', args: []);
   }
 
   /// `Please input your username and password`
@@ -1870,10 +1469,10 @@ class S {
     );
   }
 
-  /// `After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn't got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord server.`
+  /// `After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn't got the console log anymore simple delete the "data.db" file inside the "ServerCtrlBackend". Please note that this deletes all users and provisioned clients.\n\nFor more help join my Discord server.`
   String get howCanILogInText {
     return Intl.message(
-      'After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn\'t got the console log anymore simple delete the "config.yml" file inside the "ServerCtrl" folder or just the user "admin" inside this file.\n\nFor more help join my Discord server.',
+      'After you installed the Plugin on your Bukkit / Spigot / Paper server, the Plugin will show the password for the user "admin" in your console. This only happens on the first startup or when no user named "admin" is registered.\n\nIf you forgot the password or didn\'t got the console log anymore simple delete the "data.db" file inside the "ServerCtrlBackend". Please note that this deletes all users and provisioned clients.\n\nFor more help join my Discord server.',
       name: 'howCanILogInText',
       desc: '',
       args: [],
@@ -1902,22 +1501,12 @@ class S {
 
   /// `TOTP Code`
   String get totpCode {
-    return Intl.message(
-      'TOTP Code',
-      name: 'totpCode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('TOTP Code', name: 'totpCode', desc: '', args: []);
   }
 
   /// `Wrong Code`
   String get wrongCode {
-    return Intl.message(
-      'Wrong Code',
-      name: 'wrongCode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Wrong Code', name: 'wrongCode', desc: '', args: []);
   }
 
   /// `Change password`
@@ -1942,12 +1531,7 @@ class S {
 
   /// `Account`
   String get account {
-    return Intl.message(
-      'Account',
-      name: 'account',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Account', name: 'account', desc: '', args: []);
   }
 
   /// `Configure Two-factor authentication`
@@ -1992,12 +1576,7 @@ class S {
 
   /// `Please wait`
   String get pleaseWait {
-    return Intl.message(
-      'Please wait',
-      name: 'pleaseWait',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Please wait', name: 'pleaseWait', desc: '', args: []);
   }
 
   /// `Remove two-factor authentication?`
@@ -2062,12 +1641,7 @@ class S {
 
   /// `Remove`
   String get remove {
-    return Intl.message(
-      'Remove',
-      name: 'remove',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Remove', name: 'remove', desc: '', args: []);
   }
 
   /// `Input your password`
@@ -2122,12 +1696,7 @@ class S {
 
   /// `Copy secret`
   String get copySecret {
-    return Intl.message(
-      'Copy secret',
-      name: 'copySecret',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Copy secret', name: 'copySecret', desc: '', args: []);
   }
 
   /// `Successfully added 2FA to your account`
@@ -2142,22 +1711,12 @@ class S {
 
   /// `Confirm`
   String get confirm {
-    return Intl.message(
-      'Confirm',
-      name: 'confirm',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
   }
 
   /// `Extract`
   String get extract {
-    return Intl.message(
-      'Extract',
-      name: 'extract',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Extract', name: 'extract', desc: '', args: []);
   }
 
   /// `Extract file`
@@ -2213,12 +1772,7 @@ class S {
 
   /// `RegEx`
   String get regex {
-    return Intl.message(
-      'RegEx',
-      name: 'regex',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('RegEx', name: 'regex', desc: '', args: []);
   }
 
   /// `Disk usage ({diskname})`
@@ -2243,12 +1797,7 @@ class S {
 
   /// `Reload`
   String get reload {
-    return Intl.message(
-      'Reload',
-      name: 'reload',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Reload', name: 'reload', desc: '', args: []);
   }
 
   /// `Reloading the server is not supported by every plugin. You might experience some errors.`
@@ -2323,12 +1872,7 @@ class S {
 
   /// `Stop server`
   String get stopServer {
-    return Intl.message(
-      'Stop server',
-      name: 'stopServer',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Stop server', name: 'stopServer', desc: '', args: []);
   }
 
   /// `Error while stopping server`
@@ -2353,12 +1897,7 @@ class S {
 
   /// `Power`
   String get power {
-    return Intl.message(
-      'Power',
-      name: 'power',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Power', name: 'power', desc: '', args: []);
   }
 
   /// `Restart only works if you configure the restart-script in the spigot.yml`
@@ -2403,12 +1942,7 @@ class S {
 
   /// `Backup`
   String get backup {
-    return Intl.message(
-      'Backup',
-      name: 'backup',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Backup', name: 'backup', desc: '', args: []);
   }
 
   /// `This backup is still running`
@@ -2493,12 +2027,7 @@ class S {
 
   /// `Start`
   String get start {
-    return Intl.message(
-      'Start',
-      name: 'start',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Start', name: 'start', desc: '', args: []);
   }
 
   /// `Select worlds`
@@ -2513,22 +2042,12 @@ class S {
 
   /// `Full Backup`
   String get full_backup {
-    return Intl.message(
-      'Full Backup',
-      name: 'full_backup',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Full Backup', name: 'full_backup', desc: '', args: []);
   }
 
   /// `Next`
   String get next {
-    return Intl.message(
-      'Next',
-      name: 'next',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Next', name: 'next', desc: '', args: []);
   }
 
   /// `You don't have any backups yet`
@@ -2543,42 +2062,22 @@ class S {
 
   /// `Finished`
   String get finished {
-    return Intl.message(
-      'Finished',
-      name: 'finished',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Finished', name: 'finished', desc: '', args: []);
   }
 
   /// `Error`
   String get error {
-    return Intl.message(
-      'Error',
-      name: 'error',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Error', name: 'error', desc: '', args: []);
   }
 
   /// `Running`
   String get running {
-    return Intl.message(
-      'Running',
-      name: 'running',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Running', name: 'running', desc: '', args: []);
   }
 
   /// `Waiting`
   String get waiting {
-    return Intl.message(
-      'Waiting',
-      name: 'waiting',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Waiting', name: 'waiting', desc: '', args: []);
   }
 
   /// `Are you sure you want to delete {filename}?\n\nThis cannot be undone.`
@@ -2590,6 +2089,21 @@ class S {
           'Are you sure you want to delete 281726_2024-12-12.tar.gz?\n\nThis cannot be undone.',
       args: [filename],
     );
+  }
+
+  /// `This field is required`
+  String get thisFieldIsRequired {
+    return Intl.message(
+      'This field is required',
+      name: 'thisFieldIsRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading`
+  String get loading {
+    return Intl.message('Loading', name: 'loading', desc: '', args: []);
   }
 }
 

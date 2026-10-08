@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:convert/convert.dart';
+import 'package:crypto/crypto.dart';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,19 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:server_ctrl/navigator_key.dart';
+import 'package:server_ctrl/ui/views/add_client/add_client.dart';
+import 'package:server_ctrl/ui/views/add_client/add_client_controller.dart';
+import 'package:server_ctrl/ui/views/add_server/add_server.dart';
+import 'package:server_ctrl/ui/views/add_server/add_server_controller.dart';
+import 'package:server_ctrl/ui/views/app_settings/app_settings.dart';
+import 'package:server_ctrl/ui/views/app_settings/app_settings_controller.dart';
+import 'package:server_ctrl/ui/views/main_view/main_controller.dart';
+import 'package:server_ctrl/ui/views/main_view/main_view.dart';
+import 'package:server_ctrl/ui/views/splash_screen/splash_screen.dart';
+import 'package:server_ctrl/ui/views/splash_screen/splash_screen_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'generated/l10n.dart';
 import 'main_controller.dart';
-import 'ui/navigation/layout_structure.dart';
 import 'package:get/get.dart';
 
 import 'dart:io';
@@ -24,14 +34,14 @@ class MyHttpOverrides extends HttpOverrides{
   HttpClient createHttpClient(SecurityContext? context){
     return super.createHttpClient(context)
       ..badCertificateCallback = (X509Certificate cert, String host, int port) {
-        String sha1 = hex.encode(cert.sha1).toUpperCase();
-        sha1 = RegExp(r".{2}")
-        .allMatches(sha1)
+      String hash = hex.encode(cert.sha1).toUpperCase();
+      hash = RegExp(r".{2}")
+        .allMatches(hash)
         .map((e) => e.group(0))
         .join(":");
 
         List<String>? acceptedCerts = prefs?.getStringList("accepted_certs");
-        if (acceptedCerts != null && acceptedCerts.contains(sha1)) {
+        if (acceptedCerts != null && acceptedCerts.contains(hash)) {
           return true;
         } else {
           showDialog(
@@ -46,7 +56,7 @@ class MyHttpOverrides extends HttpOverrides{
                     children: [
                       Text(S.current.certCannotBeVerified),
                       const Padding(padding: EdgeInsets.only(top: 8.0)),
-                      Text(sha1)
+                      Text(hash)
                     ],
                   ),
                 ),
@@ -54,7 +64,7 @@ class MyHttpOverrides extends HttpOverrides{
                   TextButton(onPressed: () {Navigator.pop(context, true);}, child: Text(S.current.no)),
                   TextButton(onPressed: () async {
                     acceptedCerts ??= [];
-                    acceptedCerts?.add(sha1);
+                    acceptedCerts?.add(hash);
                     await prefs?.setStringList("accepted_certs", acceptedCerts!);
                     Navigator.pop(navigatorKey.currentContext!, true);
                   }, child: Text(S.current.yes)),
@@ -100,16 +110,44 @@ class MyApp extends StatelessWidget {
         theme: buildTheme(
             brightness: Brightness.light,
             dynamicScheme: MyAppController.usesDynamicColor.isTrue ? lightDynamic : null,
-            material3: MyAppController.usesMaterial3.value,
+            material3: true,
             seedColor: MyAppController.mainColor.value),
         darkTheme: buildTheme(
             brightness: Brightness.dark,
             dynamicScheme: MyAppController.usesDynamicColor.isTrue ? darkDynamic: null,
-            material3: MyAppController.usesMaterial3.value,
+            material3: true,
             seedColor: MyAppController.mainColor.value),
         themeMode: MyAppController.themeMode.value,
         locale: MyAppController.locale.value,
-        home: const LayoutStructure(),
+        initialRoute: SplashScreenView.route,
+        initialBinding: SplashScreenBinding(),
+        getPages: [
+          GetPage(
+              name: SplashScreenView.route,
+              page: () => SplashScreenView(),
+              binding: SplashScreenBinding()
+          ),
+          GetPage(
+              name: AddServerView.route,
+              page: () => AddServerView(),
+              binding: AddServerBinding()
+          ),
+          GetPage(
+              name: AddClientView.route,
+              page: () => AddClientView(),
+              binding: AddClientBinding()
+          ),
+          GetPage(
+              name: MainView.route,
+              page: () => MainView(),
+              binding: MainBinding()
+          ),
+          GetPage(
+              name: AppSettingsView.route,
+              page: () => AppSettingsView(),
+              binding: AppSettingsBinding()
+          )
+        ],
         navigatorKey: navigatorKey,
       ));
     });
@@ -123,11 +161,18 @@ class MyApp extends StatelessWidget {
     required bool material3,
     required Color seedColor,
   }) {
-    final classicScheme = ColorScheme.fromSeed(
-      seedColor: seedColor,
-      brightness: brightness,
-    );
-    late ColorScheme colorScheme = dynamicScheme ?? classicScheme;
+    ColorScheme colorScheme;
+    if (dynamicScheme != null) {
+      colorScheme = ColorScheme.fromSeed(
+        seedColor: dynamicScheme.primary,
+        brightness: brightness,
+      );
+    } else {
+      colorScheme = ColorScheme.fromSeed(
+        seedColor: seedColor,
+        brightness: brightness,
+      );
+    }
     return ThemeData.from(
       colorScheme: colorScheme.harmonized(),
       useMaterial3: material3,
@@ -136,8 +181,11 @@ class MyApp extends StatelessWidget {
       appBarTheme: const AppBarTheme(
         scrolledUnderElevation: 0,
       ),
+      snackBarTheme: const SnackBarThemeData(
+        behavior: SnackBarBehavior.floating, // Floating floating card (M3 standard)
+      ),
       chipTheme: ChipThemeData(
-        backgroundColor: colorScheme.surfaceVariant,
+        backgroundColor: colorScheme.surfaceContainerHighest,
         checkmarkColor: colorScheme.onSurfaceVariant,
         deleteIconColor: colorScheme.onSurfaceVariant,
       ),

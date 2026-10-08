@@ -19,7 +19,9 @@ class InputDialog {
     this.rightButtonText,
     this.onLeftButtonClick,
     this.onRightButtonClick,
-    this.rightButtonDisableEmpty = false
+    this.rightButtonDisableEmpty = false,
+    this.barrierDismissible = false,
+    this.highlightOffset
   });
 
   final String title;
@@ -34,76 +36,79 @@ class InputDialog {
   final String? rightButtonText;
   final Function(String text)? onLeftButtonClick;
   final Function(String text)? onRightButtonClick;
+  final bool barrierDismissible;
+  final (int, int)? highlightOffset;
 
   final bool? rightButtonDisableEmpty;
 
   showInputDialog(var context) {
-    final textController = TextEditingController().obs;
-    textController.value.text = inputFieldText ?? "";
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-        return Padding(
-          padding: const EdgeInsets.all(32),
-          child: AlertDialog(
-            insetPadding: EdgeInsets.zero,
-            title: Text(title),
-            content: SizedBox(
-              width: min(500, MediaQuery.of(context).size.width),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  if (message != null) Text(message!),
-                  if (message != null) const Padding(padding: EdgeInsets.only(top: 8)),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: inputFieldBorder,
-                      hintText: inputFieldHintText,
-                      errorText: inputFieldError
-                    ),
-                    maxLines: 1,
-                    maxLength: inputFieldLength,
-                    controller: textController.value,
-                    onChanged: (value) => textController.refresh(),
-                    keyboardType: textInputType,
-                    obscureText: textInputType == TextInputType.visiblePassword,
-                    enableSuggestions: textInputType != TextInputType.visiblePassword,
-                    autocorrect: false,
-                  ),
-                ],
+    final textController = TextEditingController(text: inputFieldText ?? "").obs;
+    if (highlightOffset != null) {
+      textController.value.selection = TextSelection(
+          baseOffset: highlightOffset!.$1,
+          extentOffset: highlightOffset!.$2
+      );
+    }
+    Get.dialog(
+      barrierDismissible: barrierDismissible,
+      AlertDialog(
+        title: Text(title),
+        content: SizedBox(
+          width: min(500, MediaQuery.of(context).size.width),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              if (message != null) Text(message!),
+              if (message != null) const Padding(padding: EdgeInsets.only(top: 8)),
+              TextField(
+                decoration: InputDecoration(
+                    border: inputFieldBorder,
+                    hintText: inputFieldHintText,
+                    errorText: inputFieldError
+                ),
+                maxLines: 1,
+                maxLength: inputFieldLength,
+                controller: textController.value,
+                onChanged: (value) => textController.refresh(),
+                keyboardType: textInputType,
+                obscureText: textInputType == TextInputType.visiblePassword,
+                enableSuggestions: textInputType != TextInputType.visiblePassword,
+                autocorrect: false,
+                autofocus: true,
               ),
-            ),
-            actions: <Widget>[
-              if (leftButtonText != null) TextButton(onPressed: () {
-                if (onLeftButtonClick != null) {
-                  onLeftButtonClick!(textController.value.text);
-                }
-                Navigator.pop(context, true);
-                }, child: Text(leftButtonText!)),
-              if (rightButtonText != null) Obx(() => TextButton(onPressed: textController.value.text.isNotEmpty || !rightButtonDisableEmpty! ? () {
-                if (onRightButtonClick != null) {
-                  onRightButtonClick!(textController.value.text);
-                }
-                Navigator.pop(context, true);
-              } : null, child: Text(rightButtonText!)),)
             ],
           ),
-        );
-      },
+        ),
+        actions: <Widget>[
+          if (leftButtonText != null) TextButton(onPressed: () {
+            if (onLeftButtonClick != null) {
+              onLeftButtonClick!(textController.value.text);
+            } else {
+              Navigator.pop(context, true);
+            }
+          }, child: Text(leftButtonText!)),
+          if (rightButtonText != null) Obx(() => TextButton(onPressed: textController.value.text.isNotEmpty || !rightButtonDisableEmpty! ? () {
+            if (onRightButtonClick != null) {
+              onRightButtonClick!(textController.value.text);
+            } else {
+              Navigator.pop(context, true);
+            }
+          } : null, child: Text(rightButtonText!)),)
+        ],
+      )
     );
   }
 }
 
 class ConfirmationDialog {
 
-  final String title;
-  final String message;
+  final Widget title;
+  final Widget message;
   String? confirmButtonText;
   String? dismissButtonText;
-  final Function(BuildContext) onConfirm;
-  final Function(BuildContext) onCanceled;
+  final Function() onConfirm;
+  final Function() onCanceled;
 
   ConfirmationDialog({
     required this.title,
@@ -126,7 +131,7 @@ class ConfirmationDialog {
           padding: const EdgeInsets.all(32),
           child: AlertDialog(
               insetPadding: EdgeInsets.zero,
-              title: Text(title),
+              title: title,
               content: SizedBox(
                 width: min(500, MediaQuery
                     .of(context)
@@ -136,7 +141,7 @@ class ConfirmationDialog {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(message),
+                    message,
                   ],
                 ),
               ),
@@ -144,9 +149,9 @@ class ConfirmationDialog {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(onPressed: () => onCanceled(context),
+                    TextButton(onPressed: () => onCanceled(),
                         child: Text(dismissButtonText!)),
-                    TextButton(onPressed: () => onConfirm(context),
+                    TextButton(onPressed: () => onConfirm(),
                         child: Text(confirmButtonText!)),
                   ],
                 )

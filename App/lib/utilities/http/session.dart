@@ -3,47 +3,87 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:background_downloader/background_downloader.dart';
 import 'package:dio/dio.dart' as dartio;
 
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:server_ctrl/utilities/callbacks/simple_stream.dart';
+import 'package:server_ctrl/utilities/http/file.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../files/file_handler.dart';
 
 class Session {
   static Map<String, String> headers = {};
 
   static String baseURL = "";
 
-  static setBaseURL(String url) {
+  static void setBaseURL(String url) {
     baseURL = url;
   }
 
-  static Future<http.Response> get(String url) async {
-    http.Response response = await http.get(Uri.parse(baseURL + url), headers: headers);
+  static Future<http.Response> get(String url, {Map<String, dynamic>? queryParameters, Duration timeout = const Duration(seconds: 10)}) async {
+    final uri = Uri.parse(baseURL + url).replace(queryParameters: queryParameters);
+    http.Response response = await http.get(uri, headers: headers).timeout(timeout);
     updateCookie(response);
     return response;
   }
 
-  static Future<(http.Client, http.ByteStream, int)> getFile(String url) async {
-    return getFileFullURL(baseURL + url);
+  static Future<DownloadFile> getFile(String url, {Map<String, dynamic>? queryParameters, Duration timeout = const Duration(seconds: 10)}) async {
+    return getFileFullURL(baseURL + url, queryParameters: queryParameters, timeout: timeout);
   }
 
-  static Future<(http.Client, http.ByteStream, int)> getFileFullURL(String url) async {
-    var client = http.Client();
-    http.Request request = http.Request('GET', Uri.parse(url));
-    request.headers.addAll(headers);
+  static Future<DownloadFile> getFileFullURL(String url, {Map<String, dynamic>? queryParameters, Duration timeout = const Duration(seconds: 10)}) async {
+    final uri = Uri.parse(url).replace(queryParameters: queryParameters);
+    final tempFile = await FileHandler.createFile(FileHandler.getRandomFilename());
 
-    var response = await client.send(request);
-    var totalLength = response.contentLength ?? 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? acceptedCerts = prefs.getStringList("accepted_certs");
 
-    return (client, response.stream, totalLength);
+    final task = DownloadTask(
+        url: uri.toString(),
+        filename: tempFile.uri.pathSegments.last,
+        headers: headers,
+        directory: tempFile.parent.path,
+        baseDirectory: BaseDirectory.root,
+        updates: Updates.statusAndProgress,
+        requiresWiFi: false,
+        retries: 1,
+        allowPause: false,
+        trustedCertificates: acceptedCerts?.map((e) => e.replaceAll(":", "")).toList(),
+    );
+
+    SimpleStream<double> progressNotifier = SimpleStream<double>();
+    SimpleStream<TaskStatus> statusNotifier = SimpleStream<TaskStatus>();
+
+    final result = FileDownloader().download(task, onProgress: (progress) {
+      progressNotifier.push(progress);
+    }, onStatus: (status) {
+      statusNotifier.push(status);
+    });
+
+    Future<String> filename = result.then((value) {
+      String filename = "file";
+      String? contentDisposition = value.responseHeaders?["content-disposition"];
+      if (contentDisposition != null) {
+        final regex = RegExp(r'filename="?([^"]+)"?');
+        final match = regex.firstMatch(contentDisposition);
+        filename = match?.group(1) ?? filename;
+      }
+      return filename;
+    },);
+
+    return DownloadFile(filename, tempFile, progressNotifier, statusNotifier, result.then((value) => value.responseStatusCode == 200), () => FileDownloader().cancel(task));
   }
 
-  static Future<http.Response> post(String url, dynamic data) async {
-    http.Response response = await http.post(Uri.parse(baseURL + url), body: data, headers: headers).timeout(const Duration(seconds: 10));
+  static Future<http.Response> post(String url, dynamic data, {Map<String, dynamic>? queryParameters, Duration timeout = const Duration(seconds: 10)}) async {
+    http.Response response = await http.post(Uri.parse(baseURL + url).replace(queryParameters: queryParameters), body: data.toString(), headers: headers).timeout(timeout);
     updateCookie(response);
     return response;
   }
 
-  static Future<http.Response> postCertFile(String url, Map<String, List<int>> files) async {
+  static Future<http.Response> postCertFile(String url, Map<String, List<int>> files, {Duration timeout = const Duration(seconds: 10)}) async {
     var request = http.MultipartRequest("POST", Uri.parse(baseURL + url));
     for (var entry in headers.entries) {
       request.headers[entry.key] = entry.value;
@@ -51,57 +91,40 @@ class Session {
     for(var file in files.entries) {
       request.files.add(http.MultipartFile.fromBytes(file.key, file.value, filename: file.key));
     }
-    var streamedResponse = await request.send();
+    var streamedResponse = await request.send().timeout(timeout);
     var response = await http.Response.fromStream(streamedResponse);
     updateCookie(response);
     return response;
   }
 
-  static Future<http.Response> postFile(String url, String path, Map<String, String> files, Function(int, int, bool, EventSink<List<int>>) onUploadProgress) async {
-    final client = HttpClient();
-    final request = await client.postUrl(Uri.parse(baseURL + url));
-    headers.forEach((key, value) {
-      request.headers.set(key, value);
-    });
+  static Future<http.Response> postFile(String url, UploadFile uploadFile, Function(int sent, int total, bool finished) onUploadProgress, {Map<String, dynamic>? queryParameters}) async {
+    final dio = dartio.Dio();
+    try {
+      final uri = Uri.parse(baseURL + url).replace(
+        queryParameters: queryParameters,
+      );
 
-    var multipartRequest = http.MultipartRequest("POST", Uri.parse("uri"));
-    for (var entry in headers.entries) {
-      multipartRequest.headers[entry.key] = entry.value;
-    }
-    for(var file in files.entries) {
-      multipartRequest.files.add(await http.MultipartFile.fromPath(file.key, file.value, filename: file.key));
-    }
-    multipartRequest.fields['path'] = path;
-
-    var msStream = multipartRequest.finalize();
-    var totalLength = multipartRequest.contentLength;
-    request.contentLength = totalLength;
-    var byteCount = 0;
-
-    request.headers.set(HttpHeaders.contentTypeHeader, multipartRequest.headers[HttpHeaders.contentTypeHeader]!);
-
-
-    Stream<List<int>> streamUpload = msStream.transform(
-      StreamTransformer.fromHandlers(
-        handleData: (data, sink) {
-          sink.add(data);
-          byteCount += data.length;
-          onUploadProgress(byteCount, totalLength, false, sink);
+      final response = await dio.postUri(
+        uri,
+        data: Stream.fromIterable([uploadFile.bytes]),
+        options: dartio.Options(
+          responseType: dartio.ResponseType.plain,
+          headers: {...headers, ...{'Content-Type': 'application/octet-stream'}},
+          contentType: 'application/octet-stream',
+        ),
+        onSendProgress: (int sent, int total) {
+          final finished = sent == total;
+          onUploadProgress(sent, total, finished);
         },
-        handleDone: (sink) {
-          onUploadProgress(byteCount, totalLength, true, sink);
-          sink.close();
-        },
-      ),
-    );
+      );
 
-    await request.addStream(streamUpload);
-    final httpResponse = await request.close();
-    final response = http.Response(await _readResponseAsString(httpResponse), httpResponse.statusCode);
-    return response;
+      return http.Response(response.data, response.statusCode!);
+    } catch (e) {
+      return http.Response("", 400);
+    }
   }
 
-  static Future<http.Response> postFileFromWeb(String url, String path, Map<String, Uint8List> files, dartio.CancelToken cancelToken, Function(int, int, bool) onUploadProgress) async {
+  static Future<http.Response> postFileFromWeb(String url, Map<String, UploadFile> files, dartio.CancelToken cancelToken, Function(int sent, int total, bool finished) onUploadProgress) async {
     dartio.BaseOptions options = dartio.BaseOptions(
         contentType: "multipart/form-data",
         headers: headers,
@@ -113,18 +136,16 @@ class Session {
           return true;
         });
 
-    dartio.Dio _dio = dartio.Dio(options);
+    dartio.Dio dio = dartio.Dio(options);
 
     Map<String, dynamic> formEntries = {};
     for(var file in files.entries) {
-      formEntries[file.key] = dartio.MultipartFile.fromBytes(file.value, filename: file.key);
+      formEntries[file.key] = dartio.MultipartFile.fromBytes(file.value.bytes, filename: file.value.path);
     }
-
-    formEntries["path"] = path;
 
     var formData = dartio.FormData.fromMap(formEntries);
 
-    var dioResponse = await _dio.post<String>(
+    var dioResponse = await dio.post<String>(
       baseURL + url,
       data: formData,
       cancelToken: cancelToken,
