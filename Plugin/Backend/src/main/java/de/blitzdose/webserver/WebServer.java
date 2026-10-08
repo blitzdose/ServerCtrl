@@ -175,8 +175,6 @@ public class WebServer {
                     });
                     path("server", () -> {
                         get("icon", ServerApi::getIcon, Role.ANYONE);
-                        get("name", ServerApi::getName, Role.ANYONE);
-                        post("name", ServerApi::setName, WebserverManagerRole.SUPERADMIN);
                         get("data", ServerApi::getData, Role.ANYONE);
                         get("settings", ServerApi::getSettings, Role.SERVERSETTINGS);
                         post("settings", ServerApi::setSettings, Role.SERVERSETTINGS);
