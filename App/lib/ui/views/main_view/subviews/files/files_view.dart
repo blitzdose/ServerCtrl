@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -332,6 +333,90 @@ class FilesView extends StatelessWidget {
         )
       ],
     ));
+  }
+
+  static ExpandableFab generateFloatingActionButton(FilesController filesController) {
+    final key = GlobalKey<ExpandableFabState>();
+    return ExpandableFab(
+      key: key,
+      type: ExpandableFabType.up,
+      childrenAnimation: ExpandableFabAnimation.none,
+      distance: 60,
+      duration: Duration(milliseconds: 150),
+      overlayStyle: ExpandableFabOverlayStyle(
+        color: Get.theme.colorScheme.surface.withValues(alpha: 0.8)
+      ),
+      closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+        fabSize: ExpandableFabSize.small,
+        child: const Icon(Icons.close),
+        backgroundColor: Get.theme.colorScheme.onPrimaryContainer,
+        foregroundColor: Get.theme.colorScheme.primaryContainer,
+      ),
+      children: [
+        Row(
+          children: [
+            const Text('Folder'),
+            const SizedBox(width: 20),
+            FloatingActionButton.small(
+              heroTag: null,
+              onPressed: () async {
+                final state = key.currentState;
+                if (state != null) {
+                  state.toggle();
+                  await Future.delayed(const Duration(milliseconds: 200));
+                }
+                InputDialog(
+                  title: "New folder",
+                  textInputType: TextInputType.text,
+                  barrierDismissible: false,
+                  inputFieldBorder: OutlineInputBorder(),
+                  leftButtonText: "Cancel",
+                  rightButtonText: "Create",
+                  onLeftButtonClick: (text) => Get.back(),
+                  rightButtonDisableEmpty: true,
+                  onRightButtonClick: (name) {
+                    Get.back();
+                    filesController.createNewFile(name, true);
+                  },
+                ).showInputDialog(Get.context);
+              },
+              child: const Icon(Icons.folder_rounded),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Text('File'),
+            const SizedBox(width: 20),
+            FloatingActionButton.small(
+              heroTag: null,
+              onPressed: () async {
+                final state = key.currentState;
+                if (state != null) {
+                  state.toggle();
+                  await Future.delayed(const Duration(milliseconds: 200));
+                }
+                InputDialog(
+                  title: "New file",
+                  textInputType: TextInputType.text,
+                  barrierDismissible: false,
+                  inputFieldBorder: OutlineInputBorder(),
+                  leftButtonText: "Cancel",
+                  rightButtonText: "Create",
+                  onLeftButtonClick: (text) => Get.back(),
+                  rightButtonDisableEmpty: true,
+                  onRightButtonClick: (name) {
+                    Get.back();
+                    filesController.createNewFile(name, false);
+                  },
+                ).showInputDialog(Get.context);
+              },
+              child: const Icon(Icons.description_rounded),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 

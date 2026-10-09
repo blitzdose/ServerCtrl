@@ -87,6 +87,7 @@ dependencies:
   linked_scroll_controller: ^0.2.0
   code_forge: ^4.3.0
   re_highlight: ^0.0.3
+  flutter_expandable_fab: ^2.5.2
 
 dev_dependencies:
   flutter_test:

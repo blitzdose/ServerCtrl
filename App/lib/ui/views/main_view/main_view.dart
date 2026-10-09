@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/views/app_settings/app_settings.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_controller.dart';
@@ -95,7 +96,11 @@ class MainView extends GetView<MainController> {
         body: Obx(() => controller.loggedIn.isFalse ? Center(
             child: CircularProgressIndicator(),
         ) : controller.view.value),
-        floatingActionButton: controller.floatingActionButton.value,
+        floatingActionButtonLocation: ExpandableFab.location,
+        floatingActionButton: Visibility(
+          visible: controller.floatingActionButton.value != null,
+          child: controller.floatingActionButton.value ?? Container(),
+        ),
       ),
     );
   }

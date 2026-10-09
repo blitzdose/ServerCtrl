@@ -41,7 +41,7 @@ class MainController extends GetxController {
   final appBarLeading = Rxn<Widget>();
   final appBarBottom = Rxn<PreferredSizeWidget>();
 
-  final floatingActionButton = Rxn<FloatingActionButton>();
+  final floatingActionButton = Rxn<Widget>();
 
   UserPermissions userPermissions = UserPermissions(false, {});
 
@@ -149,7 +149,7 @@ class MainController extends GetxController {
             onSetActions: (List<Widget> actions) => appBarActions.assignAll(actions),
             onSetLeading: (Widget? leading) => appBarLeading.value = leading,
             onSetBottom: (PreferredSizeWidget? onSetBottom) => appBarBottom.value = onSetBottom,
-            onSetFloatingActionButton: (FloatingActionButton? onSetFloatingActionButton) => floatingActionButton.value = onSetFloatingActionButton
+            onSetFloatingActionButton: (Widget? floatingActionButton) => this.floatingActionButton.value = floatingActionButton
         )
       );
       currentSubviewController?.onShown();
@@ -168,8 +168,8 @@ class MainController extends GetxController {
           userPermissions: userPermissions.isSuperAdmin ? Permission.values : [],
           onSetActions: (List<Widget> actions) => appBarActions.assignAll(actions),
           onSetLeading: (Widget? leading) => appBarLeading.value = leading,
-          onSetBottom: (PreferredSizeWidget? onSetBottom) => appBarBottom.value = onSetBottom,
-          onSetFloatingActionButton: (FloatingActionButton? onSetFloatingActionButton) => floatingActionButton.value = onSetFloatingActionButton
+          onSetBottom: (PreferredSizeWidget? bottom) => appBarBottom.value = bottom,
+          onSetFloatingActionButton: (Widget? floatingActionButton) => this.floatingActionButton.value = floatingActionButton
       )
     );
     currentSubviewController?.onShown();

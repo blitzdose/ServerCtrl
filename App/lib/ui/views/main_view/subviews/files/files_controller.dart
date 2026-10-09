@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:background_downloader/background_downloader.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_view.dart';
@@ -37,6 +38,7 @@ class FilesController extends SubviewController {
   @override void onShown() {
     super.onShown();
     params.onSetBottom(FilesView.generateBreadcrumb(this, path));
+    params.onSetFloatingActionButton(FilesView.generateFloatingActionButton(this));
   }
 
   @override
@@ -385,4 +387,25 @@ class FilesController extends SubviewController {
       }
     }
   }
+
+  void createNewFile(String name, bool isFolder) async {
+    showProgress(true);
+    bool success;
+    if (isFolder) {
+      success = await FilesApi(params.system).createDir("$path/$name");
+    } else {
+      success = await FilesApi(params.system).createFile("$path/$name");
+    }
+    if (success) {
+      Snackbar.create("Successfully created ${isFolder ? "folder" : "file"}");
+      lazyLoader.refresh();
+    } else {
+      Snackbar.createWithTitle("Error", "Error while trying to create ${isFolder ? "folder" : "file"}", true);
+      showProgress(false);
+    }
+  }
+
+  //void showNewFileDialog(bool isFolder) {
+  //  Get.dialog(widget)
+  //}
 }
