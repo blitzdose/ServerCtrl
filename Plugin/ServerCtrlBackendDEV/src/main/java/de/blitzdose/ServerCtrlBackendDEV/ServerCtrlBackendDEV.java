@@ -20,7 +20,7 @@ public class ServerCtrlBackendDEV {
 
         new Thread(() -> {
             WebServer webServer = new WebServer(
-                    new WebserverConfig(false, true, true, 5718),
+                    new WebserverConfig(true, true, true, 5718),
                     new ConsoleLogger("ServerCtrlBackend", backendApiInstance),
                     backendApiInstance
             );

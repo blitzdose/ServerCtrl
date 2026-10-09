@@ -2,7 +2,6 @@ package de.blitzdose.webserver.api;
 
 import de.blitzdose.clientConnection.websocket.WebsocketException;
 import de.blitzdose.clientConnection.websocket.WebsocketHandler;
-import de.blitzdose.serverctrl.common.web.parser.PathParser;
 import de.blitzdose.serverctrl.common.web.websocket.requests.RequestMethod;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketRequest;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
@@ -71,7 +70,6 @@ public class BackupApi {
 
     public static void delete(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String path = WebServer.getData(context, String.class);
-        path = PathParser.parsePath(path, true);
 
         WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -87,7 +85,6 @@ public class BackupApi {
     public static void download(Context context) {
         String system = context.queryParam("system");
         String path = context.queryParam("path");
-        path = PathParser.parsePath(path, true);
         context.redirect("/api/files/download?system=" + system + "&path=/plugins/ServerCtrl/Backups/" + path);
     }
 }

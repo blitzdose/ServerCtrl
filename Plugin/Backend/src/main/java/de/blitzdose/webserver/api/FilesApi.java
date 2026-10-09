@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import static de.blitzdose.serverctrl.common.web.parser.PathParser.parsePath;
-
 public class FilesApi {
 
     public static void listFiles(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
@@ -28,7 +26,7 @@ public class FilesApi {
         JSONObject data = new JSONObject();
         data.put("limit", pagination.limit());
         data.put("position", pagination.position());
-        data.put("path", parsePath(context.queryParam("path"), false));
+        data.put("path", context.queryParam("path"));
 
         WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -40,7 +38,6 @@ public class FilesApi {
 
     public static void countFiles(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String path = context.queryParam("path");
-        path = parsePath(path, false);
 
         WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -51,7 +48,7 @@ public class FilesApi {
     }
 
     public static void downloadFile(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
-        String path = parsePath(context.queryParam("path"), true);
+        String path = context.queryParam("path");
 
         FileTransferManager transferManager = WebServer.fileTransferManager;
         FileTransferManager.Transfer transfer = transferManager.initNewTransfer(context);
@@ -80,7 +77,7 @@ public class FilesApi {
         FileTransferManager transferManager = WebServer.fileTransferManager;
         FileTransferManager.Transfer transfer = transferManager.initNewTransfer(context);
 
-        String path = parsePath(context.queryParam("path"), true);
+        String path = context.queryParam("path");
 
         WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -104,7 +101,6 @@ public class FilesApi {
 
     public static void extractFile(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String path = WebServer.getData(context, String.class);
-        path = parsePath(path, true);
 
         WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -119,7 +115,6 @@ public class FilesApi {
 
     public static void deleteFile(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String path = WebServer.getData(context, String.class);
-        path = parsePath(path, true);
 
         WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -134,7 +129,6 @@ public class FilesApi {
 
     public static void createFile(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String path = WebServer.getData(context, String.class);
-        path = parsePath(path, true);
 
         WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -149,7 +143,6 @@ public class FilesApi {
 
     public static void createDir(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String path = WebServer.getData(context, String.class);
-        path = parsePath(path, false);
 
         WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -164,8 +157,8 @@ public class FilesApi {
 
     public static void renameFile(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         JSONObject data = WebServer.getData(context, JSONObject.class);
-        String path = parsePath(data.getString("path"), true);
-        String newPath = parsePath(data.getString("newPath"), true);
+        String path = data.getString("path");
+        String newPath = data.getString("newPath");
 
         WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),
@@ -182,7 +175,7 @@ public class FilesApi {
 
     public static void downloadMultiple(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         JSONArray data = new JSONArray(Objects.requireNonNull(context.queryParam("paths")));
-        List<String> paths = data.toList().stream().map(o -> (String) o).map(s -> parsePath(s, true)).toList();
+        List<String> paths = data.toList().stream().map(o -> (String) o).toList();
 
         FileTransferManager transferManager = WebServer.fileTransferManager;
         FileTransferManager.Transfer transfer = transferManager.initNewTransfer(context);
@@ -208,7 +201,7 @@ public class FilesApi {
 
     public static void deleteMultiple(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         JSONArray data = WebServer.getData(context, JSONArray.class);
-        String[] paths = data.toList().stream().map(o -> (String) o).map(s -> parsePath(s, true)).toArray(String[]::new);
+        String[] paths = data.toList().stream().map(o -> (String) o).toArray(String[]::new);
 
         WebsocketHandler.tunnelThroughWebsocket(
                 context.queryParam("system"),

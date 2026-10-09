@@ -3,6 +3,7 @@ package de.blitzdose.serverctrl.embedded.api;
 import com.google.gson.Gson;
 import de.blitzdose.serverctrl.common.crypt.CertManager;
 import de.blitzdose.serverctrl.common.web.parser.Pagination;
+import de.blitzdose.serverctrl.common.web.parser.PathParser;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
 import de.blitzdose.serverctrl.embedded.instance.ApiInstance;
 import de.blitzdose.serverctrl.embedded.models.AbstractFile;
@@ -17,6 +18,8 @@ import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,6 +32,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
@@ -44,13 +48,13 @@ public class FileApiImpl {
 
     public WebsocketResponse listFiles(JSONObject data) {
         Pagination pagination = Pagination.parse(data);
-        String path = data.getString("path");
+        Path path = PathParser.parsePath(data.getString("path"));
 
         if (isInvalidFile(path)) {
             return new WebsocketResponse(false, null);
         }
 
-        File dir = new File(path);
+        File dir = path.toFile();
         if (!dir.exists() || !dir.isDirectory()) {
             return new WebsocketResponse(false, null);
         }
@@ -65,7 +69,7 @@ public class FileApiImpl {
                 file.length(),
                 file.isFile(),
                 file.lastModified(),
-                FilenameUtils.normalize(file.getPath(), true)
+                PathParser.toRelativePath(file.toPath(), Path.of("./"))
         )).toList();
 
         JSONArray filesArray = new JSONArray();
@@ -85,7 +89,7 @@ public class FileApiImpl {
                 break;
             }
             AbstractFile file = filesInDirSorted.get(i);
-            if (instance.isPluginFolder(file.path())) {
+            if (instance.isPluginFolder(Path.of(file.path()).toAbsolutePath().normalize())) {
                 continue;
             }
             filesArray.put(new JSONObject(new Gson().toJson(file)));
@@ -94,12 +98,14 @@ public class FileApiImpl {
         return new WebsocketResponse(true, filesArray);
     }
 
-    public WebsocketResponse countFiles(String path) {
+    public WebsocketResponse countFiles(String userPath) {
+        Path path = PathParser.parsePath(userPath);
+
         if (isInvalidFile(path)) {
             return new WebsocketResponse(false, null);
         }
 
-        File file = new File(path);
+        File file = path.toFile();
         if (file.isDirectory()) {
             File[] fileArray = file.listFiles();
             if (fileArray != null) {
@@ -130,7 +136,7 @@ public class FileApiImpl {
     }
 
     public WebsocketResponse downloadFile(JSONObject data) {
-        String path = data.getString("path");
+        Path path = PathParser.parsePath(data.getString("path"));
         String transferID = data.getString("transferID");
         String domain = instance.getProvisioningBackendURI();
         String authToken = instance.getProvisioningAuthToken();
@@ -139,7 +145,7 @@ public class FileApiImpl {
             return new WebsocketResponse(false, null);
         }
 
-        File file = new File(path);
+        File file = path.toFile();
         FileInputStream inputStream;
 
         try {
@@ -176,12 +182,14 @@ public class FileApiImpl {
         return new WebsocketResponse(true, null);
     }
 
-    public WebsocketResponse createFile(String path) {
+    public WebsocketResponse createFile(String userPath) {
+        Path path = PathParser.parsePath(userPath);
+
         if (instance.isPluginFolder(path)) {
             return new WebsocketResponse(false, null);
         }
 
-        File file = new File(path);
+        File file = path.toFile();
         boolean success;
         try {
             success = file.createNewFile();
@@ -192,12 +200,13 @@ public class FileApiImpl {
     }
 
 
-    public WebsocketResponse deleteFile(String path) {
+    public WebsocketResponse deleteFile(String userPath) {
+        Path path = PathParser.parsePath(userPath);
         if (isInvalidFile(path)) {
             return new WebsocketResponse(false, null);
         }
 
-        File file = new File(path);
+        File file = path.toFile();
 
         if (file.isDirectory()) {
             try {
@@ -217,26 +226,28 @@ public class FileApiImpl {
     }
 
     public WebsocketResponse renameFile(JSONObject data) {
-        String path = data.getString("path");
-        String newPath = data.getString("newPath");
+        Path path = PathParser.parsePath(data.getString("path"));
+        Path newPath = PathParser.parsePath(data.getString("newPath"));
 
-        if (isInvalidFile(path) || instance.isPluginFolder(newPath)) {
+        if (isInvalidFile(path) || newPath == null || instance.isPluginFolder(newPath)) {
             return new WebsocketResponse(false, null);
         }
 
-        File file = new File(path);
-        boolean success = file.renameTo(new File(newPath));
+        File file = path.toFile();
+        boolean success = file.renameTo(newPath.toFile());
 
         return new WebsocketResponse(success, null);
     }
 
 
-    public WebsocketResponse extractFile(String path) {
-        File file = new File(path);
+    public WebsocketResponse extractFile(String userPath) {
+        Path path = PathParser.parsePath(userPath);
 
         if (isInvalidFile(path)) {
             return new WebsocketResponse(false, null);
         }
+
+        File file = path.toFile();
 
         if (FilenameUtils.getExtension(file.getName()).equalsIgnoreCase("gz")) {
             try(GzipCompressorInputStream gzIn = new GzipCompressorInputStream(new BufferedInputStream(new FileInputStream(file)))) {
@@ -262,11 +273,11 @@ public class FileApiImpl {
                         continue;
                     }
 
-                    String name = path.substring(0, path.lastIndexOf("/")+1) + entry.getName();
-                    if (instance.isPluginFolder(name)) {
+                    Path newPath = PathParser.parsePath(path.getParent(), entry.getName());
+                    if (newPath == null || instance.isPluginFolder(newPath)) {
                         continue;
                     }
-                    File f = new File(name);
+                    File f = newPath.toFile();
                     if (entry.isDirectory()) {
                         if (!f.isDirectory() && !f.mkdirs()) {
                             return new WebsocketResponse(false, null);
@@ -289,33 +300,37 @@ public class FileApiImpl {
         return new WebsocketResponse(true, null);
     }
 
-    public WebsocketResponse createDir(String path) {
+    public WebsocketResponse createDir(String userPath) {
+        Path path = PathParser.parsePath(userPath);
+
         if (instance.isPluginFolder(path)) {
             return new WebsocketResponse(false, null);
         }
 
-        File file = new File(path);
+        File file = path.toFile();
         boolean success = file.mkdirs();
         return new WebsocketResponse(success, null);
     }
 
-    public boolean isInvalidFile(String path) {
-        File file = new File(path);
+    public boolean isInvalidFile(@Nullable Path path) {
+        if (path == null) return true;
+        File file = path.toFile();
         return !file.exists() || instance.isPluginFolder(path);
     }
 
-    public boolean isBackupFolder(String path) {
-        File file = new File(path);
+    public boolean isBackupFolder(@NotNull Path path) {
+        File file = path.toFile();
         return file.exists() && instance.isBackupFolder(path);
     }
 
     public WebsocketResponse deleteMultiple(String[] data) {
         boolean success = true;
-        for (String path : data) {
+        for (String userPath : data) {
+            Path path = PathParser.parsePath(userPath);
             if (isInvalidFile(path)) {
                 continue;
             }
-            WebsocketResponse response = deleteFile(path);
+            WebsocketResponse response = deleteFile(userPath);
             if (!response.success()) {
                 success = false;
             }
@@ -342,12 +357,12 @@ public class FileApiImpl {
             zipParameters.setExcludeFileFilter(file1 -> file1.getName().equals(transferID + ".zip") || file1.getName().equals("session.lock"));
 
             for (int i=0; i<paths.length(); i++) {
-                String path = paths.getString(i);
+                Path path = PathParser.parsePath(paths.getString(i));
                 if (isInvalidFile(path)) {
                     continue;
                 }
-                File sourceFile = new File(path);
-                if (instance.isPluginFolder(sourceFile.getPath())) {
+                File sourceFile = path.toFile();
+                if (instance.isPluginFolder(sourceFile.toPath().toAbsolutePath().normalize())) {
                     continue;
                 }
                 if (sourceFile.isDirectory()) {
@@ -400,13 +415,13 @@ public class FileApiImpl {
         String transferID = data.getString("transferID");
         String domain = instance.getProvisioningBackendURI();
         String authToken = instance.getProvisioningAuthToken();
-        String path = data.getString("path");
+        Path path = PathParser.parsePath(data.getString("path"));
 
-        if (instance.isPluginFolder(path)) {
+        if (path == null || instance.isPluginFolder(path)) {
             return new WebsocketResponse(false, null);
         }
 
-        File file = new File(path);
+        File file = path.toFile();
 
         new Thread(() -> {
             HttpRequest request = HttpRequest.newBuilder()

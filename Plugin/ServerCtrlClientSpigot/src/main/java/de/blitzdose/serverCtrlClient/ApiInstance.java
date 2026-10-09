@@ -1,5 +1,6 @@
 package de.blitzdose.serverCtrlClient;
 
+import de.blitzdose.serverctrl.common.web.parser.PathParser;
 import de.blitzdose.serverctrl.embedded.models.Player;
 import de.blitzdose.serverctrl.embedded.models.ServerData;
 import org.bukkit.Bukkit;
@@ -7,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -111,8 +113,9 @@ public class ApiInstance extends de.blitzdose.serverctrl.embedded.instance.ApiIn
     }
 
     @Override
-    public boolean isPluginFolder(String path) {
-        return path.startsWith("plugins\\ServerCtrl") || path.startsWith("plugins/ServerCtrl");
+    public boolean isPluginFolder(Path path) {
+        Path pluginPath = PathParser.parsePath("./plugins/ServerCtrl");
+        return pluginPath != null && path.startsWith(pluginPath);
     }
 
     @Override
@@ -121,8 +124,9 @@ public class ApiInstance extends de.blitzdose.serverctrl.embedded.instance.ApiIn
     }
 
     @Override
-    public boolean isBackupFolder(String path) {
-        return path.startsWith("plugins\\ServerCtrlClient\\Backups") || path.startsWith("plugins/ServerCtrlClient/Backups");
+    public boolean isBackupFolder(Path path) {
+        Path backupPath = PathParser.parsePath("./plugins/ServerCtrlClient/Backups");
+        return backupPath != null && path.startsWith(backupPath);
     }
 
     @Override

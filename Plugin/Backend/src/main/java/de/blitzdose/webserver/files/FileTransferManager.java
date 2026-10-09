@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -70,11 +71,14 @@ public class FileTransferManager {
             return;
         }
 
-        String path = parsePath(transfer.get().context.queryParam("path"), true);
+        Path path = parsePath(transfer.get().context.queryParam("path"));
+        if (path == null) {
+            path = Path.of("you_were_evil.txt");
+        }
 
         context.contentType("application/octet-stream");
         context.header("Access-Control-Allow-Origin", "*");
-        context.header("Content-Disposition", "attachment; filename=\"" + path + "\"");
+        context.header("Content-Disposition", "attachment; filename=\"" + path.getFileName().toString() + "\"");
         context.header("Content-Length", String.valueOf(transfer.get().context.contentLength()));
 
         try (InputStream inputStream = transfer.get().context.bodyInputStream(); ServletOutputStream outputStream = context.outputStream()) {

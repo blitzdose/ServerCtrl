@@ -9,6 +9,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -37,9 +38,9 @@ public abstract class ApiInstance {
     public abstract List<String> getWorldPaths(List<UUID> worlds);
     public abstract Map<String, UUID> getWorlds();
 
-    public abstract boolean isPluginFolder(String path); // return path.startsWith("plugins\\ServerCtrl") || path.startsWith("plugins/ServerCtrl");
+    public abstract boolean isPluginFolder(Path path);
     public abstract String getPluginFolder();
-    public abstract boolean isBackupFolder(String path);
+    public abstract boolean isBackupFolder(Path path);
 
     public abstract String getConsoleLogPath();
 

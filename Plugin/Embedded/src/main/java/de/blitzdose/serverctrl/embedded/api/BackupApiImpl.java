@@ -2,6 +2,7 @@ package de.blitzdose.serverctrl.embedded.api;
 
 import com.google.gson.Gson;
 import de.blitzdose.serverctrl.common.backup.Backup;
+import de.blitzdose.serverctrl.common.web.parser.PathParser;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
 import de.blitzdose.serverctrl.embedded.backup.BackupRunnable;
 import de.blitzdose.serverctrl.embedded.instance.ApiInstance;
@@ -11,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -54,7 +56,11 @@ public class BackupApiImpl {
     }
 
     public WebsocketResponse delete(String name) {
-        File backupFile = new File("plugins/ServerCtrl/Backups/" + name);
+        Path path = PathParser.parsePath(Path.of("plugins/ServerCtrl/Backups/"), name);
+        if (path == null) {
+            return new WebsocketResponse(false, null);
+        }
+        File backupFile = path.toFile();
         boolean success = backupFile.delete();
         if (success) {
             Backup.backupThreads.remove(Integer.parseInt(name.split("_")[0]));
