@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:background_downloader/background_downloader.dart';
 import 'package:dio/dio.dart' as dartio;
 
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 import 'package:server_ctrl/utilities/callbacks/simple_stream.dart';
 import 'package:server_ctrl/utilities/http/file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,7 +95,7 @@ class Session {
     return response;
   }
 
-  static Future<http.Response> postFile(String url, UploadFile uploadFile, Function(int sent, int total, bool finished) onUploadProgress, {Map<String, dynamic>? queryParameters}) async {
+  static Future<http.Response> postFile(String url, UploadFile uploadFile, Function(int sent, int total, bool finished) onUploadProgress, dartio.CancelToken? cancelToken, {Map<String, dynamic>? queryParameters}) async {
     final dio = dartio.Dio();
     try {
       final uri = Uri.parse(baseURL + url).replace(
@@ -106,16 +104,17 @@ class Session {
 
       final response = await dio.postUri(
         uri,
-        data: Stream.fromIterable([uploadFile.bytes]),
+        data: uploadFile.bytes,
         options: dartio.Options(
           responseType: dartio.ResponseType.plain,
-          headers: {...headers, ...{'Content-Type': 'application/octet-stream'}},
-          contentType: 'application/octet-stream',
+          headers: {...headers, "Content-Length": uploadFile.size},
+          contentType: 'application/octet-stream'
         ),
         onSendProgress: (int sent, int total) {
           final finished = sent == total;
           onUploadProgress(sent, total, finished);
         },
+        cancelToken: cancelToken,
       );
 
       return http.Response(response.data, response.statusCode!);
@@ -140,7 +139,8 @@ class Session {
 
     Map<String, dynamic> formEntries = {};
     for(var file in files.entries) {
-      formEntries[file.key] = dartio.MultipartFile.fromBytes(file.value.bytes, filename: file.value.path);
+      //TODO: FIX ME
+      //formEntries[file.key] = dartio.MultipartFile.fromBytes(file.value.bytes, filename: file.value.path);
     }
 
     var formData = dartio.FormData.fromMap(formEntries);

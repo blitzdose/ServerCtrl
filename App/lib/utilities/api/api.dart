@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart' as dio;
 import 'package:http/src/response.dart';
 import 'package:server_ctrl/utilities.old/http/http_utils.dart';
 import 'package:server_ctrl/utilities/api/api_adapter.dart';
@@ -331,11 +332,11 @@ abstract class _EmbeddedApi {
     return await _API.postReturnStatus(path, data, queryParameters: queryParameters, timeout: timeout);
   }
 
-  Future<bool> _postUpload(String path, UploadFile uploadFile, Function(int sent, int total, bool finished) onUploadProgress, {Map<String, dynamic>? queryParameters, Duration timeout = const Duration(seconds: 10)}) async {
+  Future<bool> _postUpload(String path, UploadFile uploadFile, Function(int sent, int total, bool finished) onUploadProgress, dio.CancelToken? cancelToken, {Map<String, dynamic>? queryParameters, Duration timeout = const Duration(seconds: 10)}) async {
     queryParameters ??= <String, dynamic>{};
     queryParameters["system"] = system;
     queryParameters["path"] = uploadFile.path;
-    var response = await Session.postFile(_path("upload"), uploadFile, onUploadProgress, queryParameters: queryParameters);
+    var response = await Session.postFile(_path("upload"), uploadFile, onUploadProgress, cancelToken, queryParameters: queryParameters);
     return HttpUtils.isSuccess(response);
   }
 }
@@ -527,9 +528,7 @@ class FilesApi extends _EmbeddedApi {
     return await _postNoReturn(_path("editable-files"), fileExtensions);
   }
 
-  Future<bool> upload(UploadFile uploadFile, Function(int sent, int total, bool finished) onUploadProgress) async {
-    return _postUpload(_path("upload"), uploadFile, onUploadProgress);
-    //var response = await Session.postFile(_path("upload"), uploadFile, onUploadProgress);
-    //return HttpUtils.isSuccess(response);
+  Future<bool> upload(UploadFile uploadFile, Function(int sent, int total, bool finished) onUploadProgress, dio.CancelToken? cancelToken) async {
+    return _postUpload(_path("upload"), uploadFile, onUploadProgress, cancelToken);
   }
 }

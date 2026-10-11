@@ -5,8 +5,16 @@ import 'package:server_ctrl/utilities/callbacks/simple_stream.dart';
 
 class UploadFile {
   String path;
-  List<int> bytes;
+  Stream<List<int>> bytes;
   int size;
+
+  static UploadFile fromBytes(String path, List<int> bytes, int size) {
+    return UploadFile(path, Stream.fromIterable([bytes]), size);
+  }
+
+  static UploadFile fromStream(String path, Stream<List<int>> bytes, int size) {
+    return UploadFile(path, bytes, size);
+  }
 
   UploadFile(this.path, this.bytes, this.size);
 }

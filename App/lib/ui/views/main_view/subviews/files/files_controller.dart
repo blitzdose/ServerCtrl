@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:background_downloader/background_downloader.dart';
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_view.dart';
@@ -238,9 +239,9 @@ class FilesController extends SubviewController {
           },
           onSave: (String newCode) async {
             Uint8List data = utf8.encode(newCode);
-            bool success = await FilesApi(params.system).upload(UploadFile(file.path, data, data.lengthInBytes), (sent, total, finished) {
+            bool success = await FilesApi(params.system).upload(UploadFile.fromBytes(file.path, data, data.lengthInBytes), (sent, total, finished) {
 
-            },);
+            }, null);
             if (success) {
               Snackbar.create("Saved successfully");
             } else {
@@ -405,7 +406,43 @@ class FilesController extends SubviewController {
     }
   }
 
-  //void showNewFileDialog(bool isFolder) {
-  //  Get.dialog(widget)
-  //}
+  void uploadFiles() async {
+    final totalSize = 1.obs;
+    final uploadedSize = 0.obs;
+    final finished = false.obs;
+    final dio.CancelToken cancelToken = dio.CancelToken();
+
+    final pickerResult = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        withReadStream: true
+    );
+
+    if (pickerResult != null && pickerResult.files.isNotEmpty) {
+      PlatformFile file = pickerResult.files.first;
+      if (file.readStream == null) {
+        Snackbar.createWithTitle("Error", "Error while trying to read file", true);
+        finished(true);
+        return;
+      }
+
+      Get.dialog(
+          FilesView.generateUploadFileDialog(file.name.split("/").last, finished, uploadedSize, totalSize, cancelToken),
+          barrierDismissible: false
+      );
+
+      bool success = await FilesApi(params.system).upload(UploadFile.fromStream("$path/${file.name}", file.readStream!, file.size), (sent, total, isFinished) {
+        totalSize(total);
+        uploadedSize(sent);
+        finished(isFinished);
+      }, cancelToken);
+      if (success) {
+        Snackbar.create("Successfully uploaded file");
+        finished(true);
+        lazyLoader.refresh();
+      } else {
+        Snackbar.createWithTitle("Error", "Error while trying to upload file", true);
+        finished(true);
+      }
+    }
+  }
 }

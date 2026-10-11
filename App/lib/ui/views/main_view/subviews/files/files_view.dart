@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_controller.dart';
 import 'package:server_ctrl/ui/widgets/animated_linear_progress_indicator.dart';
+import 'package:server_ctrl/ui/widgets/middle_elipsis_text.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
 import 'package:server_ctrl/utilities/api/models/server_file.dart';
 
@@ -335,6 +336,43 @@ class FilesView extends StatelessWidget {
     ));
   }
 
+  static Widget generateUploadFileDialog(String filename, RxBool finished, RxInt uploadedSize, RxInt totalSize, var cancelToken) {
+    return AlertDialog(
+      title: Text(filename),
+      content: Obx(() => Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: finished.isFalse ? <Widget>[
+          LinearProgressIndicator(
+            value: (uploadedSize.value == 0 || uploadedSize.value == totalSize.value) ? null : uploadedSize.value / totalSize.value,
+          ),
+          const Padding(padding: EdgeInsets.only(top: 4.0)),
+          Text("${(uploadedSize.value / totalSize.value * 100).toInt()}%", textAlign: TextAlign.end)
+        ] : [
+          Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(uploadedSize == totalSize ? "File uploaded successfully" : "Upload canceled")
+              ]
+          )
+        ],
+      )),
+      actions: [
+        Obx(() =>
+        finished.isTrue ? TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: Text("Ok"))
+            : TextButton(
+          onPressed: () {
+            cancelToken.cancel();
+          },
+          child: Text("Cancel"),
+        ))],
+    );
+  }
+
   static ExpandableFab generateFloatingActionButton(FilesController filesController) {
     final key = GlobalKey<ExpandableFabState>();
     return ExpandableFab(
@@ -345,6 +383,9 @@ class FilesView extends StatelessWidget {
       duration: Duration(milliseconds: 150),
       overlayStyle: ExpandableFabOverlayStyle(
         color: Get.theme.colorScheme.surface.withValues(alpha: 0.8)
+      ),
+      openButtonBuilder: DefaultFloatingActionButtonBuilder(
+          child: const Icon(Icons.add_rounded)
       ),
       closeButtonBuilder: DefaultFloatingActionButtonBuilder(
         fabSize: ExpandableFabSize.small,
@@ -412,6 +453,24 @@ class FilesView extends StatelessWidget {
                 ).showInputDialog(Get.context);
               },
               child: const Icon(Icons.description_rounded),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Text('Upload'),
+            const SizedBox(width: 20),
+            FloatingActionButton.small(
+              heroTag: null,
+              onPressed: () async {
+                final state = key.currentState;
+                if (state != null) {
+                  state.toggle();
+                  await Future.delayed(const Duration(milliseconds: 200));
+                }
+                filesController.uploadFiles();
+              },
+              child: const Icon(Icons.upload_rounded),
             ),
           ],
         ),
@@ -493,20 +552,24 @@ class _FilesRowState extends State<FilesRow> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          widget.file.name,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        Opacity(
-                          opacity: 0.75,
-                          child: Text("${DateFormat('dd. MMM. yyyy').format(widget.file.parsedDateTime())}\t\t\t${widget.file.parsedSize()}", style: const TextStyle(fontSize: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: MiddleEllipsisText(
+                              widget.file.name,
+                              style: const TextStyle(fontSize: 16),
+                            ),
                           ),
-                        )
-                      ],
+                          Opacity(
+                            opacity: 0.75,
+                            child: Text("${DateFormat('dd. MMM. yyyy').format(widget.file.parsedDateTime())}\t\t\t${widget.file.parsedSize()}", style: const TextStyle(fontSize: 12),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     !widget.multiSelectMode
                         ? !widget.file.isFile
