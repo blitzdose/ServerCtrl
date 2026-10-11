@@ -37,7 +37,7 @@ class AppSettingsView extends GetView<AppSettingsController> {
               title: SettingsSectionTitle(S.current.helpMe),
               tiles: <SettingsTile>[
                 SettingsTile.navigation(
-                  title: SettingsTileTitle(S.current.donate),
+                  title: SettingsTileTitle("Buy me a coffee"),
                   description: Text(S.current.helpMeKeepThisAppAlive),
                   leading: const Icon(Icons.favorite_outline_rounded),
                   onPressed: (context) => controller.donate(),
@@ -74,7 +74,7 @@ class AppSettingsView extends GetView<AppSettingsController> {
                   leading: const Icon(Icons.palette_rounded),
                   onPressed: (context) => controller.color(context),
                   trailing: CircleColor(
-                    color: (MyAppController.usesDynamicColor.isTrue) ? MyAppController.mainColor.value.withOpacity(0.3) : MyAppController.mainColor.value,
+                    color: (MyAppController.usesDynamicColor.isTrue) ? MyAppController.mainColor.value.withValues(alpha: 0.3) : MyAppController.mainColor.value,
                     circleSize: 36,
                   ),
                 ),

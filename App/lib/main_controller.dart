@@ -7,13 +7,14 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:server_ctrl/data_storage/database/storage_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'generated/l10n.dart';
 import 'values/colors.dart';
 
 class MyAppController extends GetxController {
 
   static var usesDynamicColor = true.obs;
   static var themeMode = ThemeMode.system.obs;
-  static var locale = (Get.deviceLocale != null) ? Get.deviceLocale!.obs : const Locale("en").obs;
+  static var locale = (Get.deviceLocale != null && S.delegate.supportedLocales.contains(Get.deviceLocale!)) ? Get.deviceLocale!.obs : const Locale("en").obs;
   static var mainColor = MColors.seed.obs;
   static var appVersion = "".obs;
   static var appName = "ServerCtrl".obs;

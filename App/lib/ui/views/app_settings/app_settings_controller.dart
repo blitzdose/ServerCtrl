@@ -14,7 +14,7 @@ import '../../../../utilities/snackbar/snackbar.dart';
 class AppSettingsController extends GetxController {
 
   void donate() async {
-    await launchUrl(Uri.parse("https://www.paypal.com/paypalme/christianzaeske/2"));
+    await launchUrl(Uri.parse("https://buymeacoffee.com/biltzdose"));
   }
 
   void language(BuildContext context) async {
@@ -34,24 +34,32 @@ class AppSettingsController extends GetxController {
             title: Text(S.current.language),
             contentPadding: EdgeInsets.zero,
             content: Obx(() => SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const SizedBox(height: 16),
-                  for(Locale locale in locales)
-                    RadioListTile<Locale>(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                      title: Text(transformLocale(context, locale)),
-                      value: locale,
-                      groupValue: selectedLocale.value,
-                      onChanged: (Locale? value) {
-                        if (value != null) {
-                          selectedLocale(value);
-                        }
-                      },
-                    ),
-                  const SizedBox(height: 24),
-                ],
+              child: RadioGroup(
+                groupValue: selectedLocale.value,
+                onChanged: (value) {
+                  if (value != null) {
+                    selectedLocale(value);
+                  }
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const SizedBox(height: 16),
+                    for(Locale locale in locales)
+                      RadioListTile<Locale>(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                        title: Text(transformLocale(context, locale)),
+                        value: locale,
+                        //groupValue: selectedLocale.value,
+                        //onChanged: (Locale? value) {
+                        //  if (value != null) {
+                        //    selectedLocale(value);
+                        //  }
+                        //},
+                      ),
+                    const SizedBox(height: 24),
+                  ],
+                ),
               ),
             )
             ),
@@ -92,45 +100,35 @@ class AppSettingsController extends GetxController {
           return AlertDialog(
             title: Text(S.current.design),
             contentPadding: EdgeInsets.zero,
-            content: Obx(() => Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const SizedBox(height: 16),
-                RadioListTile<ThemeMode>(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                  title: Text(S.current.useSystemSettings),
-                  value: ThemeMode.system,
-                  groupValue: selected.value,
-                  onChanged: (ThemeMode? value) {
-                    if (value != null) {
-                      selected(value);
-                    }
-                  },
-                ),
-                RadioListTile<ThemeMode>(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                  title: Text(S.current.lightMode),
-                  value: ThemeMode.light,
-                  groupValue: selected.value,
-                  onChanged: (ThemeMode? value) {
-                    if (value != null) {
-                      selected(value);
-                    }
-                  },
-                ),
-                RadioListTile<ThemeMode>(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                  title: Text(S.current.darkMode),
-                  value: ThemeMode.dark,
-                  groupValue: selected.value,
-                  onChanged: (ThemeMode? value) {
-                    if (value != null) {
-                      selected(value);
-                    }
-                  },
-                ),
-                const SizedBox(height: 24),
-              ],
+            content: Obx(() => RadioGroup(
+              groupValue: selected.value,
+              onChanged: (value) {
+                if (value != null) {
+                  selected(value);
+                }
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const SizedBox(height: 16),
+                  RadioListTile<ThemeMode>(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                    title: Text(S.current.useSystemSettings),
+                    value: ThemeMode.system
+                  ),
+                  RadioListTile<ThemeMode>(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                    title: Text(S.current.lightMode),
+                    value: ThemeMode.light,
+                  ),
+                  RadioListTile<ThemeMode>(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                    title: Text(S.current.darkMode),
+                    value: ThemeMode.dark,
+                  ),
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
             ),
             actions: [
