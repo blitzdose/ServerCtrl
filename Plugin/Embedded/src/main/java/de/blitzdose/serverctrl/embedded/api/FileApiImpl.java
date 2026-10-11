@@ -442,7 +442,9 @@ public class FileApiImpl {
                 }
 
             } catch (IOException | InterruptedException ignored) {
-
+                if (file.exists()) {
+                    file.delete();
+                }
             }
         }).start();
         return new WebsocketResponse(true, null);
