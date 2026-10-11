@@ -82,9 +82,7 @@ public class FileTransferManager {
         context.header("Content-Length", String.valueOf(transfer.get().context.contentLength()));
 
         try (InputStream inputStream = transfer.get().context.bodyInputStream(); ServletOutputStream outputStream = context.outputStream()) {
-            while (inputStream.available() > 0) {
-                outputStream.write(inputStream.read());
-            }
+            inputStream.transferTo(outputStream);
             WebServer.returnSuccessfulJson(transfer.get().context, new JSONObject());
             transfer.get().future.complete(true);
         } catch (IOException e) {
