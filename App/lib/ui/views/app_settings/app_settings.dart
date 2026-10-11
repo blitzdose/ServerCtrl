@@ -127,6 +127,9 @@ class AppSettingsView extends GetView<AppSettingsController> {
                     title: SettingsTileTitle(S.current.aboutServerctrl),
                     leading: const Icon(Icons.info_rounded),
                     onPressed: (context) => controller.information()
+                ),
+                SettingsTile( // For a bit more space at the bottom
+                  title: SettingsTileTitle(""),
                 )
               ],
             )

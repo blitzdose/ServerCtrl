@@ -201,6 +201,7 @@ class AppSettingsController extends GetxController {
   }
 
   void information() async {
+    int secretTapCount = 0;
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     showDialog(
       context: navigatorKey.currentContext!,
@@ -210,7 +211,16 @@ class AppSettingsController extends GetxController {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Icons.dns_rounded, size: 48),
+              GestureDetector(
+                child: const Icon(Icons.dns_rounded, size: 48),
+                onTap: () {
+                  secretTapCount += 1;
+                  if (secretTapCount >= 10) {
+                    secretTapCount = 0;
+                    Get.back();
+                  }
+                },
+              ),
               const Padding(padding: EdgeInsets.only(right: 24)),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
