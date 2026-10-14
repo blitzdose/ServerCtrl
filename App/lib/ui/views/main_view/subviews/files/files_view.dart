@@ -155,6 +155,7 @@ class FilesView extends StatelessWidget {
                                           InputDialog(
                                             title: S.current.rename,
                                             textInputType: TextInputType.name,
+                                            inputFieldLabelText: "New name",
                                             barrierDismissible: true,
                                             inputFieldText: file.name,
                                             inputFieldBorder: OutlineInputBorder(),
@@ -408,6 +409,7 @@ class FilesView extends StatelessWidget {
                 }
                 InputDialog(
                   title: "New folder",
+                  inputFieldLabelText: "Name",
                   textInputType: TextInputType.text,
                   barrierDismissible: false,
                   inputFieldBorder: OutlineInputBorder(),
@@ -439,6 +441,7 @@ class FilesView extends StatelessWidget {
                 }
                 InputDialog(
                   title: "New file",
+                  inputFieldLabelText: "Name",
                   textInputType: TextInputType.text,
                   barrierDismissible: false,
                   inputFieldBorder: OutlineInputBorder(),

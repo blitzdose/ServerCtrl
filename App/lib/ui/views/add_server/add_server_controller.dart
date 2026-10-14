@@ -114,7 +114,7 @@ class AddServerController extends GetxController {
           title: S.current.twofactorAuthentication,
           textInputType: TextInputType.number,
           message: S.current.pleaseInputYourCode,
-          inputFieldHintText: S.current.totpCode,
+          inputFieldLabelText: S.current.totpCode,
           inputFieldBorder: const OutlineInputBorder(),
           inputFieldLength: 6,
           inputFieldError: (code == null) ? null : S.current.wrongCode,

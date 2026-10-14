@@ -259,8 +259,12 @@ class AccountApi {
     return await _API.getList<String>(_path("all"));
   }
 
-  static Future<List<String>?> getAllPermissions() async {
-    return await _API.getList<String>(_path("all-permissions"));
+  static Future<List<Permission>?> getAllPermissions() async {
+    List<String>? permissions = await _API.getList<String>(_path("all-permissions"));
+    if (permissions == null) {
+      return null;
+    }
+    return permissions.map((e) => UserPermissions.parsePermission(e)).toList();
   }
 
   static Future<UserPermissions?> getUserPermissions(String username) async {
@@ -268,7 +272,7 @@ class AccountApi {
   }
 
   static Future<bool> setPermissions(String username, UserPermissions userPermissions) async {
-    return await _API.postNoReturn(_path("permissions"), {"username": username, "systems": userPermissions.serialize()});
+    return await _API.postNoReturn(_path("permissions"), {"username": username, "superAdmin": userPermissions.isSuperAdmin, "systems": userPermissions.serialize()});
   }
 
   static Future<bool> resetPassword(String username, String password) async {
@@ -280,7 +284,7 @@ class AccountApi {
   }
 
   static Future<bool> delete(String username) async {
-    return await _API.postNoReturn(_path("delete"), {"username": username});
+    return await _API.postNoReturn(_path("delete"), username);
   }
 
   static Future<bool> superAdmin(String username, bool isSuperAdmin) async {

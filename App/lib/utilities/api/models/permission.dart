@@ -8,11 +8,8 @@ class UserPermissions {
     return Permission.values.firstWhere((element) => element.name == permission, orElse: () => Permission.ANYONE);
   }
 
-  Map<String, dynamic> serialize() {
-    return {
-      "superAdmin": isSuperAdmin,
-      "permissions": systemPermissions.map((key, value) => MapEntry(key, value.map((e) => e.toString(),).toList()),)
-    };
+  Map<String, List<String>> serialize() {
+    return systemPermissions.map((key, value) => MapEntry(key, value.map((e) => e.name).toList()));
   }
 
   List<Permission> getPermissionsForSystem(String system) {
@@ -34,5 +31,9 @@ enum Permission {
   SERVERSETTINGS,
   LOG,
   FILES,
-  ADMIN
+  ADMIN;
+
+  static Permission parse(String permission) {
+    return Permission.values.firstWhere((element) => element.name == permission, orElse: () => Permission.ANYONE);
+  }
 }

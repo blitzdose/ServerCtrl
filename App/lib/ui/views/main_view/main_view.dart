@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/views/app_settings/app_settings.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_controller.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/console/console_controller.dart';
@@ -96,7 +98,8 @@ class MainView extends GetView<MainController> {
         body: Obx(() => controller.loggedIn.isFalse ? Center(
             child: CircularProgressIndicator(),
         ) : controller.view.value),
-        floatingActionButtonLocation: ExpandableFab.location,
+        floatingActionButtonLocation: controller.floatingActionButton.value is ExpandableFab ? ExpandableFab.location : null,
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
         floatingActionButton: Visibility(
           visible: controller.floatingActionButton.value != null,
           child: controller.floatingActionButton.value ?? Container(),
@@ -147,6 +150,9 @@ class MainView extends GetView<MainController> {
         icon: Icon(Icons.manage_accounts_rounded),
         label: Text("Accounts"),
         appBarTitle: controller.currentBackend.value?.name,
+        onSelected: () {
+          controller.navigateWithoutClient((params) => Get.put<AccountsController>(AccountsController(params: params)), () => AccountsView());
+        },
       ),
       DrawerDestination(
         icon: Icon(Icons.notes_rounded),

@@ -12,6 +12,7 @@ class InputDialog {
     this.message,
     this.inputFieldText,
     this.inputFieldHintText,
+    this.inputFieldLabelText,
     this.inputFieldBorder,
     this.inputFieldLength,
     this.inputFieldError,
@@ -29,6 +30,7 @@ class InputDialog {
   final String? message;
   final String? inputFieldText;
   final String? inputFieldHintText;
+  final String? inputFieldLabelText;
   final InputBorder? inputFieldBorder;
   final int? inputFieldLength;
   final String? inputFieldError;
@@ -65,7 +67,8 @@ class InputDialog {
                 decoration: InputDecoration(
                     border: inputFieldBorder,
                     hintText: inputFieldHintText,
-                    errorText: inputFieldError
+                    errorText: inputFieldError,
+                    labelText: inputFieldLabelText
                 ),
                 maxLines: 1,
                 maxLength: inputFieldLength,
@@ -122,7 +125,7 @@ class ConfirmationDialog {
     dismissButtonText ??= S.current.cancel;
   }
 
-  showConfirmationDialog(var context) {
+  void showConfirmationDialog(BuildContext context) {
     showDialog(
         context: context,
         barrierDismissible: true,

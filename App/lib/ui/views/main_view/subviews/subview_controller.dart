@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/utilities/api/models/permission.dart';
 
@@ -26,7 +25,7 @@ class SubviewControllerParams {
   final Function(List<Widget> actions) onSetActions;
   final Function(Widget?) onSetLeading;
   final Function(PreferredSizeWidget?) onSetBottom;
-  final Function(ExpandableFab?) onSetFloatingActionButton;
+  final Function(Widget?) onSetFloatingActionButton;
 
   SubviewControllerParams({required this.system, required this.userPermissions, required this.onSetActions, required this.onSetLeading, required this.onSetBottom, required this.onSetFloatingActionButton});
 }
