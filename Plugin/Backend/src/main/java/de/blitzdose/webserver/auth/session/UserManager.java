@@ -122,6 +122,11 @@ public class UserManager {
         jdbi.useExtension(UserDao.class, dao -> dao.updateUser(user));
     }
 
+    public void clearPublicKeys(User user) {
+        user.setPublicKeys(List.of());
+        jdbi.useExtension(UserDao.class, dao -> dao.updateUser(user));
+    }
+
     public static class UserManagerException extends Exception {
 
         private final String username;

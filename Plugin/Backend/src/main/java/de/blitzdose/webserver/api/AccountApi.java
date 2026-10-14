@@ -74,6 +74,7 @@ public class AccountApi {
         User user = WebServer.userManager.getUserByUsername(username);
 
         WebServer.userManager.changePassword(user, password);
+        WebServer.userManager.clearPublicKeys(user);
 
         WebServer.returnSuccessfulJson(context, new JSONObject());
     }

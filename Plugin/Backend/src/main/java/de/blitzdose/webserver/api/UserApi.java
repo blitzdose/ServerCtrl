@@ -77,6 +77,7 @@ public class UserApi {
 
         WebServer.userManager.login(user.getUsername(), password, code);
         WebServer.userManager.changePassword(user, newPassword);
+        WebServer.userManager.clearPublicKeys(user);
 
         WebServer.returnSuccessfulJson(context, new JSONObject());
     }
