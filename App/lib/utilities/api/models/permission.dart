@@ -5,7 +5,7 @@ class UserPermissions {
   UserPermissions(this.isSuperAdmin, this.systemPermissions);
 
   static Permission parsePermission(String permission) {
-    return Permission.values.firstWhere((element) => element.name == permission, orElse: () => Permission.ANYONE);
+    return Permission.values.firstWhere((element) => element.name == permission, orElse: () => Permission.ACCESS);
   }
 
   Map<String, List<String>> serialize() {
@@ -23,7 +23,7 @@ class UserPermissions {
 }
 
 enum Permission {
-  ANYONE,
+  ACCESS,
   KICK,
   BAN,
   OP,
@@ -32,8 +32,4 @@ enum Permission {
   LOG,
   FILES,
   ADMIN;
-
-  static Permission parse(String permission) {
-    return Permission.values.firstWhere((element) => element.name == permission, orElse: () => Permission.ANYONE);
-  }
 }

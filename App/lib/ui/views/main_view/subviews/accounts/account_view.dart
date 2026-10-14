@@ -227,11 +227,16 @@ class _AccountViewState extends State<AccountView> {
                           },
                           itemBuilder: (context, index) {
                             List<Permission> systemPermissions = widget.permissions.systemPermissions[widget.availableSystems[index].name] ?? List.empty();
-                            String permissionsStr = systemPermissions.isEmpty ? "No permissions" : systemPermissions.map((permission) => permission.name,).join(", ");
+                            String permissionsStr = "No access";
                             if (widget.permissions.isSuperAdmin) {
                               permissionsStr = "Superadmin";
                             } else if (systemPermissions.contains(Permission.ADMIN)) {
                               permissionsStr = "Admin";
+                            } else if (widget.permissions.systemPermissions[widget.availableSystems[index].name]?.contains(Permission.ACCESS) == true) {
+                              permissionsStr = "Basic access";
+                              if (widget.permissions.systemPermissions[widget.availableSystems[index].name]?.any((e) => e != Permission.ACCESS) == true) {
+                                permissionsStr = systemPermissions.where((e) => e != Permission.ACCESS).map((e) => e.name).join(", ");
+                              }
                             }
 
                             return ListTile(
@@ -251,7 +256,7 @@ class _AccountViewState extends State<AccountView> {
                                         child: ListView.builder(
                                           padding: EdgeInsets.zero,
                                           shrinkWrap: true,
-                                          itemCount: systemPermissionsMap.entries.length,
+                                          itemCount: systemPermissionsMap[Permission.ACCESS] == true ? systemPermissionsMap.entries.length : 1,
                                           itemBuilder: (context, index) {
                                             Permission key = systemPermissionsMap.entries.elementAt(index).key;
                                             return CheckboxListTile(
@@ -274,7 +279,14 @@ class _AccountViewState extends State<AccountView> {
                                         Get.back(result: null);
                                       }, child: Text("Cancel")),
                                       TextButton(onPressed: () {
-                                        Get.back(result: systemPermissionsMap.entries.where((element) => element.value).map((e) => e.key).toList());
+                                        List<Permission> result = systemPermissionsMap.entries
+                                            .where((element) => element.value)
+                                            .map((e) => e.key)
+                                            .toList();
+                                        if (!result.contains(Permission.ACCESS)) {
+                                          result = [];
+                                        }
+                                        Get.back(result: result);
                                       }, child: Text("Save")),
                                     ]
                                   )

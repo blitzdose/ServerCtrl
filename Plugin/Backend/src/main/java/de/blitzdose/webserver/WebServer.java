@@ -172,12 +172,12 @@ public class WebServer {
                 });
                 path("/api", () -> {
                     path("system", () -> {
-                        get("data", SystemApi::getData, Role.ANYONE);
-                        get("historicData", SystemApi::getHistoricData, Role.ANYONE);
+                        get("data", SystemApi::getData, Role.ACCESS);
+                        get("historicData", SystemApi::getHistoricData, Role.ACCESS);
                     });
                     path("server", () -> {
-                        get("icon", ServerApi::getIcon, Role.ANYONE);
-                        get("data", ServerApi::getData, Role.ANYONE);
+                        get("icon", ServerApi::getIcon, Role.ACCESS);
+                        get("data", ServerApi::getData, Role.ACCESS);
                         get("settings", ServerApi::getSettings, Role.SERVERSETTINGS);
                         post("settings", ServerApi::setSettings, Role.SERVERSETTINGS);
                         post("restart", ServerApi::restart, Role.CONSOLE);
@@ -198,8 +198,8 @@ public class WebServer {
                         });
                     });
                     path("player", () -> {
-                        get("online", PlayerApi::getOnline, Role.ANYONE);
-                        get("count", PlayerApi::countPlayers, Role.ANYONE);
+                        get("online", PlayerApi::getOnline, Role.ACCESS);
+                        get("count", PlayerApi::countPlayers, Role.ACCESS);
                     });
                     path("user", () -> {
                         post("login", UserApi::login);

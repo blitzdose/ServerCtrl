@@ -19,7 +19,7 @@ public class AccountApi {
     }
 
     public static void getAllPermissions(Context context) {
-        String[] roles = Arrays.stream(Role.values()).filter(role -> role != Role.ANYONE).map(Enum::name).toArray(String[]::new);
+        String[] roles = Arrays.stream(Role.values()).map(Enum::name).toArray(String[]::new);
         WebServer.returnSuccessfulJson(context, new JSONObject().put("data", roles));
     }
 
