@@ -108,6 +108,8 @@ public class WebServer {
             } catch (UserManager.UserManagerException.UserExistsException |
                      UserManager.UserManagerException.InvalidUsernameException ignored) {
             }
+        } else if (!userManager.getUserByUsername("admin").isSuperAdmin()) {
+            userManager.setSuperAdmin(userManager.getUserByUsername("admin"), true);
         }
 
         publicKeyManager = new PublicKeyManager(userManager);
@@ -221,7 +223,6 @@ public class WebServer {
                         post("reset-password", AccountApi::resetPassword, WebserverManagerRole.SUPERADMIN);
                         post("delete", AccountApi::delete, WebserverManagerRole.SUPERADMIN);
                         post("create", AccountApi::create, WebserverManagerRole.SUPERADMIN);
-                        post("superadmin", AccountApi::setSuperAdmin, WebserverManagerRole.SUPERADMIN);
                     });
                     path("console", () -> {
                         get("log", ConsoleApi::getLog, Role.CONSOLE);

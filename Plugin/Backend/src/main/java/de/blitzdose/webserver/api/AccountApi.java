@@ -19,7 +19,7 @@ public class AccountApi {
     }
 
     public static void getAllPermissions(Context context) {
-        String[] roles = Arrays.stream(Role.values()).map(Enum::name).toArray(String[]::new);
+        String[] roles = Arrays.stream(Role.values()).filter(role -> role != Role.ANYONE).map(Enum::name).toArray(String[]::new);
         WebServer.returnSuccessfulJson(context, new JSONObject().put("data", roles));
     }
 
@@ -27,15 +27,21 @@ public class AccountApi {
         JSONObject data = WebServer.getData(context, JSONObject.class);
         String username = data.getString("username");
         User user = WebServer.userManager.getUserByUsername(username);
-        List<Role> roles = new ArrayList<>();
+        if (data.has("superAdmin")) {
+            boolean isSuperAdmin = data.getBoolean("superAdmin");
+            WebServer.userManager.setSuperAdmin(user, isSuperAdmin);
+        }
 
+        List<Role> roles = new ArrayList<>();
         JSONObject systems = data.getJSONObject("systems");
         for (String system : systems.keySet()) {
-            JSONArray permissionsArray = systems.getJSONArray(system);
-            for (int i=0; i<permissionsArray.length(); i++) {
-                roles.add(Role.valueOf(permissionsArray.getString(i).toUpperCase()));
+            if (WebServer.websocketClientManager.listAllClients().stream().anyMatch(provisionedClient -> provisionedClient.getName().equals(system))) {
+                JSONArray permissionsArray = systems.getJSONArray(system);
+                for (int i=0; i<permissionsArray.length(); i++) {
+                    roles.add(Role.valueOf(permissionsArray.getString(i).toUpperCase()));
+                }
+                WebServer.userManager.setRoles(user, system, roles);
             }
-            WebServer.userManager.setRoles(user, system, roles);
         }
 
         WebServer.returnSuccessfulJson(context, new JSONObject());
@@ -49,7 +55,7 @@ public class AccountApi {
         }
         User user = WebServer.userManager.getUserByUsername(username);
 
-        Map<String, List<Role>>  roles = user.getRoleSets();
+        Map<String, List<Role>> roles = user.getRoleSets();
         WebServer.returnSuccessfulJson(context,
                 new JSONObject().put("data",
                         new JSONObject()
@@ -96,16 +102,6 @@ public class AccountApi {
             context.status(HttpStatus.BAD_REQUEST_400);
             context.result();
         }
-
-        WebServer.returnSuccessfulJson(context, new JSONObject());
-    }
-
-    public static void setSuperAdmin(Context context) {
-        JSONObject jsonObject = WebServer.getData(context, JSONObject.class);
-        String username = jsonObject.getString("username");
-        boolean isSuperAdmin = jsonObject.getBoolean("superAdmin");
-        User user = WebServer.userManager.getUserByUsername(username);
-        WebServer.userManager.setSuperAdmin(user, isSuperAdmin);
 
         WebServer.returnSuccessfulJson(context, new JSONObject());
     }
