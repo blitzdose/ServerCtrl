@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_controller.dart';
-import 'package:server_ctrl/values/colors.dart';
 
 class AccountsView extends StatelessWidget {
   final controller = Get.find<AccountsController>();
@@ -24,19 +23,16 @@ class AccountsView extends StatelessWidget {
                     onRefresh: () async {
                       await controller.asyncInit();
                     },
-                    child: ListView.builder(
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) {
+                        return Divider(height: 0,);
+                      },
                       itemCount: controller.accounts.length,
                       itemBuilder: (context, index) {
                         return AccountRow(
                           accountName: controller.accounts[index],
                           onTap: () => controller.showAccount(controller.accounts[index]),
                         );
-                        //return PlayerRow(
-                        //  player: controller.players[index],
-                        //  serverType: controller.serverType.value,
-                        //  userPermissions: controller.params.userPermissions,
-                        //  onCommand: (command) => controller.sendCommand(controller.players[index], command),
-                        //);
                       },
                     ),
                   ),
@@ -122,39 +118,10 @@ class AccountRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      surfaceTintColor: MColors.cardTint(context),
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: () {
-          onTap();
-        },
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
-          child: InkWell(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0, 16, 0),
-                      child: Icon(
-                        Icons.person_rounded,
-                        size: 32,
-                      ),
-                    )
-                  ],
-                ),
-                Text(accountName, style: const TextStyle(fontSize: 24))
-              ],
-            ),
-          ),
-        ),
-      ),
+    return ListTile(
+      leading: Icon(Icons.person_rounded, size: 32),
+      title: Text(accountName, style: TextStyle(fontSize: 24),),
+      onTap: onTap,
     );
   }
-
 }
