@@ -66,8 +66,8 @@ public class AccessManager implements Handler {
             throw new UnauthorizedResponse();
         }
 
-        if (ctx.routeRoles().contains(Role.ANYONE)) {
-            return;
+        if (!roleList.contains(Role.ACCESS)) {
+            throw new UnauthorizedResponse();
         }
 
         if (roleList.contains(Role.ADMIN)) {
