@@ -344,9 +344,13 @@ public class FileApiImpl {
         String domain = instance.getProvisioningBackendURI();
         String authToken = instance.getProvisioningAuthToken();
 
-        String pluginFolderPath = instance.getPluginFolder();
+        Path pluginFolderPath = instance.getPluginFolder();
 
-        File file = new File(pluginFolderPath + "/tmp/" + transferID + ".zip");
+        if (!transferID.matches("^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}$")) {
+            return new WebsocketResponse(false, null);
+        }
+
+        File file = pluginFolderPath.resolve("./tmp/" + transferID + ".zip").normalize().toFile();
         if (!file.getParentFile().exists() && !file.getParentFile().mkdir()) {
             return new WebsocketResponse(false, null);
         }

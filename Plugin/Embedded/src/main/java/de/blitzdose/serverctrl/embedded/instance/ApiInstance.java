@@ -39,7 +39,7 @@ public abstract class ApiInstance {
     public abstract Map<String, UUID> getWorlds();
 
     public abstract boolean isPluginFolder(Path path);
-    public abstract String getPluginFolder();
+    public abstract Path getPluginFolder();
     public abstract boolean isBackupFolder(Path path);
 
     public abstract String getConsoleLogPath();
@@ -63,7 +63,7 @@ public abstract class ApiInstance {
     }
 
     public void loadProvisioningPack() throws Exception {
-        File pluginFolder = new File(getPluginFolder());
+        File pluginFolder = getPluginFolder().toFile();
         pluginFolder.mkdirs();
         File[] files = pluginFolder.listFiles((FilenameFilter) new RegexFileFilter(".*[.]sctrl"));
         if (files != null && files.length > 0) {

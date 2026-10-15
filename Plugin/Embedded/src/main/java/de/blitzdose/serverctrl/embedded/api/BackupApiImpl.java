@@ -38,14 +38,14 @@ public class BackupApiImpl {
             backupState = new Backup.BackupState();
         } while (Backup.backupThreads.containsKey(backupState.id));
 
-        Thread backupThread = new Thread(new BackupRunnable(paths, backupState.id));
+        Thread backupThread = new Thread(new BackupRunnable(instance.getPluginFolder(), paths, backupState.id));
         backupThread.start();
 
         Backup.backupThreads.put(backupState.id, backupState);
     }
 
     public List<Backup.BackupState> getFinishedBackups() {
-        File backupFolder = new File("plugins/ServerCtrl/Backups");
+        File backupFolder = instance.getPluginFolder().resolve("./Backups").normalize().toFile();
         if (!backupFolder.exists() || backupFolder.listFiles() == null) return List.of();
         return Arrays.stream(Objects.requireNonNull(backupFolder.listFiles()))
                 .filter(file -> file.getName().endsWith(".tar.gz"))
@@ -56,7 +56,7 @@ public class BackupApiImpl {
     }
 
     public WebsocketResponse delete(String name) {
-        Path path = PathParser.parsePath(Path.of("plugins/ServerCtrl/Backups/"), name);
+        Path path = PathParser.parsePath(instance.getPluginFolder().resolve("./Backups"), name);
         if (path == null) {
             return new WebsocketResponse(false, null);
         }
@@ -84,17 +84,17 @@ public class BackupApiImpl {
     }
 
     public WebsocketResponse listBackups() {
-        JSONArray data = new JSONArray();
+        JSONObject data = new JSONObject();
         Gson gson = new Gson();
 
         for (Backup.BackupState backupState : getFinishedBackups()) {
-            data.put(new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
+            data.put(backupState.getFileName(), new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
         }
 
         for (Backup.BackupState backupState: Backup.backupThreads.values()) {
-            data.put(new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
+            data.put(backupState.getFileName(), new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
         }
 
-        return new WebsocketResponse(true, data);
+        return new WebsocketResponse(true, data.isEmpty() ? new JSONArray() : data.toJSONArray(data.names()));
     }
 }

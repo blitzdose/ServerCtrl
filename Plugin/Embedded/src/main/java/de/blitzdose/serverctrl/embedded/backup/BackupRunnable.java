@@ -11,7 +11,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,13 +24,13 @@ public class BackupRunnable implements Runnable {
     private long processedFileCount = 0;
     private final Path tmpOutputPath;
 
-    public BackupRunnable(List<String> paths, int id) {
+    public BackupRunnable(Path pluginFolder, List<String> paths, int id) {
         this.id = id;
         this.paths = paths;
 
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
-        this.tmpOutputPath = Paths.get("plugins", "ServerCtrl", "Backups", id + "_" + now.format(formatter) + ".tar.gz.tmp");
+        this.tmpOutputPath = pluginFolder.resolve("./Backups/").resolve(id + "_" + now.format(formatter) + ".tar.gz.tmp").normalize();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class BackupRunnable implements Runnable {
             try {
                 totalFileCount += Files.walk(new File(path).toPath())
                         .parallel()
-                        .filter(p -> !p.toFile().isDirectory() && !p.endsWith("session.lock") && !p.getParent().endsWith(Paths.get("plugins", "ServerCtrl", "Backups")))
+                        .filter(p -> !p.toFile().isDirectory() && !p.endsWith("session.lock") && !p.getParent().startsWith(tmpOutputPath.getParent()))
                         .count();
             } catch (IOException ignored) { }
         }
@@ -49,9 +48,9 @@ public class BackupRunnable implements Runnable {
 
         TarArchiveOutputStream tOut = null;
 
-        File backupDir = Paths.get("plugins", "ServerCtrl", "Backups").toFile();
+        File backupDir = tmpOutputPath.getParent().toFile();
         if (!backupDir.exists()) {
-            backupDir.mkdir();
+            backupDir.mkdirs();
         }
 
         Backup.backupThreads.get(id).setFileName(tmpOutputPath.getFileName().toString().replaceAll("[.]tmp$", ""));
@@ -69,19 +68,20 @@ public class BackupRunnable implements Runnable {
             Backup.backupThreads.get(id).state = Backup.State.ERROR;
         } finally {
             try {
-                assert tOut != null;
-                tOut.finish();
-                tOut.close();
+                if (tOut != null) {
+                    tOut.finish();
+                    tOut.close();
+                }
             } catch (IOException ignore) {}
         }
         File file = tmpOutputPath.toFile();
         Backup.backupThreads.get(id).size = file.length();
-        file.renameTo(Paths.get("plugins", "ServerCtrl", "Backups", Backup.backupThreads.get(id).getFileName()).toFile());
+        file.renameTo(tmpOutputPath.getParent().resolve(Backup.backupThreads.get(id).getFileName()).toFile());
     }
 
     private void addFileToTarGz(TarArchiveOutputStream tOut, String path, String base) throws IOException {
         File f = new File(path);
-        if (f.toPath().endsWith("session.lock") || (f.toPath().getParent() != null && f.toPath().getParent().endsWith(Paths.get("plugins", "ServerCtrl", "Backups")))) {
+        if (f.toPath().endsWith("session.lock") || (f.toPath().getParent() != null && f.toPath().getParent().normalize().startsWith(tmpOutputPath.getParent()))) {
             return;
         }
         String entryName = base + File.separatorChar + f.getName();
