@@ -6,6 +6,8 @@ import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_contro
 import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_view.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/backups/backup_controller.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/backups/backup_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/console/console_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/console/console_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_controller.dart';
@@ -167,6 +169,9 @@ class MainView extends GetView<MainController> {
         label: Text("Backups"),
         appBarTitle: controller.currentServer.value?.name,
         enabled: controller.currentServer.value != null,
+        onSelected: () {
+          controller.navigateClient((params) => Get.put<BackupController>(BackupController(params: params)), () => BackupView());
+        },
       ),
       DrawerDestination(
         icon: Icon(Icons.build_rounded),

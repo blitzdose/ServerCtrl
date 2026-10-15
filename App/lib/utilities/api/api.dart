@@ -14,7 +14,7 @@ import 'package:server_ctrl/utilities/http/file.dart';
 import 'package:server_ctrl/utilities/http/session.dart';
 
 
-import 'models/Backup.dart';
+import 'models/backup.dart';
 import 'models/challenge.dart';
 import 'models/pagination.dart';
 import 'models/player.dart';

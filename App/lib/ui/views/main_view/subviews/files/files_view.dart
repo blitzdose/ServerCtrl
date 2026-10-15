@@ -568,7 +568,7 @@ class _FilesRowState extends State<FilesRow> {
                           ),
                           Opacity(
                             opacity: 0.75,
-                            child: Text("${DateFormat('dd. MMM. yyyy').format(widget.file.parsedDateTime())}\t\t\t${widget.file.parsedSize()}", style: const TextStyle(fontSize: 12),
+                            child: Text("${DateFormat('dd. MMM yyyy').format(widget.file.parsedDateTime())}\t\t\t${widget.file.parsedSize()}", style: const TextStyle(fontSize: 12),
                             ),
                           )
                         ],

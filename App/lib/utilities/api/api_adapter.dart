@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:server_ctrl/utilities/api/models/backup.dart';
 import 'package:server_ctrl/utilities/api/models/challenge.dart';
 import 'package:server_ctrl/utilities/api/models/permission.dart';
 import 'package:server_ctrl/utilities/api/models/player.dart';
@@ -9,8 +10,6 @@ import 'package:server_ctrl/utilities/api/models/server_data.dart';
 import 'package:server_ctrl/utilities/api/models/server_file.dart';
 import 'package:server_ctrl/utilities/api/models/system_data.dart';
 import 'package:server_ctrl/utilities/api/models/world.dart';
-
-import 'models/Backup.dart';
 
 class ApiAdapter {
   static UserPermissions userPermissions(Map<String, dynamic> data) {
