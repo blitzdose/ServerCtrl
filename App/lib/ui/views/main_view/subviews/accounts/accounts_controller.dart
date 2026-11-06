@@ -41,7 +41,7 @@ class AccountsController extends SubviewController {
       this.accounts(accounts);
       this.availablePermissions(availablePermissions);
     } else {
-      Snackbar.createWithTitle("Error", "Error while fetching accounts", true);
+      Snackbar.createWithTitle("Accounts", "Error while fetching accounts", true);
     }
     showProgress(false);
   }
@@ -52,7 +52,7 @@ class AccountsController extends SubviewController {
     var availablePermissions = await AccountApi.getAllPermissions();
     var systems = await ProvisioningApi.list();
     if (userPermissions == null || availablePermissions == null || systems == null) {
-      Snackbar.createWithTitle("Error", "Error while fetching account details", true);
+      Snackbar.createWithTitle("Accounts", "Error while fetching account details", true);
       showProgress(false);
       return;
     }
@@ -78,6 +78,18 @@ class AccountsController extends SubviewController {
       },
     ),
         fullscreenDialog: false);
+  }
+
+  Future<void> createAccount(String username, String password) async {
+    showProgress(true);
+    var result = await AccountApi.create(username, password);
+    if (result) {
+      Snackbar.createWithTitle("Accounts", "Successfully created account");
+    } else {
+      Snackbar.createWithTitle("Accounts", "Failed to create account", true);
+    }
+    await asyncInit();
+    showProgress(false);
   }
 
 }

@@ -45,7 +45,7 @@ class AccountsView extends StatelessWidget {
     );
   }
 
-  static FloatingActionButton generateFloatingActionButton(var controller) {
+  static FloatingActionButton generateFloatingActionButton(AccountsController controller) {
     return FloatingActionButton(
       child: Icon(Icons.add_rounded),
       onPressed: () {
@@ -97,10 +97,10 @@ class AccountsView extends StatelessWidget {
                 children: [
                   TextButton(onPressed: () => Get.back(),
                       child: Text("Cancel")),
-                  TextButton(onPressed: () => {
-                    // TODO: get some sleep so you dont forget entire functionality
-                  },
-                      child: Text("Create")),
+                  TextButton(onPressed: () {
+                    Get.back();
+                    controller.createAccount(usernameTextController.value.text, passwordTextController.value.text);
+                  }, child: Text("Create")),
                 ],
               )
             ],
