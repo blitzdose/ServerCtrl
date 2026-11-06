@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:intl/intl.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_controller.dart';
 import 'package:server_ctrl/ui/widgets/animated_linear_progress_indicator.dart';

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:is_first_run/is_first_run.dart';
 import 'package:server_ctrl/data_storage/database/models/server.dart';
 import 'package:server_ctrl/data_storage/database/storage_database.dart';
@@ -166,14 +166,14 @@ class AddServerController extends GetxController {
         errorMessage(S.current.cannotReachIpOverHttps(ip));
       }
     } catch (e) {
-      e.printError();
+      print(e);
       errorMessage(S.current.somethingWentWrong);
     }
     isLoggingIn(false);
   }
 }
 
-class AddServerBinding extends Bindings {
+class AddServerBinding extends Binding {
   @override
   void dependencies() {
     Get.lazyPut(() => AddServerController());

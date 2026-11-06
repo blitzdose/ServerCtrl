@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:server_ctrl/navigator_key.dart';
 import 'package:server_ctrl/values/colors.dart';
@@ -253,7 +253,7 @@ class AppSettingsController extends GetxController {
   }
 }
 
-class AppSettingsBinding extends Bindings {
+class AppSettingsBinding extends Binding {
   @override
   void dependencies() {
     Get.lazyPut(() => AppSettingsController());

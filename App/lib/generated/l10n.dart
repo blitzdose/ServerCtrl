@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -1734,8 +1735,7 @@ class S {
     return Intl.message(
       '$fileEntry will be extracted, overwriting files if they already exist. This action cannot be undone!',
       name: 'extractFileMessage',
-      desc:
-          'Example: datafile.zip will be extracted, overwriting files if they already exist. This action cannot be undone!',
+      desc: 'Example: datafile.zip will be extracted, overwriting files if they already exist. This action cannot be undone!',
       args: [fileEntry],
     );
   }
@@ -2085,8 +2085,7 @@ class S {
     return Intl.message(
       'Are you sure you want to delete $filename?\n\nThis cannot be undone.',
       name: 'backup_delete_confirmation',
-      desc:
-          'Are you sure you want to delete 281726_2024-12-12.tar.gz?\n\nThis cannot be undone.',
+      desc: 'Are you sure you want to delete 281726_2024-12-12.tar.gz?\n\nThis cannot be undone.',
       args: [filename],
     );
   }

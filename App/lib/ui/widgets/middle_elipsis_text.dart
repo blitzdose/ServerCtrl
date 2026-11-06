@@ -1,5 +1,5 @@
 import 'package:characters/characters.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A single-line text that is shortened in the middle ("long_na…me.txt")
 /// when it does not fit into the width given by its parent.

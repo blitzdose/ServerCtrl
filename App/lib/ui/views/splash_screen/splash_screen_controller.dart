@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/data_storage/database/models/server.dart';
 import 'package:server_ctrl/data_storage/database/storage_database.dart';
 import 'package:server_ctrl/main_controller.dart';
@@ -36,7 +36,7 @@ class SplashScreenController extends GetxController {
   }
 }
 
-class SplashScreenBinding extends Bindings {
+class SplashScreenBinding extends Binding {
   @override
   void dependencies() {
     Get.lazyPut(() => SplashScreenController());

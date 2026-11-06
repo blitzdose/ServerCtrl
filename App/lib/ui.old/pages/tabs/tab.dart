@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:server_ctrl/utilities/permissions/permissions.dart';

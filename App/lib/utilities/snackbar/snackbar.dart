@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 
 import '../../values/colors.dart';
 
@@ -9,7 +9,7 @@ class Snackbar {
     Get.snackbar(
         title,
         message,
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.bottom,
         maxWidth: 500,
         backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.white.withAlpha(200),
         colorText: isError ? Colors.white : Colors.black,
@@ -33,7 +33,7 @@ class Snackbar {
         maxWidth: 500,
         borderRadius: 15,
         barBlur: 7.0,
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.bottom,
         backgroundColor: isError ? MColors.minecraftRed.withAlpha(156) : Colors.white.withAlpha(156),
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
         animationDuration: const Duration(milliseconds: 300),

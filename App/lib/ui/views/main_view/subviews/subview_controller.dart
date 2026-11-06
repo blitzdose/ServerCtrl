@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/utilities/api/models/permission.dart';
 
 abstract class SubviewController extends GetxController {

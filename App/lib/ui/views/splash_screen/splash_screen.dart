@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 
 import '../../../generated/l10n.dart';
 import 'splash_screen_controller.dart';

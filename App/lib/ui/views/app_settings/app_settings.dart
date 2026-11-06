@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/main_controller.dart';
 import 'package:server_ctrl/ui/widgets/settings.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -127,9 +127,6 @@ class AppSettingsView extends GetView<AppSettingsController> {
                     title: SettingsTileTitle(S.current.aboutServerctrl),
                     leading: const Icon(Icons.info_rounded),
                     onPressed: (context) => controller.information()
-                ),
-                SettingsTile( // For a bit more space at the bottom
-                  title: SettingsTileTitle(""),
                 )
               ],
             )

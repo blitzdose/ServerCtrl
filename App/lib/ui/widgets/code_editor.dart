@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:code_forge/code_forge/code_area.dart';
 import 'package:code_forge/code_forge/controller.dart';
 import 'package:code_forge/code_forge/find_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:re_highlight/re_highlight.dart';
 import 'package:flutter_highlight/themes/tomorrow-night.dart';
 
@@ -114,6 +114,7 @@ class CodeEditor extends StatelessWidget {
             children: [
               CodeForge(
                 language: Highlight().getLanguage(file.name.split(".").last),
+                enableMinimap: false,
                 editorTheme: tomorrowNightTheme,
                 controller: codeController,
                 findController: findController,

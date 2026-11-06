@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/data_storage/database/models/server.dart';
 import 'package:server_ctrl/data_storage/database/storage_database.dart';
 import 'package:server_ctrl/generated/l10n.dart';
@@ -83,7 +83,7 @@ class AddClientController extends GetxController {
   }
 }
 
-class AddClientBinding extends Bindings {
+class AddClientBinding extends Binding {
   @override
   void dependencies() {
     Get.lazyPut(() => AddClientController());

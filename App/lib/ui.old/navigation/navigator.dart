@@ -4,8 +4,8 @@ import 'package:server_ctrl/main_controller.dart';
 import 'package:server_ctrl/ui/navigation/layout_structure.dart';
 import 'package:server_ctrl/ui/navigation/navigation_drawer_impl.dart' as my_nav_drawer;
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 
 import '../../generated/l10n.dart';
 import '../../values/navigation_routes.dart';

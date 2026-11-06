@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/subview_controller.dart';
 import 'package:server_ctrl/utilities/api/api.dart';
 import 'package:server_ctrl/utilities/api/models/server_data.dart';
@@ -48,7 +47,7 @@ class ConsoleController extends SubviewController {
 
   void formatLog(String log, List<TextSpan> textSpansFinal) {
     List<TextSpan> textSpans = [];
-    List<String> logLines = log.split(newlineRegExp);
+    List<String> logLines = log.split( RegExp(r'\r\n|\r|\n'));
     for(String logLine in logLines)  {
       if (logLine.contains(RegExp(r"\[\d\d:\d\d:\d\d WARN\]"))) {
         textSpans.add(TextSpan(text: logLine.replaceAll(RegExp(r"!_/[a-f0-9]"), ""), style: const TextStyle(color: MColors.minecraftYellow)));

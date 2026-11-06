@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 
 import '../../../../../utilities/api/models/log_entry.dart';
 import '../../../../../values/colors.dart';

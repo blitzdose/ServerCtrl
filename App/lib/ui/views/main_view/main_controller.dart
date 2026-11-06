@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/data_storage/database/models/server.dart';
 import 'package:server_ctrl/data_storage/database/storage_database.dart';
 import 'package:server_ctrl/generated/l10n.dart';
@@ -193,7 +193,7 @@ class MainController extends GetxController {
   }
 }
 
-class MainBinding extends Bindings {
+class MainBinding extends Binding {
   @override
   void dependencies() {
     Get.lazyPut(() => MainController());

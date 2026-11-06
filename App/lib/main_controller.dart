@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 //import 'package:server_ctrl/values/navigation_routes.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:server_ctrl/data_storage/database/storage_database.dart';

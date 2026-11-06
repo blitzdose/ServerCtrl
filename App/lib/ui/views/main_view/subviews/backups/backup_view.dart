@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/backups/backup_controller.dart';
 import 'package:server_ctrl/utilities/api/models/backup.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
@@ -59,7 +59,12 @@ class BackupView extends StatelessWidget {
     return FloatingActionButton(
       child: Icon(Icons.add_rounded),
       onPressed: () {
+
+        
+
+
         final backupType = BackupType.FULL.obs;
+
         Get.dialog(
             barrierDismissible: false,
             AlertDialog(
@@ -95,7 +100,10 @@ class BackupView extends StatelessWidget {
                         await controller.startFullBackup();
                         await controller.asyncInit();
                       } else if (backupType.value == BackupType.WORLD) {
+                        Get.back();
 
+                        await controller.startWorldsBackup();
+                        await controller.asyncInit();
                       }
                     }, child: Obx(() => Text(backupType.value == BackupType.FULL? "Create" : "Next"))),
                   ],

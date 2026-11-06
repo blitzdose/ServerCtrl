@@ -1,13 +1,12 @@
 import 'dart:math';
 
 import 'package:convert/convert.dart';
-import 'package:crypto/crypto.dart';
 
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:flutter_localizations/flutter_localizations.dart' as legacy;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:server_ctrl/navigator_key.dart';
 import 'package:server_ctrl/ui/views/add_client/add_client.dart';
@@ -23,7 +22,7 @@ import 'package:server_ctrl/ui/views/splash_screen/splash_screen_controller.dart
 import 'package:shared_preferences/shared_preferences.dart';
 import 'generated/l10n.dart';
 import 'main_controller.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 
 import 'dart:io';
 
@@ -98,12 +97,11 @@ class MyApp extends StatelessWidget {
     initializeDateFormatting();
     Widget widget = DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       return Obx(() => GetMaterialApp(
-        localizationsDelegates: const [
+        localizationsDelegates: [
           S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          LocaleNamesLocalizationsDelegate(),
+          ...GlobalMaterialLocalizations.delegates,
+          ...legacy.GlobalMaterialLocalizations.delegates,
+          LocaleNamesLocalizationsDelegate()
         ],
         supportedLocales: S.delegate.supportedLocales,
         title: MyAppController.appName.value,
@@ -120,32 +118,32 @@ class MyApp extends StatelessWidget {
         themeMode: MyAppController.themeMode.value,
         locale: MyAppController.locale.value,
         initialRoute: SplashScreenView.route,
-        initialBinding: SplashScreenBinding(),
+        binds: [Bind.lazyPut(() => SplashScreenBinding())],
         getPages: [
           GetPage(
               name: SplashScreenView.route,
               page: () => SplashScreenView(),
-              binding: SplashScreenBinding()
+              bindings: [SplashScreenBinding()]
           ),
           GetPage(
               name: AddServerView.route,
               page: () => AddServerView(),
-              binding: AddServerBinding()
+              bindings: [AddServerBinding()]
           ),
           GetPage(
               name: AddClientView.route,
               page: () => AddClientView(),
-              binding: AddClientBinding()
+              bindings: [AddClientBinding()]
           ),
           GetPage(
               name: MainView.route,
               page: () => MainView(),
-              binding: MainBinding()
+              bindings: [MainBinding()]
           ),
           GetPage(
               name: AppSettingsView.route,
               page: () => AppSettingsView(),
-              binding: AppSettingsBinding()
+              bindings: [AppSettingsBinding()]
           )
         ],
         navigatorKey: navigatorKey,

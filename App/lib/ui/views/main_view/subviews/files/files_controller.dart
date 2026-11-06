@@ -5,7 +5,7 @@ import 'package:background_downloader/background_downloader.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/subview_controller.dart';
 import 'package:server_ctrl/ui/widgets/code_editor.dart';
@@ -412,25 +412,21 @@ class FilesController extends SubviewController {
     final finished = false.obs;
     final dio.CancelToken cancelToken = dio.CancelToken();
 
-    final pickerResult = await FilePicker.platform.pickFiles(
-        allowMultiple: false,
-        withReadStream: true
-    );
+    final platformFile = await FilePicker.pickFile();
 
-    if (pickerResult != null && pickerResult.files.isNotEmpty) {
-      PlatformFile file = pickerResult.files.first;
-      if (file.readStream == null) {
+    if (platformFile != null) {
+      int? fileSize = await platformFile.length();
+      if (fileSize == null) {
         Snackbar.createWithTitle("Error", "Error while trying to read file", true);
         finished(true);
         return;
       }
-
       Get.dialog(
-          FilesView.generateUploadFileDialog(file.name.split("/").last, finished, uploadedSize, totalSize, cancelToken),
+          FilesView.generateUploadFileDialog(platformFile.name.split("/").last, finished, uploadedSize, totalSize, cancelToken),
           barrierDismissible: false
       );
 
-      bool success = await FilesApi(params.system).upload(UploadFile.fromStream("$path/${file.name}", file.readStream!, file.size), (sent, total, isFinished) {
+      bool success = await FilesApi(params.system).upload(UploadFile.fromStream("$path/${platformFile.name}", platformFile.readAsByteStream(), fileSize), (sent, total, isFinished) {
         totalSize(total);
         uploadedSize(sent);
         finished(isFinished);

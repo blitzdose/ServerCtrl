@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/generated/l10n.dart';
 
 class InputDialog {

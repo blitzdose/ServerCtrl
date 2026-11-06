@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/navigation/layout_structure.dart';
 import 'package:server_ctrl/ui/pages/add_server/add_server.dart';
 import 'package:server_ctrl/ui/pages/settings/app_settings.dart';

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/views/app_settings/app_settings.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_view.dart';

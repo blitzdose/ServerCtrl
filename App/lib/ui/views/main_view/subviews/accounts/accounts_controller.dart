@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/accounts/account_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/subview_controller.dart';

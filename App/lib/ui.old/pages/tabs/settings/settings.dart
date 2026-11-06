@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:get/get.dart';
 import 'package:server_ctrl/ui/components/settings.dart';
 import 'package:server_ctrl/ui/pages/tabs/settings/click_handler.dart';

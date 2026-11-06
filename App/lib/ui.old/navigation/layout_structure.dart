@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart';
+import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/navigation/nav_route.dart';
 import 'package:server_ctrl/ui/pages/main/main.dart';
 import 'package:server_ctrl/utilities/appbar/action_utils.dart';
@@ -8,7 +8,7 @@ import 'package:server_ctrl/values/navigation_routes.dart';
 import '../../generated/l10n.dart';
 import '../../navigator_key.dart';
 import 'navigator.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 
 class LayoutStructure extends StatefulWidget {

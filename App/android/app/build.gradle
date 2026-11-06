@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -32,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "de.blitzdose.minecraftserverremote"
 
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 37 //flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -72,6 +71,12 @@ android {
 
     dependencies {
         implementation 'com.github.amitshekhariitbhu:PRDownloader:1.0.2'
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
