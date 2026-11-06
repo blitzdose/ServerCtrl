@@ -61,6 +61,10 @@ public class BackupApiImpl {
             return new WebsocketResponse(false, null);
         }
         File backupFile = path.toFile();
+        if (!backupFile.exists()) {
+            Backup.backupThreads.remove(Integer.parseInt(name.split("_")[0]));
+            return new WebsocketResponse(true, null);
+        }
         boolean success = backupFile.delete();
         if (success) {
             Backup.backupThreads.remove(Integer.parseInt(name.split("_")[0]));
