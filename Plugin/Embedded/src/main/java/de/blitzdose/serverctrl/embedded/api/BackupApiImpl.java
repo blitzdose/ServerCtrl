@@ -6,8 +6,6 @@ import de.blitzdose.serverctrl.common.web.parser.PathParser;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
 import de.blitzdose.serverctrl.embedded.backup.BackupRunnable;
 import de.blitzdose.serverctrl.embedded.instance.ApiInstance;
-import kotlin.Pair;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,13 +30,13 @@ public class BackupApiImpl {
         return new WebsocketResponse(true, jsonArray);
     }
 
-    public void startBackup(List<String> paths) {
+    public void startBackup(Backup.Type type, List<String> paths) {
         Backup.BackupState backupState;
         do {
-            backupState = new Backup.BackupState();
+            backupState = new Backup.BackupState(type);
         } while (Backup.backupThreads.containsKey(backupState.id));
 
-        Thread backupThread = new Thread(new BackupRunnable(instance.getPluginFolder(), paths, backupState.id));
+        Thread backupThread = new Thread(new BackupRunnable(instance.getPluginFolder(), paths, backupState));
         backupThread.start();
 
         Backup.backupThreads.put(backupState.id, backupState);
@@ -49,10 +47,8 @@ public class BackupApiImpl {
         if (!backupFolder.exists() || backupFolder.listFiles() == null) return List.of();
         return Arrays.stream(Objects.requireNonNull(backupFolder.listFiles()))
                 .filter(file -> file.getName().endsWith(".tar.gz"))
-                .map(file -> new Pair<>(file, file.getName().split("_")[0]))
-                .filter(pair -> NumberUtils.isDigits(pair.component2()))
-                .map(pair -> new Pair<>(pair.component1(), Integer.parseInt(pair.component2())))
-                .map(pair -> new Backup.BackupState(pair.component2(), 1.0f, Backup.State.FINISHED, pair.component1().getName(), pair.component1().length())).toList();
+                .map(Backup.BackupState::parseFromFile)
+                .filter(Objects::nonNull).toList();
     }
 
     public WebsocketResponse delete(String name) {
@@ -74,7 +70,7 @@ public class BackupApiImpl {
 
     public WebsocketResponse startWorldsBackup(String[] data) {
         List<String> worldPaths = instance.getWorldPaths(Arrays.stream(data).map(UUID::fromString).toList());
-        startBackup(worldPaths);
+        startBackup(Backup.Type.WORLD, worldPaths);
 
         return new WebsocketResponse(true, null);
     }
@@ -83,7 +79,7 @@ public class BackupApiImpl {
         List<String> path = new ArrayList<>();
         path.add(Paths.get(".").toString());
 
-        startBackup(path);
+        startBackup(Backup.Type.FULL, path);
         return new WebsocketResponse(true, null);
     }
 
@@ -92,13 +88,21 @@ public class BackupApiImpl {
         Gson gson = new Gson();
 
         for (Backup.BackupState backupState : getFinishedBackups()) {
-            data.put(backupState.getFileName(), new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
+            data.put(backupState.fileName, new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
         }
 
         for (Backup.BackupState backupState: Backup.backupThreads.values()) {
-            data.put(backupState.getFileName(), new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
+            data.put(backupState.fileName, new JSONObject(gson.toJson(backupState, Backup.BackupState.class)));
         }
 
         return new WebsocketResponse(true, data.isEmpty() ? new JSONArray() : data.toJSONArray(data.names()));
+    }
+
+    public WebsocketResponse getBackupDownloadPath(String name) {
+        Path path = PathParser.parsePath(instance.getPluginFolder().resolve("./Backups"), name);
+        if (path == null) {
+            return new WebsocketResponse(false, null);
+        }
+        return new WebsocketResponse(true, "/" + PathParser.parsePath("").toAbsolutePath().relativize(path).toString().replace("\\", "/"));
     }
 }

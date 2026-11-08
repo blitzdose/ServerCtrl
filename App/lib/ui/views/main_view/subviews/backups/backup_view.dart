@@ -3,11 +3,12 @@ import 'dart:math';
 import 'package:material_ui/material_ui.dart';
 import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/backups/backup_controller.dart';
+import 'package:server_ctrl/ui/widgets/wizard_dialog.dart';
+import 'package:server_ctrl/utilities/snackbar/snackbar.dart';
 import 'package:server_ctrl/utilities/api/models/backup.dart';
 import 'package:server_ctrl/utilities/dialogs/dialogs.dart';
 import 'package:server_ctrl/values/colors.dart';
 
-import '../../../../../utilities/snackbar/snackbar.dart';
 
 class BackupView extends StatelessWidget {
   final controller = Get.find<BackupController>();
@@ -29,21 +30,33 @@ class BackupView extends StatelessWidget {
                       onRefresh: () async {
                         await controller.asyncInit();
                       },
-                      child: ListView.builder(
-                        itemCount: controller.backups.length,
-                        itemBuilder: (context, index) {
-                          return BackupRow(
-                            backup: controller.backups[index],
-                            onDelete: () async {
-                              await controller.deleteBackup(controller.backups[index]);
-                              controller.asyncInit();
-                            },
-                            onDownload: () async {
-                              await controller.downloadBackup(controller.backups[index]);
-                              controller.asyncInit();
-                            },
-                          );
-                        },
+                      child: CustomScrollView(
+                        controller: scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        slivers: [
+                          if (controller.backups.isEmpty)
+                            const SliverFillRemaining(
+                              hasScrollBody: false,
+                              child: Center(child: Text("No backups found")),
+                            )
+                          else
+                            SliverList.builder(
+                              itemCount: controller.backups.length,
+                              itemBuilder: (context, index) {
+                                return BackupRow(
+                                  backup: controller.backups[index],
+                                  onDelete: () async {
+                                    await controller.deleteBackup(controller.backups[index]);
+                                    controller.asyncInit();
+                                  },
+                                  onDownload: () async {
+                                    await controller.downloadBackup(controller.backups[index]);
+                                    controller.asyncInit();
+                                  },
+                                );
+                              },
+                            ),
+                        ],
                       ),
                     ),
                   )
@@ -59,21 +72,17 @@ class BackupView extends StatelessWidget {
     return FloatingActionButton(
       child: Icon(Icons.add_rounded),
       onPressed: () {
-
-        
-
-
-        final backupType = BackupType.FULL.obs;
-
-        Get.dialog(
-            barrierDismissible: false,
-            AlertDialog(
-              title: Text("Create Backup"),
-              content: Obx(() => RadioGroup<BackupType>(
-                    onChanged: (value) {
-                      backupType(value);
-                    },
-                    groupValue: backupType.value,
+        WizardDialog.show(
+          Get.context!,
+          title: Text("Create Backup"),
+          initialState: BackupConfig(),
+          width: double.maxFinite,
+          labels: WizardDialogLabels(finish: 'Create'),
+          pages: (state) => [
+            WizardPage(builder: (context, wizard) =>
+                RadioGroup<BackupType>(
+                    onChanged: (value) => wizard.update((d) => value != null ? (d..backupType = value) : d),
+                    groupValue: wizard.state.backupType,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -88,28 +97,42 @@ class BackupView extends StatelessWidget {
                       ],
                     )
                 ),
-              ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(onPressed: () => Get.back(), child: Text("Cancel")),
-                    TextButton(onPressed: () async {
-                      if (backupType.value == BackupType.FULL) {
-                        Get.back();
-                        await controller.startFullBackup();
-                        await controller.asyncInit();
-                      } else if (backupType.value == BackupType.WORLD) {
-                        Get.back();
-
-                        await controller.startWorldsBackup();
-                        await controller.asyncInit();
-                      }
-                    }, child: Obx(() => Text(backupType.value == BackupType.FULL? "Create" : "Next"))),
-                  ],
-                )
-              ],
-            )
+            ),
+            if (state.backupType == BackupType.WORLD) ...[
+              WizardPage(
+                title: Text("Backup worlds"),
+                builder: (context, wizard) => ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 300),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (final world in controller.worlds)
+                          CheckboxListTile(
+                            controlAffinity: ListTileControlAffinity.leading,
+                            title: Text(world.name),
+                            value: state.selectedWorlds.contains(world),
+                            onChanged: (value) {
+                              wizard.update((d) {
+                                if (value == true) {
+                                  d.selectedWorlds.add(world);
+                                } else {
+                                  d.selectedWorlds.remove(world);
+                                }
+                                return d;
+                              });
+                            },
+                          )
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ]
+          ],
+          onFinish: (state) {
+            controller.startBackup(state);
+          },
         );
       },
     );
@@ -181,6 +204,7 @@ class _BackupRowState extends State<BackupRow> {
                                 }, child: Text("Delete")),
                                 TextButton(onPressed: () {
                                   widget.onDownload?.call();
+                                  Get.back();
                                 }, child: Text("Download"))
                               ],
                             )
@@ -221,7 +245,13 @@ class _BackupRowState extends State<BackupRow> {
                           ],
                         ),
                         const Padding(padding: EdgeInsets.only(top: 4.0)),
-                        Text(widget.backup.parsedDate(), style: const TextStyle(fontSize: 18),),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(widget.backup.parsedDate(), style: const TextStyle(fontSize: 18),),
+                            Chip(label: Text(widget.backup.type.name))
+                          ],
+                        ),
                         const Padding(padding: EdgeInsets.only(top: 8.0)),
                         widget.backup.state == BackupState.RUNNING ? Row(
                           mainAxisAlignment: MainAxisAlignment.end,

@@ -50,6 +50,7 @@ public class FunctionMapper {
             case CreateFullBackup -> implementations.getBackupApi().startFullBackup();
             case ListBackups -> implementations.getBackupApi().listBackups();
             case DeleteBackup -> implementations.getBackupApi().delete(request.data(String.class));
+            case GetBackupDownloadPath -> implementations.getBackupApi().getBackupDownloadPath(request.data(String.class));
         };
 
         response.setIdentifier(request.identifier());

@@ -4,11 +4,11 @@ import 'dart:typed_data';
 import 'package:background_downloader/background_downloader.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:getxify/getxify.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/subview_controller.dart';
 import 'package:server_ctrl/ui/widgets/code_editor.dart';
+import 'package:server_ctrl/ui/widgets/download_save_dialog.dart';
 import 'package:server_ctrl/utilities/api/api.dart';
 import 'package:server_ctrl/utilities/api/models/server_file.dart';
 import 'package:server_ctrl/utilities/http/file.dart';
@@ -99,71 +99,12 @@ class FilesController extends SubviewController {
       return;
     }
 
-    final progress = Rxn<double>();
-    final status = Rxn<TaskStatus>();
-    final finished = false.obs;
-
-    Get.dialog(
-      FilesView.generateSaveFileDialog(
-        file.name,
-        progress,
-        finished,
-        onCancel: () async {
-          progress.value = null;
-          if (status.value != TaskStatus.complete) {
-            await downloadFile.cancel();
-          }
-          if (await downloadFile.file.exists()) {
-            await downloadFile.file.delete();
-          }
-          Get.back();
-        },
-        onSave: () async {
-          final params = SaveFileDialogParams(
-              sourceFilePath: downloadFile.file.path,
-              fileName: await downloadFile.name);
-
-          final finalPath = await FlutterFileDialog.saveFile(params: params);
-
-          if (finalPath != null) {
-            progress.value = null;
-            if (await downloadFile.file.exists()) {
-              await downloadFile.file.delete();
-            }
-            Get.back();
-            Snackbar.create("Successfully saved file");
-          }
-        },
-      ),
-      barrierDismissible: false,
+    DownloadSaveDialog.show(
+      downloadFile: downloadFile,
+      filename: file.name,
+      onSuccess: (savedPath) => Snackbar.createWithTitle("Files", "Successfully saved file"),
+      onFailed: (status) => Snackbar.createWithTitle("Files", "Error while trying to download file", true),
     );
-
-    downloadFile.progress.listen((data) {
-      if (data >= 0) {
-        progress(data);
-      }
-    });
-
-    downloadFile.status.listen((data) {
-      status(data);
-      if (data == TaskStatus.complete) {
-        finished(true);
-      }
-      if (data == TaskStatus.failed || data == TaskStatus.notFound) {
-        if (Get.isDialogOpen ?? false) {
-          Get.back();
-        }
-        Snackbar.createWithTitle("Error", "Error while trying to download file", true);
-      }
-    });
-
-    if (await downloadFile.success) {
-      downloadFile.status.push(TaskStatus.complete);
-    } else {
-      if (status.value != TaskStatus.canceled) {
-        downloadFile.status.push(TaskStatus.failed);
-      }
-    }
   }
 
   void extractSingleFile(ServerFile file) async {
@@ -321,72 +262,12 @@ class FilesController extends SubviewController {
       return;
     }
 
-    final progress = Rxn<double>();
-    final status = Rxn<TaskStatus>();
-    final finished = false.obs;
-
-    Get.dialog(
-      FilesView.generateSaveFileDialog(
-        files.length > 1 ? "Zipfile" : files.first.name,
-        progress,
-        finished,
-        onCancel: () async {
-          progress.value = null;
-          if (status.value != TaskStatus.complete) {
-            await downloadFile.cancel();
-          }
-          if (await downloadFile.file.exists()) {
-            await downloadFile.file.delete();
-          }
-          Get.back();
-        },
-        onSave: () async {
-          final params = SaveFileDialogParams(
-              sourceFilePath: downloadFile.file.path,
-              fileName: await downloadFile.name);
-
-          final finalPath = await FlutterFileDialog.saveFile(params: params);
-
-          if (finalPath != null) {
-            progress.value = null;
-            if (await downloadFile.file.exists()) {
-              await downloadFile.file.delete();
-            }
-            Get.back();
-            Snackbar.create("Successfully saved file");
-          }
-        },
-      ),
-      barrierDismissible: false,
+    DownloadSaveDialog.show(
+      downloadFile: downloadFile,
+      filename: files.length > 1 ? "Zipfile" : files.first.name,
+      onSuccess: (savedPath) => Snackbar.createWithTitle("Files", "Successfully saved file"),
+      onFailed: (status) => Snackbar.createWithTitle("Files", "Error while trying to download file", true),
     );
-
-    downloadFile.progress.listen((data) {
-      if (data >= 0) {
-        progress(data);
-      }
-    });
-
-    downloadFile.status.listen((data) {
-      status(data);
-      if (data == TaskStatus.complete) {
-        finished(true);
-      }
-      if (data == TaskStatus.failed || data == TaskStatus.notFound) {
-        if (Get.isDialogOpen ?? false) {
-          Get.back();
-        }
-        Snackbar.createWithTitle(
-            "Error", "Error while trying to download file", true);
-      }
-    });
-
-    if (await downloadFile.success) {
-      downloadFile.status.push(TaskStatus.complete);
-    } else {
-      if (status.value != TaskStatus.canceled) {
-        downloadFile.status.push(TaskStatus.failed);
-      }
-    }
   }
 
   void createNewFile(String name, bool isFolder) async {

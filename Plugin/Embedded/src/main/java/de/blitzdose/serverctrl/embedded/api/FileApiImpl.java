@@ -141,7 +141,7 @@ public class FileApiImpl {
         String domain = instance.getProvisioningBackendURI();
         String authToken = instance.getProvisioningAuthToken();
 
-        if (isInvalidFile(path) && !isBackupFolder(path)) {
+        if (path == null || (isInvalidFile(path) && !isBackupFolder(path))) {
             return new WebsocketResponse(false, null);
         }
 

@@ -14,6 +14,7 @@ public class BackendApiInstanceImpl extends de.blitzdose.api.BackendApiInstance 
             MockConfig.load("""
             {
               "Webserver": {
+                "debug": true,
                 "https": true,
                 "frontend": true,
                 "port": 5718,

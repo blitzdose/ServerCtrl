@@ -249,53 +249,6 @@ class FilesView extends StatelessWidget {
         ));
   }
 
-  static Widget generateSaveFileDialog(String filename, Rxn<double> progress, Rx<bool> enableSaveButton, {required Function() onCancel, required Function() onSave}) {
-    return Obx(() => AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      title: const Text("Downloading File"),
-      content: PopScope(
-        canPop: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              filename, // Display the actual filename
-              style: const TextStyle(fontWeight: FontWeight.bold),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 16),
-            AnimatedLinearProgressIndicator(
-              value: progress.value,
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text("${((progress.value ?? 0) * 100).toStringAsFixed(0)}%",)
-              ],
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            onCancel();
-          },
-          child: const Text("Cancel"),
-        ),
-        TextButton(
-          onPressed: enableSaveButton.value ? () async {
-            onSave();
-          } : null,
-          child: const Text("Save"),
-        ),
-      ],
-    ));
-  }
-
   static Widget generateEditFileDownloadDialog(String filename, Rxn<double> progress, {required Function() onCancel}) {
     return Obx(() => AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

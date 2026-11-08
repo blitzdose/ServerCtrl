@@ -33,5 +33,6 @@ public enum RequestMethod {
     CreateWorldsBackup,
     CreateFullBackup,
     ListBackups,
-    DeleteBackup
+    DeleteBackup,
+    GetBackupDownloadPath
 }

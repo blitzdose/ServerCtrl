@@ -20,7 +20,7 @@ public class ServerCtrlBackendDEV {
 
         new Thread(() -> {
             WebServer webServer = new WebServer(
-                    new WebserverConfig(true, true, true, 5718),
+                    new WebserverConfig(backendApiInstance.configGetBoolean("Webserver.debug"), backendApiInstance.configGetBoolean("Webserver.https"), backendApiInstance.configGetBoolean("Webserver.frontend"), backendApiInstance.configGetInt("Webserver.port")),
                     new ConsoleLogger("ServerCtrlBackend", backendApiInstance),
                     backendApiInstance
             );

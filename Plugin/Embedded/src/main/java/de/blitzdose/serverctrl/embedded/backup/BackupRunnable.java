@@ -24,13 +24,11 @@ public class BackupRunnable implements Runnable {
     private long processedFileCount = 0;
     private final Path tmpOutputPath;
 
-    public BackupRunnable(Path pluginFolder, List<String> paths, int id) {
-        this.id = id;
+    public BackupRunnable(Path pluginFolder, List<String> paths, Backup.BackupState backupState) {
+        this.id = backupState.id;
         this.paths = paths;
 
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
-        this.tmpOutputPath = pluginFolder.resolve("./Backups/").resolve(id + "_" + now.format(formatter) + ".tar.gz.tmp").normalize();
+        this.tmpOutputPath = pluginFolder.resolve("./Backups/").resolve(backupState.fileName + ".tmp").normalize();
     }
 
     @Override
@@ -53,8 +51,6 @@ public class BackupRunnable implements Runnable {
             backupDir.mkdirs();
         }
 
-        Backup.backupThreads.get(id).setFileName(tmpOutputPath.getFileName().toString().replaceAll("[.]tmp$", ""));
-
         try (OutputStream fOut = Files.newOutputStream(tmpOutputPath); BufferedOutputStream buffOut = new BufferedOutputStream(fOut); GzipCompressorOutputStream gzOut = new GzipCompressorOutputStream(buffOut)) {
             tOut = new TarArchiveOutputStream(gzOut);
             tOut.setLongFileMode(TarArchiveOutputStream.LONGFILE_POSIX);
@@ -76,7 +72,7 @@ public class BackupRunnable implements Runnable {
         }
         File file = tmpOutputPath.toFile();
         Backup.backupThreads.get(id).size = file.length();
-        file.renameTo(tmpOutputPath.getParent().resolve(Backup.backupThreads.get(id).getFileName()).toFile());
+        file.renameTo(tmpOutputPath.getParent().resolve(Backup.backupThreads.get(id).fileName).toFile());
     }
 
     private void addFileToTarGz(TarArchiveOutputStream tOut, String path, String base) throws IOException {

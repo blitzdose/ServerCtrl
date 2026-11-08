@@ -94,7 +94,7 @@ public class ApiInstance extends de.blitzdose.serverctrl.embedded.instance.ApiIn
 
     @Override
     public Map<String, UUID> getWorlds() {
-        return Map.of("world1", UUID.randomUUID());
+        return Map.of("world1", UUID.fromString("3d349917-4988-4c58-ae1c-7479e79e9dd6"));
     }
 
     @Override

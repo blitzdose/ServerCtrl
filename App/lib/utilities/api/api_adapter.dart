@@ -32,7 +32,8 @@ class ApiAdapter {
 
   static Backup backup(Map<String, dynamic> data) {
     BackupState state = Backup.parseBackupState(data["state"]);
-    return Backup(data["fileName"], data["size"], data["percentageComplete"], data["id"], state, data["timestamp"]);
+    BackupType type = Backup.parseBackupType(data["type"]);
+    return Backup(data["fileName"], data["size"], data["percentageComplete"], data["id"], state, data["timestamp"], type);
   }
 
   static Player player(Map<String, dynamic> data) {

@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:server_ctrl/utilities/api/models/world.dart';
 import 'package:server_ctrl/values/colors.dart';
 
 class Backup {
@@ -11,8 +12,9 @@ class Backup {
   int id;
   BackupState state;
   int timestamp;
+  BackupType type;
 
-  Backup(this.filename, this.size, this.percentageComplete, this.id, this.state, this.timestamp);
+  Backup(this.filename, this.size, this.percentageComplete, this.id, this.state, this.timestamp, this.type);
 
   String parsedSize([int decimals = 0]) {
     const suffixes = ["B", "kB", "MB", "GB", "TB"];
@@ -27,6 +29,10 @@ class Backup {
 
   static BackupState parseBackupState(String state) {
     return BackupState.values.firstWhere((element) => element.name == state, orElse: () => BackupState.ERROR);
+  }
+
+  static BackupType parseBackupType(String type) {
+    return BackupType.values.firstWhere((element) => element.name == type, orElse: () => BackupType.FULL);
   }
 
 }
@@ -64,6 +70,11 @@ enum BackupState {
 }
 
 enum BackupType {
-  WORLD,
-  FULL
+  FULL,
+  WORLD
+}
+
+class BackupConfig {
+  BackupType backupType = BackupType.FULL;
+  Set<World> selectedWorlds = {};
 }

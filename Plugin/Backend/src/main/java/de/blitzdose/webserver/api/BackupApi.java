@@ -6,11 +6,14 @@ import de.blitzdose.serverctrl.common.web.websocket.requests.RequestMethod;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketRequest;
 import de.blitzdose.serverctrl.common.web.websocket.requests.WebsocketResponse;
 import de.blitzdose.webserver.WebServer;
+import de.blitzdose.webserver.files.FileTransferManager;
+import de.blitzdose.webserver.logging.SecurityLogType;
 import io.javalin.http.Context;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class BackupApi {
 
@@ -82,9 +85,40 @@ public class BackupApi {
         WebServer.returnSuccessfulJson(context, new JSONObject());
     }
 
-    public static void download(Context context) {
+    public static void download(Context context) throws WebsocketException.SystemNotFoundException, WebsocketException.RequestNotSuccessfulException, WebsocketException.SystemNotConnectedException, WebsocketException.TimeoutException {
         String system = context.queryParam("system");
         String path = context.queryParam("path");
-        context.redirect("/api/files/download?system=" + system + "&path=/plugins/ServerCtrl/Backups/" + path);
+
+        WebsocketResponse pathResponse = WebsocketHandler.tunnelThroughWebsocket(
+                system,
+                new WebsocketRequest(
+                        RequestMethod.GetBackupDownloadPath,
+                        path
+                )
+        );
+
+        String filePath = pathResponse.data(String.class);
+
+        FileTransferManager transferManager = WebServer.fileTransferManager;
+        FileTransferManager.Transfer transfer = transferManager.initNewTransfer(context);
+
+        WebsocketResponse response = WebsocketHandler.tunnelThroughWebsocket(system,
+                new WebsocketRequest(
+                        RequestMethod.DownloadFile,
+                        new JSONObject().put("path", filePath).put("transferID", transfer.getID())
+                ),
+                false
+        );
+
+        if (!response.success()) {
+            transfer.cancel();
+            WebServer.return400(context);
+            return;
+        }
+
+        WebServer.securityLog(SecurityLogType.DOWNLOADED_FILES, context, "Downloaded file " + filePath);
+
+        transfer.setTimeout(30, TimeUnit.SECONDS);
+        context.future(transfer::registerHandler);
     }
 }

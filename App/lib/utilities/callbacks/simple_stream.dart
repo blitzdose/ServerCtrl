@@ -1,13 +1,27 @@
 class SimpleStream<T> {
   void Function(T)? _listener;
 
-  void listen(void Function(T) callback) {
+  SimpleSubscription listen(void Function(T) callback) {
     _listener = callback;
+    return SimpleSubscription._(() {
+      if (identical(_listener, callback)) {
+        _listener = null;
+      }
+    });
   }
 
   void push(T data) {
-    if (_listener != null) {
-      _listener!(data);
-    }
+    _listener?.call(data);
+  }
+}
+
+class SimpleSubscription {
+  SimpleSubscription._(this._onCancel);
+
+  void Function()? _onCancel;
+
+  void cancel() {
+    _onCancel?.call();
+    _onCancel = null;
   }
 }

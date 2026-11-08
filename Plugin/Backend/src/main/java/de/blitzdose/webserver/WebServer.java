@@ -153,6 +153,8 @@ public class WebServer {
             sessionHandler.getSessionCookieConfig().setMaxAge(2592000);
             config.jetty.modifyServletContextHandler(handler -> handler.setSessionHandler(sessionHandler));
 
+            config.http.disableCompression();
+
             if (plugin != null) config.registerPlugin(plugin);
             if (this.webserverConfig.frontend()) {
                 config.staticFiles.add(staticFileConfig -> {
