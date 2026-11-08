@@ -97,6 +97,7 @@ class MyApp extends StatelessWidget {
     initializeDateFormatting();
     Widget widget = DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       return Obx(() => GetMaterialApp(
+        builder: (context, child) => MaterialUiCompatibilityBridge(child: child!),
         localizationsDelegates: [
           S.delegate,
           ...GlobalMaterialLocalizations.delegates,

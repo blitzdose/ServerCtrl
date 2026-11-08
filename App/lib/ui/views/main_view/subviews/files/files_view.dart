@@ -222,11 +222,11 @@ class FilesView extends StatelessWidget {
                             : FontWeight.normal,
                         color: idx == pathParts.length - 1
                             ? null
-                            : Theme.of(navigator!.context)
+                            : Theme.of(Get.context!)
                                 .textTheme
                                 .bodyMedium!
                                 .color!
-                                .withValues(alpha: 0.75)),
+                                .withValues(alpha: 1)),
                   ),
                   padding: const EdgeInsets.all(8),
                   margin: idx == 0
