@@ -6,19 +6,26 @@ import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_contro
 import 'package:server_ctrl/ui/views/main_view/subviews/accounts/accounts_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/analytics/analytics_view.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/backend_settings/backend_settings_controller.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/backend_settings/backend_settings_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/backups/backup_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/backups/backup_view.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/client_settings/client_settings_controller.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/client_settings/client_settings_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/console/console_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/console/console_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/files/files_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/logs/logs_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/logs/logs_view.dart';
+import 'package:server_ctrl/ui/views/main_view/subviews/my_account/my_account_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/players/players_controller.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/players/players_view.dart';
+import 'package:server_ctrl/ui/widgets/settings.dart';
 import 'package:server_ctrl/utilities/api/models/provisioning_client.dart';
 
 import 'main_controller.dart';
+import 'subviews/my_account/my_account_controller.dart';
 
 class MainView extends GetView<MainController> {
   static final route = "/main";
@@ -92,10 +99,6 @@ class MainView extends GetView<MainController> {
                       )
                     ]),
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: Divider(),
-              ),
             ] + getDrawerDestinations(controller)),
         body: Obx(() => controller.loggedIn.isFalse ? Center(
             child: CircularProgressIndicator(),
@@ -112,6 +115,16 @@ class MainView extends GetView<MainController> {
 
   static List<Widget> getDrawerDestinations(MainController controller) {
     return [
+      Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Divider(),
+              SettingsSectionTitle("Client"),
+            ],
+          )
+      ),
       DrawerDestination(
         icon: Icon(Icons.analytics_rounded),
         label: Text("Analytics"),
@@ -149,6 +162,42 @@ class MainView extends GetView<MainController> {
         },
       ),
       DrawerDestination(
+        icon: Icon(Icons.settings_backup_restore_rounded),
+        label: Text("Backups"),
+        appBarTitle: controller.currentServer.value?.name,
+        enabled: controller.currentServer.value != null,
+        onSelected: () {
+          controller.navigateClient((params) => Get.put<BackupController>(BackupController(params: params)), () => BackupView());
+        },
+      ),
+      DrawerDestination(
+        icon: Icon(Icons.build_rounded),
+        label: Text("Settings (Client)"),
+        appBarTitle: controller.currentServer.value?.name,
+        enabled: controller.currentServer.value != null,
+        onSelected: () {
+          controller.navigateClient((params) => Get.put<ClientSettingsController>(ClientSettingsController(params: params)), () => ClientSettingsView());
+        },
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Divider(),
+            SettingsSectionTitle("Backend"),
+          ],
+        )
+      ),
+      DrawerDestination(
+          icon: Icon(Icons.account_circle_rounded),
+          label: Text("My account"),
+          appBarTitle: controller.currentBackend.value?.name,
+          onSelected: () {
+            controller.navigateWithoutClient((params) => Get.put<MyAccountController>(MyAccountController(params: params)), () => MyAccountView());
+          }
+      ),
+      DrawerDestination(
         icon: Icon(Icons.manage_accounts_rounded),
         label: Text("Accounts"),
         appBarTitle: controller.currentBackend.value?.name,
@@ -165,22 +214,16 @@ class MainView extends GetView<MainController> {
         },
       ),
       DrawerDestination(
-        icon: Icon(Icons.settings_backup_restore_rounded),
-        label: Text("Backups"),
-        appBarTitle: controller.currentServer.value?.name,
-        enabled: controller.currentServer.value != null,
+        icon: Icon(Icons.build_rounded),
+        label: Text("Settings (Backend)"),
+        appBarTitle: controller.currentBackend.value?.name,
         onSelected: () {
-          controller.navigateClient((params) => Get.put<BackupController>(BackupController(params: params)), () => BackupView());
+          controller.navigateWithoutClient((params) => Get.put<BackendSettingsController>(BackendSettingsController(params: params)), () => BackendSettingsView());
         },
       ),
-      DrawerDestination(
-        icon: Icon(Icons.build_rounded),
-        label: Text("Settings"),
-        appBarTitle: controller.currentBackend.value?.name,
-      ),
       Padding(
-        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-        child: const Divider(),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8),
+          child: Divider(),
       ),
       DrawerDestination(
         icon: Icon(Icons.logout_rounded),
