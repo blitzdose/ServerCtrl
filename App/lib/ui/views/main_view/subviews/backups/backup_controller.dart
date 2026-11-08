@@ -1,4 +1,5 @@
 import 'package:getxify/getxify.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/backups/backup_view.dart';
 import 'package:server_ctrl/ui/views/main_view/subviews/subview_controller.dart';
 import 'package:server_ctrl/ui/widgets/download_save_dialog.dart';
@@ -23,6 +24,16 @@ class BackupController extends SubviewController {
   @override void onShown() {
     super.onShown();
     params.onSetFloatingActionButton(BackupView.generateFloatingActionButton(this));
+    params.onSetActions.call(
+        [
+          IconButton(
+              onPressed: () {
+                asyncInit();
+              },
+              icon: const Icon(Icons.refresh_rounded)
+          )
+        ]
+    );
   }
 
   @override
