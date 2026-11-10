@@ -35,12 +35,11 @@ public class UserManager {
         User user = getUserByUsername(username);
         String savedHash = user.getPassword();
 
-        if (!PasswordVerifier.verify(password, savedHash)) {
-            throw new UserManagerException.WrongCredentialsException(username);
-        }
-
         if (TOTPVerifier.checkTOTP(user.getTotpSecret(), code)) {
-            return user;
+            if (!PasswordVerifier.verify(password, savedHash)) {
+                return user;
+            }
+            throw new UserManagerException.WrongCredentialsException(username);
         } else {
             throw new UserManagerException.WrongTOTPException(username);
         }
