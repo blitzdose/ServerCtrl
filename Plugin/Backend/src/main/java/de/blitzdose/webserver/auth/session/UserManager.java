@@ -36,7 +36,7 @@ public class UserManager {
         String savedHash = user.getPassword();
 
         if (TOTPVerifier.checkTOTP(user.getTotpSecret(), code)) {
-            if (!PasswordVerifier.verify(password, savedHash)) {
+            if (PasswordVerifier.verify(password, savedHash)) {
                 return user;
             }
             throw new UserManagerException.WrongCredentialsException(username);
