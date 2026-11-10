@@ -138,11 +138,22 @@ public class UserApi {
         WebServer.returnSuccessfulJson(context, new JSONObject().put("data", user.getTotpSecret() != null));
     }
 
-    public static void addPubkey(Context context) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static void addPubkey(Context context) throws NoSuchAlgorithmException, InvalidKeySpecException, UserManager.UserManagerException {
         User user = Objects.requireNonNull(context.attribute("user"));
-        String data = WebServer.getData(context, String.class);
+        JSONObject data = WebServer.getData(context, JSONObject.class);
+        String pubkey = data.getString("pubkey");
+        String passwordBase64 = data.getString("password");
+        String code = data.getString("code");
 
-        byte[] keyBytes = Base64.getDecoder().decode(data);
+        if (passwordBase64 == null) {
+            WebServer.returnUnauthorized(context);
+            return;
+        }
+
+        String password = new String(Base64.getDecoder().decode(passwordBase64));
+        WebServer.userManager.login(user.getUsername(), password, code);
+
+        byte[] keyBytes = Base64.getDecoder().decode(pubkey);
         KeyFactory kf = KeyFactory.getInstance("EC");
         PublicKey publicKey = kf.generatePublic(new X509EncodedKeySpec(keyBytes));
 
